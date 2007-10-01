@@ -2,13 +2,13 @@ type: txt
 help: "Match peer address"
 syntax: exec "/opt/vyatta/sbin/vyatta_policy.pl --check-peer-syntax $(@)"; "peer must be either an IP or local"
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match peer $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match peer $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no match peer \" "
 

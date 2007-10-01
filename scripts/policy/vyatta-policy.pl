@@ -3,7 +3,7 @@ use lib "/opt/vyatta/share/perl5/";
 use VyattaConfig;
 use VyattaMisc;
 use Getopt::Long;
-$VTYSH='/opt/vyatta/bin/vtysh';
+$VTYSH='/usr/bin/vtysh';
 
 GetOptions("update-access-list=s"    => \$accesslist,
            "update-aspath-list=s"    => \$aspathlist,

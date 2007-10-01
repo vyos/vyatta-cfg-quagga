@@ -2,7 +2,7 @@ type: u32
 help: "Set default weight for routes from this neighbor"
 syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
 syntax: $(@) >= 1 && $(@) <= 65535; "weight must be between 1 and 65535"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
           -c \"neighbor $(../@) weight $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) weight $(@)\" "

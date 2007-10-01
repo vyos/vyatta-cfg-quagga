@@ -9,7 +9,7 @@ delete: "touch /tmp/protocols-$(../@)-$(@).\\$PPID \
          if [ -n \"$(./le/@)\" ] && [ $(./le/@) -ne 32 ]; then \
            COND=\"\\$COND le $(./le/@) \"; \
          fi; \
-         /opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         /usr/bin/vtysh -c \"configure terminal\" \
            -c \"no ip prefix-list $(../@) seq $(@) $(./action/@) $(./prefix/@) \\$COND \" "
 end: "LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
       if [ -n \"$(./ge/@)\" ]; then \
@@ -29,7 +29,7 @@ end: "LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
       if [ -f \"/tmp/protocols-$(../@)-$(@).\\$PPID\" ]; then \
         rm -f \"protocols-$(../@)-$(@).\\$PPID\" ; \
       else \
-        /opt/vyatta/bin/vtysh -c \"configure terminal\" \ 
+        /usr/bin/vtysh -c \"configure terminal\" \ 
           -c \"ip prefix-list $(../@) seq $(@) $(./action/@) $(./prefix/@) \\$COND \" ; \
       fi ; \
       exit 0 ; "

@@ -2,9 +2,9 @@ type: txt
 help: "Target route-map name"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $(@)\"; "route-map $(@) doesn't exist"
 commit: $(../action/@); "must define an action for route-map $(../../@) rule $(../@)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"call $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"call $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"no call \" "

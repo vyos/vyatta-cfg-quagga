@@ -1,12 +1,12 @@
 help: "Enable route-flap dampening"
 delete: "touch /tmp/bgp-dampening.\\$PPID"
 end: "sh -c \"
-      /opt/vyatta/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
+      /usr/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
         -c \\\"no bgp dampening\\\" ; \
       if [ -f \\\"/tmp/bgp-dampening.\\\\$PPID\\\" ]; then \
         rm -f \\\"/tmp/bgp-dampening.\\\\$PPID\\\" ; \
       else \
-        /opt/vyatta/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
+        /usr/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
           -c \\\"bgp dampening $(./half-life/@) $(./re-use/@) $(./start-suppress-time/@) $(./max-suppress-time/@)\\\" ; \
       fi ; \
       \" "

@@ -1,8 +1,8 @@
 type: u32; "protocols bgp $(../../../@) bgp default local-pref must be a u32"
 help: "local preference (higher=more preferred)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp default local-preference $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp default local-preference $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"no bgp default local-preference\" "

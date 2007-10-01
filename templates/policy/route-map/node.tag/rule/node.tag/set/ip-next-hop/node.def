@@ -2,12 +2,12 @@ type: ipv4
 help: "Next hop IP address"
 # TODO: can also set to peer for BGP
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set ip next-hop $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set ip next-hop $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no set ip next-hop \" "

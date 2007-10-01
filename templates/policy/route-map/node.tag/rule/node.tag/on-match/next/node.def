@@ -1,13 +1,13 @@
 help: "Goto next sequence number"
 syntax: $(../goto/@) != ""; "you can set only goto or next"
 commit: $(../../action/@); "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"on-match next \" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"on-match next \" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no on-match next \" "
 

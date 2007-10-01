@@ -1,5 +1,5 @@
 help: "De-activate ipv4-unicastfor a peer by default"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"no bgp default ipv4-unicast\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp default ipv4-unicast\" "

@@ -1,6 +1,6 @@
 help: "Compare router-id for identical EBGP paths"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp bestpath compare-routerid \" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"no bgp bestpath compare-routerid \" "
 

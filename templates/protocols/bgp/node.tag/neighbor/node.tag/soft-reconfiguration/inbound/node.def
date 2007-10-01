@@ -1,7 +1,7 @@
 help: "Allow inbound soft reconfiguration for this neighbor"
 syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
           -c \"no neighbor $(../../@) soft-reconfiguration inbound \" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
           -c \"neighbor $(../../@) soft-reconfiguration inbound \" "
 

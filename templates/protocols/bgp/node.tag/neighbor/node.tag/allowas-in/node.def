@@ -1,11 +1,11 @@
 help: "Accept as-path with my AS present in it."
 syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
 delete: "touch /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID"
-end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
       -c \"no neighbor $(../@) allowas-in \"; \
     if [ -f \"/tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID\" ]; then \
       rm -rf /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID; \
     else \
-      /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+      /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"neighbor $(../@) allowas-in $(./number/@)\"; \
     fi; "

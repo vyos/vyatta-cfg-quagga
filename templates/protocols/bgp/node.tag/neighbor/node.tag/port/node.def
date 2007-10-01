@@ -2,9 +2,9 @@ type: u32
 help: "Neighbor's BGP port"
 syntax: $(@) >= 1 && $(@) <= 65535; "remote-as must be between 1 and 65535"
 syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
           -c \"neighbor $(../@) port $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"neighbor $(../@) port $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) port \" "

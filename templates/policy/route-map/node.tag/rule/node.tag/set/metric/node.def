@@ -2,12 +2,12 @@ type: txt
 help: "Metric value for destination routing protocol"
 syntax: exec "if [ -n `echo $(@) | sed 's/[+0123456789]*-*//g'` ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set metric $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set metric $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no set metric \" "

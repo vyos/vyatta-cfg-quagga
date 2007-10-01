@@ -1,6 +1,6 @@
 help: "Compare path lengths including confederation sets & sequences in selecting a route"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"bgp bestpath as-path confed \" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"no bgp bestpath as-path confed \" "
 

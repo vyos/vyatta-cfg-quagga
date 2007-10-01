@@ -1,8 +1,8 @@
 type: ipv4; "protocols bgp $(../../) cluster-id must be and IPv4 address"
 help: "Configure route-reflector cluster-id\n"
-create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp cluster-id $(@)\" "
-update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp cluster-id $(@)\" "
-delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"no bgp cluster-id \" "
