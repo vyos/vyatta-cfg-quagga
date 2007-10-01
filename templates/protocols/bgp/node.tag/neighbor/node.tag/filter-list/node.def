@@ -1,0 +1,2 @@
+help: "Establish BGP filters"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"

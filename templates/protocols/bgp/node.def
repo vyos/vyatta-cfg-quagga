@@ -1,0 +1,7 @@
+tag:
+type: u32
+help: "Configure a BGP Autonomous System on this router"
+# TODO: non-multinode parent
+syntax: $(@) >= 1 && $(@) <= 65535; "AS number must be between 1 and 65535"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c\"router bgp $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c\"no router bgp $(@)\" "

@@ -1,0 +1,5 @@
+type: u32
+help: "Local AS number"
+syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+syntax: $(@) >=1 && $(@) <= 65535; "local-as must be between 1 and 65535"
+syntax: $(@) != $(../../../@); "Cannot have local-as same as BGP AS number"

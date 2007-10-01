@@ -1,0 +1,4 @@
+type: u32
+help: "IP access-list number"
+syntax: $(../access-list/@) == ""; "You can only specify a prefix-list or access-list"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\"; "prefix-list $(@) does not exist"

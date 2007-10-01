@@ -1,0 +1,2 @@
+type: ipv4net; "prefix-list $(../../@) rule $(../@) prefix: must be an IPv4 prefix"
+help: "prefix to match against this rule"

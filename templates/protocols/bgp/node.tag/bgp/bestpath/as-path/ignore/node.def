@@ -1,0 +1,5 @@
+help: "Ignore as-path length in selecting a route"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+           -c \"bgp bestpath as-path ignore \" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+           -c \"no bgp bestpath as-path ignore \" "

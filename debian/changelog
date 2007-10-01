@@ -1,0 +1,5 @@
+vyatta-cfg-quagga (0.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Mon, 1 Oct 2007 11:23:11 -0700

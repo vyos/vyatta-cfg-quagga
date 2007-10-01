@@ -1,0 +1,4 @@
+type: u32
+help: "Keepalive interval"
+syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+syntax: $(@) >= 1 && $(@) <= 65535; "Keepalive interval must be between 1 and 65535"

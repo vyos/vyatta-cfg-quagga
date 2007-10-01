@@ -1,0 +1,5 @@
+help: "Enforce the first AS for EBGP routes"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+           -c \"bgp enforce-first-as \" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+           -c \"no bgp enforce-first-as \" "

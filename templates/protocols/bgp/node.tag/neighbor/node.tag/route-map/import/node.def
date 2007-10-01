@@ -1,0 +1,11 @@
+type: txt
+help: "Route-map to apply to incoming updates"
+syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $(@)\" ";"route-map $(@) doesn't exist"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"neighbor $(../../@) route-map $(@) in\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"neighbor $(../../@) route-map $(@) in\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"no neighbor $(../../@) route-map $(@) in\" "
+

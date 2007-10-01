@@ -1,0 +1,18 @@
+type: txt
+help: "Match first hop interface of route"
+# TODO: this node isn't returning an error, but it also isn't adding anything to vyatta
+commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+syntax: exec " \
+        if [ -z \"`ip addr | grep $(@) `\" ]; then \
+          echo $(@) doesn\\'t exist on this system ; \
+          exit 1 ; \
+        fi ; "
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"match interface $(@)\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"match interface $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"no match interface $(@)\" "

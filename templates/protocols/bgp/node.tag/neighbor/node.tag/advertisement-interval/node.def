@@ -1,0 +1,10 @@
+type: u32
+help: "Minimum interval between sending BGP routing updates"
+syntax: $(@) >= 0 && $(@) <= 600; "remote-as must be between 0 and 600"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"neighbor $(../@) advertisement-interval $(@)\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+          -c \"neighbor $(../@) advertisement-interval $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"no neighbor $(../@) advertisement-interval\" "

@@ -1,0 +1,6 @@
+The Debian Package vyatta-cfg-quagga
+----------------------------
+
+This package has the Vyatta configuration templates and scripts for Quagga.
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Mon, 1 Oct 2007

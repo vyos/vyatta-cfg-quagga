@@ -1,0 +1,13 @@
+type: u32; "route-map $(../../../@) $(../../action/@) $(../../@) metric: must be an integer"
+help: "Match metric of route"
+commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"match metric $(@)\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"match metric $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"no match metric $(@)\" "
+

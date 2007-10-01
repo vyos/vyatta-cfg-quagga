@@ -1,0 +1,19 @@
+help: "set BGP community list"
+delete: "touch /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-comm-list.\\$PPID"
+end: "if [ -z \"$(./comm-list/)\" ]; then \
+        echo You must configure a comm-list ; \
+        exit 1 ; \
+      fi ; \
+      /opt/vyatta/bin/vtysh -c \"configure terminal\" \
+        -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+        -c \"no set comm-list \" ; \
+      if [ -f \"/tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-comm-list.\\$PPID\" ]; then \
+        rm -rf /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-comm-list.\\$PPID; \
+      else \
+        if [ -n \"$(./delete/)\" ]; then \ 
+          COND=\"delete\" ; \
+        fi ; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" \
+          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+          -c \"set comm-list $(./comm-list/@) \\$COND\" ; \
+      fi; "

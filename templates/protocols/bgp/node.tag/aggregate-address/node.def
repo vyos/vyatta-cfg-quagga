@@ -1,0 +1,19 @@
+tag:
+type: ipv4net; "aggregate-entry must be and IPv4 network"
+help: "Configure BGP aggregate entries"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID" 
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+        -c \"no aggregate-address $(@)\"; \
+      if [ -f \"/tmp/`echo $(@) | sed 's!/!!'`.\\$PPID\" ]; then \
+        rm -rf /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID; \
+      else \
+        if [ -n \"$(./as-set/@)\" ]; then \
+          COND=\"as-set\";
+        fi; \
+        if [ -n \"$(./summary-only/@)\" ]; then \
+          COND=\"\\$COND summary-only\"; \
+        fi; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+          -c \"aggregate-address $(@) \\$COND\"; \
+      fi; "

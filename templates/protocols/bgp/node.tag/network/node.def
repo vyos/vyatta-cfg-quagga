@@ -1,0 +1,20 @@
+tag:
+type: ipv4net
+help: "Specify a network to announce via BGP"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+syntax: ($(./backdoor/@) != "") && ($(./route-map/@) != ""); "Must specify route-map or backdoor but not both"
+delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID"
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+        -c \"no network $(@)\"; \
+      if [ -f \"/tmp/`echo $(@) | sed 's!/!!'`.\\$PPID\" ]; then \
+        rm -rf /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID; \
+      else \
+        if [ -n \"$(./backdoor/@)\" ]; then \
+          COND=\"backdoor\";
+        fi; \
+        if [ -n \"$(./route-map/@)\" ]; then \
+          COND=\"route-map $(./route-map/@)\"; \
+        fi; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+          -c \"network $(@) \\$COND\"; \
+      fi; "

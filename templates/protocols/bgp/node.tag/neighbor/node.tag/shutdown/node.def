@@ -1,0 +1,5 @@
+help: "Administratively shut down this neighbor"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+          -c \"neighbor $(../@) shutdown\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"no neighbor $(../@) shutdown\" "

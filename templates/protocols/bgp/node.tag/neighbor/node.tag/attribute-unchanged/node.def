@@ -1,0 +1,20 @@
+help: "BGP attribute is propagated unchanged to this neighbor"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+delete: "touch /tmp/bgp-neighbor-$(../@)-attribute-unchanged.\\$PPID"
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        -c \"no neighbor $(../@) attribute-unchanged \"; \
+      if [ -f \"/tmp/bgp-neighbor-$(../@)-attribute-unchanged.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$(../@)-attribute-unchanged.\\$PPID; \
+      else \
+        if [ -n \"$(./as-path/@)\" ]; then \
+          COND=\"as-path \" ; \
+        fi ; \
+        if [ -n \"$(./med/@)\" ]; then \
+          COND=\"\\$COND med \" ; \
+        fi ; \
+        if [ -n \"$(./next-hop/@)\" ]; then \
+          COND=\"\\$COND next-hop \" ; \
+        fi ; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"neighbor $(../@) attribute-unchanged \\$COND\"; \
+      fi; "

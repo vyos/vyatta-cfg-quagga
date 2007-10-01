@@ -1,0 +1,5 @@
+help: "Check BGP network route exists in IGP"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+           -c \"bgp network import-check \" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+           -c \"no bgp network import-check \" "

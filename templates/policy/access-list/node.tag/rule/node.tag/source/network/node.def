@@ -1,0 +1,5 @@
+type: ipv4
+help: "filter a network IP address"
+syntax: $(../host/@) == "" && $(../any/@) == ""; "You may only define one filter type. (host|network|any)"
+commit: $(../inverse-mask/@) != ""; "You must specify an inverse-mask before comitting"
+commit: $(../../action/@) != ""; "You must specify an action before committing"

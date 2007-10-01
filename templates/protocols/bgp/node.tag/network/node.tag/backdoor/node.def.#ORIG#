@@ -1,0 +1,15 @@
+type: bool
+# TODO: this needs to be an exists type
+help: "Specify a BGP backdoor route"
+default: false
+# TODO: back referencing doesn't remove the %2F
+create: "sh -c \" \
+	 PREF=`echo $(../@) | sed 's!%2F!/!'`; \
+         /opt/quagga/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
+          -c \\\"network \\\\$PREF backdoor\\\" \
+         \" "
+delete: "sh -c \" \
+         PREF=`echo $(../@) | sed 's!%2F!/!'`; \
+         /opt/quagga/bin/vtysh -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
+          -c \\\"no network \\\\$PREF backdoor\\\" \
+         \" "

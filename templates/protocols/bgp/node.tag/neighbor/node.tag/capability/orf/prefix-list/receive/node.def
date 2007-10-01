@@ -1,0 +1,6 @@
+help: "Capability to RECEIVE the ORF to this neighbor"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../../@)\" \
+          -c \"neighbor $(../../../../@) capability orf prefix-list receive\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../../@)\" \
+          -c \"no neighbor $(../../../../@) capability orf prefix-list receive\" "
+

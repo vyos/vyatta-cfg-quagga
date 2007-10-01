@@ -1,0 +1,4 @@
+tag:
+type: u32
+help: "Specify as-path-list rule number"
+syntax: $(@) >= 1 && $(@) <= 65535; "rule number must be between 1 and 65535"

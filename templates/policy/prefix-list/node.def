@@ -1,0 +1,4 @@
+tag:
+type: txt
+help: "Add a prefix list entry"
+syntax: pattern $(@) "^[-a-zA-Z0-9.]+$" ; "prefix-list name must be alpha-numeric"

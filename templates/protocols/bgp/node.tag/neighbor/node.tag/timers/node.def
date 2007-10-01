@@ -1,0 +1,19 @@
+help: "BGP per neighbor timers"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+delete: "touch /tmp/bgp-neighbor-$(../@)-timers.\\$PPID"
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        -c \"no neighbor $(../@) timers \"; \
+      /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        -c \"no neighbor $(../@) timers connect \"; \
+      if [ -f \"/tmp/bgp-neighbor-$(../@)-timers.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$(../@)-timers.\\$PPID; \
+      else \
+        if [ -n \"$(./connect/@)\" ]; then \
+          /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+            -c \"neighbor $(../@) timers connect $(./connect/@)\" ; \
+        fi ; \
+        if [ -n \"$(./keepalive/@)\" ] || [ -n \"$(./holdtime/@)\" ]; then \
+          /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+            -c \"neighbor $(../@) timers  $(./keepalive/@)  $(./holdtime/@)\"; \
+        fi ; \
+      fi; "

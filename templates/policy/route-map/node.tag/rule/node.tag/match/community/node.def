@@ -1,0 +1,19 @@
+help: "Match BGP community list"
+delete: "touch /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-match-community.\\$PPID"
+end: "if [ -z \"$(./community-list/)\" ]; then \
+        echo You must configure a community-list ; \
+        exit 1 ; \
+      fi ; \
+      /opt/vyatta/bin/vtysh -c \"configure terminal\" \
+        -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+        -c \"no match community \" ; \
+      if [ -f \"/tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-match-community.\\$PPID\" ]; then \
+        rm -rf /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-match-community.\\$PPID; \
+      else \
+        if [ -n \"$(./exact-match/)\" ]; then \
+          COND=\"exact-match \"; \
+        fi ; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" \
+          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+          -c \"match community $(./community-list/@) \\$COND\" ; \
+      fi; "

@@ -1,0 +1,5 @@
+tag:
+type: txt
+help: "BGP autonomous system path filter"
+syntax: pattern $(@) "^[-a-zA-Z0-9.]+$" ; "as-path-list name must be alpha-numeric"
+end: "/opt/vyatta/sbin/vyatta_policy.pl --update-aspath-list $(@)"

@@ -1,0 +1,13 @@
+type: u32
+help: "Tag value for routing protocol"
+syntax: $(@) >= 1 && $(@) <= 65535; "tag must be between 1 and 65535"
+commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"set tag $(@)\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"set tag $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"no set tag  \" "

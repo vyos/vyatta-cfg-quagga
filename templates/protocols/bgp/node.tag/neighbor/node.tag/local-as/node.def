@@ -1,0 +1,18 @@
+help: "Specify a local-as number"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+delete: "touch /tmp/bgp-neighbor-$(../@)-local-as.\\$PPID"
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        -c \"no neighbor $(../@) local-as \"; \
+      if [ -f \"/tmp/bgp-neighbor-$(../@)-local-as.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$(../@)-local-as.\\$PPID; \
+      else \
+        if [ -z \"$(./local-as/@)\" ]; then \
+          echo You must specify local-as local-as ; \
+          exit 1 ; \
+        fi ; \
+        if [ -n \"$(./no-prepend/@)\" ]; then \
+          COND=\"no-prepend \" ; \  
+        fi ; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"neighbor $(../@) local-as $(./local-as/@) \\$COND \"; \
+      fi; "

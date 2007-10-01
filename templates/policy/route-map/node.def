@@ -1,0 +1,5 @@
+tag:
+type: txt
+help: "Create route-map or enter route-map command mode"
+syntax: pattern $(@) "^[-a-zA-Z0-9.]+$" ; "route-map $(@): name must be alpha-numeric"
+delete: "/opt/vyatta/sbin/vtysh -c\"configure terminal\" -c\"no route-map $(@)\" "

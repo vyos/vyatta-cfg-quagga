@@ -1,0 +1,8 @@
+type: ipv4; "protocols bgp $(../../@) bgp router-id must be an IPv4 address"
+help: "Override configured router identifier"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+           -c \"bgp router-id $(@)\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+           -c \"bgp router-id $(@)\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+           -c \"no bgp router-id \" "

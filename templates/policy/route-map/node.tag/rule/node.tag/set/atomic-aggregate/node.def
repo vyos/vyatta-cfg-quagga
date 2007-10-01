@@ -1,0 +1,11 @@
+help: "BGP atomic aggregate attribute"
+commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"set atomic-aggregate\" "
+update: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"set atomic-aggregate\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+         -c \"no set atomic-aggregate\" "

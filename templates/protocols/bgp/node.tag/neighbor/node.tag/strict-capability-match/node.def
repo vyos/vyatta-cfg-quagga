@@ -1,0 +1,6 @@
+help: "Strict capability negotiation match"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+          -c \"neighbor $(../@) strict-capability-match \" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"no neighbor $(../@) strict-capability-match \" "

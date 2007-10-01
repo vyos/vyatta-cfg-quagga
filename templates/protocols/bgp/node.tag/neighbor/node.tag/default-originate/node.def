@@ -1,0 +1,15 @@
+help: "Originate default route to this neighbor"
+syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+delete: "touch /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID"
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        -c \"no neighbor $(../@) default-originate \"; \
+      if [ -f \"/tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID; \
+      else \
+        if [ -n \"$(./route-map/@)\" ]; then \
+          COND=\"route-map $(./route-map/@) \" ; \
+        fi ; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"neighbor $(../@) default-originate \\$COND\"; \
+      fi; "
+

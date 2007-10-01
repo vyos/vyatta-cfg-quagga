@@ -1,0 +1,3 @@
+type: u32
+help: "Continue on a different entry within the route-map"
+syntax: $(@) >= 1 && $(@) <= 65535; "continue must be between 1 and 65535"

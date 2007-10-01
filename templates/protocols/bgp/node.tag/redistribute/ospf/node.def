@@ -1,0 +1,16 @@
+help: "Redistribute OSPF routes"
+delete: "touch /tmp/bgp-redist-ospf.\\$PPID" 
+end: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+        -c \"no redistribute ospf \"; \
+      if [ -f \"/tmp/bgp-redist-ospf.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-redist-ospf.\\$PPID; \
+      else \
+        if [ -n \"$(./metric/@)\" ]; then \
+          COND=\"metric $(./metric/@)\";
+        fi; \
+        if [ -n \"$(./route-map/@)\" ]; then \
+          COND=\"\\$COND route-map $(./route-map/@)\"; \
+        fi; \
+        /opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+          -c \"redistribute ospf \\$COND\"; \
+      fi; "

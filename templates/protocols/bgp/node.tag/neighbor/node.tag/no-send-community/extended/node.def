@@ -1,0 +1,7 @@
+help: "Do not send extended community attributes"
+syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+create: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"no neighbor $(../../@) send-community extended\" "
+delete: "/opt/vyatta/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"neighbor $(../../@) send-community extended\" "
+

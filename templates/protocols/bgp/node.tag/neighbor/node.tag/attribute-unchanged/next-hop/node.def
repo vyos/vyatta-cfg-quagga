@@ -1,0 +1,2 @@
+help: "Nexthop attribute"
+syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group should be defined first"
