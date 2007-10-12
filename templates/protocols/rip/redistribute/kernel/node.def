@@ -1,0 +1,16 @@
+help: "Redistribute kernel routes"
+delete: "touch /tmp/rip-redist-kernel.\\$PPID" 
+end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+        -c \"no redistribute kernel \"; \
+      if [ -f \"/tmp/rip-redist-kernel.\\$PPID\" ]; then \
+        rm -rf /tmp/rip-redist-kernel.\\$PPID; \
+      else \
+        if [ -n \"$(./metric/@)\" ]; then \
+          COND=\"metric $(./metric/@)\";
+        fi; \
+        if [ -n \"$(./route-map/@)\" ]; then \
+          COND=\"\\$COND route-map $(./route-map/@)\"; \
+        fi; \
+        /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"redistribute kernel \\$COND\"; \
+      fi; "

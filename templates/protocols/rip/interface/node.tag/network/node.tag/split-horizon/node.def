@@ -1,0 +1,6 @@
+help: "enable split horizon on this interface"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../@)\" \
+          -c \"ip rip split-horizon\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../@)\" \
+          -c \"no ip rip split-horizon\" "
+

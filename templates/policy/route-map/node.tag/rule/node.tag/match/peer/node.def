@@ -1,6 +1,6 @@
 type: txt
 help: "Match peer address"
-syntax: exec "/opt/vyatta/sbin/vyatta_policy.pl --check-peer-syntax $(@)"; "peer must be either an IP or local"
+syntax: exec "/opt/vyatta/sbin/vyatta-policy.pl --check-peer-syntax $(@)"; "peer must be either an IP or local"
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 create: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \

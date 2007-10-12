@@ -1,0 +1,7 @@
+type: u32
+help: "ACL to be used in redistribution"
+commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"distribute-list $(@) $(../@) $(../../../@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"no distribute-list $(@) $(../@) $(../../../@)\" "

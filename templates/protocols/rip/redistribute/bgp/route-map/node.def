@@ -1,0 +1,4 @@
+type: txt
+help: "Route map reference"
+commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $(@)\" ";"route-map $(@) doesn't exist"
+

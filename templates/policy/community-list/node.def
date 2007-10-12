@@ -5,4 +5,4 @@ syntax: $(@) >= 1 && $(@) <= 500; " \
 community-list must be \
   <1-99>     Community list number (standard) \
   <100-500>  Community list number (expanded) "
-end: "/opt/vyatta/sbin/vyatta_policy.pl --update-community-list $(@)"
+end: "/opt/vyatta/sbin/vyatta-policy.pl --update-community-list $(@)"

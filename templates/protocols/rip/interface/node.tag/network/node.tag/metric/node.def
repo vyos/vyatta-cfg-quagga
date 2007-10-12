@@ -1,0 +1,9 @@
+type: u32
+help: "Metric for this RIP network"
+syntax: $(@) >= 1 && $(@) <= 255; "metric must be between 1 and 255"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+          -c \"distance $(@) $(../@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+          -c \"no distance $(@) $(../@)\" "
+
+

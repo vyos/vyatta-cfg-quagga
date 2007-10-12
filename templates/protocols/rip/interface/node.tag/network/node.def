@@ -1,0 +1,8 @@
+tag:
+type: ipv4net
+help: "RIP network"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"network $(@)\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"no network $(@)\"; "

@@ -1,0 +1,16 @@
+help: "Redistribute static routes"
+delete: "touch /tmp/rip-redist-static.\\$PPID" 
+end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+        -c \"no redistribute static \"; \
+      if [ -f \"/tmp/rip-redist-static.\\$PPID\" ]; then \
+        rm -rf /tmp/rip-redist-static.\\$PPID; \
+      else \
+        if [ -n \"$(./metric/@)\" ]; then \
+          COND=\"metric $(./metric/@)\";
+        fi; \
+        if [ -n \"$(./route-map/@)\" ]; then \
+          COND=\"\\$COND route-map $(./route-map/@)\"; \
+        fi; \
+        /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+          -c \"redistribute static \\$COND\"; \
+      fi; "

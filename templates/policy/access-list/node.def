@@ -11,4 +11,4 @@ syntax: ($(@) >= 1 && $(@) <= 199) || ($(@) >= 1300 && $(@) <= 2699); \
   <100-199>    IP extended access list \n \
   <1300-1999>  IP standard access list (expanded range) \n \
   <2000-2699>  IP extended access list (expanded range) \n "
-end: "/opt/vyatta/sbin/vyatta_policy.pl --update-access-list $(@)"
+end: "/opt/vyatta/sbin/vyatta-policy.pl --update-access-list $(@)"

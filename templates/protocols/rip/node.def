@@ -1,0 +1,4 @@
+help: "RIP options"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no router rip\" "
+

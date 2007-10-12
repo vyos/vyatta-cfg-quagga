@@ -1,0 +1,4 @@
+type: u32
+default: 180
+help: "Routing information timeout timer. Default is 180."
+syntax: $(@) >= 5 && $(@) <= 2147483647; "Timeout timer must be between 5 and 2147483647"
