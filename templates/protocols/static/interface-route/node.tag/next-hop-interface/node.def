@@ -1,0 +1,9 @@
+type: txt
+help: "Configure the next-hop interface"
+syntax: exec " \
+        if [ -z \"`ip addr | grep $(@) `\" ]; then \
+          echo ethernet interface $(@) doesn\\'t exist on this system ; \
+          exit 1 ; \
+        fi ; "
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" "

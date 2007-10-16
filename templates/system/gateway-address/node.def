@@ -1,0 +1,5 @@
+type: txt
+help: "Configure default gateway"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $(@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $(@)\" "
+
