@@ -1,0 +1,6 @@
+type: u32
+help: "Metric for redistributed routes"
+syntax: $(@) >= 1 && $(@) <= 16; "metric must be between 1 and 16"
+
+
+
