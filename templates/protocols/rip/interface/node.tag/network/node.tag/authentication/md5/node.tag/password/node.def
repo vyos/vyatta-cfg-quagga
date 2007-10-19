@@ -1,8 +1,8 @@
 type: txt
 help: "Authentication password"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../../@)\" \
           -c \"ip rip authentication mode md5\" -c \"ip rip authentication key-chain $(../@)\" \
           -c \"key chain $(../@)\" -c \"key $(../@)\" -c \"key-string $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../../@)\" \
           -c \"no ip rip authentication mode md5\" -c \"no ip rip authentication key-chain $(../@)\" \
           -c \"no key chain $(../@)\" "
