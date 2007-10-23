@@ -1,6 +1,6 @@
 type: txt
 help: "Filter incoming updates"
-syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+syntax: ($(../../peer-group) != "")  || ($(../../remote-as) != ""); "remote-as or peer-group must be specified first"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\" ";"prefix-list $(@) doesn't exist"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
           -c \"neighbor $(../../@) prefix-list $(@) in\" "
