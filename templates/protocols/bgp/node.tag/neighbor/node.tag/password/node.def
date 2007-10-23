@@ -1,0 +1,7 @@
+type: txt
+help: "Specify BGP neighbor password"
+syntax: ($(../peer-group) != "") || ($(../remote-as) != ""); "remote-as or peer-group must be specified first"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+          -c \"neighbor $(../@) password $(@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+          -c \"no neighbor $(../@) password\" "
