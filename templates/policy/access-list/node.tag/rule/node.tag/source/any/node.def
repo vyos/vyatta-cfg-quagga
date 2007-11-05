@@ -1,4 +1,4 @@
-help: "filter any IP address"
+help: "Filter any IP address"
 # TODO: won't work until 2220 is fixed
 syntax: $(../host/@) == "" && $(../network/@) == ""; "You may only define one filter type. (host|network|any)"
 commit: $(../../action/@) != ""; "You must specify an action before committing"

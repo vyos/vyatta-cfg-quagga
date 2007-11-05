@@ -1,3 +1,3 @@
 type: u32
-help: "prefix greater than or equal to"
+help: "Prefix greater than or equal to"
 syntax: $(@) >= 0 && $(@) <= 32; "ge must be between 0 and 32"

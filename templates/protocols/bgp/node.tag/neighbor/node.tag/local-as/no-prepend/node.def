@@ -1,2 +1,2 @@
-help: "Do not prepend local-as to updates from ebgp peers"
+help: "Do not prepend local-as to updates from EBGP peers"
 syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"

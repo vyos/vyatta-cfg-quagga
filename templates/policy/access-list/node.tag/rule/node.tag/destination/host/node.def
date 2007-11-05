@@ -1,5 +1,5 @@
 type: ipv4
-help: "filter a host IP address"
+help: "Filter a host IP address"
 syntax: $(../any/@) == "" && $(../network/@) == ""; "You may only define one filter type. (host|network|any)"
 # TODO: pending 2284
 syntax: ($(../../@) >= 100 && $(../../@) <= 199) || ($(../../@) >= 2000) && $(../../@) <= 2699); " \

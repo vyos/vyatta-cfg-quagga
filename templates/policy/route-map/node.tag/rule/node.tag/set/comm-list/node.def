@@ -1,4 +1,4 @@
-help: "set BGP community list"
+help: "Set BGP community list"
 delete: "touch /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-comm-list.\\$PPID"
 end: "if [ -z \"$(./comm-list/)\" ]; then \
         echo You must configure a comm-list ; \

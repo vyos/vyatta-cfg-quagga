@@ -1,5 +1,5 @@
 type: txt
-help: "community list regular expression"
+help: "Community list regular expression"
 # pending bug 2285
 syntax: exec " \
 if [ $(../../@) -ge 1 ] && [ $(../../@) -le 99 ]; then \

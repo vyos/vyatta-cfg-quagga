@@ -1,12 +1,12 @@
 tag:
 type: u32
-help: "access-list number must be \n \
+help: "Access list number must be \n \
   <1-99>       IP standard access list \n \
   <100-199>    IP extended access list \n \
   <1300-1999>  IP standard access list (expanded range) \n \
   <2000-2699>  IP extended access list (expanded range) \n "
 syntax: ($(@) >= 1 && $(@) <= 199) || ($(@) >= 1300 && $(@) <= 2699); \
-"access-list number must be \n \
+"Access list number must be \n \
   <1-99>       IP standard access list \n \
   <100-199>    IP extended access list \n \
   <1300-1999>  IP standard access list (expanded range) \n \

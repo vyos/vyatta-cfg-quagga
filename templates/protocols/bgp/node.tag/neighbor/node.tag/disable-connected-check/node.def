@@ -1,4 +1,4 @@
-help: "one-hop away EBGP peer using loopback address"
+help: "One hop distant EBGP peer using loopback address"
 syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"neighbor $(../@) disable-connected-check\" "

@@ -1,4 +1,4 @@
-help: "De-activate ipv4-unicastfor a peer by default"
+help: "Deactivate IPv4 unicast for a peer by default"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"no bgp default ipv4-unicast\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

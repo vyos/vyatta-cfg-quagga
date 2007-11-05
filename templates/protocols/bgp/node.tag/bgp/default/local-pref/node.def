@@ -1,5 +1,5 @@
 type: u32; "protocols bgp $(../../../@) bgp default local-pref must be a u32"
-help: "local preference (higher=more preferred)"
+help: "Local preference (higher=more preferred)"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp default local-preference $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

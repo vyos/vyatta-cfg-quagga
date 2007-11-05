@@ -1,5 +1,5 @@
 type: txt
-help: "action to take on prefixes matching this rule"
+help: "Action to take on prefixes matching this rule"
 syntax: $(@) in "permit", "deny"; "route-map $(../../@) $(@) $(../@) action: must be permit or deny"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(@) $(../@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"route-map $(../../@) $(@) $(../@)\" "
