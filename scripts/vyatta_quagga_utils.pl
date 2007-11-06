@@ -8,11 +8,13 @@ use Getopt::Long;
 GetOptions("check-prefix-boundry=s" => \$prefix,
            "not-exists=s"           => \$notexists,
 	   "exists=s"		    => \$exists,
+	   "check-ospf-area=s"      => \$area,
 );
 
 if (defined $prefix)    { check_prefix_boundry($prefix); }
 if (defined $notexists) { check_not_exists($notexists); }
 if (defined $exists)    { check_exists($exists); }
+if (defined $area)      { check_ospf_area($area); }
 
 exit 0;
 
@@ -50,5 +52,21 @@ sub check_not_exists() {
   }
 
   exit 1;
+}
+
+sub check_ospf_area() {
+    my $area = shift;
+    
+    if ($area =~ m/^\d+$/) {
+	if ($area >= 0 && $area <= 4294967295) {
+	    return 0;
+	}
+    }
+
+    if (isIpAddress($area)) {
+	return 0;
+    }
+    print "invalid ospf area\n";
+    exit 1;
 }
 
