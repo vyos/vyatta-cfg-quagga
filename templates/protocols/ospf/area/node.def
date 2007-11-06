@@ -1,5 +1,5 @@
 tag:
 type: txt
-syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-ospf-area $(@)"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-ospf-area $(@)"; "Invalid OSFP area \"$(@)\" "
 help: "Area"
 

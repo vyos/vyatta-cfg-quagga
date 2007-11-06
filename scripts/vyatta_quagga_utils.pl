@@ -56,17 +56,21 @@ sub check_not_exists() {
 
 sub check_ospf_area() {
     my $area = shift;
-    
+
+    #
+    # allow both decimal or dotted decimal 
+    #
     if ($area =~ m/^\d+$/) {
 	if ($area >= 0 && $area <= 4294967295) {
-	    return 0;
+	    exit 0;
 	}
     }
-
-    if (isIpAddress($area)) {
-	return 0;
+    if ($area =~ m/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/) {
+	foreach $octet ($1, $2, $3, $4) {
+	    if (($octet < 0) || ($octet > 255)) { exit 1; }
+	}
+	exit 0
     }
-    print "invalid ospf area\n";
     exit 1;
 }
 
