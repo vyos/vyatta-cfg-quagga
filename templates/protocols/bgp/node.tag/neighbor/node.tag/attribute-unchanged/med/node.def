@@ -1,2 +1,2 @@
-help: "Multi-exit descriminator attribute"
+help: "Multi-exit discriminator attribute"
 syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group should be defined first"

@@ -1,4 +1,4 @@
-help: "Set interface as recieve only"
+help: "Set interface as receive only"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"passive-interface $(../@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
