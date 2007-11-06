@@ -1,1 +1,4 @@
 help: "Configure OSPF for IPv4"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no router ospf\" "
+
