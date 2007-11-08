@@ -1,5 +1,5 @@
 help: "Specify a local-as number"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 delete: "touch /tmp/bgp-neighbor-$(../@)-local-as.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"no neighbor $(../@) local-as \"; \
@@ -11,8 +11,14 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           exit 1 ; \
         fi ; \
         if [ -n \"$(./no-prepend/@)\" ]; then \
-          COND=\"no-prepend \" ; \  
+          cond=\"no-prepend \" ; \  
         fi ; \
+	if [ -n \"$(../remote-as/@)\" ]; then \
+          peer=\"remote-as $(../remote-as/@)\"; \
+        else \
+          peer=\"peer-group $(../peer-group/@)\"; \
+        fi; \
         /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"neighbor $(../@) local-as $(./local-as/@) \\$COND \"; \
+	  -c \"neighbor $(../@) \\$peer\" \
+          -c \"neighbor $(../@) local-as $(./local-as/@) \\$cond \"; \
       fi; "

@@ -1,2 +1,2 @@
 help: "Filter updates to/from this neighbor"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"

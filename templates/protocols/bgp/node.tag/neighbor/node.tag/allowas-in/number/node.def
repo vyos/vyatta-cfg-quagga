@@ -1,4 +1,4 @@
 type: u32
 help: "Number of occurrences of AS number"
 syntax: $(@) >= 1 && $(@) <= 10; "allowas-in number must be between 1 and 10"
-syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"

@@ -1,2 +1,2 @@
 help: "AS path attribute"
-syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group should be defined first"
+commit: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"

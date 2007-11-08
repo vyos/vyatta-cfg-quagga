@@ -5,9 +5,13 @@ syntax: exec "if [ -n \"`echo $(../@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-
                 exit 1; \
               fi; "; "peer-group token may not be specified for a peer-group"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"protocols bgp $(../../@) neighbor $(@)\" "; "peer-group $(@) doesn't exist"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
-          -c \"neighbor $(../@) peer-group $(@)\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) peer-group $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) peer-group $(@)\" "

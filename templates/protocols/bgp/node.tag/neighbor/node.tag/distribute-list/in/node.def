@@ -1,10 +1,14 @@
 type: u32
 help: "Filter incoming updates"
-syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-          -c \"neighbor $(../../@) distribute-list $(@) in\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+update: "if [ -n \"$(../../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+	  -c \"neighbor $(../../@) \\$peer\" \
           -c \"neighbor $(../../@) distribute-list $(@) in\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
           -c \"no neighbor $(../../@) distribute-list $(@) in\" "

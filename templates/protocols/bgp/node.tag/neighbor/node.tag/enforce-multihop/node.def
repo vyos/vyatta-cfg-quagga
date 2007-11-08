@@ -1,6 +1,12 @@
 help: "Enforce EBGP neighbors perform multihop"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+update: "if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) enforce-multihop \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) enforce-multihop \" "

@@ -1,11 +1,17 @@
 help: "Accept as-path with my AS present in it."
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 delete: "touch /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-      -c \"no neighbor $(../@) allowas-in \"; \
-    if [ -f \"/tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID\" ]; then \
-      rm -rf /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID; \
-    else \
-      /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-        -c \"neighbor $(../@) allowas-in $(./number/@)\"; \
-    fi; "
+         -c \"no neighbor $(../@) allowas-in \"; \
+      if [ -f \"/tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID; \
+      else \
+        if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+        else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+        fi; \
+        /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+	  -c \"neighbor $(../@) \\$peer\" \
+          -c \"neighbor $(../@) allowas-in $(./number/@)\"; \
+      fi; "

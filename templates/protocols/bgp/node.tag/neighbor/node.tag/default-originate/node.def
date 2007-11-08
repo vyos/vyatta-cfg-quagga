@@ -1,5 +1,5 @@
 help: "Originate default route to this neighbor"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 delete: "touch /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"no neighbor $(../@) default-originate \"; \
@@ -7,9 +7,15 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         rm -rf /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID; \
       else \
         if [ -n \"$(./route-map/@)\" ]; then \
-          COND=\"route-map $(./route-map/@) \" ; \
+          cond=\"route-map $(./route-map/@) \" ; \
         fi ; \
+	if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+         fi; \
         /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"neighbor $(../@) default-originate \\$COND\"; \
+	  -c \"neighbor $(../@) \\$peer\" \
+          -c \"neighbor $(../@) default-originate \\$cond\"; \
       fi; "
 

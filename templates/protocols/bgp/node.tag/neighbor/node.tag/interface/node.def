@@ -1,14 +1,18 @@
 type: txt
 help: "Interface name"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 syntax: exec " \
         if [ -z \"`ip addr | grep $(@) `\" ]; then \
           echo $(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
-          -c \"neighbor $(../@) interface $(@)\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) interface $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) interface $(@)\" "

@@ -1,5 +1,5 @@
 help: "BGP attribute is propagated unchanged to this neighbor"
-syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
 delete: "touch /tmp/bgp-neighbor-$(../@)-attribute-unchanged.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"no neighbor $(../@) attribute-unchanged \"; \
@@ -7,14 +7,20 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         rm -rf /tmp/bgp-neighbor-$(../@)-attribute-unchanged.\\$PPID; \
       else \
         if [ -n \"$(./as-path/@)\" ]; then \
-          COND=\"as-path \" ; \
+          cond=\"as-path \" ; \
         fi ; \
         if [ -n \"$(./med/@)\" ]; then \
-          COND=\"\\$COND med \" ; \
+          cond=\"\\$cond med \" ; \
         fi ; \
         if [ -n \"$(./next-hop/@)\" ]; then \
-          COND=\"\\$COND next-hop \" ; \
+          cond=\"\\$cond next-hop \" ; \
         fi ; \
+	if [ -n \"$(../remote-as/@)\" ]; then \
+          peer=\"remote-as $(../remote-as/@)\"; \
+        else \
+          peer=\"peer-group $(../peer-group/@)\"; \
+        fi; \
         /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"neighbor $(../@) attribute-unchanged \\$COND\"; \
+	  -c \"neighbor $(../@) \\$peer\" \
+          -c \"neighbor $(../@) attribute-unchanged \\$cond\"; \
       fi; "

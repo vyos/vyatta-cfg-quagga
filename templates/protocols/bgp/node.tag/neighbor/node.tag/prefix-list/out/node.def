@@ -2,9 +2,13 @@ type: txt
 help: "Filter outgoing updates"
 syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\" ";"prefix-list $(@) doesn't exist"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-          -c \"neighbor $(../../@) prefix-list $(@) out\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+update: "if [ -n \"$(../../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+	  -c \"neighbor $(../../@) \\$peer\" \
           -c \"neighbor $(../../@) prefix-list $(@) out\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
           -c \"no neighbor $(../../@) prefix-list $(@) out\" "

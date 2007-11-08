@@ -2,9 +2,13 @@ type: u32
 help: "Minimum interval between sending BGP routing updates"
 syntax: $(@) >= 0 && $(@) <= 600; "remote-as must be between 0 and 600"
 syntax: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified first"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"neighbor $(../@) advertisement-interval $(@)\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+update: "if [ -n \"$(../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) advertisement-interval $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) advertisement-interval\" "
