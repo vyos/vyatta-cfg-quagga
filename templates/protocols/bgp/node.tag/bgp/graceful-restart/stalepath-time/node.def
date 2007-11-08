@@ -1,8 +1,6 @@
 type: u32
 help: "Set the max time in seconds to hold onto restarting peer's stale paths"
 syntax: $(@) >= 1 && $(@) <= 3600; "stalepath-time must be between 1 and 3600"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp graceful-restart stalepath-time $(@) \" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp graceful-restart stalepath-time $(@) \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

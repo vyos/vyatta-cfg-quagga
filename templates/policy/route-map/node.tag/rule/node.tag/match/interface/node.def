@@ -7,9 +7,6 @@ syntax: exec " \
           echo $(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-create: "/usr/bin/vtysh -c \"configure terminal\" \
-         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
-         -c \"match interface $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match interface $(@)\" "

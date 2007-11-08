@@ -1,7 +1,5 @@
 type: u32
 help: "Local preference (higher=more preferred)"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp default local-preference $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp default local-preference $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

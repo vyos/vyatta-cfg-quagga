@@ -2,8 +2,6 @@ multi:
 type: u32
 help: "Peer ASs in BGP confederation"
 syntax: $(@) >= 1 && $(@) <= 65535; "confederation AS id must be between 1 and 65535"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp confederation peers $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
            -c \"bgp confederation peers $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

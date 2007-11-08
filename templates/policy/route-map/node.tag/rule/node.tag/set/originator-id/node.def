@@ -1,9 +1,6 @@
 type: ipv4
 help: "BGP originator ID attribute"
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/usr/bin/vtysh -c \"configure terminal\" \
-         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
-         -c \"set originator-id  $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set originator-id  $(@)\" "

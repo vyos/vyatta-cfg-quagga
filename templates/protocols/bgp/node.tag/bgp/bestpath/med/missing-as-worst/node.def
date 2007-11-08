@@ -1,5 +1,5 @@
 help: "Treat missing MED as the least preferred one"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"bgp bestpath med missing-as-worst \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"no bgp bestpath med missing-as-worst \" "

@@ -1,5 +1,5 @@
 help: "Pick the best-MED path among paths advertised from the neighboring AS"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp deterministic-med \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"no bgp deterministic-med \" "

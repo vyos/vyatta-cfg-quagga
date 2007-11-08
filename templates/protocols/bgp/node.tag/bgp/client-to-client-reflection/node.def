@@ -1,6 +1,6 @@
 help: "Configure client to client route reflection"
 # TODO: not showing up in vyatta.  Probably needs another setting to be applied.
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp client-to-client reflection \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"no bgp client-to-client reflection \" "

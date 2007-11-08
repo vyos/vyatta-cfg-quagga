@@ -1,7 +1,5 @@
 type: ipv4
 help: "Override configured router identifier"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-           -c \"bgp router-id $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp router-id $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \

@@ -1,8 +1,6 @@
 type: u32
 syntax: $(@) >= 5 && $(@) <= 60; "scan-time must be between 5 and 60 seconds"
 help: "Configure background scanner interval"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-           -c \"bgp scan-time $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp scan-time $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \

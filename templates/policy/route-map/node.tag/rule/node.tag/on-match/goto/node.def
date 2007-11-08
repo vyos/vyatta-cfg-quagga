@@ -3,9 +3,6 @@ help: "Goto sequence number"
 syntax: $(../next/@) != ""; "you can set only goto or next"
 syntax: $(@) >= 1 && $(@) <= 65535; "tag must be between 1 and 65535"
 commit: $(../../action/@); "You must specify an action for route-map $(../../../@) rule $(../../@)"
-create: "/usr/bin/vtysh -c \"configure terminal\" \
-         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
-         -c \"on-match goto $(@)\" "
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"on-match goto $(@)\" "

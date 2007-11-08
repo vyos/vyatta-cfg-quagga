@@ -1,5 +1,5 @@
 help: "Compare MED among confederation paths"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"bgp bestpath med confed \" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"no bgp bestpath med confed \" "
