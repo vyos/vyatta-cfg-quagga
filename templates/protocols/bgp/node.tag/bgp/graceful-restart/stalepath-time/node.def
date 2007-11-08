@@ -1,4 +1,4 @@
-type: u32; "protocols bgp $(../../../@) bgp graceful-restart stalepath-time must be a u32"
+type: u32
 help: "Set the max time in seconds to hold onto restarting peer's stale paths"
 syntax: $(@) >= 1 && $(@) <= 3600; "stalepath-time must be between 1 and 3600"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \

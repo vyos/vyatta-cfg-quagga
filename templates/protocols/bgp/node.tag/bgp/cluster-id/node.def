@@ -1,4 +1,4 @@
-type: ipv4; "protocols bgp $(../../) cluster-id must be and IPv4 address"
+type: ipv4
 help: "Configure route-reflector cluster-id\n"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp cluster-id $(@)\" "

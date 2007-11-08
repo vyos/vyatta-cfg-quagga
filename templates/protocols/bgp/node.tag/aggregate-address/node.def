@@ -1,5 +1,5 @@
 tag:
-type: ipv4net; "aggregate-entry must be and IPv4 network"
+type: ipv4net
 help: "Configure BGP aggregate entries"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
 delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID" 

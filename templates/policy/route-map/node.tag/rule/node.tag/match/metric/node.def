@@ -1,4 +1,4 @@
-type: u32; "route-map $(../../../@) $(../../action/@) $(../../@) metric: must be an integer"
+type: u32
 help: "Match metric of route"
 commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 create: "/usr/bin/vtysh -c \"configure terminal\" \

@@ -1,5 +1,5 @@
 tag:
-type: u32; "prefix-list rule number must be an integer"
+type: u32
 help: "Specify prefix-list rule number"
 delete: "touch /tmp/protocols-$(../@)-$(@).\\$PPID \
          LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \

@@ -1,4 +1,4 @@
-type: u32; "protocols bgp $(../../../@) dampening re-use must be a u32"
+type: u32
 help: "Value to start reusing a route"
 syntax: $(@) >= 1 && $(@) <= 20000; "Re-use value must be between 1 and 20000"
 commit: $(../start-suppress-time/@) != ""; "Start-suppress-time must be set"

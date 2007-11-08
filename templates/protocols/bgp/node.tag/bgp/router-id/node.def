@@ -1,4 +1,4 @@
-type: ipv4; "protocols bgp $(../../@) bgp router-id must be an IPv4 address"
+type: ipv4
 help: "Override configured router identifier"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp router-id $(@)\" "
