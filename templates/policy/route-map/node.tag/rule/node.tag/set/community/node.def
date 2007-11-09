@@ -1,7 +1,6 @@
 type: txt
 help: "Community number in aa:nn format or local-AS|no-advertise|no-export|internet|additive or none"
-# TODO: check syntax
-commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set community $(@)\" "

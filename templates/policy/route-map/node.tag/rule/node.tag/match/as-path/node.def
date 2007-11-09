@@ -1,6 +1,6 @@
 type: txt
 help: "Match BGP AS path list"
-commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $(@)\" "; "AS path list $(@) doesn't exist"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \

@@ -1,3 +1,3 @@
-type: txt
+type: u32
 help: "Match community list"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy community-list $(@)\" "; "community-list $(@) doesn't exist"

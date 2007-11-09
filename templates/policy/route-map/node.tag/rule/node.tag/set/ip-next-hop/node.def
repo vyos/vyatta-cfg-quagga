@@ -1,7 +1,7 @@
 type: ipv4
 help: "Next hop IP address"
 # TODO: can also set to peer for BGP
-commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set ip next-hop $(@)\" "

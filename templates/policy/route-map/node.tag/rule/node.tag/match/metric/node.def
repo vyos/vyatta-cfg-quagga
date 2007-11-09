@@ -1,6 +1,6 @@
 type: u32
 help: "Match metric of route"
-commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match metric $(@)\" "

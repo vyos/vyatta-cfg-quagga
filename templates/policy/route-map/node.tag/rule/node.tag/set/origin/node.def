@@ -1,7 +1,7 @@
 type: txt
 help: "BGP origin code"
 syntax: $(@) in "igp", "egp", "incomplete"; "origin must be one of igp, egp, or incomplete"
-commit: $(../../action/@) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
+commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set origin  $(@)\" "
