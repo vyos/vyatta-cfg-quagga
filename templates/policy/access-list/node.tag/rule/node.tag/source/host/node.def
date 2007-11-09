@@ -1,4 +1,4 @@
 type: ipv4
 help: "Filter a host IP address"
-syntax: $(../any/@) == "" && $(../network/@) == ""; "You may only define one filter type. (host|network|any)"
+syntax: $(../any/@) = "" && $(../network/@) = ""; "You may only define one filter type. (host|network|any)"
 commit: $(../../action/@) != ""; "You must specify an action before committing"

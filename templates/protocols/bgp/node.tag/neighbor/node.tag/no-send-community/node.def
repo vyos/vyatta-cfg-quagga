@@ -1,3 +1,3 @@
 help: "Do not send community attributes to this neighbor"
-commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
-commit: ($(./extended/@) != "") || ($(./standard/@) != ""); "You must specify the type of community."
+commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: ($(./extended/) != "") || ($(./standard/) != ""); "You must specify the type of community."

@@ -1,5 +1,5 @@
 type: u32
 help: "Maximum duration to suppress a stable route"
 syntax: $(@) >= 1 && $(@) <= 255; "Max-suppress-time must be between 1 and 255"
-commit: $(../re-use/@) != ""; "Re-use value must be set"
-commit: $(../start-suppress-time/@) != ""; "Start-suppress-time must be set"
+commit: $(../re-use/) != ""; "Re-use value must be set"
+commit: $(../start-suppress-time/) != ""; "Start-suppress-time must be set"

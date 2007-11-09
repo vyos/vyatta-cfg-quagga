@@ -1,7 +1,7 @@
 type: u32
 help: "Set default weight for routes from this neighbor"
 syntax: $(@) >= 1 && $(@) <= 65535; "weight must be between 1 and 65535"
-commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
 update: "if [ -n \"$(../remote-as/@)\" ]; then \
            peer=\"remote-as $(../remote-as/@)\"; \
          else \

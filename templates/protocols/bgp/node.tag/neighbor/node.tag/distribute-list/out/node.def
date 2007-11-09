@@ -1,6 +1,6 @@
 type: u32
 help: "Filter outgoing updates"
-commit: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
 update: "if [ -n \"$(../../remote-as/@)\" ]; then \
            peer=\"remote-as $(../../remote-as/@)\"; \

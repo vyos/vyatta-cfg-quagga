@@ -1,6 +1,6 @@
 type: txt
 help: "Filter outgoing updates"
-syntax: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified first"
+commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified first"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\" ";"prefix-list $(@) doesn't exist"
 update: "if [ -n \"$(../../remote-as/@)\" ]; then \
            peer=\"remote-as $(../../remote-as/@)\"; \

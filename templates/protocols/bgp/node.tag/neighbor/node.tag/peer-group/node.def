@@ -1,6 +1,6 @@
 type: txt
 help: "Member of the peer-group"
-syntax: $(../remote-as/@) == ""; "remote-as must not be defined if putting this neighbor in a peer group"
+syntax: $(../remote-as/) == ""; "remote-as must not be defined if putting this neighbor in a peer group"
 syntax: exec "if [ -n \"`echo $(../@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
                 exit 1; \
               fi; "; "peer-group token may not be specified for a peer-group"

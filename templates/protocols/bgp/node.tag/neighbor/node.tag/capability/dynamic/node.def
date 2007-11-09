@@ -1,5 +1,5 @@
 help: "Advertise dynamic capability to this neighbor"
-commit: ($(../../peer-group/@) != "")  || ($(../../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
 update: "if [ -n \"$(../../remote-as/@)\" ]; then \
            peer=\"remote-as $(../../remote-as/@)\"; \
          else \

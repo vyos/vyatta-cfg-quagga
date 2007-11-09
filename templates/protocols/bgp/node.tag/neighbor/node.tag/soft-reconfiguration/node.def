@@ -1,3 +1,3 @@
 help: "Per neighbor soft reconfiguration"
-commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
 commit: $(./inbound/@) != ""; "You must specify the type of soft-reconfiguration"

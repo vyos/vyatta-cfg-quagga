@@ -1,5 +1,5 @@
 type: u32
 help: "Value to start suppressing a route"
 syntax: $(@) >= 1 && $(@) <= 20000; "Start-suppress-time must be between 1 and 20000"
-commit: $(../re-use/@) != ""; "Re-use value must be set"
-commit: $(../max-suppress-time/@) != ""; "Max-suppress-time must be set"
+commit: $(../re-use/) != ""; "Re-use value must be set"
+commit: $(../max-suppress-time/) != ""; "Max-suppress-time must be set"
