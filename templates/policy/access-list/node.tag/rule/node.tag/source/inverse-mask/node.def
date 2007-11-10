@@ -1,6 +1,6 @@
 type: ipv4
 help: "Filter a network IP netmask"
 # TODO - comparison not working
-#commit: $(../any/) != "" || $(../host/) != ""; "You may only define one filter type. (host|network|any)"
+commit: ($(../any/) == "") && ($(../host/) == ""); "You may only define one filter type. (host|network|any)"
 commit: $(../network/) != ""; "You must specify a network before committing"
 commit: $(../../action/) != ""; "You must specify an action before committing"

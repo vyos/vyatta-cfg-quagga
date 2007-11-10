@@ -1,6 +1,6 @@
 type: ipv4
 help: "Filter a network IP address"
 # TODO - commparison not working
-#commit: $(../host/) != "" || $(../any/) != ""; "You may only define one filter type (host|network|any)"
+commit: ($(../host/) == "") && ($(../any/) == ""); "You may only define one filter type (host|network|any)"
 commit: $(../inverse-mask/) != ""; "You must specify an inverse-mask before committing"
 commit: $(../../action/) != ""; "You must specify an action before committing"
