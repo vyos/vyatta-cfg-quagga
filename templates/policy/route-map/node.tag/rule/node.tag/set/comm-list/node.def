@@ -11,9 +11,9 @@ end: "if [ -z \"$(./comm-list/)\" ]; then \
         rm -rf /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-comm-list.\\$PPID; \
       else \
         if [ -n \"$(./delete/)\" ]; then \ 
-          COND=\"delete\" ; \
+          cond=\"delete\" ; \
         fi ; \
         /usr/bin/vtysh -c \"configure terminal\" \
           -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
-          -c \"set comm-list $(./comm-list/@) \\$COND\" ; \
+          -c \"set comm-list $(./comm-list/@) \\$cond\" ; \
       fi; "

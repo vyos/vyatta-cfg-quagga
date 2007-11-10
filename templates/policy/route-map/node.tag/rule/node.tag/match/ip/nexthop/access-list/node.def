@@ -1,4 +1,11 @@
 type: u32
 help: "access-list number"
-commit: $(../prefix-list/) == ""; "You may only specify a prefix-list or access-list"
+# TODO - comparison not working
+#commit: $(../prefix-list/) == ""; "You may only specify a prefix-list or access-list"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" "; "access-list $(@) does not exist"
+update: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../../../@) $(../../../../action/@) $(../../../../@)\" \
+         -c \"match ip next-hop $(@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"route-map $(../../../../../@) $(../../../../action/@) $(../../../../@)\" \
+         -c \"no match ip next-hop $(@)\" "
