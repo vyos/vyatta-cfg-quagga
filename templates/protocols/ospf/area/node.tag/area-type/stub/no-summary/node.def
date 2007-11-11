@@ -1,0 +1,5 @@
+help: "Do not inject inter-area routes into stub"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $(../../../@) stub no-summary \"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $(../../../@) stub no-summary \"; "

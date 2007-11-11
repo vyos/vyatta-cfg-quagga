@@ -1,0 +1,7 @@
+type: u32
+help: "Link state transmit delay"
+syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $(../../@) virtual-link $(../@) transmit-delay $(@)\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $(../../@) virtual-link $(../@) transmit-delay \"; "

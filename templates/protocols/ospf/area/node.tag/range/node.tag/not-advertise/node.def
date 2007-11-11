@@ -1,0 +1,5 @@
+help: "Do NOT advertise this range"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $(../../@) range $(../@) not-advertise\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $(../../@) range $(../@) not-advertise\"; "

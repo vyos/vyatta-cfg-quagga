@@ -1,0 +1,7 @@
+type: txt
+default: "candidate"
+syntax: $(@) in "always", "candidate", "never"; "Must be (always, candidate, or never)"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"area $(../../../@) nssa translate-$(@) \"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"no area $(../../../@) nssa translate-$(@) \"; "

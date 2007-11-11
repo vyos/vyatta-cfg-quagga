@@ -1,0 +1,7 @@
+type: ipv4net
+help: "Announce area range as another prefix"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $(../../@) range $(../@) substitute $(@)\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $(../../@) range $(../@) substitute $(@)\"; "

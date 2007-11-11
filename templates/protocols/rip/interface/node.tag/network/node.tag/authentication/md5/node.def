@@ -1,5 +1,5 @@
 tag:
 type: u32
 help: "MD5 authentication key ID"
-syntax: $(@) >= 0 && $(@) <= 255; "ID must be between 1 and 255"
+syntax: $(@) >= 1 && $(@) <= 255; "ID must be between 1 and 255"
 
