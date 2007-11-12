@@ -4,6 +4,5 @@ syntax: ($(../../@) >= 100 && $(../../@) <= 199) || ($(../../@) >= 2000) && $(..
 To set destination filter parameters, the access-list rule number must be \n \
   <100-199>    IP extended access list \n \
   <2000-2699>  IP extended access list (expanded range) \n" 
-# TODO - comparison not working
 commit: ($(../any/) == "") && ($(../network/) == ""); "You may only define one filter type. (host|network|any)"
 commit: $(../../action/) != ""; "You must specify an action before committing"

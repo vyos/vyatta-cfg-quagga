@@ -6,5 +6,4 @@ To set destination filter parameters, the access-list rule number must be \n \
   <2000-2699>  IP extended access list (expanded range) \n"
 commit: $(../inverse-mask/) != ""; "You must specify an inverse-mask before committing"
 commit: $(../../action/) != ""; "You must specify an action before committing"
-# TODO - comaprison not working
 commit: ($(../host/) == "") && ($(../any/) == ""); "You may only define one filter type (host|network|any)"

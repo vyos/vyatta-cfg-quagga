@@ -1,4 +1,3 @@
 help: "Filter any IP address"
-# TODO - comparison not working
 commit: ($(../host/) == "") && ($(../network/) == ""); "You may only define one filter type. (host|network|any)"
 commit: $(../../action/) != ""; "You must specify an action before committing"

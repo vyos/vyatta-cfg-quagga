@@ -1,8 +1,7 @@
 type: u32
 help: "Continue on a different entry within the route-map"
 syntax: $(@) >= 1 && $(@) <= 65535; "continue must be between 1 and 65535"
-# TODO - conditional not working
-#syntax: $(@) > $(../../@); "you may only continue forward in the route-map"
+syntax: $(@) > $(../../@); "you may only continue forward in the route-map"
 update: "/usr/bin/vtysh -c \"configure terminal\" 
    	   -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"continue $(@)\" "
