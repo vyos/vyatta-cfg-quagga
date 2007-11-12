@@ -2,7 +2,7 @@ tag:
 type: ipv4net
 help: "Specify a network to announce via BGP"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-syntax: ($(./backdoor/) != "") && ($(./route-map/) != ""); "Must specify route-map or backdoor but not both"
+syntax: ($(./backdoor/) == "") && ($(./route-map/) == ""); "Must specify route-map or backdoor but not both"
 delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
         -c \"no network $(@)\"; \
