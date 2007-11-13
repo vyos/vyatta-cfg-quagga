@@ -1,7 +1,8 @@
+multi:
 type: ipv4net
 help: "OSPF network"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"network $(@) area $(../@)\"; "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"no network $(@) area $(../@)\"; "
