@@ -1,0 +1,8 @@
+multi:
+type: txt
+help: "Filter outgoing routing updates"
+syntax: $(@) in "bgp", "connected", "isis", "kernel", "rip", "static"; "Must be (bgp, connected, isis, kernel, rip, or static"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            -c \"distribute-list $(../@) out $(@) \"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            -c \"no distribute-list $(../@) out $(@) \"; "

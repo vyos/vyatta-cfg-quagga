@@ -1,0 +1,4 @@
+type: u32
+help: "Delay (msec) from first change received till SPF calculation"
+default: 200
+syntax: $(@) >= 0 && $(@) <= 600000; "must be between 0-600000"

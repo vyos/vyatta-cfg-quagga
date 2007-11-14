@@ -1,0 +1,10 @@
+help: "OSPF SPF timers"
+delete: "touch /tmp/ospf-timer.\\$PPID"
+end: "if [ -f \"/tmp/ospf-timer.\\$PPID\" ]; then \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"no timers throttle spf\"; \
+         rm /tmp/ospf-timer.\\$PPID; \
+     else \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"timers throttle spf $(delay/@) $(initial-holdtime/@) $(max-holdtime/@)\"; \
+     fi; "

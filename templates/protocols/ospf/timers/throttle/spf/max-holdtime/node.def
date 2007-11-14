@@ -1,0 +1,4 @@
+type: u32
+help: "Maximum hold time (msec)"
+default: 10000
+syntax: $(@) >= 0 && $(@) <= 600000; "must be between 0-600000"

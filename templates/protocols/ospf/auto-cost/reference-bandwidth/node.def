@@ -1,0 +1,5 @@
+type: u32
+help: "Use reference bandwidth method to assign OSPF cost in Mbits/sec"
+syntax: $(@) >= 1 && $(@) <= 4294967; "Must be between 1-4294967"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" -c \"auto-cost reference-bandwidth $(@) \"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" -c \"no auto-cost reference-bandwidth \"; "

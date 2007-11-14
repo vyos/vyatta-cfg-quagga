@@ -1,0 +1,19 @@
+help: "OSPF administrative distance"
+delete: "touch /tmp/ospf-distance.\\$PPID"
+end: "if [ -f \"/tmp/ospf-distance.\\$PPID\" ]; then \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"no distance ospf\"; \
+	 rm /tmp/ospf-distance.\\$PPID; \
+      else \
+         if [ -n \"$(./intra-area/@)\" ]; then \
+           PARM=\"intra-area $(./intra-area/@)\"; \       
+         fi; \
+         if [ -n \"$(./inter-area/@)\" ]; then \
+           PARM=\"\\$PARM inter-area $(./inter-area/@)\"; \
+         fi; \
+         if [ -n \"$(./external/@)\" ]; then \
+           PARM=\"\\$PARM external $(./external/@)\"; \
+         fi; \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         -c \"no distance ospf\" -c \"distance ospf \\$PARM\"; \
+      fi; "

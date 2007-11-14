@@ -1,0 +1,19 @@
+multi:
+type: txt
+help: "Suppress routing updates on an interface"
+syntax: exec " \
+        if [ -z \"`ip addr | grep $(@) `\" ] && [ x$(@) != xdefault ]; then \
+          echo ethernet interface $(@) doesn\\'t exist on this system ; \
+          exit 1 ; \
+        fi ; "
+update: "if [ x$(x) == xdefault ]; then \
+            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            -c \"passive-interface default\"; \
+         else \
+            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            -c \"passive-interface $(@)\"; \
+         fi; "
+#allowed: local -a array;
+# array=( /sys/class/net/{eth,vmnet}* ) ;
+# echo -n ${array[@]##*/}
+

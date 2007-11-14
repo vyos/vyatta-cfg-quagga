@@ -1,0 +1,4 @@
+type: u32
+help: "Define a distance for inter-area routes"
+syntax: $(@) >= 1 && $(@) <= 255; "Must be between 1-255"
+

@@ -1,0 +1,3 @@
+help: "Opaque LSA"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" -c \"capability opaque\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" -c \"no capability opaque\"; "
