@@ -1,6 +1,6 @@
 type: u32
 help: "Allow EBGP neighbors not on directly connected networks"
-commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 syntax: $(@) >=1 && $(@) <= 255; "ebgp-multihop must be between 1 and 255"
 update: "if [ -n \"$(../remote-as/@)\" ]; then \
            peer=\"remote-as $(../remote-as/@)\"; \

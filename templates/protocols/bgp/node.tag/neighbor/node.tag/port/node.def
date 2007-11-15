@@ -1,7 +1,7 @@
 type: u32
 help: "Neighbor's BGP port"
 syntax: $(@) >= 1 && $(@) <= 65535; "remote-as must be between 1 and 65535"
-commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 update: "if [ -n \"$(../remote-as/@)\" ]; then \
            peer=\"remote-as $(../remote-as/@)\"; \
          else \

@@ -1,6 +1,7 @@
 type: txt
 help: "Route-map to apply to incoming updates"
-commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../@) --neighbor $(../../@)"
+commit: $(../../peer-group/) == ""; "You can't set a route-map for neighbor $(../../@) in peer-group $(../../peer-group/@)"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $(@)\" ";"route-map $(@) doesn't exist"
 update: "if [ -n \"$(../../remote-as/@)\" ]; then \
            peer=\"remote-as $(../../remote-as/@)\"; \

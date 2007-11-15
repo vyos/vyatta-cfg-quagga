@@ -1,5 +1,6 @@
 help: "BGP per neighbor timers"
-commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
+commit: $(../peer-group/) == ""; "You can't set timers for neighbor $(../@) in peer-group $(../peer-group/@)"
 delete: "touch /tmp/bgp-neighbor-$(../@)-timers.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"no neighbor $(../@) timers \"; \

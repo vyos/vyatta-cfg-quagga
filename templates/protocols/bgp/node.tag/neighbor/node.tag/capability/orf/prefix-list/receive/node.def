@@ -1,5 +1,6 @@
 help: "Capability to RECEIVE the ORF to this neighbor"
-commit: ($(../../../../peer-group/) != "")  || ($(../../../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../../../@) --neighbor $(../../../../@)"
+commit: $(../../../../peer-group/) == ""; "You can't set orf capability receive for neighbor $(../../../../@) in peer-group $(../../../../peer-group/@)"
 update: "if [ -n \"$(../../../../remote-as/@)\" ]; then \
            peer=\"remote-as $(../../../../remote-as/@)\"; \
          else \

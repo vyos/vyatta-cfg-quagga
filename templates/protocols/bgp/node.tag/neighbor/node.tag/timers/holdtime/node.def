@@ -1,4 +1,3 @@
 type: u32
 help: "Holdtime interval"
 syntax: $(@) == 0 || ($(@) >= 4 && $(@) <= 65535); "Holdtime interval must be 0 or between 4 and 65535"
-commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"

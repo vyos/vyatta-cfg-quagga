@@ -1,4 +1,3 @@
 type: u32
 help: "BGP connect timer"
 syntax: $(@) >=0 && $(@) <= 65535; "BGP connect timer must be between 0 and 65535"
-commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
