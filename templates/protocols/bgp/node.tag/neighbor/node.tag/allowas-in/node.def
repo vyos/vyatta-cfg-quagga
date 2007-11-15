@@ -1,5 +1,5 @@
 help: "Accept as-path with my AS present in it."
-commit: ($(../peer-group/@) != "")  || ($(../remote-as/@) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 delete: "touch /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID"
 end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
          -c \"no neighbor $(../@) allowas-in \"; \

@@ -1,6 +1,6 @@
 type: txt
 help: "Interface name"
-commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 syntax: exec " \
         if [ -z \"`ip addr | grep $(@) `\" ]; then \
           echo $(@) doesn\\'t exist on this system ; \

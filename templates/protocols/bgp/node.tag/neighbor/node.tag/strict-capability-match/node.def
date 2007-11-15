@@ -1,5 +1,6 @@
 help: "Strict capability negotiation match"
-commit: ($(../peer-group/) != "")  || ($(../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
+commit: $(../override-capability/) == ""; "You can't set strict-capability and override-capability for neighbor $(../@)"
 update: "if [ -n \"$(../remote-as/@)\" ]; then \
            peer=\"remote-as $(../remote-as/@)\"; \
          else \

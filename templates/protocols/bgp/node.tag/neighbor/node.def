@@ -2,8 +2,8 @@ tag:
 type: txt
 help: "Specify neighbor router"
 syntax: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-name $(@)"
-# if this neighbor has a text name it is a peer group.  setup the peer-group option
 update: "if [ -n \"`echo $(@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
            /usr/bin/vtysh -c \"configure terminal\" -c\"router bgp $(../@)\" -c\"neighbor $(@) peer-group\" ; \
          fi ; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c\"router bgp $(../@)\" -c\"no neighbor $(@) \" "
+delete: "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups --peergroup $(@) --as $(../@); \
+         /usr/bin/vtysh -c \"configure terminal\" -c\"router bgp $(../@)\" -c\"no neighbor $(@) \" "

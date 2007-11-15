@@ -1,2 +1,1 @@
 help: "Nexthop attribute"
-commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"

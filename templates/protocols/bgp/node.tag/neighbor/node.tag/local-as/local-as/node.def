@@ -1,5 +1,6 @@
 type: u32
 help: "Local AS number"
-commit: ($(../../peer-group/) != "")  || ($(../../remote-as/) != ""); "remote-as or peer-group must be specified before commit"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../@) --neighbor $(../../@)"
+commit: $(../peer-group/) == ""; "You can't set a local-as for neighbor $(../@) in peer-group $(../peer-group/@)"
 syntax: $(@) >=1 && $(@) <= 65535; "local-as must be between 1 and 65535"
 syntax: $(@) != $(../../../@); "Cannot have local-as same as BGP AS number"
