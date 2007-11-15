@@ -27,6 +27,7 @@ elsif (defined $neighbor &&
 
 exit 0;
 
+# Make sure the neighbor is a proper IP or name
 sub check_peer_name() {
   my $neighbor = shift;
 
@@ -35,16 +36,22 @@ sub check_peer_name() {
     print "malformed neighbor address $neighbor\n";
     exit 1;
   }
-  exit 0;
 }
 
+# Make sure we aren't deleteing a peer-group that has 
+# neighbors configured to us it
 sub check_for_peer_groups() {
   my $config = new VyattaConfig;
   my $pg = shift;
   my $as = shift;
-  my $node;
+  my $node = $pg;
   my @peers, @neighbors;
 
+  # short circuit if the neighbor is an IP rather than name
+  $node =~ s/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}//;
+  if ($node eq "") { return; }
+
+  # get the list of neighbors and see if they have a peer-group set
   $config->setLevel("protocols bgp $as neighbor");
   my @neighbors = $config->listNodes();
   
@@ -53,6 +60,8 @@ sub check_for_peer_groups() {
     if ($peergroup eq $pg) { push @peers, $node; }
   }
 
+  # if we found peers in the previous statements
+  # notify an return errors
   if (@peers) { 
     foreach $node (@peers) {
       print "neighbor $node uses peer-group $pg\n";
@@ -62,9 +71,11 @@ sub check_for_peer_groups() {
     exit 1;
   }
 
-  exit 0;
+  return;
 }
 
+# make sure nodes are either in a peer group of have
+# a remote AS assigned to them.  
 sub check_as() {
   my $pg = shift;
   my $neighbor = shift;
@@ -72,6 +83,7 @@ sub check_as() {
   my $config = new VyattaConfig;
   my $pgtest = $neighbor;
 
+  # if this is peer-group then short circuit this
   $pgtest =~ s/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}//;
   if ($pgtest ne "") { return; }
 
@@ -99,5 +111,5 @@ sub check_as() {
     }
   }
 
-  exit 0;
+  return;
 }
