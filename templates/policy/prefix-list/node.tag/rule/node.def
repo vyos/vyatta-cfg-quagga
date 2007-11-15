@@ -1,26 +1,27 @@
 tag:
 type: u32
 help: "Specify prefix-list rule number"
+commit: $(./prefix/) != ""; "must set a prefix"
 delete: "touch /tmp/protocols-$(../@)-$(@).\\$PPID \
          LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
          if [ -n \"$(./ge/@)\" ]; then \
            COND=\"ge $(./ge/@) \";
          fi;
-         if [ -n \"$(./le/@)\" ] && [ $(./le/@) -ne 32 ]; then \
+         if [ -n \"$(./le/@)\" ]; then \
            COND=\"\\$COND le $(./le/@) \"; \
          fi; \
          /usr/bin/vtysh -c \"configure terminal\" \
            -c \"no ip prefix-list $(../@) seq $(@) $(./action/@) $(./prefix/@) \\$COND \" "
-end: "LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
+end: "LEN=`echo $(./prefix/@) | awk -F/ '{ print \\$2 }'` ; \
       if [ -n \"$(./ge/@)\" ]; then \
-        if [ \\$LEN -le $(./ge/@) ]; then \
+        if [ \\$LEN -ge $(./ge/@) ]; then \
           echo ge must be greater than prefix length ;\
           exit 1 ; \
         fi ; \
         COND=\"ge $(./ge/@) \";
       fi;
-      if [ -n \"$(./le/@)\" ] && [ $(./le/@) -ne 32 ]; then \
-        if [ $(./le/@) -le $(./ge/@) ]; then \
+      if [ -n \"$(./le/@)\" ]; then \
+        if [ $(./le/@) -ne 32 ] && [ -n \"$(./ge/@)\" ] && [ $(./le/@) -le $(./ge/@) ]; then \
           echo le must be greater than or equal to ge ; \
           exit 1 ; \
         fi ; \

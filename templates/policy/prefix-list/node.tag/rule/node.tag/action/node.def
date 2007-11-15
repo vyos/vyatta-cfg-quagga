@@ -1,3 +1,4 @@
 type: txt
+default: "deny"
 help: "Action to take on prefixes matching this rule"
 syntax: $(@) in "permit", "deny"; "action must be permit or deny"
