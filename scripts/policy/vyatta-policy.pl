@@ -103,14 +103,27 @@ sub update_as_path() {
   exit 0;
 }
 
+sub is_access_list {
+    my $list = shift;
+
+    my $count = `vtysh -c \"show ip access-list $list\" | grep $list | wc -l`;
+    if ($count > 0) {
+	return 1; 
+    } else {
+	return 0;
+    }
+}
+
 sub update_access_list() {
   my $list = shift;
   my $config = new VyattaConfig;
   my @rules = ();
   my $rule;
 
-  # remove the old rule
-  system ("$VTYSH -c \"configure terminal\" -c \"no access-list $list\" ");
+  # remove the old rule if it already exists
+  if (is_access_list($list)) {
+      system ("$VTYSH -c \"configure terminal\" -c \"no access-list $list\" ");
+  }
 
   $config->setLevel("policy access-list $list rule");
   @rules = $config->listNodes();
@@ -136,8 +149,7 @@ sub update_access_list() {
       $srcmsk = $config->returnValue("$rule source inverse-mask"); 
     }
     else {
-      $src = $config->returnValue("$rule source any");
-      if ("$src" eq "true") { $src = "any"; }
+      if ($config->exists("$rule source any")) { $src = "any"; }
       else {
         print "error in source section of access-list $list rule $rule\n";
         exit 1;
@@ -157,8 +169,7 @@ sub update_access_list() {
         $dstmsk = $config->returnValue("$rule destination inverse-mask");
       }
       else {
-        $dst = $config->returnValue("$rule destination any");
-        if ("$dst" eq "true") { $dst = "any"; }
+        if ($config->exists("$rule destination any")) { $dst = "any"; }
         else {
           print "error in destination section of access-list $list rule $rule\n";
           exit 1;
