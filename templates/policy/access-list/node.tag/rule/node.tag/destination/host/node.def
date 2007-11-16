@@ -1,6 +1,6 @@
 type: ipv4
 help: "Filter a host IP address"
-syntax: ($(../../@) >= 100 && $(../../@) <= 199) || ($(../../@) >= 2000) && $(../../@) <= 2699); " \
+syntax: ($(../../../@) >= 100 && $(../../../@) <= 199) || ($(../../../@) >= 2000 && $(../../../@) <= 2699); " \
 To set destination filter parameters, the access-list rule number must be \n \
   <100-199>    IP extended access list \n \
   <2000-2699>  IP extended access list (expanded range) \n" 
