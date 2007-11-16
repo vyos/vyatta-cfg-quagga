@@ -29,6 +29,17 @@ sub check_peer_syntax() {
   exit 1;
 }
 
+sub is_community_list {
+    my $list = shift;
+
+    my $count = `vtysh -c \"show ip community-list $list\" | grep $list | wc -l`;
+    if ($count > 0) {
+	return 1; 
+    } else {
+	return 0;
+    }
+}
+
 sub update_community_list() {
   my $num = shift;
   my $config = new VyattaConfig;
@@ -36,7 +47,9 @@ sub update_community_list() {
   my $rule;
 
   # remove the old rule
-  system ("$VTYSH -c \"configure terminal\" -c \"no ip community-list $num\" ");
+  if (is_community_list($num)) {
+      system("$VTYSH -c \"configure terminal\" -c \"no ip community-list $num\" ");
+  }
 
   $config->setLevel("policy community-list $num rule");
   @rules = $config->listNodes();
@@ -66,6 +79,17 @@ sub update_community_list() {
   exit 0;
 }
 
+sub is_as_path_list {
+    my $list = shift;
+
+    my $count = `vtysh -c \"show ip as-path-access-list $list\" | grep $list | wc -l`;
+    if ($count > 0) {
+	return 1; 
+    } else {
+	return 0;
+    }
+}
+
 sub update_as_path() {
   my $word = shift;
   my $config = new VyattaConfig;
@@ -73,7 +97,9 @@ sub update_as_path() {
   my $rule;
 
   # remove the old rule
-  system ("$VTYSH -c \"configure terminal\" -c \"no ip as-path access-list $word\" ");
+  if (is_as_path_list($word)) {
+      system("$VTYSH -c \"configure terminal\" -c \"no ip as-path access-list $word\" ");
+  }
 
   $config->setLevel("policy as-path-list $word rule");
   @rules = $config->listNodes();
