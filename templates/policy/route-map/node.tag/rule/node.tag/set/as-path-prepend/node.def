@@ -1,5 +1,6 @@
 type: txt
 help: "Prepend string for a BGP AS-path attribute"
+syntax: exec "/opt/vyatta/sbin/vyatta-check-as-prepend.pl \"$(@)\" "; "Invalid AS path."
 commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
 update: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
@@ -7,3 +8,4 @@ update: "/usr/bin/vtysh -c \"configure terminal\" \
 delete: "/usr/bin/vtysh -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no set as-path prepend \" "
+#comp_help: Enter a list of AS numbers to prepend.  Use double quotes around the list (f.g. "456 64500 45001")
