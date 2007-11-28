@@ -1,1 +1,3 @@
 help: "IP network"
+commit: $(./next-hop/) != "" || $(./blackhole/) != ""; "Must add either a next-hop or blackhole for route $(@)"
+

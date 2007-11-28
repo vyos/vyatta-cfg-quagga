@@ -1,13 +1,11 @@
-tag:
-type: ipv4
-help: "Configure the next-hop router"
+help: "Silently discard pkts when matched"
 delete: "touch /tmp/static.\\$PPID"
 end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) null0\" ; \
          rm /tmp/static.\\$PPID; \
       else \
          if [ -n \"$(./metric/@)\" ]; then \
 	    MET=\"$(./metric/@)\"; \
          fi; \	       
-         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$MET \" ; \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) null0 \\$MET \" ; \
       fi; "

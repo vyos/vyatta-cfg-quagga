@@ -1,2 +1,2 @@
 help: "IP network"
-
+commit: $(./next-hop-interface/) != "" || $(./blackhole/) != ""; "Must add either a next-hop-interface or blackhole for route $(@)"
