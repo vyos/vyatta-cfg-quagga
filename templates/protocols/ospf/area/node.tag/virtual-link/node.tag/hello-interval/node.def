@@ -5,3 +5,4 @@ update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"area $(../../@) virtual-link $(../@) hello-interval $(@)\"; "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"no area $(../../@) virtual-link $(../@) hello-interval \"; "
+#comp_help: <1-65535> Seconds

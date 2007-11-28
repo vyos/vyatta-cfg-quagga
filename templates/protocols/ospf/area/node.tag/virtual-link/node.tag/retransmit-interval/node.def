@@ -5,3 +5,4 @@ update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"area $(../../@) virtual-link $(../@) retransmit-interval $(@)\"; "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"no area $(../../@) virtual-link $(../@) retransmit-interval \"; "
+#comp_help: <1-65535> Seconds

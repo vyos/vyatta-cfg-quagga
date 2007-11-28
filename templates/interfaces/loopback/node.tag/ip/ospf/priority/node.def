@@ -1,0 +1,8 @@
+type: u32
+help: "Router priority"
+syntax: $(@) >= 0 && $(@) <= 255; "Must be between 0-255"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+          -c \"ip ospf priority $(@)\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+          -c \"no ip ospf priority \"; "
+#comp_help: <0-255> Priority

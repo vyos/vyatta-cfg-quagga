@@ -1,0 +1,8 @@
+type: txt
+help: "Network type"
+syntax: $(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+          -c \"ip ospf network $(@)\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+          -c \"no ip ospf network \"; "
+#comp_help: Enter the network type (broadcast|non-broadcast|point-to-multipoint|point-to-point)

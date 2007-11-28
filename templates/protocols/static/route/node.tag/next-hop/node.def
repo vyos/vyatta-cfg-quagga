@@ -1,4 +1,5 @@
 type: ipv4
 help: "Configure the next-hop router"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@)\" "
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" "
