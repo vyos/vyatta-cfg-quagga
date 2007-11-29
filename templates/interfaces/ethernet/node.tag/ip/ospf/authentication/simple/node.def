@@ -1,0 +1,12 @@
+type: txt
+help: "Configure simple password"
+update: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"interface $(../../../@) \"          \
+	 -c \"no ip ospf authentication \"        \
+	 -c \"ip ospf authentication \"           \
+	 -c \"ip ospf authentication-key $(@) \"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"interface $(../../../@) \"          \
+	 -c \"no ip ospf authentication \"        \
+	 -c \"no ip ospf authentication-key \"; "
+

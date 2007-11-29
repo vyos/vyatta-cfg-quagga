@@ -1,0 +1,10 @@
+help: "Configure MD5 key id"
+update: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"interface $(../../../../@) \"       \
+         -c \"no ip ospf authentication \"        \
+         -c \"ip ospf authentication message-digest\"; "
+delete: "/usr/bin/vtysh -c \"configure terminal\" \
+         -c \"interface $(../../../../@) \"       \
+         -c \"no ip ospf authentication \"; "
+
+

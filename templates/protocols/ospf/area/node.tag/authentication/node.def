@@ -1,0 +1,17 @@
+type: txt
+help: "Configure OSPF area authentication type"
+syntax: $(@) in "simple", "md5"; "Must be either simple or md5"
+update: "if [ x$(@) == xsimple ]; then                          \
+           /usr/bin/vtysh -c \"configure terminal\"             \
+            -c \"router ospf \"                                 \
+            -c \"no area $(../@) authentication \"              \
+            -c \"area $(../@) authentication \" ;               \
+         else                                                   \
+           /usr/bin/vtysh -c \"configure terminal\"             \
+            -c \"router ospf \"                                 \
+            -c \"no area $(../@) authentication \"              \ 
+            -c \"area $(../@) authentication message-digest\" ; \
+         fi; "
+delete: "/usr/bin/vtysh -c \"configure terminal\"               \
+            -c \"router ospf \"                                 \
+            -c \"no area $(../@) authentication \" "
