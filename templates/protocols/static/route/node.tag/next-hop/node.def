@@ -6,8 +6,8 @@ end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
          /usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
          rm /tmp/static.\\$PPID; \
       else \
-         if [ -n \"$(./metric/@)\" ]; then \
-	    MET=\"$(./metric/@)\"; \
+         if [ -n \"$(./distance/@)\" ]; then \
+	    DIST=\"$(./distance/@)\"; \
          fi; \	       
-         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$MET \" ; \
+         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$DIST \" ; \
       fi; "
