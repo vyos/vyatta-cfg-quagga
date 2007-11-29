@@ -1,0 +1,22 @@
+tag:
+type: u32
+help: "Configure MD5 key id"
+syntax: $(@) >= 1 && $(@) <= 255; "ID must be between (1-255)"
+commit: $(md5-key/) != ""; "must add the md5-key for key-id $(@)"
+delete: "touch /tmp/ospf-md5.\\$PPID"
+end: "if [ -f \"/tmp/ospf-md5.\\$PPID\" ]; then                    \
+         /usr/bin/vtysh -c \"configure terminal\"                  \
+          -c \"interface $(../../../../../@) \"                    \
+          -c \"no ip ospf message-digest-key $(@)\";               \
+         rm /tmp/ospf-md5.\\$PPID;                                 \
+      else                                                         \
+         /usr/bin/vtysh -c \"configure terminal\"                  \
+          -c \"interface $(../../../../../@) \"                    \
+          -c \"ip ospf message-digest-key $(@) md5 $(md5-key/@)\"; \
+      fi; "
+
+
+
+
+
+
