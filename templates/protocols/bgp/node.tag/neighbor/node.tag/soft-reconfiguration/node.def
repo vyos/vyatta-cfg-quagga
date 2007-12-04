@@ -1,2 +1,2 @@
 help: "Per neighbor soft reconfiguration"
-commit: $(./inbound/@) != ""; "You must specify the type of soft-reconfiguration"
+commit: $(./inbound/) != ""; "You must specify the type of soft-reconfiguration"
