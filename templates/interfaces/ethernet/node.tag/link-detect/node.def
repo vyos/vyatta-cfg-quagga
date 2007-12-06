@@ -1,5 +1,5 @@
 help: "detect link state changes"
 update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../@)\" \
-          -c \"link-detect"
+          -c \"link-detect\"; "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../@)\" \
           -c \"no link-detect \"; "
