@@ -1,0 +1,9 @@
+multi:
+type: ipv4net
+help: "RIP static route configuration"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+         -c \"route $(@)\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+         -c \"no route $(@)\" "
+

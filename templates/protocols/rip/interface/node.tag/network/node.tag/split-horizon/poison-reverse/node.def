@@ -1,5 +1,0 @@
-help: "With poison reverse"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
-          -c \"ip rip split-horizon poisoned-reverse\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
-          -c \"no ip rip split-horizon\" -c \"ip rip split-horizon\" "

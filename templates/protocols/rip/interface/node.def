@@ -1,4 +1,4 @@
-tag:
+multi:
 type: txt
 help: "Interface name"
 syntax: exec " \
@@ -7,5 +7,4 @@ syntax: exec " \
           exit 1 ; \
         fi ; "
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" -c \"network $(@)\" "
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" -c \"network $(@)\" "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" -c \"no network $(@)\" "

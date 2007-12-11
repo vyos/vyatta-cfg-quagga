@@ -1,6 +1,6 @@
 type: txt
 help: "Simple password authentication key"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../../@)\" \
           -c \"ip rip authentication mode text\" -c \"ip rip authentication string $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../../@)\" \
           -c \"no ip rip authentication mode\" -c \"no ip rip authentication string $(@)\"; "

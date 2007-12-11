@@ -1,5 +1,8 @@
-help: "Set interface as receive only"
+multi:
+type: ipv4
+help: "Specify a neighbor router"
 create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"passive-interface $(../@)\" "
+        -c \"neighbor $(@)\"; "
 delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"no passive-interface $(../@)\" "
+        -c \"no neighbor $(@)\"; "
+

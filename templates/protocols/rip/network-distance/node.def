@@ -1,0 +1,18 @@
+tag:
+type: ipv4net
+help: "Source network"
+syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+commit: $(./distance/) != ""; "Must specify distance for network $(@)"
+delete: "touch /tmp/rip-dist.\\$PPID"
+end: "if [ -n \"$(./access-list/@)\" ]; then \
+	 ACL=\"$(./access-list/@)\"; \
+      fi; \
+      if [ -f \"/tmp/rip-dist.\\$PPID\" ]; then \
+          dist=\\$(cat /tmp/rip-network-distance.\\$PPID); \
+          /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+          -c \"no distance \\$dist $(@) \\$ACL \" ;
+          rm -f \"/tmp/rip-dist.\\$PPID\";
+      else \
+        /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+          -c \"distance $(./distance/@) $(@) \\$ACL \" ;
+      fi; "
