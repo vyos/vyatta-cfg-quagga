@@ -1,0 +1,7 @@
+type: txt
+help: "prefix-list to apply to input packets"
+commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\" ";"prefix-list $(@) doesn't exist"
+update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\"  \
+           -c \"distribute-list prefix $(@) in $(../../@) \" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\"  \
+           -c \"no distribute-list prefix $(@) in $(../../@) \" "

@@ -1,0 +1,10 @@
+tag:
+type: txt
+help: "Apply filtering to an interface"
+syntax: exec "if [ -z \"`ip addr | grep $(@) `\" ]; then                       \
+                 echo ethernet interface $(@) doesn\\'t exist on this system ; \
+                 exit 1 ;                                                      \
+              fi ; "
+#allowed: local -a array;
+# array=( /sys/class/net/{eth,vmnet}* ) ;
+# echo -n ${array[@]##*/}
