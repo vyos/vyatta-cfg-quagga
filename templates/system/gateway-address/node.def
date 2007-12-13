@@ -1,5 +1,5 @@
 type: txt
 help: "Configure default gateway"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $(@)\" "
+create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $(@)\" "
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $(@)\" "
 

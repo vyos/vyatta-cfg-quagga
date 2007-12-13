@@ -1,7 +1,7 @@
 type: txt
 help: "Configure area's shortcutting mode"
 syntax: $(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
           -c \"area $(../@) shortcut $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
           -c \"no area $(../@) shortcut $(@)\"; "

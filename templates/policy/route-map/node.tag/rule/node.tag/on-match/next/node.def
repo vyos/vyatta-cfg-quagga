@@ -1,10 +1,10 @@
 help: "Goto next sequence number"
 syntax: $(../goto/) == ""; "you can set only goto or next"
 commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"on-match next \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no on-match next \" "
 

@@ -1,6 +1,6 @@
 type: ipv4
 help: "Configure route-reflector cluster-id\n"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp cluster-id $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"no bgp cluster-id \" "

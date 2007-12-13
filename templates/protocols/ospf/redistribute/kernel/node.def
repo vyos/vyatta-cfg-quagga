@@ -1,6 +1,6 @@
 help: "Redistribute kernel routes"
 delete: "touch /tmp/ospf-redist-kernel.\\$PPID" 
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"no redistribute kernel \"; \
       if [ -f \"/tmp/ospf-redist-kernel.\\$PPID\" ]; then \
         rm -rf /tmp/ospf-redist-kernel.\\$PPID; \
@@ -11,6 +11,6 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
         if [ -n \"$(./route-map/@)\" ]; then \
           COND=\"\\$COND route-map $(./route-map/@)\"; \
         fi; \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
           -c \"redistribute kernel \\$COND\"; \
       fi; "

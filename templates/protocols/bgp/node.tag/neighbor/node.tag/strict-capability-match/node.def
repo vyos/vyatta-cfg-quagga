@@ -6,8 +6,8 @@ update: "if [ -n \"$(../remote-as/@)\" ]; then \
          else \
            peer=\"peer-group $(../peer-group/@)\"; \
          fi; \
-	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
+	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
 	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) strict-capability-match \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) strict-capability-match \" "

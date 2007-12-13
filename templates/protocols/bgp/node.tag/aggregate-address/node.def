@@ -3,7 +3,7 @@ type: ipv4net
 help: "Configure BGP aggregate entries"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
 delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID" 
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
         -c \"no aggregate-address $(@)\"; \
       if [ -f \"/tmp/`echo $(@) | sed 's!/!!'`.\\$PPID\" ]; then \
         rm -rf /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID; \
@@ -14,6 +14,6 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
         if [ -n \"$(./summary-only/@)\" ]; then \
           COND=\"\\$COND summary-only\"; \
         fi; \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
           -c \"aggregate-address $(@) \\$COND\"; \
       fi; "

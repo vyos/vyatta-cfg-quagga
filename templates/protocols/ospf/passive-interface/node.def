@@ -7,17 +7,17 @@ syntax: exec " \
           exit 1 ; \
         fi ; "
 update: "if [ x$(x) == xdefault ]; then \
-            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
             -c \"passive-interface default\"; \
          else \
-            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
             -c \"passive-interface $(@)\"; \
          fi; "
 delete: "if [ x$(x) == xdefault ]; then \
-            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
             -c \"no passive-interface default\"; \
          else \
-            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
             -c \"no passive-interface $(@)\"; \
          fi; "
 #allowed: local -a array;

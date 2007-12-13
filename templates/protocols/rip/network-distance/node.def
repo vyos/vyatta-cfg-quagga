@@ -9,10 +9,10 @@ end: "if [ -n \"$(./access-list/@)\" ]; then \
       fi; \
       if [ -f \"/tmp/rip-dist.\\$PPID\" ]; then \
           dist=\\$(cat /tmp/rip-network-distance.\\$PPID); \
-          /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+          \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \ 
           -c \"no distance \\$dist $(@) \\$ACL \" ;
           rm -f \"/tmp/rip-dist.\\$PPID\";
       else \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \ 
           -c \"distance $(./distance/@) $(@) \\$ACL \" ;
       fi; "

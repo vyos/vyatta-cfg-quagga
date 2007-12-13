@@ -1,11 +1,11 @@
 help: "Set RIP timer values"
 delete: "touch /tmp/rip-timers.\\$PPID"
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no timers basic\"; \
       if [ -f \"/tmp/rip-timers.\\$PPID\" ]; then \
         rm -rf /tmp/rip-timers.\\$PPID; \
       else \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
           -c \"timers basic $(./update/@) $(./timeout/@) $(./garbage-collection/@)\"; \
       fi; "
 

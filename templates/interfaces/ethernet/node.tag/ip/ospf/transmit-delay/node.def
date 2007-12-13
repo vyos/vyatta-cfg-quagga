@@ -1,8 +1,8 @@
 type: u32
 help: "Link state transmit delay"
 syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
           -c \"ip ospf transmit-delay $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
           -c \"no ip ospf transmit-delay \"; "
 #comp_help: <1-65535> Seconds

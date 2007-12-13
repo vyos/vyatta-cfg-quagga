@@ -1,6 +1,6 @@
 type: ipv4
 help: "Override the default router identifier"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
            -c \"ospf router-id $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
            -c \"no ospf router-id \" "

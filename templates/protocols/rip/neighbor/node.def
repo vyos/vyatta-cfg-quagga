@@ -1,8 +1,8 @@
 multi:
 type: ipv4
 help: "Specify a neighbor router"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"neighbor $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no neighbor $(@)\"; "
 

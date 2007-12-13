@@ -1,8 +1,8 @@
 help: "Enable split horizon on this interface"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
           -c \"interface $(../../../@)\" \
           -c \"ip rip split-horizon\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
           -c \"interface $(../../../@)\" \
           -c \"no ip rip split-horizon\" "
 

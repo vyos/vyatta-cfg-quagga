@@ -1,8 +1,8 @@
 type: u32
 help: "Administrative distance"
 syntax: $(@) >= 1 && $(@) <= 255; "must be between 1 and 255"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \ 
           -c \"distance $(@) \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \ 
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \ 
           -c \"no distance $(@) \" "
 #comp_help: Enter a distance valude between 1-255

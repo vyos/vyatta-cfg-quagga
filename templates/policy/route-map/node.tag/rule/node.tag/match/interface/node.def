@@ -7,9 +7,9 @@ syntax: exec " \
           echo $(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match interface $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no match interface $(@)\" "

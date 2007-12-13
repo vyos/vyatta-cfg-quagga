@@ -1,9 +1,9 @@
 type: u32
 help: "BGP weight for routing table"
 commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set weight $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no set weight  \" "

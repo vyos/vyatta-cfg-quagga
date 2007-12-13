@@ -2,11 +2,11 @@ help: "Adjust routing timers"
 commit: $(./keepalive/) != ""; "You must set a keepalive interval"
 commit: $(./holdtime/) != ""; "You must set a holdtime interval"
 delete: "touch /tmp/bgp-timers.\\$PPID"
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
         -c \"no timers bgp\"; \
       if [ -f \"/tmp/bgp-timers.\\$PPID\" ]; then \
         rm -rf /tmp/bgp-timers.\\$PPID; \
       else \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../@)\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
           -c \"timers bgp $(./keepalive/@) $(./holdtime/@)\"; \
       fi; "

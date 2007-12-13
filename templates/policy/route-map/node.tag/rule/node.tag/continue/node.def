@@ -2,9 +2,9 @@ type: u32
 help: "Continue on a different entry within the route-map"
 syntax: $(@) >= 1 && $(@) <= 65535; "continue must be between 1 and 65535"
 syntax: $(@) > $(../../@); "you may only continue forward in the route-map"
-update: "/usr/bin/vtysh -c \"configure terminal\" 
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" 
    	   -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"continue $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" 
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" 
 	   -c \"route-map $(../../@) $(../action/@) $(../@)\" \
            -c \"no continue \" "

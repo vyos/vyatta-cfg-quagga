@@ -1,8 +1,8 @@
 type: u32
 help: "access-list to apply to input packets"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\"  \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
            -c \"distribute-list $(@) in $(../../@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\"  \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
            -c \"no distribute-list $(@) in $(../../@)\" "
 

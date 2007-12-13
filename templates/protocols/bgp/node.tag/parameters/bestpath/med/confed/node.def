@@ -1,6 +1,6 @@
 help: "Compare MED among confederation paths"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"bgp bestpath med confed \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"no bgp bestpath med confed \" "
 

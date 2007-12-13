@@ -1,7 +1,7 @@
 help: "Accept as-path with my AS present in it."
 commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 delete: "touch /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID"
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
          -c \"no neighbor $(../@) allowas-in \"; \
       if [ -f \"/tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID\" ]; then \
         rm -rf /tmp/bgp-neighbor-$(../@)-allowas-in.\\$PPID; \
@@ -11,7 +11,7 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         else \
            peer=\"peer-group $(../peer-group/@)\"; \
         fi; \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
 	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) allowas-in $(./number/@)\"; \
       fi; "

@@ -1,5 +1,5 @@
 help: "Ignore as-path length in selecting a route"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"bgp bestpath as-path ignore \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
            -c \"no bgp bestpath as-path ignore \" "

@@ -1,9 +1,9 @@
 type: txt
 help: "Community number in aa:nn format or local-AS|no-advertise|no-export|internet|additive or none"
 commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"set community $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no set community \" "

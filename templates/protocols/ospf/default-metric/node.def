@@ -1,7 +1,7 @@
 type: u32
 help: "Set metric of redistributed routes"
 syntax: $(@) >= 0 && $(@) <= 16777214; "Must be between 0-16777214"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"default-metric $(@) \"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"no default-metric $(@) \"; "

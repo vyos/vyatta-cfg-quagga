@@ -1,5 +1,5 @@
 help: "Enforce the first AS for EBGP routes"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"bgp enforce-first-as \" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
            -c \"no bgp enforce-first-as \" "

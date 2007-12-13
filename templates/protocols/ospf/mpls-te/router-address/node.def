@@ -1,6 +1,6 @@
 type: ipv4
 help: "Stable IP address of the advertising router"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"mpls-te router-address $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"no mpls-te\"; "

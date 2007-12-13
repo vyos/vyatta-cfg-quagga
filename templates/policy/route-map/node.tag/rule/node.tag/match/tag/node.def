@@ -2,10 +2,10 @@ type: u32
 help: "Match tag of route"
 syntax: $(@) >= 1 && $(@) <= 65535; "tag must be between 1 and 65535"
 commit: $(../../action) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"match tag $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
          -c \"no match tag $(@)\" "
 

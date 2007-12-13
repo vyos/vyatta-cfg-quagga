@@ -1,7 +1,7 @@
 help: "OSPF administrative distance"
 delete: "touch /tmp/ospf-distance.\\$PPID"
 end: "if [ -f \"/tmp/ospf-distance.\\$PPID\" ]; then \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"no distance ospf\"; \
 	 rm /tmp/ospf-distance.\\$PPID; \
       else \
@@ -14,6 +14,6 @@ end: "if [ -f \"/tmp/ospf-distance.\\$PPID\" ]; then \
          if [ -n \"$(./external/@)\" ]; then \
            PARM=\"\\$PARM external $(./external/@)\"; \
          fi; \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"no distance ospf\" -c \"distance ospf \\$PARM\"; \
       fi; "

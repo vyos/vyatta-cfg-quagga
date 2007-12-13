@@ -1,7 +1,7 @@
 help: "Distribute a default route"
 delete: "touch /tmp/ospf-default-info.\\$PPID"
 end: "if [ -f \"/tmp/ospf-default-info.\\$PPID\" ]; then \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"no default-information originate \"; \
       else \
          if [ -n \"$(./always/@)\" ]; then \
@@ -16,6 +16,6 @@ end: "if [ -f \"/tmp/ospf-default-info.\\$PPID\" ]; then \
          if [ -n \"$(./route-map/@)\" ]; then \
            PARM=\"\\$PARM route-map $(./route-map/@)\"; \
          fi; \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"default-information originate \\$PARM\"; \
       fi; "

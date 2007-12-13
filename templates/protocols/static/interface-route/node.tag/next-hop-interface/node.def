@@ -8,12 +8,12 @@ syntax: exec " \
         fi ; "
 delete: "touch /tmp/static.\\$PPID"
 end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
          rm /tmp/static.\\$PPID; \
       else \
          if [ -n \"$(./distance/@)\" ]; then \
 	    DIST=\"$(./distance/@)\"; \
          fi; \	       
-         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$DIST \" ; \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$DIST \" ; \
       fi; "
 

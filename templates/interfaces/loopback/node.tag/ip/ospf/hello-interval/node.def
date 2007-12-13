@@ -1,8 +1,8 @@
 type: u32
 help: "Interval between HELLO packets"
 syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@) \" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@) \" \
           -c \"ip ospf hello-interval $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@) \" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@) \" \
           -c \"no ip ospf hello-interval \"; "
 #comp_help: <1-65535> Seconds

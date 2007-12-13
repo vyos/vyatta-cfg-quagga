@@ -1,8 +1,8 @@
 type: u32
 help: "Interval between retransmitting lost link state advertisements"
 syntax: $(@) >= 3 && $(@) <= 65535; "Must be between 3-65535"
-update: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
           -c \"ip ospf retransmit-interval $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"interface $(../../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
           -c \"no ip ospf retransmit-interval \"; "
 #comp_help: <3-65535> Seconds

@@ -4,13 +4,13 @@ commit: $(../../action/) != ""; "Must configure an action"
 delete: "echo $(./as/@) $(./ip/@) > /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-aggregator.\\$PPID"
 end: "if [ -f \"/tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-aggregator.\\$PPID\" ]; then \
         as=\\$(cat /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-aggregator.\\$PPID); \
-        /usr/bin/vtysh -c \"configure terminal\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
         -c \"no set aggregator as \\$as\" ; \
         rm -rf /tmp/policy-route-map-$(../../../@)-$(../../action/@)-$(../../@)-set-aggregator.\\$PPID; \
       else \
 	as=\"$(./as/@) $(./ip/@)\"; \
-        /usr/bin/vtysh -c \"configure terminal\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
         -c \"set aggregator as \\$as\" ; \
       fi ; "

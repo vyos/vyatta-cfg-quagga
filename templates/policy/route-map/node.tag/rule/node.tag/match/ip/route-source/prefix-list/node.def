@@ -2,9 +2,9 @@ type: txt
 help: "prefix-list name"
 commit: $(../access-list/) == ""; "You can only specify a prefix-list or access-list"
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $(@)\" "; "prefix-list $(@) does not exist"
-update: "/usr/bin/vtysh -c \"configure terminal\" \
+update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../../../@) $(../../../../action/@) $(../../../../@)\" \
          -c \"match ip route-source prefix-list $(@)\" "
-delete: "/usr/bin/vtysh -c \"configure terminal\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
          -c \"route-map $(../../../../../@) $(../../../../action/@) $(../../../../@)\" \
          -c \"no match ip route-source prefix-list $(@)\" "

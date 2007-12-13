@@ -1,11 +1,11 @@
 help: "Silently discard pkts when matched"
 delete: "touch /tmp/static.\\$PPID"
 end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
-         /usr/bin/vtysh -c \"configure terminal\" -c \"no ip route $(../@) null0\" ; \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $(../@) null0\" ; \
          rm /tmp/static.\\$PPID; \
       else \
          if [ -n \"$(./distance/@)\" ]; then \
 	    DIST=\"$(./distance/@)\"; \
          fi; \	       
-         /usr/bin/vtysh -c \"configure terminal\" -c \"ip route $(../@) null0 \\$DIST \" ; \
+         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $(../@) null0 \\$DIST \" ; \
       fi; "

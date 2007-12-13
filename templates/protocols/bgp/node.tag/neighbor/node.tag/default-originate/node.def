@@ -2,7 +2,7 @@ help: "Originate default route to this neighbor"
 commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 commit: $(../peer-group/) == ""; "You can't set default-originate for neighbor $(../@) in peer-group $(../peer-group/@)"
 delete: "touch /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID"
-end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
         -c \"no neighbor $(../@) default-originate \"; \
       if [ -f \"/tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID\" ]; then \
         rm -rf /tmp/bgp-neighbor-$(../@)-default-originate.\\$PPID; \
@@ -15,7 +15,7 @@ end: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
          else \
            peer=\"peer-group $(../peer-group/@)\"; \
          fi; \
-        /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
 	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) default-originate \\$cond\"; \
       fi; "

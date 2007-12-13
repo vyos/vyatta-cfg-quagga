@@ -2,7 +2,7 @@ multi:
 type: ipv4net
 help: "RIP network"
 syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-create: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
           -c \"network $(@)\"; "
-delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router rip\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
           -c \"no network $(@)\"; "

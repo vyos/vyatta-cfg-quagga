@@ -2,7 +2,7 @@ help: "Normal OSPF area"
 syntax: $(../stub/) == "" ; "Must delete stub area type first"
 syntax: $(../nssa/) == "" ; "Must delete nssa area type first"
 create: "if [ x$(../../@) != x0.0.0.0 ] && [ x$(../../@) != x0 ]; then \
-            /usr/bin/vtysh -c \"configure terminal\" -c \"router ospf\" \
+            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
             -c \"no area $(../../@) stub\" -c \"no area $(../../@) nssa\"; \
          fi; "
 
