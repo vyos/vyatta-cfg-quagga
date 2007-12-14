@@ -1,0 +1,2 @@
+help: "Do not send community attributes to this neighbor"
+commit: ($(./extended/) != "") || ($(./standard/) != ""); "You must specify the type of community."

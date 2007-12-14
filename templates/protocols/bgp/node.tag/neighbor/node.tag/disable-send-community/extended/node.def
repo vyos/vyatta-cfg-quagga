@@ -1,0 +1,14 @@
+help: "Do not send extended community attributes"
+commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../@) --neighbor $(../../@)"
+commit: $(../../peer-group/) == ""; "You can't set no-send-community for neighbor $(../../@) in peer-group $(../../peer-group/@)"
+update: "if [ -n \"$(../../remote-as/@)\" ]; then \
+           peer=\"remote-as $(../../remote-as/@)\"; \
+         else \
+           peer=\"peer-group $(../../peer-group/@)\"; \
+         fi; \
+	 /usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+	  -c \"neighbor $(../../@) \\$peer\" \
+          -c \"no neighbor $(../../@) send-community extended\" "
+delete: "/usr/bin/vtysh -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+          -c \"neighbor $(../../@) send-community extended\" "
+
