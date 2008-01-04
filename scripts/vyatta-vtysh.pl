@@ -30,7 +30,14 @@ use warnings;
 use strict;
 use POSIX;
 
-my $vtysh   = '/usr/bin/vtysh';
+my $vtysh;
+
+if ( -x '/usr/bin/vyatta-vtysh' && -S '/var/run/vyatta/quagga/zebra.vty' ) {
+   $vtysh = '/usr/bin/vyatta-vtysh';
+} else {
+   $vtysh = '/usr/bin/vtysh';
+}
+
 my $logfile = '/tmp/vtysh.log';
 
 my $ignore_error = 0;
