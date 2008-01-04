@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# if using debian/ubuntu quagga instead of vyatta-quagga
+if [ "$1" = "install" ] && [ -f /etc/quagga/daemons ] ; then
+  # only start zebra daemon, the protocols are started by vyatta config
+    sed -i 's/zebra=no/zebra=yes/; s/\(bgpd\|ripd\|ospfd\)=yes/\1=no/' \
+	/etc/quagga/daemons
+    for daemon in zebra vtysh ripd ripngd ospfd ospf6d isisd bgpd ; do
+        if [ ! -e /etc/quagga/$daemon.conf ] ; then
+            touch /etc/quagga/$daemon.conf
+            chown quagga:quaggavty /etc/quagga/$daemon.conf
+            chmod 0640 /etc/quagga/$daemon.conf
+	fi
+	if ! grep -q 'log ' /etc/quagga/$daemon.conf ; then
+            cat <<-EOF >> /etc/quagga/${daemon}.conf
+                log file /var/log/quagga/${daemon}.log informational
+                EOF
+        fi
+    done
+fi
+
+# Local Variables:
+# mode: shell-script
+# sh-indentation: 4
+# End:
