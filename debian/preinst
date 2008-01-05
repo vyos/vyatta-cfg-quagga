@@ -13,8 +13,8 @@ if [ "$1" = "install" ] && [ -f /etc/quagga/daemons ] ; then
 	fi
 	if ! grep -q 'log ' /etc/quagga/$daemon.conf ; then
             cat <<-EOF >> /etc/quagga/${daemon}.conf
-                log file /var/log/quagga/${daemon}.log informational
-                EOF
+		log file /var/log/quagga/${daemon}.log informational
+		EOF
         fi
     done
 fi
