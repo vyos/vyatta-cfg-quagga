@@ -7,5 +7,5 @@ commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --peergroup=$(@) --as $(
 commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"protocols bgp $(../../@) neighbor $(@)\" "; "peer-group $(@) doesn't exist"
 update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"neighbor $(../@) peer-group $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) peer-group $(@)\" "

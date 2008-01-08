@@ -8,6 +8,6 @@ update: "if [ -n \"$(../remote-as/@)\" ]; then \
 	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
 	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) disable-connected-check\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) disable-connected-check \" "
 

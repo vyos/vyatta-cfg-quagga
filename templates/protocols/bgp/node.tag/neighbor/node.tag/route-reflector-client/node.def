@@ -10,6 +10,6 @@ update: "if [ -n \"$(../remote-as/@)\" ]; then \
 	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
 	  -c \"neighbor $(../@) \\$peer\" \
           -c \"neighbor $(../@) route-reflector-client \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -n -c \"configure terminal\" -c \"router bgp $(../../@)\" \
+delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
           -c \"no neighbor $(../@) route-reflector-client \" "
 
