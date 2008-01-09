@@ -3,7 +3,7 @@ use lib "/opt/vyatta/share/perl5/";
 use VyattaConfig;
 use VyattaMisc;
 use Getopt::Long;
-$VTYSH='/usr/bin/vtysh';
+$VTYSH='/opt/vyatta/sbin/vyatta-vtysh.pl';
 
 GetOptions("update-access-list=s"    => \$accesslist,
            "update-aspath-list=s"    => \$aspathlist,
@@ -32,7 +32,7 @@ sub check_peer_syntax() {
 sub is_community_list {
     my $list = shift;
 
-    my $count = `vtysh -c \"show ip community-list $list\" | grep $list | wc -l`;
+    my $count = `$VTYSH -c \"show ip community-list $list\" | grep $list | wc -l`;
     if ($count > 0) {
 	return 1; 
     } else {
@@ -82,7 +82,7 @@ sub update_community_list() {
 sub is_as_path_list {
     my $list = shift;
 
-    my $count = `vtysh -c \"show ip as-path-access-list $list\" | grep $list | wc -l`;
+    my $count = `$VTYSH -c \"show ip as-path-access-list $list\" | grep $list | wc -l`;
     if ($count > 0) {
 	return 1; 
     } else {
@@ -132,7 +132,7 @@ sub update_as_path() {
 sub is_access_list {
     my $list = shift;
 
-    my $count = `vtysh -c \"show ip access-list $list\" | grep $list | wc -l`;
+    my $count = `$VTYSH -c \"show ip access-list $list\" | grep $list | wc -l`;
     if ($count > 0) {
 	return 1; 
     } else {
