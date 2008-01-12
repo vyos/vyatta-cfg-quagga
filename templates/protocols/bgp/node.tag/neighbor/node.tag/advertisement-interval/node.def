@@ -1,6 +1,6 @@
 type: u32
 help: "Minimum interval between sending BGP routing updates"
-syntax: $(@) >= 0 && $(@) <= 600; "remote-as must be between 0 and 600"
+syntax: $(@) >= 0 && $(@) <= 600; "must be between 0 and 600"
 commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
 update: "if [ -n \"$(../remote-as/@)\" ]; then \
            peer=\"remote-as $(../remote-as/@)\"; \
