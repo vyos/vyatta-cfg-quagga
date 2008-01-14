@@ -2,6 +2,7 @@ tag:
 type: u32
 help: "Specify prefix-list rule number"
 commit: $(./prefix/) != ""; "must set a prefix"
+commit: $(./action/) != ""; "must specify an action before committing"
 delete: "touch /tmp/protocols-$(../@)-$(@).\\$PPID \
          LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
          if [ -n \"$(./ge/@)\" ]; then \
