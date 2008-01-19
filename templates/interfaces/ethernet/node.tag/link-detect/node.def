@@ -1,9 +1,0 @@
-help: "detect link state changes"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../@)\" \
-          -c \"link-detect\" \
-	  && \\${vyatta_sbindir}/vyatta-linkstatus.pl --del $(../@) 2>/dev/null"
-
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../@)\" \
-          -c \"no link-detect \" \
-	  && \\${vyatta_sbindir}/vyatta-linkstatus.pl --add $(../@) 2>/dev/null"
-
