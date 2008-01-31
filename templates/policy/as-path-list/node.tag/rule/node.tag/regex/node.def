@@ -1,5 +1,5 @@
 type: txt
-help: "AS path regular expression"
+help: AS path regular expression
 # TODO: check regex syntax; \
 #       "invalid chars in regex syntax"
-commit: $(../action/@) != ""; "You must specify an action before committing"
+commit:expression: $VAR(../action/@) != ""; "You must specify an action before committing"

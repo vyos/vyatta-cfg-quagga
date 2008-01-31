@@ -1,37 +1,37 @@
 tag:
 type: u32
-help: "Specify prefix-list rule number"
-commit: $(./prefix/) != ""; "must set a prefix"
-commit: $(./action/) != ""; "must specify an action before committing"
-delete: "touch /tmp/protocols-$(../@)-$(@).\\$PPID \
-         LEN=`echo $(@) | awk -F/ '{ print \\$2 }'` ; \
-         if [ -n \"$(./ge/@)\" ]; then \
-           COND=\"ge $(./ge/@) \";
+help: Specify prefix-list rule number
+commit:expression: $VAR(./prefix/) != ""; "must set a prefix"
+commit:expression: $VAR(./action/) != ""; "must specify an action before committing"
+delete:expression: "touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID \
+         LEN=`echo $VAR(@) | awk -F/ '{ print $2 }'` ; \
+         if [ -n \"$VAR(./ge/@)\" ]; then \
+           COND=\"ge $VAR(./ge/@) \";
          fi;
-         if [ -n \"$(./le/@)\" ]; then \
-           COND=\"\\$COND le $(./le/@) \"; \
+         if [ -n \"$VAR(./le/@)\" ]; then \
+           COND=\"$COND le $VAR(./le/@) \"; \
          fi; \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-           -c \"no ip prefix-list $(../@) seq $(@) $(./action/@) $(./prefix/@) \\$COND \" "
-end: "LEN=`echo $(./prefix/@) | awk -F/ '{ print \\$2 }'` ; \
-      if [ -n \"$(./ge/@)\" ]; then \
-        if [ \\$LEN -ge $(./ge/@) ]; then \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+           -c \"no ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $COND \" "
+end:expression: "LEN=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; \
+      if [ -n \"$VAR(./ge/@)\" ]; then \
+        if [ $LEN -ge $VAR(./ge/@) ]; then \
           echo ge must be greater than prefix length ;\
           exit 1 ; \
         fi ; \
-        COND=\"ge $(./ge/@) \";
+        COND=\"ge $VAR(./ge/@) \";
       fi;
-      if [ -n \"$(./le/@)\" ]; then \
-        if [ $(./le/@) -ne 32 ] && [ -n \"$(./ge/@)\" ] && [ $(./le/@) -le $(./ge/@) ]; then \
+      if [ -n \"$VAR(./le/@)\" ]; then \
+        if [ $VAR(./le/@) -ne 32 ] && [ -n \"$VAR(./ge/@)\" ] && [ $VAR(./le/@) -le $VAR(./ge/@) ]; then \
           echo le must be greater than or equal to ge ; \
           exit 1 ; \
         fi ; \
-        COND=\"\\$COND le $(./le/@) \"; \
+        COND=\"$COND le $VAR(./le/@) \"; \
       fi; \
-      if [ -f \"/tmp/protocols-$(../@)-$(@).\\$PPID\" ]; then \
-        rm -f \"protocols-$(../@)-$(@).\\$PPID\" ; \
+      if [ -f \"/tmp/protocols-$VAR(../@)-$VAR(@).$PPID\" ]; then \
+        rm -f \"protocols-$VAR(../@)-$VAR(@).$PPID\" ; \
       else \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \ 
-          -c \"ip prefix-list $(../@) seq $(@) $(./action/@) $(./prefix/@) \\$COND \" ; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $COND \" ; \
       fi ; \
       exit 0 ; "

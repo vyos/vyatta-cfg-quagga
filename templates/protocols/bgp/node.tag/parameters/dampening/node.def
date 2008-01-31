@@ -1,12 +1,12 @@
-help: "Enable route-flap dampening"
-delete: "touch /tmp/bgp-dampening.\\$PPID"
-end: "sh -c \"
-      \\${vyatta_sbindir}/vyatta-vtysh.pl -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
+help: Enable route-flap dampening
+delete:expression: "touch /tmp/bgp-dampening.$PPID"
+end:expression: "sh -c \"
+      ${vyatta_sbindir}/vyatta-vtysh.pl -c \\\"configure terminal\\\" -c \\\"router bgp $VAR(../../@)\\\" \
         -c \\\"no bgp dampening\\\" ; \
-      if [ -f \\\"/tmp/bgp-dampening.\\\\$PPID\\\" ]; then \
-        rm -f \\\"/tmp/bgp-dampening.\\\\$PPID\\\" ; \
+      if [ -f \\\"/tmp/bgp-dampening.$PPID\\\" ]; then \
+        rm -f \\\"/tmp/bgp-dampening.$PPID\\\" ; \
       else \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \\\"configure terminal\\\" -c \\\"router bgp $(../../@)\\\" \
-          -c \\\"bgp dampening $(./half-life/@) $(./re-use/@) $(./start-suppress-time/@) $(./max-suppress-time/@)\\\" ; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \\\"configure terminal\\\" -c \\\"router bgp $VAR(../../@)\\\" \
+          -c \\\"bgp dampening $VAR(./half-life/@) $VAR(./re-use/@) $VAR(./start-suppress-time/@) $VAR(./max-suppress-time/@)\\\" ; \
       fi ; \
       \" "

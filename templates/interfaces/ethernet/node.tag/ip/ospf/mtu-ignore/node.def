@@ -1,5 +1,5 @@
-help: "Disable mtu mismatch detection"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
+help: Disable mtu mismatch detection
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
           -c \"ip ospf mtu-ignore\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
           -c \"no ip ospf mtu-ignore\"; "

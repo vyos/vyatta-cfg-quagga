@@ -1,8 +1,8 @@
 type: u32
-help: "Router priority"
-syntax: $(@) >= 0 && $(@) <= 255; "Must be between 0-255"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
-          -c \"ip ospf priority $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
+help: Router priority
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Must be between 0-255"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
+          -c \"ip ospf priority $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
           -c \"no ip ospf priority \"; "
-#comp_help: <0-255> Priority
+comp_help: <0-255> Priority

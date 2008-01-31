@@ -1,7 +1,7 @@
-help: "Filter any IP address"
-syntax: ($(../../../@) >= 100 && $(../../../@) <= 199) || ($(../../../@) >= 2000 && $(../../../@) <= 2699); " \
+help: Filter any IP address
+syntax:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); " \
 To set destination filter parameters, the access-list number must be \n \
   <100-199>    IP extended access list \n \
   <2000-2699>  IP extended access list (expanded range) \n"
-commit: $(../../action/) != ""; "You must specify an action before committing"
-commit: ($(../host/) == "") && ($(../network/) == ""); "You may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"
+commit:expression: ($VAR(../host/) == "") && ($VAR(../network/) == ""); "You may only define one filter type. (host|network|any)"

@@ -1,8 +1,8 @@
-help: "Normal OSPF area"
-syntax: $(../stub/) == "" ; "Must delete stub area type first"
-syntax: $(../nssa/) == "" ; "Must delete nssa area type first"
-create: "if [ x$(../../@) != x0.0.0.0 ] && [ x$(../../@) != x0 ]; then \
-            \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-            -c \"no area $(../../@) stub\" -c \"no area $(../../@) nssa\"; \
+help: Normal OSPF area
+syntax:expression: $VAR(../stub/) == "" ; "Must delete stub area type first"
+syntax:expression: $VAR(../nssa/) == "" ; "Must delete nssa area type first"
+create:expression: "if [ x$VAR(../../@) != x0.0.0.0 ] && [ x$VAR(../../@) != x0 ]; then \
+            ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+            -c \"no area $VAR(../../@) stub\" -c \"no area $VAR(../../@) nssa\"; \
          fi; "
 

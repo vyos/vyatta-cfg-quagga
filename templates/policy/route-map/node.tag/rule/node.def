@@ -1,4 +1,4 @@
 tag:
 type: u32
-help: "Specify route-map rule number"
-syntax: $(@) >= 1 && $(@) <= 65535; "route-map $(../@): rule number $(@) must be between 1 and 65535"
+help: Specify route-map rule number
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "route-map $VAR(../@): rule number $VAR(@) must be between 1 and 65535"

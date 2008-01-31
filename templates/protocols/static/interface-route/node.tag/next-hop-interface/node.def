@@ -1,19 +1,19 @@
 tag:
 type: txt
-help: "Configure the next-hop interface"
-syntax: exec " \
-        if [ -z \"`ip addr | grep $(@) `\" ]; then \
-          echo ethernet interface $(@) doesn\\'t exist on this system ; \
+help: Configure the next-hop interface
+syntax:expression: exec " \
+        if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
+          echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-delete: "touch /tmp/static.\\$PPID"
-end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
-         rm /tmp/static.\\$PPID; \
+delete:expression: "touch /tmp/static.$PPID"
+end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
+         rm /tmp/static.$PPID; \
       else \
-         if [ -n \"$(./distance/@)\" ]; then \
-	    DIST=\"$(./distance/@)\"; \
+         if [ -n \"$VAR(./distance/@)\" ]; then \
+	    DIST=\"$VAR(./distance/@)\"; \
          fi; \	       
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$DIST \" ; \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $VAR(../@) $VAR(@) $DIST \" ; \
       fi; "
 

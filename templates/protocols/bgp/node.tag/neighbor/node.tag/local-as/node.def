@@ -1,25 +1,25 @@
-help: "Specify a local-as number"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
-commit: $(../peer-group/) == ""; "You can't set a local-as for neighbor $(../../@) in peer-group $(../../peer-group/@)"
-delete: "touch /tmp/bgp-neighbor-$(../@)-local-as.\\$PPID"
-end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-        -c \"no neighbor $(../@) local-as \"; \
-      if [ -f \"/tmp/bgp-neighbor-$(../@)-local-as.\\$PPID\" ]; then \
-        rm -rf /tmp/bgp-neighbor-$(../@)-local-as.\\$PPID; \
+help: Specify a local-as number
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+commit:expression: $VAR(../peer-group/) == ""; "You can't set a local-as for neighbor $VAR(../../@) in peer-group $VAR(../../peer-group/@)"
+delete:expression: "touch /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID"
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+        -c \"no neighbor $VAR(../@) local-as \"; \
+      if [ -f \"/tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID\" ]; then \
+        rm -rf /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID; \
       else \
-        if [ -z \"$(./local-as/@)\" ]; then \
+        if [ -z \"$VAR(./local-as/@)\" ]; then \
           echo You must specify local-as local-as ; \
           exit 1 ; \
         fi ; \
-        if [ -n \"$(./no-prepend/@)\" ]; then \
-          cond=\"no-prepend \" ; \  
+        if [ -n \"$VAR(./no-prepend/@)\" ]; then \
+          cond=\"no-prepend \" ; \
         fi ; \
-	if [ -n \"$(../remote-as/@)\" ]; then \
-          peer=\"remote-as $(../remote-as/@)\"; \
+	if [ -n \"$VAR(../remote-as/@)\" ]; then \
+          peer=\"remote-as $VAR(../remote-as/@)\"; \
         else \
-          peer=\"peer-group $(../peer-group/@)\"; \
+          peer=\"peer-group $VAR(../peer-group/@)\"; \
         fi; \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-	  -c \"neighbor $(../@) \\$peer\" \
-          -c \"neighbor $(../@) local-as $(./local-as/@) \\$cond \"; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+	  -c \"neighbor $VAR(../@) $peer\" \
+          -c \"neighbor $VAR(../@) local-as $VAR(./local-as/@) $cond \"; \
       fi; "

@@ -1,7 +1,7 @@
 type: u32
-help: "Set the max time in seconds to hold onto restarting peer's stale paths"
-syntax: $(@) >= 1 && $(@) <= 3600; "stalepath-time must be between 1 and 3600"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp graceful-restart stalepath-time $(@) \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+help: Set the max time in seconds to hold onto restarting peer's stale paths
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 3600; "stalepath-time must be between 1 and 3600"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+           -c \"bgp graceful-restart stalepath-time $VAR(@) \" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
            -c \"no bgp graceful-restart stalepath-time \" "

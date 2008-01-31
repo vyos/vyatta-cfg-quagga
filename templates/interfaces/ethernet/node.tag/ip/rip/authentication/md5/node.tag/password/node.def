@@ -1,8 +1,8 @@
 type: txt
-help: "Authentication password"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../../../@)\" \
-          -c \"ip rip authentication mode md5\" -c \"ip rip authentication key-chain $(../../../../../@)-rip\" \
-          -c \"key chain $(../../../../../@)-rip\" -c \"key $(../@)\" -c \"key-string $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"interface $(../../../../../@)\" \
-          -c \"no ip rip authentication mode md5\" -c \"no ip rip authentication key-chain $(../../../../../@)-rip\" \
-          -c \"no key chain $(../../../../../@)-rip\" "
+help: Authentication password
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../../../@)\" \
+          -c \"ip rip authentication mode md5\" -c \"ip rip authentication key-chain $VAR(../../../../../@)-rip\" \
+          -c \"key chain $VAR(../../../../../@)-rip\" -c \"key $VAR(../@)\" -c \"key-string $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"interface $VAR(../../../../../@)\" \
+          -c \"no ip rip authentication mode md5\" -c \"no ip rip authentication key-chain $VAR(../../../../../@)-rip\" \
+          -c \"no key chain $VAR(../../../../../@)-rip\" "

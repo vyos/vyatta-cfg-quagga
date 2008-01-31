@@ -1,16 +1,16 @@
-help: "Redistribute BGP routes"
-delete: "touch /tmp/rip-redist-bgp.\\$PPID" 
-end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+help: Redistribute BGP routes
+delete:expression: "touch /tmp/rip-redist-bgp.$PPID" 
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute bgp \"; \
-      if [ -f \"/tmp/rip-redist-bgp.\\$PPID\" ]; then \
-        rm -rf /tmp/rip-redist-bgp.\\$PPID; \
+      if [ -f \"/tmp/rip-redist-bgp.$PPID\" ]; then \
+        rm -rf /tmp/rip-redist-bgp.$PPID; \
       else \
-        if [ -n \"$(./metric/@)\" ]; then \
-          COND=\"metric $(./metric/@)\";
+        if [ -n \"$VAR(./metric/@)\" ]; then \
+          COND=\"metric $VAR(./metric/@)\";
         fi; \
-        if [ -n \"$(./route-map/@)\" ]; then \
-          COND=\"\\$COND route-map $(./route-map/@)\"; \
+        if [ -n \"$VAR(./route-map/@)\" ]; then \
+          COND=\"$COND route-map $VAR(./route-map/@)\"; \
         fi; \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-          -c \"redistribute bgp \\$COND\"; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+          -c \"redistribute bgp $COND\"; \
       fi; "

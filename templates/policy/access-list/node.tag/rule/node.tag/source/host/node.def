@@ -1,4 +1,4 @@
 type: ipv4
-help: "Filter a host IP address"
-commit: ($(../any/) == "") && ($(../network/) == ""); "You may only define one filter type. (host|network|any)"
-commit: $(../../action/) != ""; "You must specify an action before committing"
+help: Filter a host IP address
+commit:expression: ($VAR(../any/) == "") && ($VAR(../network/) == ""); "You may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"

@@ -1,13 +1,13 @@
 multi:
 type: txt
-help: "Interface name"
-syntax: exec " \
-        if [ -z \"`ip addr | grep $(@) `\" ]; then \
-          echo ethernet interface $(@) doesn\\'t exist on this system ; \
+help: Interface name
+syntax:expression: exec " \
+        if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
+          echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" -c \"network $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" -c \"no network $(@)\" "
-#allowed: local -a array;
-# array=( /sys/class/net/{eth,vmnet}* ) ;
-# echo -n ${array[@]##*/}
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" -c \"network $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" -c \"no network $VAR(@)\" "
+allowed: local -a array;
+ array=( /sys/class/net/{eth,vmnet}* ) ;
+ echo -n ${array[@]##*/}

@@ -1,5 +1,5 @@
-help: "Check BGP network route exists in IGP"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+help: Check BGP network route exists in IGP
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
            -c \"bgp network import-check \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
            -c \"no bgp network import-check \" "

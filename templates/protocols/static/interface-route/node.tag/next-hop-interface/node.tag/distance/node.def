@@ -1,4 +1,4 @@
 type: u32
-help: "Distance value for this route"
-syntax: $(@) >= 1 && $(@) <= 255; "Must be between (1-255)"
-#comp_help: <1-255>  Distance for this route
+help: Distance value for this route
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between (1-255)"
+comp_help: <1-255>  Distance for this route

@@ -1,20 +1,20 @@
 tag:
 type: ipv4net
-help: "Specify a network to announce via BGP"
-syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-commit: !($(./backdoor/) != "" && $(./route-map/) != ""); "May specify route-map or backdoor but not both" 
-delete: "touch /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID"
-end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../@)\"     \ 
-      -c \"no network $(@)\";                                                \
-      if [ -f \"/tmp/`echo $(@) | sed 's!/!!'`.\\$PPID\" ]; then             \
-        rm -rf /tmp/`echo $(@) | sed 's!/!!'`.\\$PPID;                       \
+help: Specify a network to announce via BGP
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != ""); "May specify route-map or backdoor but not both" 
+delete:expression: "touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID"
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../@)\"     \
+      -c \"no network $VAR(@)\";                                                \
+      if [ -f \"/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID\" ]; then             \
+        rm -rf /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID;                       \
       else                                                                   \
-        if [ -n \"$(./backdoor/)\" ]; then                                   \
+        if [ -n \"$VAR(./backdoor/)\" ]; then                                   \
           COND=\"backdoor\";                                                 \
         fi;                                                                  \
-        if [ -n \"$(./route-map/@)\" ]; then                                 \
-          COND=\"route-map $(./route-map/@)\";                               \
+        if [ -n \"$VAR(./route-map/@)\" ]; then                                 \
+          COND=\"route-map $VAR(./route-map/@)\";                               \
         fi;                                                                  \
-          \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
-          -c \"network $(@) \\$COND\";                                       \
+          ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" \
+          -c \"network $VAR(@) $COND\";                                       \
       fi; " 

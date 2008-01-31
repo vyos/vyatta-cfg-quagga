@@ -1,13 +1,13 @@
-help: "Strict capability negotiation match"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
-commit: $(../override-capability/) == ""; "You can't set strict-capability and override-capability for neighbor $(../@)"
-update: "if [ -n \"$(../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../remote-as/@)\"; \
+help: Strict capability negotiation match
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+commit:expression: $VAR(../override-capability/) == ""; "You can't set strict-capability and override-capability for neighbor $VAR(../@)"
+update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
-	  -c \"neighbor $(../@) \\$peer\" \
-          -c \"neighbor $(../@) strict-capability-match \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"no neighbor $(../@) strict-capability-match \" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+	  -c \"neighbor $VAR(../@) $peer\" \
+          -c \"neighbor $VAR(../@) strict-capability-match \" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"no neighbor $VAR(../@) strict-capability-match \" "

@@ -1,18 +1,18 @@
 type: txt
-help: "Interface name"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
-syntax: exec " \
-        if [ -z \"`ip addr | grep $(@) `\" ]; then \
-          echo $(@) doesn\\'t exist on this system ; \
+help: Interface name
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+syntax:expression: exec " \
+        if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
+          echo $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-update: "if [ -n \"$(../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../remote-as/@)\"; \
+update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-	  -c \"neighbor $(../@) \\$peer\" \
-          -c \"neighbor $(../@) interface $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"no neighbor $(../@) interface $(@)\" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+	  -c \"neighbor $VAR(../@) $peer\" \
+          -c \"neighbor $VAR(../@) interface $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"no neighbor $VAR(../@) interface $VAR(@)\" "

@@ -1,12 +1,12 @@
-help: "Adjust routing timers"
-commit: $(./keepalive/) != ""; "You must set a keepalive interval"
-commit: $(./holdtime/) != ""; "You must set a holdtime interval"
-delete: "touch /tmp/bgp-timers.\\$PPID"
-end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
+help: Adjust routing timers
+commit:expression: $VAR(./keepalive/) != ""; "You must set a keepalive interval"
+commit:expression: $VAR(./holdtime/) != ""; "You must set a holdtime interval"
+delete:expression: "touch /tmp/bgp-timers.$PPID"
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" \
         -c \"no timers bgp\"; \
-      if [ -f \"/tmp/bgp-timers.\\$PPID\" ]; then \
-        rm -rf /tmp/bgp-timers.\\$PPID; \
+      if [ -f \"/tmp/bgp-timers.$PPID\" ]; then \
+        rm -rf /tmp/bgp-timers.$PPID; \
       else \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" \
-          -c \"timers bgp $(./keepalive/@) $(./holdtime/@)\"; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" \
+          -c \"timers bgp $VAR(./keepalive/@) $VAR(./holdtime/@)\"; \
       fi; "

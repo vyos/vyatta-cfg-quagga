@@ -1,7 +1,7 @@
 type: u32
-help: "Metric for this range"
-syntax: $(@) >= 0 && $(@) <= 16777215; "Metric must be between 0-16777215"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"area $(../../@) range $(../@) cost $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"no area $(../../@) range $(../@) cost $(@)\"; "
+help: Metric for this range
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Metric must be between 0-16777215"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"area $VAR(../../@) range $VAR(../@) cost $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"no area $VAR(../../@) range $VAR(../@) cost $VAR(@)\"; "

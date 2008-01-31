@@ -1,4 +1,4 @@
 tag:
 type: ipv4net
-help: "Configure a static route"
-syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
+help: Configure a static route
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"

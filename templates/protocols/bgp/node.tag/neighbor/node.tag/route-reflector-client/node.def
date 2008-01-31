@@ -1,15 +1,15 @@
-help: "Configure a neighbor as Route Reflector client"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
-commit: $(../peer-group/) == ""; "You can't set route-reflector-client for neighbor $(../@) in peer-group $(../peer-group/@)"
-commit: $(../../@) == $(../remote-as/@); "remote-as must equal local-as to be a route-reflector client"
-update: "if [ -n \"$(../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../remote-as/@)\"; \
+help: Configure a neighbor as Route Reflector client
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+commit:expression: $VAR(../peer-group/) == ""; "You can't set route-reflector-client for neighbor $VAR(../@) in peer-group $VAR(../peer-group/@)"
+commit:expression: $VAR(../../@) == $VAR(../remote-as/@); "remote-as must equal local-as to be a route-reflector client"
+update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-	  -c \"neighbor $(../@) \\$peer\" \
-          -c \"neighbor $(../@) route-reflector-client \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"no neighbor $(../@) route-reflector-client \" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+	  -c \"neighbor $VAR(../@) $peer\" \
+          -c \"neighbor $VAR(../@) route-reflector-client \" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"no neighbor $VAR(../@) route-reflector-client \" "
 

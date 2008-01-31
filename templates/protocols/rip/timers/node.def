@@ -1,11 +1,11 @@
-help: "Set RIP timer values"
-delete: "touch /tmp/rip-timers.\\$PPID"
-end: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+help: Set RIP timer values
+delete:expression: "touch /tmp/rip-timers.$PPID"
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no timers basic\"; \
-      if [ -f \"/tmp/rip-timers.\\$PPID\" ]; then \
-        rm -rf /tmp/rip-timers.\\$PPID; \
+      if [ -f \"/tmp/rip-timers.$PPID\" ]; then \
+        rm -rf /tmp/rip-timers.$PPID; \
       else \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-          -c \"timers basic $(./update/@) $(./timeout/@) $(./garbage-collection/@)\"; \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+          -c \"timers basic $VAR(./update/@) $VAR(./timeout/@) $VAR(./garbage-collection/@)\"; \
       fi; "
 

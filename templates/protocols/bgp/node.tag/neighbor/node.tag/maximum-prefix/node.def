@@ -1,14 +1,14 @@
 type: u32
-help: "Maximum number of prefixes to accept from this neighbor"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../@) --neighbor $(../@)"
-update: "if [ -n \"$(../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../remote-as/@)\"; \
+help: Maximum number of prefixes to accept from this neighbor
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-	  -c \"neighbor $(../@) \\$peer\" \
-          -c \"neighbor $(../@) maximum-prefix $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"no neighbor $(../@) maximum-prefix \" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+	  -c \"neighbor $VAR(../@) $peer\" \
+          -c \"neighbor $VAR(../@) maximum-prefix $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"no neighbor $VAR(../@) maximum-prefix \" "
 

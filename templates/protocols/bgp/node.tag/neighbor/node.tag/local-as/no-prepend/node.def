@@ -1,1 +1,1 @@
-help: "Do not prepend local-as to updates from EBGP peers"
+help: Do not prepend local-as to updates from EBGP peers

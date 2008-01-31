@@ -1,9 +1,9 @@
-help: "Enable split horizon on this interface"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-          -c \"interface $(../../../@)\" \
+help: Enable split horizon on this interface
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"interface $VAR(../../../@)\" \
           -c \"ip rip split-horizon\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-          -c \"interface $(../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"interface $VAR(../../../@)\" \
           -c \"no ip rip split-horizon\" "
 
 

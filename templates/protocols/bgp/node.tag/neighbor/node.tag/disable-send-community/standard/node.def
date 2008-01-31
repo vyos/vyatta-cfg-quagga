@@ -1,13 +1,13 @@
-help: "Do not send standard community attributes"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../@) --neighbor $(../../@)"
-update: "if [ -n \"$(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../../remote-as/@)\"; \
+help: Do not send standard community attributes
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-	  -c \"neighbor $(../../@) \\$peer\" \
-          -c \"no neighbor $(../../@) send-community standard\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-          -c \"neighbor $(../../@) send-community standard\" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+	  -c \"neighbor $VAR(../../@) $peer\" \
+          -c \"no neighbor $VAR(../../@) send-community standard\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+          -c \"neighbor $VAR(../../@) send-community standard\" "
 

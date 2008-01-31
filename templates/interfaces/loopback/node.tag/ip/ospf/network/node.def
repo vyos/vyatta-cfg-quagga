@@ -1,8 +1,8 @@
 type: txt
-help: "Network type"
-syntax: $(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
-          -c \"ip ospf network $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../../@)\" \
+help: Network type
+syntax:expression: $VAR(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
+          -c \"ip ospf network $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
           -c \"no ip ospf network \"; "
-#comp_help: Enter the network type (broadcast|non-broadcast|point-to-multipoint|point-to-point)
+comp_help: Enter the network type (broadcast|non-broadcast|point-to-multipoint|point-to-point)

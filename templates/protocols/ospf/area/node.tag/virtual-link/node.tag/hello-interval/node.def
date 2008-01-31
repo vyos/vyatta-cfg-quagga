@@ -1,8 +1,8 @@
 type: u32
-help: "Interval between HELLO packets"
-syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../../@) virtual-link $(../@) hello-interval $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../../@) virtual-link $(../@) hello-interval \"; "
-#comp_help: <1-65535> Seconds
+help: Interval between HELLO packets
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../../@) virtual-link $VAR(../@) hello-interval $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../../@) virtual-link $VAR(../@) hello-interval \"; "
+comp_help: <1-65535> Seconds

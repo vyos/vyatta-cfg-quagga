@@ -1,8 +1,8 @@
 type: u32
-help: "Set metric of redistributed routes"
-syntax: $(@) >= 1 && $(@) <= 16; "Must be between 1-16"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-        -c \"default-metric $(@) \"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-        -c \"no default-metric $(@) \"; "
+help: Set metric of redistributed routes
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; "Must be between 1-16"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+        -c \"default-metric $VAR(@) \"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+        -c \"no default-metric $VAR(@) \"; "
 #comp_help <1-16>  Default metric

@@ -1,8 +1,8 @@
-help: "With poison reverse"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-          -c \"interface $(../../../../@)\" \
+help: With poison reverse
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"interface $VAR(../../../../@)\" \
           -c \"ip rip split-horizon poisoned-reverse\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-          -c \"interface $(../../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"interface $VAR(../../../../@)\" \
           -c \"no ip rip split-horizon\" -c \"ip rip split-horizon\" "
 

@@ -1,7 +1,7 @@
-help: "Administratively applied, for an indefinite period"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+help: Administratively applied, for an indefinite period
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"max-metric router-lsa administrative\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"no max-metric router-lsa administrative \"; "
 
 

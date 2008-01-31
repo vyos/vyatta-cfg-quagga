@@ -1,7 +1,7 @@
 type: txt
-help: "Configure simple password"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../../../@) virtual-link $(../../@) authentication authentication-key $(@) \"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../../../@) virtual-link $(../../@) authentication authentication-key \"; "
+help: Configure simple password
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../../../@) virtual-link $VAR(../../@) authentication authentication-key $VAR(@) \"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../../../@) virtual-link $VAR(../../@) authentication authentication-key \"; "
 

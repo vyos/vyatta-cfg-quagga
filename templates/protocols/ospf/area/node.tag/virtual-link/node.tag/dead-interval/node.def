@@ -1,8 +1,8 @@
 type: u32
-help: "Interval after which a neighbor is declared dead"
-syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../../@) virtual-link $(../@) dead-interval $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../../@) virtual-link $(../@) dead-interval \"; "
-#comp_help: <1-65535> Seconds
+help: Interval after which a neighbor is declared dead
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../../@) virtual-link $VAR(../@) dead-interval $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../../@) virtual-link $VAR(../@) dead-interval \"; "
+comp_help: <1-65535> Seconds

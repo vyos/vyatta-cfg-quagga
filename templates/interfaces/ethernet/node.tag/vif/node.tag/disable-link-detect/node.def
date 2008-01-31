@@ -1,9 +1,9 @@
-help: "ignore link state changes on this interface"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../@).$(../@)\" \
+help: ignore link state changes on this interface
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../@).$VAR(../@)\" \
           -c \"no link-detect\" \
-         && \\${vyatta_sbindir}/vyatta-linkstatus.pl --add $(../../@).$(../@) 2>/dev/null"
+         && ${vyatta_sbindir}/vyatta-linkstatus.pl --add $VAR(../../@).$VAR(../@) 2>/dev/null"
 
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $(../../@).$(../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../@).$VAR(../@)\" \
           -c \"link-detect \" \
-         && \\${vyatta_sbindir}/vyatta-linkstatus.pl --del $(../../@).$(../@) 2>/dev/null"
+         && ${vyatta_sbindir}/vyatta-linkstatus.pl --del $VAR(../../@).$VAR(../@) 2>/dev/null"
 

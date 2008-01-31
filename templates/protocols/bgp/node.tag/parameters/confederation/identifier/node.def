@@ -1,7 +1,7 @@
 type: u32
-help: "Configure confederation AS id"
-syntax: $(@) >= 1 && $(@) <= 4294967294; "confederation AS id must be between 1 and 4294967294"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp confederation identifier $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+help: Configure confederation AS id
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "confederation AS id must be between 1 and 4294967294"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+           -c \"bgp confederation identifier $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
            -c \"no bgp confederation identifier \" "

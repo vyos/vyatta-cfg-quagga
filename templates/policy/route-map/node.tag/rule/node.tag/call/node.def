@@ -1,8 +1,8 @@
 type: txt
-help: "Target route-map name"
-commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $(@)\" "; "route-map $(@) doesn't exist" 
-commit: $(../action/) != ""; "must define an action for route-map $(../../@) rule $(../@)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
-           -c \"call $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $(../../@) $(../action/@) $(../@)\" \
+help: Target route-map name
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" "; "route-map $VAR(@) doesn't exist" 
+commit:expression: $VAR(../action/) != ""; "must define an action for route-map $VAR(../../@) rule $VAR(../@)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)\" \
+           -c \"call $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)\" \
            -c \"no call \" "

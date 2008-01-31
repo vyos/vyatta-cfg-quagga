@@ -1,8 +1,8 @@
 tag:
 type: ipv4
-help: "Configure a virtual link"
-syntax: ! $(../@) in "0", "0.0.0.0"; "Can't configure VL over area $(../@)"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../@) virtual-link $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../@) virtual-link $(@)\"; "
+help: Configure a virtual link
+syntax:expression: ! $VAR(../@) in "0", "0.0.0.0"; "Can't configure VL over area $VAR(../@)"
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../@) virtual-link $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../@) virtual-link $VAR(@)\"; "

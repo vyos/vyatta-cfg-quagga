@@ -1,8 +1,8 @@
 type: txt
-help: "Set OSPF ABR type"
+help: Set OSPF ABR type
 default: "cisco"
-syntax: $(@) in "cisco", "ibm", "shortcut", "standard"; "Must be (cisco, ibm, shortcut, standard)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"ospf abr-type $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"no ospf abr-type $(@)\"; "
+syntax:expression: $VAR(@) in "cisco", "ibm", "shortcut", "standard"; "Must be (cisco, ibm, shortcut, standard)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"ospf abr-type $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"no ospf abr-type $VAR(@)\"; "

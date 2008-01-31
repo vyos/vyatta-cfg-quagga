@@ -1,8 +1,8 @@
 type: txt
-help: "Configure default gateway"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $(@)\" "
-update: "oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl '\\$(/system/gateway-address/@)' ` && \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 \\$oldgw \" && \
-        \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $(@)\" "
+help: Configure default gateway
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
+update:expression: "oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl '$(/system/gateway-address/@)' ` && \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $oldgw \" && \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $VAR(@)\" "
 

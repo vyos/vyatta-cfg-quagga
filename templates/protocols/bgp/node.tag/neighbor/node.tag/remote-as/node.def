@@ -1,7 +1,7 @@
 type: u32
-help: "Specify BGP neighbor ASN"
-syntax: $(@) >= 1 && $(@) <= 4294967294; "remote-as must be between 1 and 4294967294"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \ 
-          -c \"neighbor $(../@) remote-as $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../@)\" \
-          -c \"no neighbor $(../@) remote-as $(@)\" "
+help: Specify BGP neighbor ASN
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "remote-as must be between 1 and 4294967294"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"neighbor $VAR(../@) remote-as $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+          -c \"no neighbor $VAR(../@) remote-as $VAR(@)\" "

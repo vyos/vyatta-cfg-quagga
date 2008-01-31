@@ -1,7 +1,7 @@
 tag:
 type: u32
-help: "Configure a BGP Autonomous System on this router"
+help: Configure a BGP Autonomous System on this router
 # TODO: non-multinode parent
-syntax: $(@) >= 1 && $(@) <= 4294967294; "AS number must be between 1 and 4294967294"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no router bgp $(@)\" "
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "AS number must be between 1 and 4294967294"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no router bgp $VAR(@)\" "

@@ -1,6 +1,6 @@
 type: u32
-help: "Local preference (higher=more preferred)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-           -c \"bgp default local-preference $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
+help: Local preference (higher=more preferred)
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+           -c \"bgp default local-preference $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
            -c \"no bgp default local-preference\" "

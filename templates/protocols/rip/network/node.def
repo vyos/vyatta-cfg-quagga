@@ -1,8 +1,8 @@
 multi:
 type: ipv4net
-help: "RIP network"
-syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-create: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-          -c \"network $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
-          -c \"no network $(@)\"; "
+help: RIP network
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+          -c \"network $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+          -c \"no network $VAR(@)\"; "

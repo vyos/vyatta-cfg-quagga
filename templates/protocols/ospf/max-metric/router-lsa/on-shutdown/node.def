@@ -1,8 +1,8 @@
 type: u32
-help: "Advertise stub-router prior to full shutdown of OSPF"
-syntax: $(@) >= 5 && $(@) <= 86400; "must be between 5-86400 seconds"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"max-metric router-lsa on-shutdown $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+help: Advertise stub-router prior to full shutdown of OSPF
+syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 86400; "must be between 5-86400 seconds"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"max-metric router-lsa on-shutdown $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
         -c \"no max-metric router-lsa on-shutdown \"; "
-#comp_help: Time (seconds) to advertise self as stub-router"
+comp_help: Time (seconds) to advertise self as stub-router"

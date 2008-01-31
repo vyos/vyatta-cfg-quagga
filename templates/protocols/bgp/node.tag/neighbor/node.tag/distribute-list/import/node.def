@@ -1,16 +1,16 @@
 type: u32
-help: "Filter incoming updates"
-commit: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $(../../../@) --neighbor $(../../@)"
-commit: $(../../peer-group/) == ""; "You can't set a distribute-list for neighbor $(../../@) in peer-group $(../../peer-group/@)"
-commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
-update: "if [ -n \"$(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $(../../remote-as/@)\"; \
+help: Filter incoming updates
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+commit:expression: $VAR(../../peer-group/) == ""; "You can't set a distribute-list for neighbor $VAR(../../@) in peer-group $VAR(../../peer-group/@)"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";"access-list $VAR(@) doesn't exist"
+update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
+           peer=\"remote-as $VAR(../../remote-as/@)\"; \
          else \
-           peer=\"peer-group $(../../peer-group/@)\"; \
+           peer=\"peer-group $VAR(../../peer-group/@)\"; \
          fi; \
-	 \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-	  -c \"neighbor $(../../@) \\$peer\" \
-          -c \"neighbor $(../../@) distribute-list $(@) in\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $(../../../@)\" \
-          -c \"no neighbor $(../../@) distribute-list $(@) in\" "
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+	  -c \"neighbor $VAR(../../@) $peer\" \
+          -c \"neighbor $VAR(../../@) distribute-list $VAR(@) in\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
+          -c \"no neighbor $VAR(../../@) distribute-list $VAR(@) in\" "
 

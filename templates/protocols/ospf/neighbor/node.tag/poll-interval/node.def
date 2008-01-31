@@ -1,7 +1,7 @@
 type: u32
-help: "Dead neighbor polling interval"
-syntax: $(@) >= 1 && $(@) <= 65535; "Must be between 1-65535 seconds"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"neighbor $(../@) poll-interval $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"no neighbor $(../@) poll-interval $(@)\"; "
+help: Dead neighbor polling interval
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535 seconds"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"neighbor $VAR(../@) poll-interval $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+        -c \"no neighbor $VAR(../@) poll-interval $VAR(@)\"; "

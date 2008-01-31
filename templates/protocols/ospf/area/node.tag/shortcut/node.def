@@ -1,7 +1,7 @@
 type: txt
-help: "Configure area's shortcutting mode"
-syntax: $(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../@) shortcut $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../@) shortcut $(@)\"; "
+help: Configure area's shortcutting mode
+syntax:expression: $VAR(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../@) shortcut $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../@) shortcut $VAR(@)\"; "

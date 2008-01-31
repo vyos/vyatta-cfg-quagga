@@ -1,7 +1,7 @@
 type: u32
-help: "access-list to apply to output packets"
-commit: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $(@)\" ";"access-list $(@) doesn't exist"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
-           -c \"distribute-list $(@) out $(../../@) \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
-           -c \"no distribute-list $(@) out $(../../@) \" "
+help: access-list to apply to output packets
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";"access-list $VAR(@) doesn't exist"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
+           -c \"distribute-list $VAR(@) out $VAR(../../@) \" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\"  \
+           -c \"no distribute-list $VAR(@) out $VAR(../../@) \" "

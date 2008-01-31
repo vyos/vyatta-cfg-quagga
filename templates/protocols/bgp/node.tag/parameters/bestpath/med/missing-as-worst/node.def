@@ -1,6 +1,6 @@
-help: "Treat missing MED as the least preferred one"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+help: Treat missing MED as the least preferred one
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../../@)\" \
            -c \"bgp bestpath med missing-as-worst \" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../../@)\" \
            -c \"no bgp bestpath med missing-as-worst \" "
 

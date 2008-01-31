@@ -1,9 +1,9 @@
 type: ipv4
-help: "Filter a network IP netmask"
-syntax: ($(../../../@) >= 100 && $(../../../@) <= 199) || ($(../../../@) >= 2000 && $(../../../@) <= 2699); " \
+help: Filter a network IP netmask
+syntax:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); " \
 To set destination filter parameters, the access-list rule number must be \n \
   <100-199>    IP extended access list \n \
   <2000-2699>  IP extended access list (expanded range) \n"
-commit: $(../network/) != ""; "You must specify a network before committing"
-commit: $(../../action/) != ""; "You must specify an action before committing"
-commit: ($(../any/) == "") && ($(../host/) == ""); "You may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../network/) != ""; "You must specify a network before committing"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"
+commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "You may only define one filter type. (host|network|any)"

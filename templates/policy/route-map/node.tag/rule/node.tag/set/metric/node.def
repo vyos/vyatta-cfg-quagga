@@ -1,10 +1,10 @@
 type: txt
-help: "Metric value for destination routing protocol"
-syntax: exec "if [ -n \"\\$(echo $(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"
-commit: $(../../action/) != ""; "You must specify an action for route-map $(../../../@) rule $(../../@)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
-         -c \"set metric $(@)\" "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $(../../../@) $(../../action/@) $(../../@)\" \
+help: Metric value for destination routing protocol
+syntax:expression: exec "if [ -n \"$(echo $VAR(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action for route-map $VAR(../../../@) rule $VAR(../../@)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
+         -c \"set metric $VAR(@)\" "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
          -c \"no set metric \" "

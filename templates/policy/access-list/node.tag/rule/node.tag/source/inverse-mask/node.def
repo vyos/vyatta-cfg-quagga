@@ -1,5 +1,5 @@
 type: ipv4
-help: "Filter a network IP netmask"
-commit: ($(../any/) == "") && ($(../host/) == ""); "You may only define one filter type. (host|network|any)"
-commit: $(../network/) != ""; "You must specify a network before committing"
-commit: $(../../action/) != ""; "You must specify an action before committing"
+help: Filter a network IP netmask
+commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "You may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../network/) != ""; "You must specify a network before committing"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"

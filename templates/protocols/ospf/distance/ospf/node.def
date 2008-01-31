@@ -1,19 +1,19 @@
-help: "OSPF administrative distance"
-delete: "touch /tmp/ospf-distance.\\$PPID"
-end: "if [ -f \"/tmp/ospf-distance.\\$PPID\" ]; then \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+help: OSPF administrative distance
+delete:expression: "touch /tmp/ospf-distance.$PPID"
+end:expression: "if [ -f \"/tmp/ospf-distance.$PPID\" ]; then \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"no distance ospf\"; \
-	 rm /tmp/ospf-distance.\\$PPID; \
+	 rm /tmp/ospf-distance.$PPID; \
       else \
-         if [ -n \"$(./intra-area/@)\" ]; then \
-           PARM=\"intra-area $(./intra-area/@)\"; \       
+         if [ -n \"$VAR(./intra-area/@)\" ]; then \
+           PARM=\"intra-area $VAR(./intra-area/@)\"; \
          fi; \
-         if [ -n \"$(./inter-area/@)\" ]; then \
-           PARM=\"\\$PARM inter-area $(./inter-area/@)\"; \
+         if [ -n \"$VAR(./inter-area/@)\" ]; then \
+           PARM=\"$PARM inter-area $VAR(./inter-area/@)\"; \
          fi; \
-         if [ -n \"$(./external/@)\" ]; then \
-           PARM=\"\\$PARM external $(./external/@)\"; \
+         if [ -n \"$VAR(./external/@)\" ]; then \
+           PARM=\"$PARM external $VAR(./external/@)\"; \
          fi; \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-         -c \"no distance ospf\" -c \"distance ospf \\$PARM\"; \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+         -c \"no distance ospf\" -c \"distance ospf $PARM\"; \
       fi; "

@@ -1,9 +1,9 @@
 tag:
 type: txt
-help: "Specify neighbor router"
-syntax: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-name $(@)"
-update: "if [ -n \"`echo $(@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
-           \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" -c \"neighbor $(@) peer-group\" ; \
+help: Specify neighbor router
+syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-name $VAR(@)"
+update:expression: "if [ -n \"`echo $VAR(@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" -c \"neighbor $VAR(@) peer-group\" ; \
          fi ; "
-delete: "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups --peergroup $(@) --as $(../@); \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $(../@)\" -c \"no neighbor $(@) \" "
+delete:expression: "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups --peergroup $VAR(@) --as $VAR(../@); \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" -c \"no neighbor $VAR(@) \" "

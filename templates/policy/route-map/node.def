@@ -1,5 +1,5 @@
 tag:
 type: txt
-help: "Create route-map or enter route-map command mode"
-syntax: pattern $(@) "^[-a-zA-Z0-9.]+$" ; "route-map $(@): name must be alpha-numeric"
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -n -c \"configure terminal\" -c \"no route-map $(@)\" "
+help: Create route-map or enter route-map command mode
+syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "route-map $VAR(@): name must be alpha-numeric"
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -n -c \"configure terminal\" -c \"no route-map $VAR(@)\" "

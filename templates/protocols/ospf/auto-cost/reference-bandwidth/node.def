@@ -1,5 +1,5 @@
 type: u32
-help: "Use reference bandwidth method to assign OSPF cost in Mbits/sec"
-syntax: $(@) >= 1 && $(@) <= 4294967; "Must be between 1-4294967"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"auto-cost reference-bandwidth $(@) \"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"no auto-cost reference-bandwidth \"; "
+help: Use reference bandwidth method to assign OSPF cost in Mbits/sec
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967; "Must be between 1-4294967"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"auto-cost reference-bandwidth $VAR(@) \"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"no auto-cost reference-bandwidth \"; "

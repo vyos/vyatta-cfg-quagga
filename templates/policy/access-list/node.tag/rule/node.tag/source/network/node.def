@@ -1,5 +1,5 @@
 type: ipv4
-help: "Filter a network IP address"
-commit: ($(../host/) == "") && ($(../any/) == ""); "You may only define one filter type (host|network|any)"
-commit: $(../inverse-mask/) != ""; "You must specify an inverse-mask before committing"
-commit: $(../../action/) != ""; "You must specify an action before committing"
+help: Filter a network IP address
+commit:expression: ($VAR(../host/) == "") && ($VAR(../any/) == ""); "You may only define one filter type (host|network|any)"
+commit:expression: $VAR(../inverse-mask/) != ""; "You must specify an inverse-mask before committing"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"

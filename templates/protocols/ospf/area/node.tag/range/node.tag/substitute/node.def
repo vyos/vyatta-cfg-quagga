@@ -1,7 +1,7 @@
 type: ipv4net
-help: "Announce area range as another prefix"
-syntax: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $(@)"
-update: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $(../../@) range $(../@) substitute $(@)\"; "
-delete: "\\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $(../../@) range $(../@) substitute $(@)\"; "
+help: Announce area range as another prefix
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"area $VAR(../../@) range $VAR(../@) substitute $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+          -c \"no area $VAR(../../@) range $VAR(../@) substitute $VAR(@)\"; "

@@ -1,13 +1,13 @@
 tag:
 type: ipv4
-help: "Configure the next-hop router"
-delete: "touch /tmp/static.\\$PPID"
-end: "if [ -f \"/tmp/static.\\$PPID\" ]; then \
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $(../@) $(@)\" ; \
-         rm /tmp/static.\\$PPID; \
+help: Configure the next-hop router
+delete:expression: "touch /tmp/static.$PPID"
+end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
+         rm /tmp/static.$PPID; \
       else \
-         if [ -n \"$(./distance/@)\" ]; then \
-	    DIST=\"$(./distance/@)\"; \
+         if [ -n \"$VAR(./distance/@)\" ]; then \
+	    DIST=\"$VAR(./distance/@)\"; \
          fi; \	       
-         \\${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $(../@) $(@) \\$DIST \" ; \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $VAR(../@) $VAR(@) $DIST \" ; \
       fi; "
