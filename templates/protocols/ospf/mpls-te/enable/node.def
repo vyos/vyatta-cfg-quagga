@@ -1,5 +1,7 @@
 help: Enable the MPLS-TE functionality
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"mpls-te on\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-        -c \"no mpls-te\"; "
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"mpls-te on\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"no mpls-te\"; "

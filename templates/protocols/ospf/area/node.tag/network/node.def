@@ -2,7 +2,9 @@ multi:
 type: ipv4net
 help: OSPF network
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"network $VAR(@) area $VAR(../@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no network $VAR(@) area $VAR(../@)\"; "
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"network $VAR(@) area $VAR(../@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"no network $VAR(@) area $VAR(../@)\"; "

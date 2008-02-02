@@ -1,4 +1,5 @@
 type: u32
 help: Metric for redistributed routes
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; "metric must be between 1 and 16"
-
+comp_help: possible completions:
+ <1-16>             Set metric for redistributed routes

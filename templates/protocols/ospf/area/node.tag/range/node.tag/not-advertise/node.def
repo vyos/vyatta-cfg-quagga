@@ -1,5 +1,7 @@
 help: Do NOT advertise this range
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $VAR(../../@) range $VAR(../@) not-advertise\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $VAR(../../@) range $VAR(../@) not-advertise\"; "
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"area $VAR(../../@) range $VAR(../@) not-advertise\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"no area $VAR(../../@) range $VAR(../@) not-advertise\"; "

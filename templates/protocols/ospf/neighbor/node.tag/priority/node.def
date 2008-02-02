@@ -1,7 +1,11 @@
 type: u32
 help: Neighbor priority in seconds
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Priority must be between 0-255"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+        -c \"router ospf\" \
         -c \"neighbor $VAR(../@) priority $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+        -c \"router ospf\" \
         -c \"no neighbor $VAR(../@) priority $VAR(@)\"; "
+comp_help: possible completions:
+ <0-255>            Set neighbor priority

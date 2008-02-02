@@ -1,17 +1,20 @@
 type: txt
 help: Configure OSPF area authentication type
 syntax:expression: $VAR(@) in "simple", "md5"; "Must be either simple or md5"
-update:expression: "if [ x$VAR(@) == xsimple ]; then                          \
-           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"             \
-            -c \"router ospf \"                                 \
-            -c \"no area $VAR(../@) authentication \"              \
-            -c \"area $VAR(../@) authentication \" ;               \
-         else                                                   \
-           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"             \
-            -c \"router ospf \"                                 \
-            -c \"no area $VAR(../@) authentication \"              \
-            -c \"area $VAR(../@) authentication message-digest\" ; \
+update:expression: "if [ x$VAR(@) == xsimple ]; then                   \
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+            -c \"router ospf \"                                        \
+            -c \"no area $VAR(../@) authentication \"                  \
+            -c \"area $VAR(../@) authentication \" ;                   \
+         else                                                          \
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+            -c \"router ospf \"                                        \
+            -c \"no area $VAR(../@) authentication \"                  \
+            -c \"area $VAR(../@) authentication message-digest\" ;     \
          fi; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"               \
-            -c \"router ospf \"                                 \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+            -c \"router ospf \"                                                 \
             -c \"no area $VAR(../@) authentication \" "
+comp_help: possible completions:
+ simple             Use simple plain-text authentication
+ md5                Use md5 authentication

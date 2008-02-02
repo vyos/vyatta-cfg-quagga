@@ -1,7 +1,13 @@
 type: txt
 help: Configure area's shortcutting mode
 syntax:expression: $VAR(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"router ospf\" \
           -c \"area $VAR(../@) shortcut $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"router ospf\" \
           -c \"no area $VAR(../@) shortcut $VAR(@)\"; "
+comp_help: possible completions:
+ default            Set default
+ disable            Disable shortcutting mode
+ enable             Enable  shortcutting mode

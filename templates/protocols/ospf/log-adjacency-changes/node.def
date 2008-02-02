@@ -1,5 +1,7 @@
 help: Log changes in adjacency state
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-         -c \"log-adjacency-changes\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-         -c \"no log-adjacency-changes\"; "
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"log-adjacency-changes\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"no log-adjacency-changes\"; "

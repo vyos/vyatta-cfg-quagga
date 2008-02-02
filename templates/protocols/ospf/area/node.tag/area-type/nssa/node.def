@@ -2,7 +2,7 @@ help: nssa OSPF area
 syntax:expression: ! $VAR(../../@) in "0", "0.0.0.0"; "Backbone can't be NSSA"
 syntax:expression: $VAR(../normal/) == "" ; "Must delete normal area type first"
 syntax:expression: $VAR(../stub/) == "" ; "Must delete stub area type first"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"area $VAR(../../@) nssa\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" -c \"no area $VAR(../../@) nssa\"; "
-
-
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" -c \"area $VAR(../../@) nssa\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" -c \"no area $VAR(../../@) nssa\"; "

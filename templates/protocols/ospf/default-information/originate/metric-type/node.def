@@ -1,4 +1,6 @@
-type: txt
+type: u32
 help: OSPF metric type for default routes
-default: "2"
+default: 2
 syntax:expression: $VAR(@) in "1", "2"; "Must be either 1 or 2"
+comp_help: possible completions:
+ <1-2>              Set metric type for default routes

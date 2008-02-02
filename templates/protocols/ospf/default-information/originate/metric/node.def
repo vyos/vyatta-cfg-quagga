@@ -1,3 +1,5 @@
 type: u32
 help: OSPF default metric
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777214; "must be between 0-16777214"
+comp_help: possible completions:
+ <0-16777214>       Set default metric

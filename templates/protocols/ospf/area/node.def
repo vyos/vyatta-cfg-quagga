@@ -2,3 +2,6 @@ tag:
 type: txt
 help: OSPF Area
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-ospf-area $VAR(@)"; "Invalid OSFP area \"$VAR(@)\" "
+comp_help: possible completions:
+ <0-4294967295>     Set OSPF area in decimal notation
+ <x.x.x.x>          Set OSPF area in dotted decimal notation

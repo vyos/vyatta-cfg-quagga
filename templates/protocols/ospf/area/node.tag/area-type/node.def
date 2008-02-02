@@ -1,1 +1,5 @@
 help: Area type
+comp_help: possible completions:
+ normal             Set normal area type
+ nssa               Set not so stubby area type 
+ stub               Set stub Area type 

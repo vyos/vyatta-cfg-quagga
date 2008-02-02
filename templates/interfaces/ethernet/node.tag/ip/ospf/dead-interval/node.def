@@ -1,9 +1,11 @@
 type: u32
 help: Interval after which a neighbor is declared dead
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
-          -c \"ip ospf dead-interval $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
-          -c \"no ip ospf dead-interval \"; "
-comp_help: <1-65535> Seconds
-
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"interface $VAR(../../../@)\" \
+       -c \"ip ospf dead-interval $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"interface $VAR(../../../@)\" \
+       -c \"no ip ospf dead-interval \"; "
+comp_help: possible completions:
+ <1-65535>          Seconds

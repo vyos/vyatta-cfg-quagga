@@ -1,7 +1,11 @@
 type: u32
 help: Set the summary-default cost of stub area
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Cost must be between 0-16777215"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"area $VAR(../../../@) default-cost $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
-          -c \"no area $VAR(../../../@) default-cost $VAR(@)\"; "
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"area $VAR(../../../@) default-cost $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+       -c \"router ospf\" \
+       -c \"no area $VAR(../../../@) default-cost $VAR(@)\"; "
+comp_help: possible completions:
+ <0-16777215>       Set summary default cost of stub area

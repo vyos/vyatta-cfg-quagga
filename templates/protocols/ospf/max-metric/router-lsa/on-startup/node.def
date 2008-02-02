@@ -1,9 +1,11 @@
 type: u32
 help: Automatically advertise stub Router-LSA on startup of OSPF
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 86400; "must be between 5-86400 seconds"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+        -c \"router ospf\" \
         -c \"max-metric router-lsa on-startup $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+        -c \"router ospf\" \
         -c \"no max-metric router-lsa on-startup \"; "
-comp_help: Time (seconds) to advertise self as stub-router"
-
+comp_help: possible completions:
+ <5-86400>          Time (seconds) to advertise self as stub-router
