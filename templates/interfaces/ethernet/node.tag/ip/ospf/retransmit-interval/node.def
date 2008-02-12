@@ -1,11 +1,12 @@
 type: u32
 help: Interval between retransmitting lost link state advertisements
+default: 5
 syntax:expression: $VAR(@) >= 3 && $VAR(@) <= 65535; "Must be between 3-65535"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"interface $VAR(../../../@)\" \
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
        -c \"ip ospf retransmit-interval $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"interface $VAR(../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
        -c \"no ip ospf retransmit-interval \"; "
 comp_help: possible completions:
- <3-65535>          Seconds
+ <3-65535>          Seconds (default 5)
