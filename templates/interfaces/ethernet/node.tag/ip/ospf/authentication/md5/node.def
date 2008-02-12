@@ -1,10 +1,11 @@
 help: Configure MD5 key id
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"interface $VAR(../../../../@) \"       \
-         -c \"no ip ospf authentication \"        \
-         -c \"ip ospf authentication message-digest\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"interface $VAR(../../../../@) \"       \
-         -c \"no ip ospf authentication \"; "
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal\"                      \
+       -c \"interface $VAR(../../../../@) \"          \
+       -c \"no ip ospf authentication \"              \
+       -c \"ip ospf authentication message-digest\"; "
 
-
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal\"                      \
+       -c \"interface $VAR(../../../../@) \"          \
+       -c \"no ip ospf authentication \"; "
