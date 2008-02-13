@@ -1,5 +1,7 @@
 type: u32
 default: 30
-help: Routing table update timer in seconds. Default is 30.
-syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 2147483647; "Update timer must be between 5 and 2147483647"
-
+help: Routing table update timer
+syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 2147483647; \
+       "Update timer must be between 5 and 2147483647"
+comp_help: possible completions:
+ <5-2147483647>     Routing table update timer in seconds (default 30)
