@@ -3,12 +3,14 @@ help: Network type
 syntax:expression: $VAR(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; \
        "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
 
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
-       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
-       -c \"ip ospf network $VAR(@) \"; "
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+       -c \"configure terminal\"                              \
+       -c \"interface $VAR(../../../../@).$VAR(../../../@) \" \
+       -c \"ip ospf network $VAR(@)\"; "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
-       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+       -c \"configure terminal\"                              \
+       -c \"interface $VAR(../../../../@).$VAR(../../../@) \" \
        -c \"no ip ospf network \"; "
 
 comp_help: possible completions:

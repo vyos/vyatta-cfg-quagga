@@ -11,7 +11,7 @@ end:expression: "\
       if [ -f \"/tmp/ospf-md5.$PPID\" ]; then                            \
          ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"     \
           -c \"interface $VAR(../../../../../@) \"                       \
-          -c \"no ip ospf message-digest-key $VAR(@)\";                  \
+          -c \"no ip ospf message-digest-key $VAR(@) \";                 \
          rm /tmp/ospf-md5.$PPID;                                         \
       else                                                               \
          ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"     \

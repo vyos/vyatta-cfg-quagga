@@ -1,0 +1,16 @@
+type: u32
+help: Interface cost
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
+
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+        -c \"configure terminal\"                             \
+        -c \"interface $VAR(../../../../@).$VAR(../../../@)\" \
+        -c \"ip ospf cost $VAR(@) \"; "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+        -c \"configure terminal\"                             \
+        -c \"interface $VAR(../../../../@).$VAR(../../../@)\" \
+        -c \"no ip ospf cost \"; "
+
+comp_help: possible completions:
+ <1-65535>          Set Cost
