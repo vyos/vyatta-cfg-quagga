@@ -1,14 +1,23 @@
 type: u32
 help: Neighbor's BGP port
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "remote-as must be between 1 and 4294967294"
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
+       "port must be between 1 and 4294967294"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
+
+update:expression: "\
+         if [ -n \"$VAR(../remote-as/@)\" ]; then                    \
+           peer=\"remote-as $VAR(../remote-as/@)\";                  \
+         else                                                        \
+           peer=\"peer-group $VAR(../peer-group/@)\";                \
+         fi;                                                         \
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"router bgp $VAR(../../@)\"                            \
+	  -c \"neighbor $VAR(../@) $peer\"                           \
           -c \"neighbor $VAR(../@) port $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) port \" "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr     \
+       -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
+       -c \"no neighbor $VAR(../@) port \" "
+
+comp_help: possible completions:
+ <1-4294967294>     Set neighbor's BGP port
