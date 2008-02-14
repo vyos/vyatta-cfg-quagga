@@ -4,7 +4,7 @@ syntax:expression: $VAR(@) in "broadcast", "non-broadcast", "point-to-multipoint
        "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
 
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
-       -c \"configure terminal\"                      \ 
+       -c \"configure terminal\"                      \
        -c \"interface $VAR(../../../@) \"             \
        -c \"ip ospf network $VAR(@) \"; "
 

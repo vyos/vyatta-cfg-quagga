@@ -1,6 +1,0 @@
-type: txt
-help: Simple password authentication key
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../../@)\" \
-          -c \"ip rip authentication mode text\" -c \"ip rip authentication string $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../../@)\" \
-          -c \"no ip rip authentication mode\" -c \"no ip rip authentication string $VAR(@)\"; "

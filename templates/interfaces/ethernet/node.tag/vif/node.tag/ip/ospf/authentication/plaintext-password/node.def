@@ -1,5 +1,5 @@
 type: txt
-help: Configure simple password
+help: Configure plain text password
 syntax:expression: exec "                              \
         if [ `echo -n $VAR(@) | wc -c` -gt 8 ]; then   \
           echo Password must be 8 characters or less ; \
@@ -20,4 +20,4 @@ delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl                 \
 	 -c \"no ip ospf authentication-key \"; "
 
 comp_help: possible completions:
- <text>             Simple password (8 characters or less)
+ <text>             Plain text password (8 characters or less)
