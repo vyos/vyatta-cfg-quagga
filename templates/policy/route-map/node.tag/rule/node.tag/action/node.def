@@ -2,4 +2,6 @@ type: txt
 help: Action to take on prefixes matching this rule
 syntax:expression: $VAR(@) in "permit", "deny"; "route-map $VAR(../../@) $VAR(@) $VAR(../@) action: must be permit or deny"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $VAR(../../@) $VAR(@) $VAR(../@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no route-map $VAR(../../@) $VAR(@) $VAR(../@)\" "
+update:expression: exec "sudo rm -f /tmp/delete-policy-route-map-$VAR(../../@)-rule-$VAR(../@) 2>/dev/null"
+delete:expression: exec "sudo echo $VAR(@) > /tmp/delete-policy-route-map-$VAR(../../@)-rule-$VAR(../@)"
+
