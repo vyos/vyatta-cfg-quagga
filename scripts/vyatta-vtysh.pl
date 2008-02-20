@@ -61,7 +61,7 @@ sub log_it {
 }
 
 sub parse_cmdline {
-    my $cmdline;
+    my $cmdline = "";
 
     foreach my $arg (@ARGV) {
 	if (substr($arg, 0, 2) eq "-n") {
@@ -112,6 +112,9 @@ sub send_cmds_to_quagga {
     return 0;
 }
 
+sub usage {
+    print "usage: $0 [-n] -c \"<quagga command>\"\n";
+}
 
 #
 # main
@@ -119,6 +122,10 @@ sub send_cmds_to_quagga {
 my ($cmdline, $rc);
 $cmdline = parse_cmdline();
 log_it($cmdline);
+if (! defined($cmdline) or $cmdline eq "") {
+    usage();
+    exit 1;
+}
 $rc = send_cmds_to_quagga($cmdline);
 exit $rc
 
