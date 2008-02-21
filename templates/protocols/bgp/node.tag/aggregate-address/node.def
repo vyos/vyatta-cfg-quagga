@@ -2,18 +2,23 @@ tag:
 type: ipv4net
 help: Configure BGP aggregate entries
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+
 delete:expression: "touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" 
-end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../@)\" \
-        -c \"no aggregate-address $VAR(@)\"; \
+
+end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr \
+       -c \"configure terminal\" \
+       -c \"router bgp $VAR(../@)\" \
+       -c \"no aggregate-address $VAR(@)\"; \
       if [ -f \"/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID\" ]; then \
         rm -rf /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID; \
       else \
-        if [ -n \"$VAR(./as-set/@)\" ]; then \
-          COND=\"as-set\";
+        if ${vyatta_sbindir}/vyatta_quagga_utils.pl --exists 'protocols bgp $VAR(../@) aggregate-address $VAR(@) as-set' ;  then \
+          COND=\"as-set\"; \
         fi; \
-        if [ -n \"$VAR(./summary-only/@)\" ]; then \
+        if ${vyatta_sbindir}/vyatta_quagga_utils.pl --exists 'protocols bgp $VAR(../@) aggregate-address $VAR(@) summary-only' ;  then \
           COND=\"$COND summary-only\"; \
         fi; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../@)\" \
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+          -c \"router bgp $VAR(../@)\" \
           -c \"aggregate-address $VAR(@) $COND\"; \
       fi; "
