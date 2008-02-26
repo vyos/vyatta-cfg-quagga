@@ -1,3 +1,47 @@
+vyatta-cfg-quagga (0.2) unstable; urgency=low
+
+  vc4.0.0
+  [ Mark O'Brien ]
+
+
+  [ An-Cheng Huang ]
+  * convert templates to new syntax
+
+  [ Michael Larson ]
+  * allow per vif configuration of disable-link-status
+  * fix for bug 2541--requires saving temporary file, plus script to
+    walk tree and redefined nodes. a bit of a
+
+  [ Stig Thormodsrud ]
+  * Fix 2697 route-map can't be set for default-originate
+  * Add some comp_help strings to ospf cli
+  * Fix 2805 'show configuration all' does not display all default
+    values for ospf
+  * Fix 2810 ospf authentications gets truncated to 8 characters
+  * Fix 2812 'show configuration all' does not display all default
+    values for bgp.
+  * Fix 2813 'show configuration all' does not display all default
+  * Add "set interface <type> ip ospf bandwidth" to OSPF cost
+    calculation.
+  * Duplicate quagga "interface ip ospf" tree for tunnel and vif
+    interfaces.
+  * Fix 1513 BGP - peer-port and local-port accept invalid values
+  * Fix 2819 Plain-text authentication should be identified as such
+  * Comment out "backdoor" command as a workaround until cli bug 2525 is
+    fixed.
+  * Add default value for ospf auto-cost reference-bandwidth.
+  * Fix 2856 "delete interfaces ethernet eth1 ip rip" commit failed if
+    "split-horizon poison-reverse" is
+  * Apply same fix for 2856 under tunnel heirarchy.
+  * Add a check for when the vtysh wrapper is called without any
+    parameters.
+  * Fix 2679 aggregate-address "as-set" and/or "summary-only" not sent
+    to the routing engine
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Mon, 25 Feb 2008 17:38:29 -0800
+
 vyatta-cfg-quagga (0.1) unstable; urgency=low
 
   * Initial Release.
