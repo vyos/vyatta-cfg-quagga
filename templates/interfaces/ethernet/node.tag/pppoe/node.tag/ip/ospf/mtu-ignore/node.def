@@ -1,0 +1,10 @@
+help: Disable mtu mismatch detection
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal\"                      \
+       -c \"interface pppoe$VAR(../../../@)\"              \
+       -c \"ip ospf mtu-ignore\"; "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal\"                      \
+       -c \"interface pppoe$VAR(../../../@)\"              \
+       -c \"no ip ospf mtu-ignore\"; "

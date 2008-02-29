@@ -1,0 +1,23 @@
+type: txt
+help: Configure plain text password
+syntax:expression: exec "                              \
+        if [ `echo -n $VAR(@) | wc -c` -gt 8 ]; then   \
+          echo Password must be 8 characters or less ; \
+          exit 1 ;                                     \
+        fi ; "
+
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl  \
+         -c \"configure terminal\"                     \
+         -c \"interface pppoe$VAR(../../../../@) \"         \
+	 -c \"no ip ospf authentication \"             \
+	 -c \"ip ospf authentication \"                \
+	 -c \"ip ospf authentication-key $VAR(@) \"; "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl  \
+         -c \"configure terminal\"                     \
+         -c \"interface pppoe$VAR(../../../../@) \"         \
+	 -c \"no ip ospf authentication \"             \
+	 -c \"no ip ospf authentication-key \"; "
+
+comp_help: possible completions:
+ <text>             Plain text password (8 characters or less)

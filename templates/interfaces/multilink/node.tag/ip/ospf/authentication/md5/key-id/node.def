@@ -1,0 +1,23 @@
+tag:
+type: u32
+help: Configure MD5 key id
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "ID must be between (1-255)"
+commit:expression: $VAR(md5-key/) != ""; \
+       "Must add the md5-key for key-id $VAR(@)"
+
+delete:expression: "touch /tmp/ospf-md5.$PPID"
+
+end:expression: "\
+      if [ -f \"/tmp/ospf-md5.$PPID\" ]; then                            \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"     \
+          -c \"interface $VAR(../../../../../@) \"                       \
+          -c \"no ip ospf message-digest-key $VAR(@)\";                  \
+         rm /tmp/ospf-md5.$PPID;                                         \
+      else                                                               \
+         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\"     \
+          -c \"interface $VAR(../../../../../@) \"                       \
+          -c \"ip ospf message-digest-key $VAR(@) md5 $VAR(md5-key/@)\"; \
+      fi; "
+
+comp_help: possible completions:
+ <1-255>            Set the key id
