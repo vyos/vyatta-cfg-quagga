@@ -1,4 +1,4 @@
-type: txt
+type: ipv4
 help: Configure default gateway
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
 update:expression: "oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl '$(/system/gateway-address/@)' ` && \
