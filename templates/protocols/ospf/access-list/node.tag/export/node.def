@@ -1,5 +1,5 @@
 multi:
-type: txt
+type: u32
 help: Filter outgoing routing updates
 syntax:expression: $VAR(@) in "bgp", "connected", "isis", "kernel", "rip", "static"; "Must be (bgp, connected, isis, kernel, rip, or static)"
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
