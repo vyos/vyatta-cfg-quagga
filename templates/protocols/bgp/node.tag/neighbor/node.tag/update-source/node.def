@@ -6,7 +6,7 @@ syntax:expression: exec " \
           exit 1 ; \
         fi ; "
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-exupdate:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
            peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
            peer=\"peer-group $VAR(../peer-group/@)\"; \
