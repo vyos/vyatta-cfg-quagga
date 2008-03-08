@@ -1,4 +1,4 @@
-type: txt
+type: ipv4
 help: Source of routing updates
 syntax:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
@@ -6,7 +6,7 @@ syntax:expression: exec " \
           exit 1 ; \
         fi ; "
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
+exupdate:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
            peer=\"remote-as $VAR(../remote-as/@)\"; \
          else \
            peer=\"peer-group $VAR(../peer-group/@)\"; \
@@ -15,4 +15,4 @@ update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
 	  -c \"neighbor $VAR(../@) $peer\" \
           -c \"neighbor $VAR(../@) update-source $VAR(@)\" "
 delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) update-source $VAR(@)\" "
+          -c \"no neighbor $VAR(../@) update-source\" "
