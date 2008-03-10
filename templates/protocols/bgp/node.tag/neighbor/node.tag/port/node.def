@@ -1,7 +1,7 @@
 type: u32
 help: Neighbor's BGP port
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
-       "port must be between 1 and 4294967294"
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; \
+       "port must be between 1 and 65535"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 
 update:expression: "\
@@ -20,4 +20,4 @@ delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr     \
        -c \"no neighbor $VAR(../@) port \" "
 
 comp_help: possible completions:
- <1-4294967294>     Set neighbor's BGP port
+ <1-65535>     Set neighbor's BGP port
