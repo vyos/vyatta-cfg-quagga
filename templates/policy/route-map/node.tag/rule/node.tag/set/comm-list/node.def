@@ -1,5 +1,6 @@
 help: Set BGP community list
 delete:expression: "touch /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-comm-list.$PPID"
+## this will always return delete pending bug 2525 being fixed
 end:expression: "if [ -z \"$VAR(./comm-list/)\" ]; then \
         echo You must configure a comm-list ; \
         exit 1 ; \

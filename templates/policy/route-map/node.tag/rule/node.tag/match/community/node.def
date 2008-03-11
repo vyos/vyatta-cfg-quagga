@@ -1,5 +1,6 @@
 help: Match BGP community list
 delete:expression: "touch /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-match-community.$PPID"
+## this will always return exact-match pending bug 2525 being fixed
 end:expression: "if [ -z \"$VAR(./community-list/)\" ]; then \
         echo You must configure a community-list ; \
         exit 1 ; \

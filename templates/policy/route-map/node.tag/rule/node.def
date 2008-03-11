@@ -2,7 +2,8 @@ tag:
 type: u32
 help: Specify route-map rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "route-map $VAR(../@): rule number $VAR(@) must be between 1 and 65535"
-end:expression: "if [ -f /tmp/delete-policy-route-map-$VAR(../@)-rule-$VAR(@) ]; then \
-				${vyatta_sbindir}/vyatta-policy-action-verify.pl $VAR(../@) $VAR(@) $( cat /tmp/delete-policy-route-map-$VAR(../@)-rule-$VAR(@) ); \
-		fi"
-
+delete:expression: "if [ -f /tmp/delete-policy-route-map-$VAR(../@)-rule-$VAR(@) ]; then \
+                        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+                            -c \"no route-map $VAR(../@) $VAR(./@/action/@) $VAR(@)\"; \
+                        rm -f /tmp/delete-policy-route-map-$VAR(../@)-rule-$VAR(@); \
+                    fi"

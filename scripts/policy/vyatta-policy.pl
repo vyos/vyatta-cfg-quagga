@@ -9,12 +9,14 @@ GetOptions("update-access-list=s"    => \$accesslist,
            "update-aspath-list=s"    => \$aspathlist,
            "update-community-list=s" => \$communitylist,
            "check-peer-syntax=s"     => \$peer,
+           "check-routemap-action=s" => \$routemap,
 );
 
 if (defined $accesslist)    { update_access_list($accesslist); }
 if (defined $aspathlist)    { update_as_path($aspathlist); }
 if (defined $communitylist) { update_community_list($communitylist); }
 if (defined $peer)          { check_peer_syntax($peer); }
+if (defined $routemap)      { check_routemap_action($routemap); }
 
 exit 0;
 
@@ -209,3 +211,25 @@ sub update_access_list() {
   exit 0; 
 }
 
+## check_routemap_action
+# check if the action has been changed since the last commit.
+# we need to do this because quagga will wipe the entire config if
+# the action is changed.
+# $1 = policy route-map <name> rule <num>
+sub check_routemap_action() {
+  my $routemap = shift;
+  my $config = new VyattaConfig;
+
+  my $action = $config->setLevel("$routemap");
+  my $origvalue = $config->returnOrigValue();
+  if ($origvalue) {
+    my $value = $config->returnValue();
+    if ("$value" ne "$origvalue") {
+      print "You can not change the action for $routemap.\n";
+      print "To change the action you must first delete the rule and commit it.\n\n";
+      exit 1;
+    }
+  }
+
+  exit 0;
+}
