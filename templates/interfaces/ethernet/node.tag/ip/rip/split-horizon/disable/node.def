@@ -1,14 +1,12 @@
-help: With poison reverse
+help: disable split horizon
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../@) \"          \
-       -c \"ip rip split-horizon poisoned-reverse \" "
+       -c \"no ip rip split-horizon \" "
 
 delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../@) \"          \
-       -c \"no ip rip split-horizon \"                \
        -c \"ip rip split-horizon \" "
 
-commit:expression: ($VAR(../disable/) == ""); "You cannot have 'split-horizon poison-reverse' enabled with 'split-horizon' disabled. You may specify either one of the two options for split-horizon. (disable|poison-reverse)"
-
+commit:expression: ($VAR(../poison-reverse/) == ""); "You cannot have 'split-horizon poison-reverse' enabled with 'split-horizon' disabled. You may specify either one of the two options for split-horizon. (disable|poison-reverse)"
