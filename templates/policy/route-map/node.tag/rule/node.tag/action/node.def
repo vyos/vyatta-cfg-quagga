@@ -1,12 +1,20 @@
 type: txt
 help: Action to take on prefixes matching this rule
 syntax:expression: $VAR(@) in "permit", "deny"; "route-map $VAR(../../@) $VAR(@) $VAR(../@) action: must be permit or deny"
-# we need to check if the action has been changed since the previous commit
-update:expression: "/opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action \"policy route-map $VAR(../../@) rule $VAR(../@) action\"; \
-                    if [ \"$?\" -eq \"0\" ]; then \
-                      ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"route-map $VAR(../../@) $VAR(@) $VAR(../@)\"; \
-                    else \
-                      exit 1; \
-                    fi ; "
-# note: delete is handled by parent 'rule' node because the action is required for a route-map in quagga
-delete:expression: exec "sudo echo $VAR(@) > /tmp/delete-policy-route-map-$VAR(../../@)-rule-$VAR(../@)"
+update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@) action";
+        if [ $? -eq 0 ]; then
+          ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
+        else
+          echo    "  You can not change the action for \"route-map $VAR(../../@) rule $VAR(../@)\".";
+          echo    "  To change the action you must first delete the rule ";
+          echo -e "  \"delete route-map $VAR(../../@) rule $VAR(../@)\" and commit it. \\n";
+          exit 1;
+        fi;
+delete: /opt/vyatta/sbin/vyatta-policy.pl --check-delete-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@)";
+        if [ $? -eq 0 ]; then
+          touch /tmp/route-map-$VAR(../../@)-rule-$VAR(../@)-action.$PPID ;
+        else
+          echo    "  Action is a required node for \"route-map $VAR(../../@) rule $VAR(../@)\". ";
+          echo -e "  To delete that node you must delete \"route-map $VAR(../../@) rule $VAR(../@)\". \\n";
+          exit 1;
+        fi;

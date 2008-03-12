@@ -1,20 +1,21 @@
 help: Match BGP community list
-delete:expression: "touch /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-match-community.$PPID"
+delete: echo route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@) >>  /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID
 ## this will always return exact-match pending bug 2525 being fixed
-end:expression: "if [ -z \"$VAR(./community-list/)\" ]; then \
-        echo You must configure a community-list ; \
-        exit 1 ; \
-      fi ; \
-      ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" \
-        -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-        -c \"no match community \" ; \
-      if [ -f \"/tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-match-community.$PPID\" ]; then \
-        rm -rf /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-match-community.$PPID; \
-      else \
-        if [ -n \"$VAR(./exact-match/)\" ]; then \
-          cond=\"exact-match \"; \
-        fi ; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-          -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-          -c \"match community $VAR(./community-list/@) $cond\" ; \
-      fi; "
+end:  if [ -z "$VAR(./community-list/)" ]; then
+        echo You must configure a community-list ;
+        exit 1 ;
+      fi ;
+      if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID ]; then
+        routemap=`cat /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID`
+        rm -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID;
+        ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "$routemap " -c "no match community " ;
+        exit 0;
+      else
+        routemap='route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)';
+
+        if [ -n "$VAR(./exact-match/)" ]; then
+          cond="exact-match ";
+        fi ;
+        ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "$routemap " -c "no match community " ;
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c "$routemap " -c "match community $VAR(./community-list/@) $cond" ;
+      fi
