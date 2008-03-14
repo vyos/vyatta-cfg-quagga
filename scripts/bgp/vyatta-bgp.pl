@@ -36,6 +36,13 @@ sub check_peer_name() {
     print "malformed neighbor address $neighbor\n";
     exit 1;
   }
+  
+  # Quagga treats the first byte as a potential IPv6 address
+  # so we can't use it as a peer group name.  So let's check for it.
+  if (/^[A-Fa-f]{1,4}$/) {
+    print "malformed neighbor address $neighbor\n";
+    exit 1;
+  }
 }
 
 # Make sure we aren't deleteing a peer-group that has 

@@ -9,12 +9,16 @@ GetOptions("update-access-list=s"    => \$accesslist,
            "update-aspath-list=s"    => \$aspathlist,
            "update-community-list=s" => \$communitylist,
            "check-peer-syntax=s"     => \$peer,
+           "check-routemap-action=s" => \$routemap,
+           "check-delete-routemap-action=s" => \$deleteroutemap,
 );
 
 if (defined $accesslist)    { update_access_list($accesslist); }
 if (defined $aspathlist)    { update_as_path($aspathlist); }
 if (defined $communitylist) { update_community_list($communitylist); }
 if (defined $peer)          { check_peer_syntax($peer); }
+if (defined $routemap)      { check_routemap_action($routemap); }
+if (defined $deleteroutemap) { check_delete_routemap_action($deleteroutemap); }
 
 exit 0;
 
@@ -209,3 +213,39 @@ sub update_access_list() {
   exit 0; 
 }
 
+## check_routemap_action
+# check if the action has been changed since the last commit.
+# we need to do this because quagga will wipe the entire config if
+# the action is changed.
+# $1 = policy route-map <name> rule <num> action
+sub check_routemap_action() {
+  my $routemap = shift;
+  my $config = new VyattaConfig;
+
+  my $action = $config->setLevel("$routemap");
+  my $origvalue = $config->returnOrigValue();
+  if ($origvalue) {
+    my $value = $config->returnValue();
+    if ("$value" ne "$origvalue") {
+      exit 1;
+    }
+  }
+
+  exit 0;
+}
+
+## check_delete_routemap_action
+# don't allow deleteing the route-map action if other sibling nodes exist.
+# action is required for all other route-map definitions
+# $1 = policy route-map <name> rule <num>
+sub check_delete_routemap_action() {
+  my $routemap = shift;
+  my $config = new VyattaConfig;
+
+  my @nodes = $config->listNodes("$routemap");
+  if (defined @nodes) {
+    exit 1
+  }
+
+  exit 0;
+}

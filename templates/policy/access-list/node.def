@@ -1,10 +1,6 @@
 tag:
 type: u32
-help: Access list number must be
-  <1-99>       IP standard access list
-  <100-199>    IP extended access list
-  <1300-1999>  IP standard access list (expanded range)
-  <2000-2699>  IP extended access list (expanded range)
+help: IP access list number 
 syntax:expression: ($VAR(@) >= 1 && $VAR(@) <= 199) || ($VAR(@) >= 1300 && $VAR(@) <= 2699); \
 "Access list number must be \n \
   <1-99>       IP standard access list \n \
