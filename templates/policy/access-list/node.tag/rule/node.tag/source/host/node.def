@@ -1,4 +1,5 @@
 type: ipv4
-help: Filter a host IP address
-commit:expression: ($VAR(../any/) == "") && ($VAR(../network/) == ""); "You may only define one filter type. (host|network|any)"
-commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"
+help: match a single host IP address
+comp_help: \1  <ipv4>\thost address to match
+commit:expression: ($VAR(../any/) == "") && ($VAR(../network/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify an action"

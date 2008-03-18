@@ -1,4 +1,5 @@
 tag:
 type: u32
-help: Specify access-list rule number
+help: access-list rule 
+comp_help: \1  <u32>\t\taccess-list rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"

@@ -1,3 +1,5 @@
 type: txt
-help: Action to take on packets matching this rule
-syntax:expression: $VAR(@) in "permit", "deny"; "must be permit or deny"
+help: action to take on networks matching this rule
+comp_help: \1  permit\tpermit matching networks
+  deny\t\tdeny matching networks
+syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
