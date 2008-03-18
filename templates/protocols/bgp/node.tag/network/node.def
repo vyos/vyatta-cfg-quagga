@@ -5,7 +5,7 @@ syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-
        "Prefix doesn't fall on a natural boundry"
 
 commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
-       "May specify route-map or backdoor but not both"
+       "protocols bgp $VAR(../@) network $VAR(@): May specify route-map or backdoor but not both"
 
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID
 
@@ -24,7 +24,7 @@ end: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router
         fi ;
 
         if [ -n "$VAR(./route-map/@)" ]; then
-          COND="route-map $VAR(./route-map/@)";
+          cond="route-map $VAR(./route-map/@)";
         fi;
 
         ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../@)" -c "network $VAR(@) $cond";
