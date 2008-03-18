@@ -64,7 +64,7 @@ sub update_community_list() {
     # set the action
     $action = $config->returnValue("$rule action");
     if (! defined $action) {
-      print "You must specify an action for as-path-list $list rule $rule\n";
+      print "policy community-list $list rule $rule: You must specify an action\n";
       exit 1;
     }
 
@@ -73,7 +73,7 @@ sub update_community_list() {
       $regex = $config->returnValue("$rule regex");
     }
     else {
-      print "You must specify a regex for community-list $list rule $rule\n";
+      print "policy community-list $list rule $rule: You must specify a regex\n";
       exit 1;
     }
 
@@ -114,7 +114,7 @@ sub update_as_path() {
     # set the action
     $action = $config->returnValue("$rule action");
     if (! defined $action) {
-      print "You must specify an action for as-path-list $list rule $rule\n";
+      print "policy as-path-list $list rule $rule: You must specify an action\n";
       exit 1;
     }
 
@@ -123,7 +123,7 @@ sub update_as_path() {
       $regex = $config->returnValue("$rule regex");
     }
     else {
-      print "You must specify a regex for as-path-list $list rule $rule\n";
+      print "policy as-path-list $list rule $rule: You must specify a regex\n";
       exit 1;
     }
 
@@ -164,7 +164,7 @@ sub update_access_list() {
     # set the action
     $action = $config->returnValue("$rule action");
     if (! defined $action) { 
-      print "You must specify an action for access-list $list rule $rule\n";
+      print "policy access-list $list rule $rule: You must specify an action\n";
       exit 1;
     }
 
@@ -181,7 +181,7 @@ sub update_access_list() {
     else {
       if ($config->exists("$rule source any")) { $src = "any"; }
       else {
-        print "error in source section of access-list $list rule $rule\n";
+        print "policy access-list $list rule $rule source: incorrect source filter\n";
         exit 1;
       }
     }
@@ -201,7 +201,7 @@ sub update_access_list() {
       else {
         if ($config->exists("$rule destination any")) { $dst = "any"; }
         else {
-          print "error in destination section of access-list $list rule $rule\n";
+          print "policy access-list $list rule $rule destination: incorrect destination filter\n";
           exit 1;
         }
       }
