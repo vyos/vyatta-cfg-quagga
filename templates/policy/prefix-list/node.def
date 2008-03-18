@@ -1,4 +1,5 @@
 tag:
 type: txt
-help: Add a prefix list entry
+help: IP prefix-list filter
+comp_help: \1  <txt>\tprefix-list list name
 syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "prefix-list name must be alpha-numeric"

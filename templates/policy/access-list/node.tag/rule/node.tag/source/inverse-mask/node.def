@@ -1,5 +1,6 @@
 type: ipv4
-help: Filter a network IP netmask
-commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "You may only define one filter type. (host|network|any)"
-commit:expression: $VAR(../network/) != ""; "You must specify a network before committing"
-commit:expression: $VAR(../../action/) != ""; "You must specify an action before committing"
+help: match a network/netmask (requires network be defined)
+comp_help: \1  <x.x.x.x>\tinverse-mask to match
+commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../network/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify a network if you configure an inverse-mask"
+commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify an action"

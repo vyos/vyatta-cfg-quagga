@@ -1,8 +1,10 @@
 tag:
 type: u32
-help: Add a community list entry
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 500; " \
-community-list must be \
-  <1-99>     Community list number (standard) \
-  <100-500>  Community list number (expanded) "
-end:expression: "/opt/vyatta/sbin/vyatta-policy.pl --update-community-list $VAR(@)"
+help: BGP community-list filter
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 500; " 
+community-list must be 
+  <1-99>\tBGP community list (standard) 
+  <100-500>\tBGP community list (expanded) "
+comp_help: \1  <1-99>\tBGP community list (standard)
+  <100-500>\tBGP community list (expanded)
+end: /opt/vyatta/sbin/vyatta-policy.pl --update-community-list $VAR(@)

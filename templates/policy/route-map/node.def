@@ -1,4 +1,5 @@
 tag:
 type: txt
-help: Create route-map or enter route-map command mode
+help: IP route-map 
+comp_help: \1  <txt>\t\troute-map name
 syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "route-map $VAR(@): name must be alpha-numeric"

@@ -1,3 +1,5 @@
 type: u32
-help: Match community list
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy community-list $VAR(@)\" "; "community-list $VAR(@) doesn't exist"
+help: match against a BGP community-list
+comp_help: \1  <1-99>\tBGP community list (standard)
+  <100-500>\tBGP community list (expanded)
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy community-list $VAR(@)\" "; "policy route-map $VAR(../../../../@) rule $VAR(../../../@) match community: community-list $VAR(@) doesn't exist"

@@ -2,4 +2,5 @@ tag:
 type: txt
 help: BGP autonomous system path filter
 syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "as-path-list name must be alpha-numeric"
-end:expression: "/opt/vyatta/sbin/vyatta-policy.pl --update-aspath-list $VAR(@)"
+end: /opt/vyatta/sbin/vyatta-policy.pl --update-aspath-list $VAR(@)
+comp_help: \1  <txt>\t\tas-path-list name
