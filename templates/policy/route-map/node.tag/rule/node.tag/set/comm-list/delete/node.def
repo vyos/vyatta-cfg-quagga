@@ -1,1 +1,1 @@
-help: Delete matching communities
+help: delete BGP communities matching the community-list

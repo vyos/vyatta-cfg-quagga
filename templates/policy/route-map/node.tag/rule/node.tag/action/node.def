@@ -1,11 +1,13 @@
 type: txt
-help: Action to take on prefixes matching this rule
-syntax:expression: $VAR(@) in "permit", "deny"; "route-map $VAR(../../@) $VAR(@) $VAR(../@) action: must be permit or deny"
+help: action to take on prefixes matching this rule
+comp_help: \1  permit\tpermit matching prefixes
+  deny\t\tdeny matching prefixes
+syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
 update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@) action";
         if [ $? -eq 0 ]; then
           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
         else
-          echo    "  You can not change the action for \"route-map $VAR(../../@) rule $VAR(../@)\".";
+          echo    "policy route-map $VAR(../../@) rule $VAR(../@): You can not change the action.";
           echo    "  To change the action you must first delete the rule ";
           echo -e "  \"delete route-map $VAR(../../@) rule $VAR(../@)\" and commit it. \\n";
           exit 1;
@@ -14,7 +16,7 @@ delete: /opt/vyatta/sbin/vyatta-policy.pl --check-delete-routemap-action "policy
         if [ $? -eq 0 ]; then
           touch /tmp/route-map-$VAR(../../@)-rule-$VAR(../@)-action.$PPID ;
         else
-          echo    "  Action is a required node for \"route-map $VAR(../../@) rule $VAR(../@)\". ";
+          echo    "policy route-map $VAR(../../@) rule $VAR(../@): Action is a required parameter. ";
           echo -e "  To delete that node you must delete \"route-map $VAR(../../@) rule $VAR(../@)\". \\n";
           exit 1;
         fi;

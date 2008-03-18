@@ -1,2 +1,3 @@
 type: ipv4
-help: IP address of aggregator
+help: set the IP address of an aggregation
+comp_help: \1  <x.x.x.x>\tIP address

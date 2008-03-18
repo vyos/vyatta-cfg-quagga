@@ -1,10 +1,13 @@
 type: txt
-help: BGP origin code
+help: set BGP origin code
+comp_help: \1  igp\t\tinterior gateway protocol origin
+  egp\t\texterior gateway protocol origin
+  incomplete\tincomplete origin
 syntax:expression: $VAR(@) in "igp", "egp", "incomplete"; "origin must be one of igp, egp, or incomplete"
-commit:expression: $VAR(../../action/) != ""; "You must specify an action for route-map $VAR(../../../@) rule $VAR(../../@)"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"set origin  $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"no set origin  \" "
+commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "set origin  $VAR(@)"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "no set origin "

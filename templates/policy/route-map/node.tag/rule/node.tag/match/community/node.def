@@ -1,4 +1,4 @@
-help: Match BGP community list
+help: match a BGP community-list
 delete: echo route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@) >>  /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID
 end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID ]; then
         routemap=`cat /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID`
@@ -7,11 +7,11 @@ end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-
         exit 0;
       else
         if [ -z "$VAR(./community-list/@)" ]; then
-          echo route-map $VAR(../../../@) rule $VAR(../../@) match community: You must configure a community-list ;
+          echo route-map $VAR(../../../@) rule $VAR(../../@) match community: you must configure a community-list ;
           exit 1 ;
         fi ;
         if [ -z "$VAR(../../action/@)" ]; then
-          echo route-map $VAR(../../../@) rule $VAR(../../@): You must configure an action ;
+          echo route-map $VAR(../../../@) rule $VAR(../../@): you must configure an action ;
           exit 1 ;
         fi ;
         routemap='route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)';

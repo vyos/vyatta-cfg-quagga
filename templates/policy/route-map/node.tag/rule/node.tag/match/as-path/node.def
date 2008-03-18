@@ -1,10 +1,11 @@
 type: txt
-help: Match BGP AS path list
-commit:expression: $VAR(../../action/) != ""; "You must specify an action for route-map $VAR(../../../@) rule $VAR(../../@)"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" "; "AS path list $VAR(@) doesn't exist"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"match as-path $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"no match as-path $VAR(@)\" "
+help: match against a BGP as-path-list
+comp_help: \1  <txt>\t\tas-path-list name
+commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" "; "policy route-map $VAR(../../../@) rule $VAR(../../@) match as-path: AS path list $VAR(@) doesn't exist"
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "match as-path $VAR(@)" 
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "no match as-path $VAR(@)" 

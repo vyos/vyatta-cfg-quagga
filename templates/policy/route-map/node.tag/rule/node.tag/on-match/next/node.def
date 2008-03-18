@@ -1,10 +1,10 @@
-help: Goto next sequence number
-syntax:expression: $VAR(../goto/) == ""; "you can set only goto or next"
-commit:expression: $VAR(../../action/) != ""; "You must specify an action for route-map $VAR(../../../@) rule $VAR(../../@)"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"on-match next \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-         -c \"route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)\" \
-         -c \"no on-match next \" "
+help: on match goto next sequence number
+syntax:expression: $VAR(../goto/) == ""; "you may set only goto or next"
+commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "on-match next "
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+         -c "no on-match next "
 
