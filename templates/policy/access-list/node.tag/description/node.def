@@ -1,2 +1,2 @@
 type: txt
-help: access-list description
+help: set a description for this access-list

@@ -1,11 +1,11 @@
 type: txt
-help: Community list regular expression
-# pending bug 2285
+help: match against a community list regular expression
+comp_help: \1  <txt>\t\tcommunity-list regular expression
 syntax:expression: exec " \
 if [ $VAR(../../@) -ge 1 ] && [ $VAR(../../@) -le 99 ]; then \
   if [ -n \"`echo $VAR(@) | sed 's/[0-9]*:[0-9]*//g' | sed -e 's/internet//g' -e 's/local-AS//g' -e 's/no-advertise//g' -e 's/no-export//g'`\" ]; then \
-    echo regex $VAR(@) is invalid for a standard community list; \
+    echo policy community-list $VAR(../../@) rule $VAR(../@): regex $VAR(@) is invalid for a standard community list; \
     exit 1 ; \
   fi ; \
 fi ; "
-commit:expression: $VAR(../action/@) != ""; "You must specify an action before committing"
+commit:expression: $VAR(../action/@) != ""; "policy community-list $VAR(../../@) rule $VAR(../@): You must specify an action"

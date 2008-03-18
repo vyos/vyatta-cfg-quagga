@@ -1,3 +1,4 @@
 type: u32
-help: Prefix greater than or equal to
+help: match a netmask greater than or equal to prefix length 
+comp_help: \1  <0-32>\tnetmask greater than length
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 32; "ge must be between 0 and 32"

@@ -1,3 +1,4 @@
 type: u32
-help: Prefix less than or equal to
+help: match a netmask less than or equal to prefix length
+comp_help: \1  <0-32>\tnetmask less than length
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 32; "le must be between 0 and 32"

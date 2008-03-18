@@ -1,4 +1,6 @@
 tag:
 type: u32
-help: Specify as-path-list rule number
+help: create a rule for this as-path-list 
+comp_help: \1  <1-65535>\tas-path-list rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
+
