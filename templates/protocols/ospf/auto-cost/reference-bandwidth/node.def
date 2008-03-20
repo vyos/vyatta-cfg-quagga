@@ -3,15 +3,20 @@ help: Use reference bandwidth method to assign OSPF cost
 default: 100
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967; \
        "Must be between 1-4294967"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl  \
-       -c \"configure terminal\"                       \
-       -c \"router ospf\"                              \
-       -c \"auto-cost reference-bandwidth $VAR(@) \"; "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl  \
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr \
        -c \"configure terminal\"                       \
        -c \"router ospf\"                              \
-       -c \"no auto-cost reference-bandwidth \"; "
+       -c \"auto-cost reference-bandwidth $VAR(@) \";  \
+       echo 'OSPF: Reference bandwidth is changed.';   \
+       echo '      Please ensure reference bandwidth is consistent across all routers'; "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr \
+       -c \"configure terminal\"                       \
+       -c \"router ospf\"                              \
+       -c \"no auto-cost reference-bandwidth \";       \
+       echo 'OSPF: Reference bandwidth is changed.';   \
+       echo '      Please ensure reference bandwidth is consistent across all routers'; "
 
 comp_help: possible completions:
  <1-4294967>        Set reference bandwidth cost in Mbits/sec (default 100)
