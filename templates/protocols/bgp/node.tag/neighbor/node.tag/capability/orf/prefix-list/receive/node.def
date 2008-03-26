@@ -1,14 +1,14 @@
-help: Capability to RECEIVE the ORF to this neighbor
+help: configure the capability to receive the ORF 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 commit:expression: $VAR(../../../../peer-group/) == ""; "You can't set orf capability receive for neighbor $VAR(../../../../@) in peer-group $VAR(../../../../peer-group/@)"
-update:expression: "if [ -n \"$VAR(../../../../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../../../../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../../../../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../../../@)\" \
-	  -c \"neighbor $VAR(../../../../@) $peer\" \
-          -c \"neighbor $VAR(../../../../@) capability orf prefix-list receive\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../../../@)\" \
-          -c \"no neighbor $VAR(../../../../@) capability orf prefix-list receive\" "
+update:  if [ -n "$VAR(../../../../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../../../../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../../../../peer-group/@)\"; \
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../../../@)" \
+	   -c "neighbor $VAR(../../../../@) $peer" \
+           -c "neighbor $VAR(../../../../@) capability orf prefix-list receive"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../../../../@)" \
+           -c "no neighbor $VAR(../../../../@) capability orf prefix-list receive"
 

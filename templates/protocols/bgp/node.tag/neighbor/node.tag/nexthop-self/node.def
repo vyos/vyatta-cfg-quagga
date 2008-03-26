@@ -1,14 +1,14 @@
-help: Disable the next hop calculation for this neighbor
+help: set the nexthop to this router for routes sent to this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "You can't set next-hop-self for neighbor $VAR(../@) in peer-group $VAR(../peer-group/@)"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) next-hop-self\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) next-hop-self \" "
+commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) next-hop-self: you can't set next-hop-self for a neighbor in a peer-group"
+update:  if [ -n "$VAR(../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../peer-group/@)"; 
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	   -c "neighbor $VAR(../@) $peer" \
+           -c "neighbor $VAR(../@) next-hop-self"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+          -c "no neighbor $VAR(../@) next-hop-self "
 

@@ -1,3 +1,4 @@
 type: txt
-help: Route map reference
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"
+help: configure a route map to filter redistributed routes
+comp_help: \1  <txt>\t\troute-map name
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../@) redistribute kernel: route-map $VAR(@) doesn't exist"

@@ -1,5 +1,6 @@
 type: u32
-help: Value to start reusing a route
+help: set time to start reusing a route
+comp_help: \1  <1-20000>\tre-use time in seconds
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 20000; "Re-use value must be between 1 and 20000"
-commit:expression: $VAR(../start-suppress-time/) != ""; "Start-suppress-time must be set"
-commit:expression: $VAR(../max-suppress-time/) != ""; "Max-suppress-time must be set"
+commit:expression: $VAR(../start-suppress-time/) != ""; "protocols bgp $VAR(../../../@) parameters dampening re-use: you must set start-suppress-time"
+commit:expression: $VAR(../max-suppress-time/) != ""; "protocols bgp $VAR(../../../@) parameters dampening re-use: you must set max-suppress-time"

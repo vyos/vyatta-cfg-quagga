@@ -1,13 +1,12 @@
-help: Allow inbound soft reconfiguration for this neighbor
+help: configure inbound soft reconfiguration for this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-	  -c \"neighbor $VAR(../../@) $peer\" \
-          -c \"neighbor $VAR(../../@) soft-reconfiguration inbound \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-          -c \"no neighbor $VAR(../../@) soft-reconfiguration inbound \" "
-
+update: if [ -n "$VAR(../../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+	  -c "neighbor $VAR(../../@) $peer" \
+          -c "neighbor $VAR(../../@) soft-reconfiguration inbound"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+          -c "no neighbor $VAR(../../@) soft-reconfiguration inbound"

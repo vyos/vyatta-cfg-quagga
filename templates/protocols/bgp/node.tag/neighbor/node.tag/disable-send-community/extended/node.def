@@ -1,14 +1,14 @@
-help: Do not send extended community attributes
+help: do not send extended community attributes to this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
-commit:expression: $VAR(../../peer-group/) == ""; "You can't set no-send-community for neighbor $VAR(../../@) in peer-group $VAR(../../peer-group/@)"
-update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-	  -c \"neighbor $VAR(../../@) $peer\" \
-          -c \"no neighbor $VAR(../../@) send-community extended\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-          -c \"neighbor $VAR(../../@) send-community extended\" "
+commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set disable-send-community for a neighbor in a peer-group"
+update:  if [ -n "$VAR(../../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../../peer-group/@)"; 
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+	   -c "neighbor $VAR(../../@) $peer" \
+           -c "no neighbor $VAR(../../@) send-community extended"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+           -c "neighbor $VAR(../../@) send-community extended"
 

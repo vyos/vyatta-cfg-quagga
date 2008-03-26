@@ -1,2 +1,2 @@
-help: Per neighbor soft reconfiguration
-commit:expression: $VAR(./inbound/) != ""; "You must specify the type of soft-reconfiguration"
+help: configure soft reconfiguration for neighbor
+commit:expression: $VAR(./inbound/) != ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) soft-reconfiguration: you must specify the type of soft-reconfiguration"

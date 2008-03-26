@@ -1,13 +1,13 @@
-help: One hop distant EBGP peer using loopback address
+help: disable check to see if EBGP peer's address is a connected route
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) disable-connected-check\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) disable-connected-check \" "
+update:  if [ -n "$VAR(../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../peer-group/@)"; 
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	   -c "neighbor $VAR(../@) $peer" \
+           -c "neighbor $VAR(../@) disable-connected-check"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no neighbor $VAR(../@) disable-connected-check"
 

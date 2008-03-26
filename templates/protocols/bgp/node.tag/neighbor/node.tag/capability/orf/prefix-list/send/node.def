@@ -1,4 +1,4 @@
-help: Capability to SEND the ORF to this neighbor
+help: configure the capability to send the ORF
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 commit:expression: $VAR(../../../../peer-group/) == ""; "You can't set capability orf send for neighbor $VAR(../../../../@) in peer-group $VAR(../../../../peer-group/@)"
 update:expression: "if [ -n \"$VAR(../../../../remote-as/@)\" ]; then \

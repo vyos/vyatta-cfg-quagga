@@ -1,13 +1,14 @@
-help: Do not send standard community attributes
+help: do not send standard community attributes to this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
-update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-	  -c \"neighbor $VAR(../../@) $peer\" \
-          -c \"no neighbor $VAR(../../@) send-community standard\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-          -c \"neighbor $VAR(../../@) send-community standard\" "
+commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set disable-send-community for a neighbor in a peer-group"
+update:  if [ -n "$VAR(../../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../../peer-group/@)"; 
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+	   -c "neighbor $VAR(../../@) $peer" \
+           -c "no neighbor $VAR(../../@) send-community standard"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+           -c "neighbor $VAR(../../@) send-community standard"
 

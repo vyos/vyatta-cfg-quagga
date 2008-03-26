@@ -1,1 +1,1 @@
-help: Establish BGP filters
+help: configure an as-path-list to filter route updates to/from this neighbor
