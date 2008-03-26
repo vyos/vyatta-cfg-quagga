@@ -1,5 +1,6 @@
 type: txt
-help: Member of the peer-group
+help: add this neighbor to a peer-group
+comp_help: \1  <txt>\tpeer-group name
 syntax:expression: exec "if [ -n \"`echo $VAR(../@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
                 exit 1; \
               fi; "; "peer-group token may not be specified for a peer-group"

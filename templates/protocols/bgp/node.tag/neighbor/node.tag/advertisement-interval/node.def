@@ -1,5 +1,5 @@
 type: u32
-help: set the minimum interval between sending BGP routing updates
+help: set the minimum interval for sending routing updates
 comp_help: \1  <0-600>\tadvertisement interval in seconds
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 600; "must be between 0 and 600"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

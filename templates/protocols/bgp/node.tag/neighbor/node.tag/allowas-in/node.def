@@ -1,4 +1,4 @@
-help: accept a route that contains an as-path with the local AS present in it
+help: accept a route that contains the local-AS in the as-path 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 delete: touch /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID
 end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
