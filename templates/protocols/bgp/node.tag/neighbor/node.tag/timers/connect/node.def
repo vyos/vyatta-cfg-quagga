@@ -1,3 +1,5 @@
 type: u32
-help: BGP connect timer
+help: set the BGP connect timer for this neighbor
+comp_help: \1  <1-65535>\tconnect timer in seconds
+  0\t\tdisable connect timer
 syntax:expression: $VAR(@) >=0 && $VAR(@) <= 65535; "BGP connect timer must be between 0 and 65535"

@@ -1,6 +1,7 @@
 type: ipv4
-help: Override configured router identifier
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"bgp router-id $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"no bgp router-id \" "
+help: set BGP router id
+comp_help: \1  <x.x.x.x>\tBGP router-id IP
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "bgp router-id $VAR(@)"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no bgp router-id"

@@ -1,7 +1,8 @@
 type: u32
+help: set BGP route scanner interval
+comp_help: \1  <5-60>\tscan interval in seconds
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 60; "scan-time must be between 5 and 60 seconds"
-help: Configure background scanner interval
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"bgp scan-time $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"no bgp scan-time \" "
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "bgp scan-time $VAR(@)"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no bgp scan-time"

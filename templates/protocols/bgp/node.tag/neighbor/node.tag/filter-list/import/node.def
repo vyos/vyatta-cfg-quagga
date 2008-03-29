@@ -1,16 +1,17 @@
 type: txt
-help: Filter incoming updates based on AS path
+help: set an as-path-list to filter incoming route updates from this neighbor
+comp_help: \1  <txt>\t\tas-path-list name
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
-commit:expression: $VAR(../../peer-group/) == ""; "You can't set a filter-list for neighbor $VAR(../../@) in peer-group $VAR(../../peer-group/@)"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"as-path-list $VAR(@) doesn't exist"
-update:expression: "if [ -n \"$VAR(../../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-	  -c \"neighbor $VAR(../../@) $peer\" \
-          -c \"neighbor $VAR(../../@) filter-list $VAR(@) in\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-          -c \"no neighbor $VAR(../../@) filter-list $VAR(@) in\" "
+commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a filter-list for a neighbor in peer-group"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) filter-list import: as-path-list $VAR(@) doesn't exist"
+update:  if [ -n "$VAR(../../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../../peer-group/@)"; 
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+	   -c "neighbor $VAR(../../@) $peer" \
+           -c "neighbor $VAR(../../@) filter-list $VAR(@) in"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+           -c "no neighbor $VAR(../../@) filter-list $VAR(@) in"
 

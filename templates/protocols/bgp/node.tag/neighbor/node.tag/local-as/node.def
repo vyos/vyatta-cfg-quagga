@@ -1,25 +1,32 @@
-help: Specify a local-as number
+help: set a different AS number to use with this neighbor
+syntax:expression: $VAR(./local-as/@) >= 1 && $VAR(./local-as/@) <= 4294967294; "AS number must be between 1 and 4294967294"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "You can't set a local-as for neighbor $VAR(../../@) in peer-group $VAR(../../peer-group/@)"
-delete:expression: "touch /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID"
-end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-        -c \"no neighbor $VAR(../@) local-as \"; \
-      if [ -f \"/tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID\" ]; then \
-        rm -rf /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID; \
-      else \
-        if [ -z \"$VAR(./local-as/@)\" ]; then \
-          echo You must specify local-as local-as ; \
-          exit 1 ; \
-        fi ; \
-        if [ -n \"$VAR(./no-prepend/@)\" ]; then \
-          cond=\"no-prepend \" ; \
-        fi ; \
-	if [ -n \"$VAR(../remote-as/@)\" ]; then \
-          peer=\"remote-as $VAR(../remote-as/@)\"; \
-        else \
-          peer=\"peer-group $VAR(../peer-group/@)\"; \
-        fi; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) local-as $VAR(./local-as/@) $cond \"; \
-      fi; "
+commit:expression: $VAR(./local-as/@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set a different local-as for iBGP neighbors"
+commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set local-as for a neighbor in a peer-group"
+delete: touch /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID
+end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        -c "no neighbor $VAR(../@) local-as "; 
+      if [ -f "/tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID" ]; then 
+        rm -rf /tmp/bgp-neighbor-$VAR(../@)-local-as.$PPID; 
+      else 
+        if [ -z "$VAR(./local-as/@)" ]; then 
+          echo protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you must specify local-as local-as ; 
+          exit 1 ; 
+        fi ; 
+        ## uncomment when 2525 is fixed
+        #if [ -n "$VAR(./no-prepend/@)" ]; then
+        #  cond="no-prepend " ;
+        #fi ;
+        ${vyatta_sbindir}/vyatta-check-typeless-node.pl "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as no-prepend";
+        if [ $? -eq 0 ]; then
+          cond="no-prepend ";
+        fi ;
+	if [ -n "$VAR(../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	   -c "neighbor $VAR(../@) $peer" \
+           -c "neighbor $VAR(../@) local-as $VAR(./local-as/@) $cond "; 
+      fi; 

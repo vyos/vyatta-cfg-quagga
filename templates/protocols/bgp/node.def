@@ -1,9 +1,10 @@
 tag:
 type: u32
-help: Configure a BGP Autonomous System on this router
+help: Configure BGP protocol
+comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "AS number must be between 1 and 4294967294"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(@)\" "
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(@)"
 # we need to set default parameters in BGP here since we can't do it in
-# startup scripts because we don't know the AS number
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(@)\" -c \"bgp network import-check\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no router bgp $VAR(@)\" "
+# startup scripts as we don't know the AS number at that point
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(@)" -c "bgp network import-check"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "no router bgp $VAR(@)"

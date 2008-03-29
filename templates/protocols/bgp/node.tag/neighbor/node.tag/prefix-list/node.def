@@ -1,1 +1,1 @@
-help: Filter updates to/from this neighbor
+help: configure a prefix-list to filter route updates to/from this neighbor

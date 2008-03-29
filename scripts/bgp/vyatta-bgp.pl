@@ -108,12 +108,12 @@ sub check_as() {
     }
 
     if (! defined $peergroup) {
-      print "You must define a remote-as or peer-group for neighbor $neighbor before commiting\n";
+      print "protocols bgp $as neighbor $neighbor: you must define a remote-as or peer-group\n";
       exit 1;
     }
 
     if (! defined $peergroupas) {
-      print "You must define a remote-as in neighbor $neighbor or peer-group $peergroup before commiting\n";
+      print "protocols bgp $as neighbor $neighbor: you must define a remote-as in this neighbor or in peer-group $peergroup\n";
       exit 1;
     }
   }

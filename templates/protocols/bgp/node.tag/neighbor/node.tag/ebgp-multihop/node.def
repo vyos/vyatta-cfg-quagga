@@ -1,15 +1,16 @@
 type: u32
-help: Allow EBGP neighbors not on directly connected networks
+help: allow this EBGP neighbor to not be on a directly connected network
+comp_help: \1  <1-255>\tnumber of hops 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 255; "ebgp-multihop must be between 1 and 255"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) ebgp-multihop $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) ebgp-multihop \" "
+update:  if [ -n "$VAR(../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../remote-as/@)"; 
+         else 
+           peer="peer-group $VAR(../peer-group/@)";
+         fi; 
+	 ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	   -c "neighbor $VAR(../@) $peer" \
+           -c "neighbor $VAR(../@) ebgp-multihop $VAR(@)"
+delete:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no neighbor $VAR(../@) ebgp-multihop"
 

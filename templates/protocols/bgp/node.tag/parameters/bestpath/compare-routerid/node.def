@@ -1,6 +1,6 @@
-help: Compare router-id for identical EBGP paths
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-           -c \"bgp bestpath compare-routerid \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../../@)\" \
-           -c \"no bgp bestpath compare-routerid \" "
+help: compare the router-id for identical EBGP paths
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+           -c "bgp bestpath compare-routerid"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+           -c "no bgp bestpath compare-routerid"
 

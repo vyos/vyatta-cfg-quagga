@@ -1,5 +1,5 @@
-help: Allow comparing MED from different neighbors
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"bgp always-compare-med\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"no bgp always-compare-med\" "
+help: compare MEDs from different neighbors
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "bgp always-compare-med"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no bgp always-compare-med"

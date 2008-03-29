@@ -1,27 +1,27 @@
-help: BGP attribute is propagated unchanged to this neighbor
+help: set whether BGP attributes are sent unchanged 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "You can't set attribute-unchanged for neighbor $VAR(../@) in peer-group $VAR(../peer-group/@)"
-delete:expression: "touch /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID"
-end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-        -c \"no neighbor $VAR(../@) attribute-unchanged \"; \
-      if [ -f \"/tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID\" ]; then \
-        rm -rf /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID; \
-      else \
-        if [ -n \"$VAR(./as-path/@)\" ]; then \
-          cond=\"as-path \" ; \
-        fi ; \
-        if [ -n \"$VAR(./med/@)\" ]; then \
-          cond=\"$cond med \" ; \
-        fi ; \
-        if [ -n \"$VAR(./next-hop/@)\" ]; then \
-          cond=\"$cond next-hop \" ; \
-        fi ; \
-	if [ -n \"$VAR(../remote-as/@)\" ]; then \
-          peer=\"remote-as $VAR(../remote-as/@)\"; \
-        else \
-          peer=\"peer-group $VAR(../peer-group/@)\"; \
-        fi; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) attribute-unchanged $cond\"; \
-      fi; "
+commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set attribute-unchanged for a neighbor in a peer-group"
+delete: touch /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID
+end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        -c "no neighbor $VAR(../@) attribute-unchanged "; 
+      if [ -f "/tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID" ]; then 
+        rm -rf /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID; 
+      else 
+        if [ -n "$VAR(./as-path/@)" ]; then 
+          cond="as-path " ; 
+        fi ; 
+        if [ -n "$VAR(./med/@)" ]; then 
+          cond="$cond med " ; 
+        fi ; 
+        if [ -n "$VAR(./next-hop/@)" ]; then 
+          cond="$cond next-hop " ; 
+        fi ; 
+	if [ -n "$VAR(../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	  -c "neighbor $VAR(../@) $peer" \
+          -c "neighbor $VAR(../@) attribute-unchanged $cond"; 
+      fi; 

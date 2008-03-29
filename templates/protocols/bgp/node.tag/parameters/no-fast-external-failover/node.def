@@ -1,5 +1,5 @@
-help: Immediately reset session if a link to a directly connected external peer goes down
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"no bgp fast-external-failover \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"bgp fast-external-failover \" "
+help: disable immediate sesison reset if peer's connected link goes down
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no bgp fast-external-failover"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "bgp fast-external-failover"

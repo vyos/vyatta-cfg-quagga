@@ -1,5 +1,5 @@
-help: Log neighbor up/down and reset reason
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"bgp log-neighbor-changes \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-           -c \"no bgp log-neighbor-changes \" "
+help: log neighbor up/down changes and reset reason
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "bgp log-neighbor-changes"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+           -c "no bgp log-neighbor-changes"

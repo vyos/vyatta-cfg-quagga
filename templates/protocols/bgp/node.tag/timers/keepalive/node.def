@@ -1,7 +1,6 @@
 type: u32
 help: Keepalive interval
+comp_help: \1  <1-65535>\tkeep-alive time in seconds (default 60)
 default: 60
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; \
        "Keepalive interval must be between 1 and 65535"
-comp_help: possible completions:
- <1-65535>          Set keepalive interval (default 60)

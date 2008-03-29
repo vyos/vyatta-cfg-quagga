@@ -1,17 +1,17 @@
-help: Accept as-path with my AS present in it.
+help: accept a route that contains the local-AS in the as-path 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-delete:expression: "touch /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID"
-end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-         -c \"no neighbor $VAR(../@) allowas-in \"; \
-      if [ -f \"/tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID\" ]; then \
-        rm -rf /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID; \
-      else \
-        if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-        else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-        fi; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) allowas-in $VAR(./number/@)\"; \
-      fi; "
+delete: touch /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID
+end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+         -c "no neighbor $VAR(../@) allowas-in "; 
+      if [ -f "/tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID" ]; then 
+        rm -rf /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID; 
+      else 
+        if [ -n "$VAR(../remote-as/@)" ]; then 
+           peer="remote-as $VAR(../remote-as/@)"; 
+        else 
+           peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	  -c "neighbor $VAR(../@) $peer" \
+          -c "neighbor $VAR(../@) allowas-in $VAR(./number/@)"; 
+      fi; 

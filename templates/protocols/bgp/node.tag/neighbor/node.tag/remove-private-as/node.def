@@ -1,14 +1,14 @@
-help: Remove private AS number from outbound updates
+help: remove private AS numbers from AS path in outbound route updates
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "You can't set a remove-private-as for neighbor $VAR(../@) in peer-group $VAR(../peer-group/@)"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) remove-private-AS \" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) remove-private-AS  \" "
+commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../../@): you can't set remove-private-as for a neighbor in a peer-group"
+update: if [ -n "$VAR(../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	  -c "neighbor $VAR(../@) $peer" \
+          -c "neighbor $VAR(../@) remove-private-AS"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+          -c "no neighbor $VAR(../@) remove-private-AS"
 

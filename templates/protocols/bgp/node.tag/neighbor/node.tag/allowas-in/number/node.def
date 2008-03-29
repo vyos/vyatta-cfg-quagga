@@ -1,4 +1,5 @@
 type: u32
-help: Number of occurrences of AS number
+help: number of occurrences of AS number
+comp_help: \1  <1-10>\tnumber of times AS is allowed in path
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10; "allowas-in number must be between 1 and 10"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"

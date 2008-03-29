@@ -1,15 +1,16 @@
 type: txt
-help: Route-map to selectively unsuppress suppressed routes
+help: set a route-map to selectively unsuppress suppressed routes
+comp_help: \1  <txt>\t\troute-map name
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "You can't set an unsuppress-map for neighbor $VAR(../@) in peer-group $VAR(../peer-group/@)"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"
-update:expression: "if [ -n \"$VAR(../remote-as/@)\" ]; then \
-           peer=\"remote-as $VAR(../remote-as/@)\"; \
-         else \
-           peer=\"peer-group $VAR(../peer-group/@)\"; \
-         fi; \
-	 ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-	  -c \"neighbor $VAR(../@) $peer\" \
-          -c \"neighbor $VAR(../@) unsuppress-map $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c \"configure terminal\" -c \"router bgp $VAR(../../@)\" \
-          -c \"no neighbor $VAR(../@) unsuppress-map $VAR(@)\" "
+commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set unsuppress-map for a neighbor in a peer-group"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../@) neighbor $VAR(../@): route-map $VAR(@) doesn't exist"
+update: if [ -n "$VAR(../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../remote-as/@)";
+        else 
+          peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	  -c "neighbor $VAR(../@) $peer" \
+          -c "neighbor $VAR(../@) unsuppress-map $VAR(@)"
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+          -c "no neighbor $VAR(../@) unsuppress-map $VAR(@)"
