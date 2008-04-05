@@ -1,3 +1,27 @@
+vyatta-cfg-quagga (0.4) unstable; urgency=low
+
+  3.0.2
+  [ Mark O'Brien ]
+
+  * 3.0.1
+
+  [ Robert Bays ]
+  * update help strings in BGP
+  * shorten some of the BGP help strings
+  * fix bug 3074
+
+  [ Stig Thormodsrud ]
+  * Fix 3026 ospf: failed to delete ospf configuration from top level
+  * Fix 3108: Unable to configure ospf 'default-information' originate
+
+  [ rbalocca ]
+  * Fix debian dependencies
+  * Set dependencies on either bash or vyatta-bash
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Fri, 04 Apr 2008 18:00:28 -0700
+
 vyatta-cfg-quagga (0.3) unstable; urgency=low
 
   VC4.0.1
