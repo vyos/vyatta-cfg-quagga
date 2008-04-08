@@ -2,12 +2,7 @@ type: txt
 help: Configure NSSA-ABR
 default: "candidate"
 syntax:expression: $VAR(@) in "always", "candidate", "never"; "Must be (always, candidate, or never)"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"area $VAR(../../../@) nssa translate-$VAR(@) \"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"area $VAR(../../../@) nssa translate-candidate \"; "
+
 comp_help: possible completions:
  always             Configure NSSA-ABR to always translate
  candidate          Configure NSSA-ABR for translate election (default)
