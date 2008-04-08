@@ -1,14 +1,12 @@
 help: OSPF SPF timers
-delete:expression: "touch /tmp/ospf-timer.$PPID"
-end:expression: "\
-   if [ -f \"/tmp/ospf-timer.$PPID\" ]; then                      \
-      ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-        -c \"router ospf\"                                        \
-        -c \"no timers throttle spf\";                            \
-      rm /tmp/ospf-timer.$PPID;                                   \
-   else                                                           \
-      ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-        -c \"router ospf\"                                        \
-        -c \"timers throttle spf $VAR(delay/@)                    \
-          $VAR(initial-holdtime/@) $VAR(max-holdtime/@)\";        \
-     fi; "
+delete: touch /tmp/ospf-timer.$PPID
+end: if [ -f "/tmp/ospf-timer.$PPID" ]; then
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ospf"                                        \
+          -c "no timers throttle spf";
+        rm /tmp/ospf-timer.$PPID;
+     else
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ospf"                                        \
+          -c "timers throttle spf $VAR(delay/@) $VAR(initial-holdtime/@) $VAR(max-holdtime/@)";
+     fi;
