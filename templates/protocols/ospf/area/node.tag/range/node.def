@@ -2,9 +2,44 @@ tag:
 type: ipv4net
 help: Summarize routes matching prefix (border routers only)
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"area $VAR(../@) range $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"no area $VAR(../@) range $VAR(@)\"; "
+
+delete: touch /tmp/ospf-range.$PPID
+
+end: if [ -f /tmp/ospf-range.$PPID ]; then
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ospf"                                        \
+          -c "no area $VAR(../@) range $VAR(@)";
+        rm /tmp/ospf-range.$PPID;
+     else
+        ${vyatta_sbindir}/vyatta-check-typeless-node.pl           \
+          "protocols ospf area $VAR(../@) range $VAR(@) not-advertise";
+        if [ $? -eq 0 ] ; then
+           if [ -n "$VAR(cost/@)" ] || [ -n "$VAR(substitute/@)" ]; then
+              echo "Remove 'not-advertise' before setting cost or substitue";
+	      exit 1;
+           fi;
+           ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
+             -c "router ospf"                                               \
+             -c "no area $VAR(../@) range $VAR(@)";
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ospf"                                        \
+             -c "area $VAR(../@) range $VAR(@) not-advertise";
+        else
+           ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
+             -c "router ospf"                                               \
+             -c "no area $VAR(../@) range $VAR(@)";
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ospf"                                        \
+             -c "area $VAR(../@) range $VAR(@)";
+           if [ -n "$VAR(cost/@)" ]; then
+              ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+                -c "router ospf"                                        \
+                -c "area $VAR(../@) range $VAR(@) cost $VAR(cost/@)";
+           fi;
+           if [ -n "$VAR(substitute/@)" ]; then
+              ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+                -c "router ospf"                                        \
+                -c "area $VAR(../@) range $VAR(@) substitute $VAR(substitute/@)";
+           fi;
+        fi;
+     fi;
