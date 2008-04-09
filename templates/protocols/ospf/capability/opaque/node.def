@@ -1,5 +1,0 @@
-help: Opaque LSA
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" -c \"capability opaque\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" -c \"no capability opaque\"; "

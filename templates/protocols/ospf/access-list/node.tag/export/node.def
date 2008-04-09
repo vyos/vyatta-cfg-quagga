@@ -1,17 +1,16 @@
 multi:
 type: txt
 help: Filter outgoing routing updates
-syntax:expression: $VAR(@) in "bgp", "connected", "isis", "kernel", "rip", "static"; "Must be (bgp, connected, isis, kernel, rip, or static)"
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-            -c \"router ospf\" \
-            -c \"distribute-list $VAR(../@) out $VAR(@) \"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-            -c \"router ospf\" \
-            -c \"no distribute-list $VAR(../@) out $VAR(@) \"; "
+syntax:expression: $VAR(@) in "bgp", "connected", "kernel", "rip", "static"; "Must be (bgp, connected, kernel, rip, or static)"
+create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+            -c "router ospf"                                      \
+            -c "distribute-list $VAR(../@) out $VAR(@)"; 
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+            -c "router ospf"                                      \
+            -c "no distribute-list $VAR(../@) out $VAR(@)";
 comp_help: possible completions:
- bgp                Filter bgp routes
- connected          Filter connected routes
- isis               Filter isis routes
- kernel             Filter kernel routes
- rip                Filter rip routes
- static             Filter static routes
+  bgp                Filter bgp routes
+  connected          Filter connected routes
+  kernel             Filter kernel routes
+  rip                Filter rip routes
+  static             Filter static routes
