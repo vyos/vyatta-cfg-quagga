@@ -1,20 +1,23 @@
 type: txt
 help: Configure plain text password
+
 syntax:expression: exec "                              \
         if [ `echo -n $VAR(@) | wc -c` -gt 8 ]; then   \
           echo Password must be 8 characters or less ; \
           exit 1 ;                                     \
         fi ; "
 
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
-        -c \"configure terminal\" -c \"router ospf\"          \
-        -c \"area $VAR(../../../@) virtual-link $VAR(../../@) \
-           authentication authentication-key $VAR(@) \"; "
+commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl            \
-        -c \"configure terminal\" -c \"router ospf\"             \
-        -c \"no area $VAR(../../../@) virtual-link $VAR(../../@) \
-           authentication authentication-key \"; "
+update: ${vyatta_sbindir}/vyatta-vtysh.pl                      \
+          -c "configure terminal" -c "router ospf"             \
+          -c "area $VAR(../../../@) virtual-link $VAR(../../@) \
+            authentication authentication-key $VAR(@) "
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl                         \
+          -c "configure terminal" -c "router ospf"                \
+          -c "no area $VAR(../../../@) virtual-link $VAR(../../@) \
+            authentication authentication-key";
 
 comp_help: possible completions:
- <text>             Plain text password (8 characters or less)
+  <text>             Plain text password (8 characters or less)
