@@ -1,11 +1,12 @@
 type: u32
 help: Dead neighbor polling interval
+default: 60
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535 seconds"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-        -c \"router ospf\" \
-        -c \"neighbor $VAR(../@) poll-interval $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-        -c \"router ospf\" \
-        -c \"no neighbor $VAR(../@) poll-interval $VAR(@)\"; "
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ospf"                                        \
+          -c "neighbor $VAR(../@) poll-interval $VAR(@)";
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ospf"                                        \
+          -c "neighbor $VAR(../@) poll-interval 60";
 comp_help: possible completions:
- <1-65535>          Seconds between dead neighbor polling interval
+ <1-65535>          Seconds between dead neighbor polling interval (default 60)
