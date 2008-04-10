@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help: Configure the next-hop router
+help: Set the next-hop router
 delete:expression: "touch /tmp/static.$PPID"
 end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
          ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \

@@ -1,4 +1,4 @@
-help: Redistribute connected routes
+help: Set to redistribute connected routes
 delete:expression: "touch /tmp/rip-redist-connected.$PPID" 
 end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute connected \"; \

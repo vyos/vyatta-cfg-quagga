@@ -1,4 +1,4 @@
-help: OSPF SPF timers
+help: Set OSPF SPF timers
 delete: touch /tmp/ospf-timer.$PPID
 end: if [ -f "/tmp/ospf-timer.$PPID" ]; then
         ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \

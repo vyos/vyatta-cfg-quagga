@@ -1,4 +1,4 @@
-help: deactivate IPv4 unicast for a peer by default
+help: Set to deactivate IPv4 unicast for a peer by default
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "no bgp default ipv4-unicast"
 delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \

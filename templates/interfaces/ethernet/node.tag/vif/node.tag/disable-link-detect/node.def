@@ -1,4 +1,4 @@
-help: ignore link state changes on this interface
+help: Set to ignore link state changes on this interface
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../@).$VAR(../@)\" \
           -c \"no link-detect\" \
          && ${vyatta_sbindir}/vyatta-linkstatus.pl --add $VAR(../../@).$VAR(../@) 2>/dev/null"

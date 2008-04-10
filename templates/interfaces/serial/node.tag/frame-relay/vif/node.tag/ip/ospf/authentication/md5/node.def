@@ -1,4 +1,4 @@
-help: Configure MD5 key id
+help: Set MD5 key id
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl               \
        -c \"configure terminal\"                                    \
        -c \"interface $VAR(../../../../../../@).$VAR(../../../../@) \" \

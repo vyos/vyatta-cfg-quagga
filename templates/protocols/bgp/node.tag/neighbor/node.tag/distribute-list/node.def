@@ -1,1 +1,1 @@
-help: configure an access-list to filter route updates to/from this neighbor
+help: Set an access-list to filter route updates to/from this neighbor

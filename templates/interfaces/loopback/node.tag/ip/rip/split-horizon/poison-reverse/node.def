@@ -1,4 +1,4 @@
-help: With poison reverse
+help: Enable split-horizon with poison reverse
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
           -c \"interface $VAR(../../../../@)\" \
           -c \"ip rip split-horizon poisoned-reverse\" "

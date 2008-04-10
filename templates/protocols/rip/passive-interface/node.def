@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Suppress routing updates on an interface
+help: Set to suppress routing updates on an interface
 syntax:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ] && [ x$VAR(@) != xdefault ]; then \
           echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \

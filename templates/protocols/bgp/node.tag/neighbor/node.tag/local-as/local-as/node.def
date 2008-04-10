@@ -1,5 +1,5 @@
 type: u32
-help: set the local AS number
+help: Set the local AS number
 comp_help: \1  <1-4294967294>\tlocal AS number
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
 syntax:expression: $VAR(@) != $VAR(../../../@); "Cannot have local-as same as BGP AS number"

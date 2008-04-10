@@ -1,5 +1,5 @@
 type: txt
-help: Configure NSSA-ABR
+help: Set nssa-abr
 default: "candidate"
 syntax:expression: $VAR(@) in "always", "candidate", "never"; "Must be (always, candidate, or never)"
 

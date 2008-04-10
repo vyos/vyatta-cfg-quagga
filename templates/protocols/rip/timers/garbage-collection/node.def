@@ -1,6 +1,6 @@
 type: u32
 default: 120
-help: Garbage collection timer
+help: Set garbage collection timer
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 2147483647; \
        "Garbage collection timer must be between 5 and 2147483647"
 comp_help: possible completions:

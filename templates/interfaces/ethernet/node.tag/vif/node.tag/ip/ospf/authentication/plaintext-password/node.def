@@ -1,5 +1,5 @@
 type: txt
-help: Configure plain text password
+help: Set plain text password
 syntax:expression: exec "                              \
         if [ `echo -n $VAR(@) | wc -c` -gt 8 ]; then   \
           echo Password must be 8 characters or less ; \

@@ -1,5 +1,5 @@
 type: ipv4
-help: set BGP router id
+help: Set BGP router id
 comp_help: \1  <x.x.x.x>\tBGP router-id IP
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp router-id $VAR(@)"

@@ -1,4 +1,4 @@
-help: set a different AS number to use with this neighbor
+help: Set a different AS number to use with this neighbor
 syntax:expression: $VAR(./local-as/@) >= 1 && $VAR(./local-as/@) <= 4294967294; "AS number must be between 1 and 4294967294"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(./local-as/@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set a different local-as for iBGP neighbors"

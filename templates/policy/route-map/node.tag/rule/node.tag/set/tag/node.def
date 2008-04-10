@@ -1,5 +1,5 @@
 type: u32
-help: set tag value for routing protocol
+help: Set tag value for routing protocol
 comp_help: \1  <1-65535>\t\ttag value
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "tag must be between 1 and 65535"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"

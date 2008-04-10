@@ -1,5 +1,5 @@
 type: txt
-help: set the BGP community attribute
+help: Set the Border Gateway Protocl (BGP) community attribute
 comp_help: \1  <AA:NN>\t\tcommunity in 4 octet AS:value format
   additive\t\tcommunities are appended to existing community string
   internet\t\tsymbolic Internet community 0

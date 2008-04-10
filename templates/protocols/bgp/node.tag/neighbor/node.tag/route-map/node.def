@@ -1,1 +1,1 @@
-help: configure a route-map to filter route updates to/from this neighbor
+help: Set a route-map to filter route updates to/from this neighbor

@@ -1,5 +1,5 @@
 type: txt
-help: match peer address
+help: Set peer address to match
 comp_help: \1  <x.x.x.x>\tpeer IP address
   local\t\tstatic or redistributed routes
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-policy.pl --check-peer-syntax $VAR(@)"; "peer must be either an IP or local"

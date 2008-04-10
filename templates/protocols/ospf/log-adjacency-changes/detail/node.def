@@ -1,4 +1,4 @@
-help: Log all state changes
+help: Set to log all state changes
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
          -c \"log-adjacency-changes detail\"; "
 delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \

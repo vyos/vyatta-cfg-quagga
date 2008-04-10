@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: create a rule for this prefix-list
+help: Set a rule for this prefix-list
 comp_help: \1  <1-65535>\tprefix-list rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
 commit:expression: $VAR(./prefix/) != ""; "policy prefix-list $VAR(../@) rule $VAR(@): You must specify a prefix"

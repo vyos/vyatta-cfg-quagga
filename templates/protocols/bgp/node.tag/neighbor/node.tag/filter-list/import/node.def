@@ -1,5 +1,5 @@
 type: txt
-help: set an as-path-list to filter incoming route updates from this neighbor
+help: Set an as-path-list to filter incoming route updates from this neighbor
 comp_help: \1  <txt>\t\tas-path-list name
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a filter-list for a neighbor in peer-group"

@@ -1,5 +1,5 @@
 type: u32
-help: Interval between HELLO packets
+help: Set interval between hello packets
 default: 10
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 

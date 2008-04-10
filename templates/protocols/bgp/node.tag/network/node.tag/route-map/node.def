@@ -1,4 +1,4 @@
 type: txt
-help: set a route-map to modify route attributes
-comp_help: \1  <txt>\t\troute-map name
+help: Set a route-map to modify route attributes
+comp_help: \1  <text>\t\troute-map name
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../@) network $VAR(../@): route-map $VAR(@) doesn't exist"

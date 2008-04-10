@@ -1,5 +1,5 @@
 type: txt
-help: Simple password authentication key
+help: Set plain text password
 syntax:expression: exec "                              \
         if [ `echo -n $VAR(@) | wc -c` -gt 16 ]; then  \
           echo Password must be 16 characters or less ; \
@@ -17,3 +17,4 @@ delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl                 \
        -c \"no ip rip authentication string $VAR(@)\"; "
 comp_help: possible completions:
  <text>             Password (16 characters or less)
+

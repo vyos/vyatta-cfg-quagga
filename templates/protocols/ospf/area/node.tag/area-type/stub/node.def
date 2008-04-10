@@ -1,4 +1,4 @@
-help: Stub OSPF area
+help: Set stub OSPF area
 syntax:expression: ! $VAR(../../@) in "0", "0.0.0.0"; "Backbone can't be stub"
 syntax:expression: $VAR(../nssa/) == "" ; "Must delete nssa area type first"
 syntax:expression: $VAR(../normal/) == "" ; "Must delete normal area type first"

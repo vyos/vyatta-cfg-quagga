@@ -1,6 +1,6 @@
 multi:
 type: ipv4net
-help: RIP static route configuration
+help: Set RIP static route
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
          -c \"route $VAR(@)\" "

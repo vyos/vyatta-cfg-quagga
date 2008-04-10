@@ -1,5 +1,5 @@
 type: txt
-help: match BGP origin code
+help: Set Border Gateway Protocol (BGP) origin code to match
 comp_help: \1  egp\t\texterior gateway protocol origin 
   igp\t\tinterior gateway protocol origin
   incomplete\tincomplete origin 

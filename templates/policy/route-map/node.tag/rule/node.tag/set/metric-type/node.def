@@ -1,5 +1,5 @@
 type: txt
-help: set OSPF external metric-type
+help: Set Open Shortest Path First (OSPF) external metric-type
 comp_help: \1  type-1\tOSPF external type 1 metric
   type-2\tOSPF external type 2 metric
 syntax:expression: $VAR(@) in "type-1", "type-2"; "Must be (type-1, type-2)"

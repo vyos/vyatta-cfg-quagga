@@ -1,5 +1,5 @@
 type: txt
-help: Configure area's shortcutting mode
+help: Set area's shortcut mode
 syntax:expression: $VAR(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
           -c \"router ospf\" \

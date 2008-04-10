@@ -1,5 +1,5 @@
 type: txt
-help: set BGP origin code
+help: Set Border Gateway Protocl (BGP) origin code
 comp_help: \1  igp\t\tinterior gateway protocol origin
   egp\t\texterior gateway protocol origin
   incomplete\tincomplete origin

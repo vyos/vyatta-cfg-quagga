@@ -1,4 +1,4 @@
-help: Redistribute BGP routes
+help: Set to redistribute BGP routes
 delete:expression: "touch /tmp/rip-redist-bgp.$PPID" 
 end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute bgp \"; \

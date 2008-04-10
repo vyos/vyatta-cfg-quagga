@@ -1,5 +1,5 @@
 type: u32
-help: allow this EBGP neighbor to not be on a directly connected network
+help: Allow this EBGP neighbor to not be on a directly connected network
 comp_help: \1  <1-255>\tnumber of hops 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 255; "ebgp-multihop must be between 1 and 255"

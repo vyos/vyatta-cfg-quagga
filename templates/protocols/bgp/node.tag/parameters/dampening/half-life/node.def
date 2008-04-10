@@ -1,4 +1,4 @@
 type: u32
-help: set half-life time for dampening
+help: Set half-life time for dampening
 comp_help: \1  <1-45>\thalf-life penalty in seconds
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 45; "Half-life penalty must be between 1 and 45"

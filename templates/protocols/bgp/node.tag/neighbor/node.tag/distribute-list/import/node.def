@@ -1,5 +1,5 @@
 type: u32
-help: set an access-list to filter incoming route updates from this neighbor
+help: Set an access-list to filter incoming route updates from this neighbor
 comp_help: \1  <1-65535>\taccess-list number
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a distribute-list for a neighbor in a peer-group"

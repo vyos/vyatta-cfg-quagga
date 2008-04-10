@@ -1,4 +1,4 @@
-help: compare the router-id for identical EBGP paths
+help: Set to compare the router-id for identical EBGP paths
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "bgp bestpath compare-routerid"
 delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \

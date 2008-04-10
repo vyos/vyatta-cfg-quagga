@@ -1,4 +1,4 @@
-help: Redistribute kernel routes
+help: Set to redistribute kernel routes
 delete:expression: "touch /tmp/rip-redist-kernel.$PPID" 
 end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute kernel \"; \

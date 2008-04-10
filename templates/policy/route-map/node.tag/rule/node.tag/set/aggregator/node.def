@@ -1,4 +1,4 @@
-help: set the BGP aggregator attribute
+help: Set the Border Gateway Protocol (BGP) aggregator attribute
 commit:expression: $VAR(./as/) != "" && $VAR(./ip/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@) set aggregator: you must configure both as and ip"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must configure an action"
 delete: echo $VAR(./as/@) $VAR(./ip/@) > /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-aggregator.$PPID

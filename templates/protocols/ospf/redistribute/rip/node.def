@@ -1,4 +1,4 @@
-help: Redistribute RIP routes
+help: Set to redistribute RIP routes
 delete:expression: "touch /tmp/ospf-redist-rip.$PPID" 
 end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
         -c \"router ospf\"                                                   \

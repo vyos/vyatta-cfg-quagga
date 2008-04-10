@@ -1,4 +1,4 @@
-help: require first AS in the path to match peer's AS
+help: Set to require first AS in the path to match peer's AS
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp enforce-first-as "
 delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \

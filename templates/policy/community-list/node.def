@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: BGP community-list filter
+help: Set Border Gateway Protocol (BGP) community-list filter
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 500; " 
 community-list must be 
   <1-99>\tBGP community list (standard) 

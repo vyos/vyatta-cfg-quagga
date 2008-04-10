@@ -1,4 +1,4 @@
-help: redistribute static routes into BGP
+help: Set to redistribute static routes into BGP
 delete: touch /tmp/bgp-redist-static.$PPID
 end:  ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
         -c "no redistribute static"; 

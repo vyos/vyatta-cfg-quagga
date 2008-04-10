@@ -1,5 +1,5 @@
 type: u32
-help: match against an IP access-list
+help: Set an IP access-list to match
 comp_help: \1  <1-99>\tIP standard access list number
   <100-199>\tIP extended access list number
   <1300-1999>\tIP standard access list number (expanded range)

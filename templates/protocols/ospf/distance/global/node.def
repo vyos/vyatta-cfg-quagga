@@ -1,5 +1,5 @@
 type: u32
-help: OSPF administrative distance
+help: Set OSPF administrative distance
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \

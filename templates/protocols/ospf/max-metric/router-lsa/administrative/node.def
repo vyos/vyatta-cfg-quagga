@@ -1,4 +1,4 @@
-help: Administratively applied, for an indefinite period
+help: Set to administratively apply, for an indefinite period
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"max-metric router-lsa administrative\"; "

@@ -1,5 +1,5 @@
 type: txt
-help: Configure OSPF area authentication type
+help: Set OSPF area authentication type
 syntax:expression: $VAR(@) in "plaintext-password", "md5"; \
        "Must be either plaintext-password or md5"
 

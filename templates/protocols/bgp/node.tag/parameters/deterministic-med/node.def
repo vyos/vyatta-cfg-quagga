@@ -1,4 +1,4 @@
-help: compare MEDs between different peers in the same AS 
+help: Set to compare MEDs between different peers in the same AS 
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp deterministic-med"
 delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \

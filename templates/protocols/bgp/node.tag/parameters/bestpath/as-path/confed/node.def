@@ -1,4 +1,4 @@
-help: compare as-path lengths including confederation sets & sequences 
+help: Set to compare AS-path lengths including confederation sets & sequences 
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
            -c "bgp bestpath as-path confed"
 delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../../@)" \

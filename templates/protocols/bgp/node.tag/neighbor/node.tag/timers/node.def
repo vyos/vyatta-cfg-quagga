@@ -1,4 +1,4 @@
-help: configure neighbor timers
+help: Set neighbor timers
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set timers for a neighbor in a peer-group"
 delete: touch /tmp/bgp-neighbor-$VAR(../@)-timers.$PPID

@@ -1,4 +1,4 @@
-help: set BGP atomic aggregate attribute
+help: Set Border Gateway Protocol (BGP) atomic aggregate attribute
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

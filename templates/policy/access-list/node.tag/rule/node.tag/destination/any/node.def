@@ -1,4 +1,4 @@
-help: match any IP address
+help: Set any IP address to match
 commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "\ 
 policy access-list $VAR(../../../@) rule $VAR(../../@) destination: access-list number must be <100-199> or <2000-2699> to set destination matches"
 commit:expression: ($VAR(../host/) == "") && ($VAR(../network/) == ""); "\

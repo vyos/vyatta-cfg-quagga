@@ -1,4 +1,4 @@
-help: advertise dynamic capability to this neighbor
+help: Set to advertise dynamic capability to this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 update:  if [ -n "$VAR(../../remote-as/@)" ]; then 
            peer="remote-as $VAR(../../remote-as/@)"; 

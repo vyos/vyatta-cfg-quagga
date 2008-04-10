@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Interface name
+help: Set interface name
 syntax:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
           echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \

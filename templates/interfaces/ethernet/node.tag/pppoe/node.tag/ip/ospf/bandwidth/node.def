@@ -1,5 +1,5 @@
 type: u32
-help: Bandwidth in kilobits/sec
+help: Set bandwidth in kilobits/sec
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10000000; \
        "Must be between 1-10000000"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \

@@ -1,5 +1,5 @@
 type: u32
-help: Link state transmit delay
+help: Set link state transmit delay
 default: 1
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 

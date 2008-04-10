@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Configure MD5 key id
+help: Set MD5 key id
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "ID must be between (1-255)"
 commit:expression: $VAR(md5-key/) != ""; \
        "Must add the md5-key for key-id $VAR(@)"

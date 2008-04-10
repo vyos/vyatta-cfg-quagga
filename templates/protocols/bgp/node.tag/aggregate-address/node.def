@@ -1,6 +1,6 @@
 tag:
 type: ipv4net
-help: configure a BGP aggregate network
+help: Set a BGP aggregate network
 comp_help: \1 <x.x.x.x/x>\taggregate network
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID 

@@ -1,4 +1,4 @@
-help: Distribute a default route
+help: Set to distribute a default route
 delete: touch /tmp/ospf-default-info.$PPID
 end: if [ -f "/tmp/ospf-default-info.$PPID" ]; then
         ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \

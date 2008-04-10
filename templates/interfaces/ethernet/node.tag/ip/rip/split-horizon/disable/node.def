@@ -1,4 +1,4 @@
-help: disable split horizon
+help: Disable split horizon on specified interface
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../@) \"          \

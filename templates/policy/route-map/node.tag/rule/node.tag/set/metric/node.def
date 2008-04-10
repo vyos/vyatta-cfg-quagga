@@ -1,5 +1,5 @@
 type: txt
-help: set destination routing protocol metric 
+help: Set destination routing protocol metric 
 comp_help: \1  <+/-metric>\tadd or subtract metric
   <0-4294967295>\tmetric value
 syntax:expression: exec "if [ -n \"$(echo $VAR(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"

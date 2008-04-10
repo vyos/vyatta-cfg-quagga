@@ -1,4 +1,4 @@
-help: disable check to see if EBGP peer's address is a connected route
+help: Disable check to see if EBGP peer's address is a connected route
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 update:  if [ -n "$VAR(../remote-as/@)" ]; then 
            peer="remote-as $VAR(../remote-as/@)"; 

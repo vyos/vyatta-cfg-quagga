@@ -1,4 +1,4 @@
-help: set or delete BGP communities matching a community-list
+help: Set or delete Border Gateway Protocol (BGP) communities matching a community-list
 delete: touch /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-comm-list.$PPID
 end: if [ -z "$VAR(./comm-list/)" ]; then 
         echo policy route-map $VAR(../../../@) rule $VAR(../../@) set comm-list: You must configure a comm-list ; 

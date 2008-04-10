@@ -1,5 +1,5 @@
 type: u32
-help: set BGP local preference attribute
+help: Set Border Gateway Protocol (BGP) local preference attribute
 comp_help: \1  <0-4294967295>\tlocal preference value
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \

@@ -1,5 +1,5 @@
 type: u32
-help: Administrative distance for network
+help: Set administrative distance for network
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "must be between 1 and 255"
 delete:expression: "echo $VAR(@) > /tmp/rip-network-distance.$PPID"
 comp_help: Enter a distance valude between 1-255

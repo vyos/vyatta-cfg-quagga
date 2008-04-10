@@ -1,6 +1,6 @@
 multi:
 type: ipv4
-help: Specify a neighbor router
+help: Set a neighbor router
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
         -c \"neighbor $VAR(@)\"; "
 delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \

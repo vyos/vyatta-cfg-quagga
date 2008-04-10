@@ -1,5 +1,5 @@
 type: u32
-help: set BGP weight attribute 
+help: Set Border Gateway Protocol (BGP) weight attribute 
 comp_help: \1  <0-4294967295>\tBGP weight 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \

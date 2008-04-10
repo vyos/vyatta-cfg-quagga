@@ -1,5 +1,5 @@
 type: u32
-help: Interval between retransmitting lost link state advertisements
+help: Set interval between retransmitting lost link state advertisements
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \

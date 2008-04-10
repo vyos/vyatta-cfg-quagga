@@ -1,5 +1,5 @@
 type: u32
-help: on match goto rule number
+help: Set rule number to goto on match
 comp_help: \1  <1-65535>\trule number
 syntax:expression: $VAR(../next/) == ""; "you may set only goto or next"
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "goto must be a rule number between 1 and 65535"

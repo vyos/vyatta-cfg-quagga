@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Apply filtering to an interface
+help: Set to apply filtering to an interface
 syntax:expression: exec "if [ -z \"`ip addr | grep $VAR(@) `\" ]; then                       \
                  echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
                  exit 1 ;                                                      \

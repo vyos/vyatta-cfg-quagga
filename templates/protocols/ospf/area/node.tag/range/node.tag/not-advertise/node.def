@@ -1,4 +1,4 @@
-help: Do NOT advertise this range
+help: Set to not advertise this range
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"area $VAR(../../@) range $VAR(../@) not-advertise\"; "

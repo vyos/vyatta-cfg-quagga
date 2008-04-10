@@ -1,5 +1,5 @@
 type: txt
-help: Network type
+help: Set network type
 syntax:expression: $VAR(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; \
        "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
 

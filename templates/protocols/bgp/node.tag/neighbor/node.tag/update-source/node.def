@@ -1,5 +1,5 @@
 type: ipv4
-help: set the source IP of routing updates
+help: Set the source IP of routing updates
 comp_help: \1  <x.x.x.x>\tIP address of route source
 syntax:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \

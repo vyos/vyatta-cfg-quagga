@@ -1,5 +1,5 @@
 type: u32
-help: set when to start suppressing a route
+help: Set when to start suppressing a route
 comp_help: \1  <1-20000>\t\tstart-suppress-time
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 20000; "Start-suppress-time must be between 1 and 20000"
 commit:expression: $VAR(../re-use/) != ""; "protocols bgp $VAR(../../../@) parameters dampening max-suppress-time: you must set re-use"

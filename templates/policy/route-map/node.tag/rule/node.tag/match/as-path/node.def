@@ -1,5 +1,5 @@
 type: txt
-help: match against a BGP as-path-list
+help: Set a BGP as-path-list to match
 comp_help: \1  <txt>\t\tas-path-list name
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" "; "policy route-map $VAR(../../../@) rule $VAR(../../@) match as-path: AS path list $VAR(@) doesn't exist"

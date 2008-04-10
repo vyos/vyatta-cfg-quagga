@@ -1,4 +1,4 @@
-help: Log changes in adjacency state
+help: Set to log changes in adjacency state
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"log-adjacency-changes\"; "

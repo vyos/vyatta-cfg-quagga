@@ -1,5 +1,5 @@
 type: txt
-help: Plain text password
+help: Set plain text password
 syntax:expression: exec "                               \
         if [ `echo -n $VAR(@) | wc -c` -gt 16 ]; then   \
           echo Password must be 16 characters or less ; \

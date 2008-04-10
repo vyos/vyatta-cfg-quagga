@@ -1,4 +1,4 @@
-help: enable route-flap dampening
+help: Enable route-flap dampening
 delete:expression: "touch /tmp/bgp-dampening.$PPID"
 end:  ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
         -c "no bgp dampening" ; 

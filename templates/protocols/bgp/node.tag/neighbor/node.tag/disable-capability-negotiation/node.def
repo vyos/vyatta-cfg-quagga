@@ -1,4 +1,4 @@
-help: do not perform capability negotiation with this neighbor
+help: Set to not perform capability negotiation with this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 update:  if [ -n "$VAR(../remote-as/@)" ]; then 
            peer="remote-as $VAR(../remote-as/@)"; 

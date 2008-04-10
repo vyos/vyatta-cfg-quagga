@@ -1,5 +1,5 @@
 type: u32
-help: match metric of route
+help: Set  metric of route to match
 comp_help: \1  <1-65535>\troute metric
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "metric must be between 1 and 65535"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"

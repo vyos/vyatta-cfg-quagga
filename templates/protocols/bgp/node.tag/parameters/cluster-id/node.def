@@ -1,5 +1,5 @@
 type: ipv4
-help: configure the route-reflector cluster-id
+help: Set the route-reflector cluster-id
 comp_help: \1  <x.x.x.x>\tcluster-id IP
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp cluster-id $VAR(@)"

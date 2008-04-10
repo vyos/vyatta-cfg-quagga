@@ -1,5 +1,5 @@
 type: txt
-help: match against a community list regular expression
+help: Set regular expression to match against a community list
 comp_help: \1  <txt>\t\tcommunity-list regular expression
 syntax:expression: exec " \
 if [ $VAR(../../@) -ge 1 ] && [ $VAR(../../@) -le 99 ]; then \

@@ -1,5 +1,5 @@
 type: u32
-help: configure the default local preference (higher=more preferred)
+help: Set the default local preference (higher=more preferred)
 comp_help: \1  <0-4294967295>\tlocal preference
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "bgp default local-preference $VAR(@)"

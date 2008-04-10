@@ -1,5 +1,5 @@
 type: u32
-help: set the BGP holdtime interval
+help: Set the BGP holdtime interval
 comp_help: \1  <4-65535>\thold-time in seconds (default 180)
   0\t\tdon't hold routes
 default: 180

@@ -1,5 +1,5 @@
 type: txt
-help: add this neighbor to a peer-group
+help: Set to add this neighbor to a peer-group
 comp_help: \1  <txt>\tpeer-group name
 syntax:expression: exec "if [ -n \"`echo $VAR(../@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
                 exit 1; \

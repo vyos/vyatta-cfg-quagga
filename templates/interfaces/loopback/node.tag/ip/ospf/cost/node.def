@@ -1,5 +1,5 @@
 type: u32
-help: Interface cost
+help: Set interface cost
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
         -c \"ip ospf cost $VAR(@) \"; "

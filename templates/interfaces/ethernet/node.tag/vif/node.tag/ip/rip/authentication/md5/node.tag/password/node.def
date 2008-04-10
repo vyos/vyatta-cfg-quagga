@@ -1,5 +1,5 @@
 type: txt
-help: Authentication password
+help: Set authentication password
 syntax:expression: exec "                              \
         if [ `echo -n $VAR(@) | wc -c` -gt 16 ]; then  \
           echo MD5 key must be 16 characters or less ; \

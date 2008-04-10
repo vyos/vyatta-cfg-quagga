@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help: Configure a virtual link
+help: Set a virtual link
 syntax:expression: ! $VAR(../@) in "0", "0.0.0.0"; "Can't configure VL over area $VAR(../@)"
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \
