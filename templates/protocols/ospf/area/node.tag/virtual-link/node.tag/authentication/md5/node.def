@@ -1,14 +1,16 @@
 help: Set MD5 key id
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl           \
-       -c \"configure terminal\"                                \
-       -c \"router ospf\"                                       \
-       -c \"no area $VAR(../../../@) virtual-link $VAR(../../@) \
-        authentication-key\"                                    \
-       -c \"area $VAR(../../../@) virtual-link $VAR(../../@)    \
-        authentication message-digest\"; "
+commit:expression: $VAR(../plaintext-password/) == "" ; "plaintext-password already set"
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl           \
-       -c \"configure terminal\"                                \
-       -c \"router ospf\"                                       \
-       -c \"area $VAR(../../../@) virtual-link $VAR(../../@)    \
-        authentication null\"; "
+create: ${vyatta_sbindir}/vyatta-vtysh.pl                          \
+          -c "configure terminal"                                  \
+          -c "router ospf"                                         \
+          -c "no area $VAR(../../../@) virtual-link $VAR(../../@)  \
+            authentication-key"                                    \
+          -c "area $VAR(../../../@) virtual-link $VAR(../../@)     \
+            authentication message-digest";
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl                          \
+          -c "configure terminal"                                  \
+          -c "router ospf"                                         \
+          -c "area $VAR(../../../@) virtual-link $VAR(../../@)     \
+            authentication null";

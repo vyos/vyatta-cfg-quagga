@@ -1,11 +1,6 @@
 type: u32
 help: Set metric for this range
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Metric must be between 0-16777215"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"area $VAR(../../@) range $VAR(../@) cost $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"no area $VAR(../../@) range $VAR(../@) cost $VAR(@)\"; "
+
 comp_help: possible completions:
- <0-16777215>       Set metric for this range
+  <0-16777215>       Set metric for this range
