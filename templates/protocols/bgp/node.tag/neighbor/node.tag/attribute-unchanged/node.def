@@ -20,6 +20,8 @@ end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "route
         if [ $? -eq 0 ]; then
           cond="$cond next-hop " ;
         fi ;
+        if [ -n "$VAR(../remote-as/@)" ]; then
+          peer="remote-as $VAR(../remote-as/@)";
         else 
           peer="peer-group $VAR(../peer-group/@)"; 
         fi; 
