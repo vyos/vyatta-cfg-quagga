@@ -3,6 +3,8 @@ help: Network type
 syntax:expression: $VAR(@) in "non-broadcast"; \
        "Must be non-broadcast"
 
+allowed:echo non-broadcast
+
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
        -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
        -c \"ip ospf network $VAR(@) \"; "
