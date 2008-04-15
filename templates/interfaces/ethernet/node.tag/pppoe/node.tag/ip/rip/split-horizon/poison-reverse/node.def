@@ -9,3 +9,5 @@ delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
        -c \"interface pppoe$VAR(../../../../@) \"          \
        -c \"no ip rip split-horizon \"                \
        -c \"ip rip split-horizon \" "
+commit:expression: ($VAR(../disable/) == ""); "You cannot have 'split-horizon poison-reverse' enabled with 'split-horizon' disabled for PPPoE interface $VAR(../../../../@)"
+
