@@ -1,7 +1,9 @@
 type: txt
 help: Set network type
-syntax:expression: $VAR(@) in "broadcast", "non-broadcast", "point-to-multipoint", "point-to-point"; \
-       "Must be (broadcast|non-broadcast|point-to-multipoint|point-to-point)"
+syntax:expression: $VAR(@) in "non-broadcast"; \
+       "Must be non-broadcast"
+
+allowed:echo non-broadcast
 
 update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
        -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
@@ -12,7 +14,4 @@ delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
        -c \"no ip ospf network \"; "
 
 comp_help: possible completions:
- broadcast              Set broadcast network type
  non-broadcast          Set non-broadcast network type
- point-to-multipoint    Set point-to-multipoint network type
- point-to-point         Set point-to-point network type

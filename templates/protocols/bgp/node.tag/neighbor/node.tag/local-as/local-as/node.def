@@ -2,6 +2,6 @@ type: u32
 help: Set the local AS number
 comp_help: \1  <1-4294967294>\tlocal AS number
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
-syntax:expression: $VAR(@) != $VAR(../../../@); "Cannot have local-as same as BGP AS number"
+commit:expression: $VAR(@) != $VAR(../../../@); "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set local-as the same as the router AS"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set local-as for a neighbor in a peer-group"

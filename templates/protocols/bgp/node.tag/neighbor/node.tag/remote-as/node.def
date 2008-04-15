@@ -4,5 +4,7 @@ comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "remote-as must be between 1 and 4294967294"
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "neighbor $VAR(../@) remote-as $VAR(@)"
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
-          -c "no neighbor $VAR(../@) remote-as $VAR(@)"
+# commented out because deleting anything after remote-as will cause a failure in Quagga
+# this is a temporary fix until node ordering is enabled
+#delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+#          -c "no neighbor $VAR(../@) remote-as $VAR(@)"
