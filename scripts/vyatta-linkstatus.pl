@@ -90,7 +90,8 @@ unlink($exclude_lck_file);
 
 
 #finally kick the process
-open(PID, "< /var/run/vyatta/quagga/watchlink.pid") || die "could not open '/var/run/vyatta/quagga/watchlink.pid'";
-my $foo = <PID>; 
-system "kill -10 $foo";
-close(PID); 
+if (open(PID, "< /var/run/vyatta/quagga/watchlink.pid")) {
+    my $foo = <PID>;
+    system "kill -10 $foo";
+    close(PID);
+}
