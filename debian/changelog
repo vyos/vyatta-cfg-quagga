@@ -1,3 +1,56 @@
+vyatta-cfg-quagga (0.6) unstable; urgency=low
+
+  VC4.0.2
+  [ Mark O'Brien ]
+
+
+  [ An-Cheng Huang ]
+  * don't signal watchlink if it's not running
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Sat, 19 Apr 2008 11:56:01 -0700
+
+vyatta-cfg-quagga (0.5) unstable; urgency=low
+
+  VC4.0.2 release candidate
+  [ Mark O'Brien ]
+
+  * Fix for bug 3093
+  * Updated autocomplet for loopback non-broadcast option
+
+  [ Robert Bays ]
+  * fix for bugs 3085,3114,3121,3119,3120
+  * add 2 lines acidentally deleted in last commit for attribute-
+    unchanged
+
+  [ Stig Thormodsrud ]
+  * Fix 3115: set protocols ospf default-information originate always"
+    sends no "always" to the
+  * Fix 3128: "isis" needs to be removed under " protocols ospf access-
+    list <> export"
+  * Fix 3132:  "set protocols ospf refresh timers <>" then commit failed
+  * Fix 3133: "delete protocols ospf timers throttle spf delay" commit
+    failed
+  * Fix 3131: "delete protocols ospf parameters abr-type" does not
+    remove " ospf abr-type standard"
+  * Fix 3130: "set protocols ospf compatible rfc1583" or " set protocols
+    ospf parameters
+  * Fix 3124: "set protocols ospf area <> area-type nssa translate
+    always" removed "...... nssa no-summary" from the routing engine
+  * Make sure OSPF area-type is set before default-cost.
+  * Fix 3129: "delete protocols ospf neighbor <> priority" should delete
+    the neighbor in the config as under the routing engine
+  * Fix 3126: ospf virtual-link authentication types should not be able
+    to be coexisted in the config
+  * Fix [Bug 3125] "...... range <> no-advertise" should be removed from
+    the config while it is removed from the routing engine by  "set
+    protocols ospf area <> range <> substitute
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Wed, 16 Apr 2008 09:50:02 -0700
+
 vyatta-cfg-quagga (0.4) unstable; urgency=low
 
   3.0.2
