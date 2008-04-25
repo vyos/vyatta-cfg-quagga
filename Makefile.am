@@ -5,7 +5,6 @@ sbin_SCRIPTS += scripts/policy/vyatta-policy.pl
 sbin_SCRIPTS += scripts/vyatta_quagga_utils.pl
 sbin_SCRIPTS += scripts/policy/vyatta-check-as-prepend.pl
 sbin_SCRIPTS += scripts/vyatta-vtysh.pl
-sbin_SCRIPTS += scripts/vyatta-linkstatus.pl
 sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
