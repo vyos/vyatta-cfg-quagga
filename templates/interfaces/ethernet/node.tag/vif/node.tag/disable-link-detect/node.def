@@ -1,7 +1,9 @@
 help: Set to ignore link state changes on this interface
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../@).$VAR(../@)\" \
-          -c \"no link-detect\" 
+update:${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal\" \
+					 -c "interface $VAR(../../@).$VAR(../@)" \
+				         -c "no link-detect" 
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"interface $VAR(../../@).$VAR(../@)\" \
-          -c \"link-detect\" 
+delete:${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+					 -c "interface $VAR(../../@).$VAR(../@)" \
+					 -c "link-detect" 
 
