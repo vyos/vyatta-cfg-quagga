@@ -1,2 +1,3 @@
 help: Set IP network
-commit:expression: $VAR(./next-hop-interface/) != "" || $VAR(./blackhole/) != ""; "Must add either a next-hop-interface or blackhole for route $VAR(@)"
+commit:expression: $VAR(./next-hop-interface/) != "" ; \
+       "Must add a next-hop-interface for route $VAR(@)"
