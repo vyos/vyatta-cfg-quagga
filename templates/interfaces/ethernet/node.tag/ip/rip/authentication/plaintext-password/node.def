@@ -6,15 +6,17 @@ syntax:expression: exec "                               \
           exit 1 ;                                      \
         fi ; "
 
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl                 \
-       -c \"configure terminal\" -c \"interface $VAR(../../../../@)\" \
-       -c \"ip rip authentication mode text\"                         \
-       -c \"ip rip authentication string $VAR(@)\"; "
+commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl                 \
-       -c \"configure terminal\" -c \"interface $VAR(../../../../@)\" \
-       -c \"no ip rip authentication mode\"                           \
-       -c \"no ip rip authentication string $VAR(@)\"; "
+update: ${vyatta_sbindir}/vyatta-vtysh.pl                            \
+          -c "configure terminal" -c "interface $VAR(../../../../@)" \
+          -c "ip rip authentication mode text"                       \
+          -c "ip rip authentication string $VAR(@)";
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl                            \
+          -c "configure terminal" -c "interface $VAR(../../../../@)" \
+          -c "no ip rip authentication mode"                         \
+          -c "no ip rip authentication string $VAR(@)";
 
 comp_help: possible completions:
  <text>             Password (16 characters or less)

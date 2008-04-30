@@ -1,5 +1,8 @@
 tag:
 type: u32
 help: Set MD5 authentication key ID
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "ID must be between 1 and 255"
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; \
+                   "ID must be between 1 and 255"
 
+commit:expression: $VAR(../plaintext-password/) == "" ; \
+                   "plaintext-password already set"
