@@ -1,0 +1,13 @@
+help: Enable split-horizon with poison reverse
+create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal \"                     \
+       -c \"interface pppoa$VAR(../../../../@) \"          \
+       -c \"ip rip split-horizon poisoned-reverse \" "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal \"                     \
+       -c \"interface pppoa$VAR(../../../../@) \"          \
+       -c \"no ip rip split-horizon \"                \
+       -c \"ip rip split-horizon \" "
+commit:expression: ($VAR(../disable/) == ""); "You cannot have 'split-horizon poison-reverse' enabled with 'split-horizon' disabled for PPPoE interface $VAR(../../../../@)"
+

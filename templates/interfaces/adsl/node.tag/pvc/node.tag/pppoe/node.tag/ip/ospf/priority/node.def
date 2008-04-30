@@ -1,0 +1,12 @@
+type: u32
+help: Set router priority
+default: 1
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Must be between 0-255"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+       -c \"configure terminal\" -c \"interface pppoe$VAR(../../../@)\" \
+       -c \"ip ospf priority $VAR(@)\"; "
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+       -c \"configure terminal\" -c \"interface pppoe$VAR(../../../@)\" \
+       -c \"no ip ospf priority \"; "
+comp_help: possible completions:
+ <0-255>            Priority (default 1)
