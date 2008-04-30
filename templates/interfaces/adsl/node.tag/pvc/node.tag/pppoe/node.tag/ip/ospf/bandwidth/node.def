@@ -1,0 +1,16 @@
+type: u32
+help: Set bandwidth in kilobits/sec
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10000000; \
+       "Must be between 1-10000000"
+update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal \"                     \
+       -c \"interface pppoe$VAR(../../../@) \"             \
+       -c \"bandwidth $VAR(@) \"; "
+
+delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+       -c \"configure terminal \"                     \
+       -c \"interface pppoe$VAR(../../../@) \"             \
+       -c \"no bandwidth $VAR(@) \"; "
+
+comp_help: possible completions:
+ <1-10000000>          Set bandwidth in kilobits/sec (for calculating OSPF cost)
