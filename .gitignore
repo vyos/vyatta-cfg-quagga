@@ -11,6 +11,7 @@
 /configure
 /debian/files
 /debian/vyatta-cfg-quagga
+/debian/vyatta-cfg-quagga.debhelper.log
 /INSTALL
 /Makefile.in
 /Makefile
