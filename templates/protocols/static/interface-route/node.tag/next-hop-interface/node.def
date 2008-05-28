@@ -18,7 +18,7 @@ help: Set the next-hop interface
 #
 syntax:expression: exec " \
         IFNAME=$VAR(@) ; \
-        if [ -z \"`ip addr | grep $IFNAME `\" ]; then \
+        if [ ! -e /sys/class/net/$IFNAME ]; then \
 	  if [ \"${IFNAME::5}\" != \"pppoa\" -a \"${IFNAME::5}\" != \"pppoe\" \
 	    -a \"${IFNAME::3}\" != \"wan\" \
 	    -a \"${IFNAME::2}\" != \"ml\" ]; then \
