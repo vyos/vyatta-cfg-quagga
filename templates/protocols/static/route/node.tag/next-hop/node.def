@@ -3,7 +3,9 @@ type: ipv4
 help: Set the next-hop router
 delete:expression: "touch /tmp/static.$PPID"
 end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
-         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
+         if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \"$VAR(../@)\" \"$VAR(@)\"; then \
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
+         fi;
          rm /tmp/static.$PPID; \
       else \
          if [ -n \"$VAR(./distance/@)\" ]; then \
