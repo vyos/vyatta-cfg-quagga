@@ -1,3 +1,79 @@
+vyatta-cfg-quagga (0.10) unstable; urgency=low
+
+	  3.1.0
+  [ Mark O'Brien ]
+
+
+  [ Stig Thormodsrud ]
+  * Fix 3345: Unable to configure OSPF redistribute <protocol> route-map
+    <name>
+
+  [ Mohit Mehta ]
+  * Fix bug 3134 "delete interfaces <> <> ip rip split-horizon" sets "no
+    ip rip split-horizon" under the routing engine which is unknown in
+    the config
+  * Fix bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Stig Thormodsrud ]
+  * Fix 3316: "metric-type" option does not exist in the CLI for OSPF
+    redistribution
+
+  [ Mohit Mehta ]
+  * Fix Bug 3269 system gateway-address conflicts with static default
+
+  [ Bob Gilligan ]
+  * Bugfix: 3019
+
+  [ Stephen Hemminger ]
+  * Fix templates for disable-link-detect when using vif on serial
+
+  [ rbalocca ]
+  * Ignore derived files
+
+  [ Stig Thormodsrud ]
+  * Fix 3266: Syntax validation for as-path-prepend does not allow 32
+    bit ASNs
+
+  [ Stephen Hemminger ]
+  * Add option to disable link-detect on serial interfaces
+
+  [ rbalocca ]
+  * Convert to our method of changelog creation
+
+  [ Stig Thormodsrud ]
+  * Fix 3199: removed redundant "static interface-route blackhole"
+
+  [ Bob Gilligan ]
+  * Add IP routing protocol config templates for PPPOE, PPPOE and
+    Classical
+
+  [ Stig Thormodsrud ]
+  * Fix 3139 Check for previous authentication type before allowing
+    another
+
+  [ Bob Gilligan ]
+  * Bugfix: 3181, 3019
+
+  [ Mohit Mehta ]
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Stig Thormodsrud ]
+  * Partial fix for 3004.  Set priority of network node higher than
+    virtual-link node.
+
+  [ rbalocca ]
+  * Merge from glendale
+
+  [ Mohit Mehta ]
+  * Fix Bug 3069 Help strings should be standardized
+  * Fix Bug 3069 Help strings should be standardized
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Tue, 17 Jun 2008 09:26:15 -0700
+
 vyatta-cfg-quagga (0.9) unstable; urgency=low
 
   3.0.5
