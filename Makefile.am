@@ -1,4 +1,5 @@
 cfgdir = $(datadir)/vyatta-cfg/templates
+curverdir = $(sysconfdir)/config-migrate/current
 
 sbin_SCRIPTS = scripts/bgp/vyatta-bgp.pl
 sbin_SCRIPTS += scripts/policy/vyatta-policy.pl
@@ -7,6 +8,8 @@ sbin_SCRIPTS += scripts/policy/vyatta-check-as-prepend.pl
 sbin_SCRIPTS += scripts/vyatta-vtysh.pl
 sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
+
+curver_DATA = cfg-version/quagga@1
 
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 	cpio -0pd
