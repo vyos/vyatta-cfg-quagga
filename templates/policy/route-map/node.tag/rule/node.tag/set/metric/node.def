@@ -7,6 +7,6 @@ commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@)
 update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "set metric $VAR(@)"
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no set metric "
