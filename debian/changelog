@@ -1,3 +1,21 @@
+vyatta-cfg-quagga (0.11) unstable; urgency=low
+
+	  3.1.1
+  [ Mark O'Brien ]
+
+
+  [ Stig Thormodsrud ]
+  * Fix 3344: Unable to delete route-map that contains a 'set metric
+    <value>' statement
+  * Add module version for quagga.
+
+  [ Stephen Hemminger ]
+  * Add configuration parameter for BGP MD5
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Sat, 28 Jun 2008 11:22:08 -0700
+
 vyatta-cfg-quagga (0.10) unstable; urgency=low
 
 	  3.1.0
