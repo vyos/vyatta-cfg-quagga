@@ -109,7 +109,7 @@ sub update_as_path() {
   @rules = $config->listNodes();
 
   foreach $rule (sort numerically @rules) {
-    my $action, $regex = '';
+    my ($action, $regex) = '';
 
     # set the action
     $action = $config->returnValue("$rule action");
@@ -159,7 +159,7 @@ sub update_access_list() {
   @rules = $config->listNodes();
 
   foreach $rule (sort numerically @rules) {
-    my $ip, $action, $src, $dst, $srcmsk, $dstmsk = '';
+    my ($ip, $action, $src, $dst, $srcmsk, $dstmsk) = '';
 
     # set the action
     $action = $config->returnValue("$rule action");
