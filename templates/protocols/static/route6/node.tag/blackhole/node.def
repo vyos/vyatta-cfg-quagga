@@ -1,11 +1,14 @@
 help: Set to silently discard pkts when matched
 delete:expression: "touch /tmp/static.$PPID"
-end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
-         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) null0\" ; \
-         rm /tmp/static.$PPID; \
-      else \
-         if [ -n \"$VAR(./distance/@)\" ]; then \
-	    DIST=\"$VAR(./distance/@)\"; \
-         fi; \	       
-         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $VAR(../@) null0 $DIST \" ; \
-      fi; "
+
+end: if [ -f "/tmp/static.$PPID" ]; then 
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "no ipv6 route $VAR(../@) null0";
+        rm /tmp/static.$PPID;
+     else
+        if [ -n "$VAR(./distance/@)" ]; then
+	   DIST="$VAR(./distance/@)";
+        fi;
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "ipv6 route $VAR(../@) null0 $DIST";
+     fi;
