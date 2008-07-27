@@ -20,12 +20,14 @@ exit 0;
 
 sub check_prefix_boundry() {
   my $prefix = shift;
-  my $net, $cidr;
+  my ($net, $network, $cidr);
 
   $net = new NetAddr::IP $prefix;
-  $cidr = $net->network();
-  if ( "$cidr" ne "$prefix" ) {
-    print "Your prefix must fall on a natural network boundry.  Did you mean $cidr?\n";
+  $network = $net->network();
+  $cidr    = $net->cidr();
+  if ("$cidr" ne "$network") {
+    print "Your prefix must fall on a natural network boundry.  ", 
+          "Did you mean $network?\n";
     exit 1;
   }
   
