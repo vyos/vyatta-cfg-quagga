@@ -1,4 +1,4 @@
 tag:
 type: ipv6net
 help: Set an interface-based IPv6 static route
-syntax:expression: exec "${sbin_dir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
