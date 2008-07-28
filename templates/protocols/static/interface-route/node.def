@@ -1,4 +1,4 @@
 tag:
 type: ipv4net
 help: Set an interface-based static route
-syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+syntax:expression: exec "${sbin_dir}/check_prefix_boundary $VAR(@)"

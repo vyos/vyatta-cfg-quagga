@@ -1,7 +1,7 @@
 tag:
 type: ipv4net
 help: Set source network
-syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+syntax:expression: exec "${sbin_dir}/check_prefix_boundary $VAR(@)"
 commit:expression: $VAR(./distance/) != ""; "Must specify distance for network $VAR(@)"
 delete:expression: "touch /tmp/rip-dist.$PPID"
 end:expression: "if [ -n \"$VAR(./access-list/@)\" ]; then \

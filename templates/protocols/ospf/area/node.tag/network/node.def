@@ -2,7 +2,7 @@ multi:
 type: ipv4net
 help: Set OSPF network
 priority: 1
-syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+syntax:expression: exec "${sbin_dir}/check_prefix_boundary $VAR(@)"
 create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"network $VAR(@) area $VAR(../@)\"; "

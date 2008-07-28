@@ -1,4 +1,4 @@
 tag:
 type: ipv6net
 help: Set a static IPv6 route
-syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-prefix-boundry $VAR(@)"
+syntax:expression: exec "${sbin_dir}/check_prefix_boundary $VAR(@)"
