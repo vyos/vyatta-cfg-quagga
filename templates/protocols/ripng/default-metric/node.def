@@ -1,0 +1,13 @@
+type: u32
+help: Set metric of redistributed routes
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; "Must be between 1-16"
+
+update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "default-metric $VAR(@)"
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "no default-metric $VAR(@)"
+
+comp_help <1-16>  Default metric

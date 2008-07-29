@@ -1,0 +1,21 @@
+multi:
+type: txt
+help: Set interface name
+
+syntax:expression: exec " \
+        if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
+          echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
+          exit 1 ; \
+        fi ; "
+
+create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                         \
+	  -c "network $VAR(@)"
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                         \
+          -c "no network $VAR(@)" "
+
+allowed: local -a array;
+ array=( /sys/class/net/{eth,vmnet}* ) ;
+ echo -n ${array[@]##*/}

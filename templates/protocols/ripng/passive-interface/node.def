@@ -1,0 +1,31 @@
+multi:
+type: txt
+help: Set to suppress routing updates on an interface
+
+syntax:expression: exec " \
+     if [ -z \"`ip addr | grep $VAR(@) `\" ] && [ x$VAR(@) != xdefault ]; then \
+        echo ethernet interface $VAR(@) doesn\\'t exist on this system ;       \
+        exit 1;                                                                \
+     fi ; "
+
+update: if [ x$VAR(x) == xdefault ]; then
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ripng"                                       \
+             -c "passive-interface default";
+        else
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ripng"                                       \
+             -c "passive-interface $VAR(@)";
+        fi;
+delete: if [ x$VAR(x) == xdefault ]; then
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ripng"                                       \
+             -c "no passive-interface default"
+        else
+           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+             -c "router ripng"                                       \
+             -c "no passive-interface $VAR(@)"; 
+        fi;
+allowed: local -a array;
+ array=( /sys/class/net/{eth,vmnet}* ) ;
+ echo -n ${array[@]##*/}

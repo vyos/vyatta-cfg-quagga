@@ -1,0 +1,9 @@
+type: u32
+default: 30
+help: Set routing table update timer
+
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \
+       "Update timer must be between 0 and 65535"
+
+comp_help: possible completions:
+  <0-65535>     Routing table update timer in seconds (default 30)

@@ -1,0 +1,21 @@
+help: Set to redistribute OSPFv3 routes
+
+delete: touch /tmp/rip-redist-ospf6.$PPID
+
+end: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+       -c "router ripng"                                       \
+       -c "no redistribute ospf6";
+     if [ -f "/tmp/rip-redist-ospf6.$PPID" ]; then
+        rm -rf /tmp/rip-redist-ospf6.$PPID;
+     else
+        if [ -n "$VAR(./metric/@)" ]; then
+          COND="metric $VAR(./metric/@)";
+        fi;
+        if [ -n "$VAR(./route-map/@)" ]; then
+          COND="$COND route-map $VAR(./route-map/@)";
+        fi;
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "redistribute ospf6 $COND";
+     fi;
+

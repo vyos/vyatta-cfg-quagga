@@ -1,0 +1,9 @@
+type: u32
+default: 180
+help: Set routing information timeout timer
+
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \
+       "Timeout timer must be between 0 and 65535"
+
+comp_help: possible completions:
+  <0-65535>     Routing information timeout timer (default 180)

@@ -1,0 +1,9 @@
+type: u32
+default: 120
+help: Set garbage collection timer
+
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \
+       "Garbage collection timer must be between 0 and 65535"
+
+comp_help: possible completions:
+  <0-65535>      Garbage colletion time (default 120)

@@ -1,0 +1,10 @@
+help: Set to distribute a default route
+
+create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "default-information originate"
+
+delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "no default-information originate" "
+

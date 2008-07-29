@@ -1,0 +1,6 @@
+type: u32
+help: Set metric for redistributed routes
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; "metric must be between 1 and 16"
+
+
+

@@ -1,0 +1,16 @@
+help: Set RIPng timer values
+
+delete: touch /tmp/ripng-timers.$PPID
+
+end: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+       -c "router ripng"                                       \
+       -c "no timers basic";                                   \
+     if [ -f "/tmp/ripng-timers.$PPID" ]; then
+        rm -rf /tmp/ripng-timers.$PPID;
+     else
+        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+          -c "router ripng"                                       \
+          -c "timers basic $VAR(./update/@)                       \
+                           $VAR(./timeout/@)                      \
+                           $VAR(./garbage-collection/@)"
+     fi;
