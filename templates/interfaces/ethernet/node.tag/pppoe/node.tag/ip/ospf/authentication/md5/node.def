@@ -1,11 +1,11 @@
 help: Set MD5 key id
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+update:expression: "vyatta-vtysh \
        -c \"configure terminal\"                      \
        -c \"interface pppoe$VAR(../../../../@) \"          \
        -c \"no ip ospf authentication \"              \
        -c \"ip ospf authentication message-digest\"; "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+delete:expression: "vyatta-vtysh \
        -c \"configure terminal\"                      \
        -c \"interface pppoe$VAR(../../../../@) \"          \
        -c \"no ip ospf authentication \"; "

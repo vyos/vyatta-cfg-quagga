@@ -2,7 +2,7 @@ help: Set to send default route to this neighbor
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(../peer-group/) == ""; "protocold bgp $VAR(../../@) neighbor $VAR(../@): you can't set default-originate for a neighbor in a peer-group"
 delete: touch /tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID
-end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+end:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
          -c "no neighbor $VAR(../@) default-originate "; 
       if [ -f "/tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID" ]; then 
         rm -rf /tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID; 
@@ -15,7 +15,7 @@ end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "route
          else 
            peer="peer-group $VAR(../peer-group/@)"; 
          fi; 
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
 	   -c "neighbor $VAR(../@) $peer" \
            -c "neighbor $VAR(../@) default-originate $cond"; \
       fi; 

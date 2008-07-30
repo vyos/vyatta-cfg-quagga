@@ -1,6 +1,6 @@
 help: Set to distribute a default route
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"default-information originate\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"no default-information originate\" "
 

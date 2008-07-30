@@ -3,7 +3,7 @@ help: Set to call another route-map on match
 comp_help: \1  <txt>\t\troute-map name
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" "; "policy route-map $VAR(../../@) rule $VAR(../@) call: called route-map $VAR(@) doesn't exist" 
 commit:expression: $VAR(../action/) != ""; "policy route-map $VAR(../../@) rule $VAR(../@): you must define an action"
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \
+update: vyatta-vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \
            -c "call $VAR(@)" 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \
+delete: vyatta-vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \
            -c "no call " 

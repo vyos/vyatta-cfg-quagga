@@ -8,11 +8,11 @@ syntax:expression: exec " \
           exit 1 ; \
         fi ; "
 
-create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                         \
 	  -c "network $VAR(@)"
 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                         \
           -c "no network $VAR(@)" "
 

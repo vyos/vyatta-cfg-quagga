@@ -2,7 +2,7 @@ help: Set whether BGP attributes are sent unchanged
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set attribute-unchanged for a neighbor in a peer-group"
 delete: touch /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID
-end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../../@)" \
+end:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
         -c "no neighbor $VAR(../@) attribute-unchanged "; 
       if [ -f "/tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID" ]; then 
         rm -rf /tmp/bgp-neighbor-$VAR(../@)-attribute-unchanged.$PPID; 
@@ -25,7 +25,7 @@ end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "route
         else 
           peer="peer-group $VAR(../peer-group/@)"; 
         fi; 
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
 	  -c "neighbor $VAR(../@) $peer" \
           -c "neighbor $VAR(../@) attribute-unchanged $cond"; 
       fi; 

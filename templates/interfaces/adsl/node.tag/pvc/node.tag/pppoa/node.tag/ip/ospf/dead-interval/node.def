@@ -2,10 +2,10 @@ type: u32
 help: Set interval after which a neighbor is declared dead
 default: 40
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+update:expression: "vyatta-vtysh              \
        -c \"configure terminal\" -c \"interface pppoa$VAR(../../../@)\" \
        -c \"ip ospf dead-interval $VAR(@)\"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl              \
+delete:expression: "vyatta-vtysh              \
        -c \"configure terminal\" -c \"interface pppoa$VAR(../../../@)\" \
        -c \"no ip ospf dead-interval \"; "
 comp_help: possible completions:

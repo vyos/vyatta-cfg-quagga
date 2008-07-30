@@ -35,12 +35,12 @@ syntax:expression: exec " \
 delete:expression: "touch /tmp/static.$PPID"
 
 end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
-         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
+         vyatta-vtysh -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
          rm /tmp/static.$PPID; \
       else \
          if [ -n \"$VAR(./distance/@)\" ]; then \
 	    DIST=\"$VAR(./distance/@)\"; \
          fi; \	       
-         ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"ip route $VAR(../@) $VAR(@) $DIST \" ; \
+         vyatta-vtysh -c \"configure terminal\" -c \"ip route $VAR(../@) $VAR(@) $DIST \" ; \
       fi; "
 

@@ -1,10 +1,10 @@
 type: u32
 help: Set refresh timer
 syntax:expression: $VAR(@) >= 10 && $VAR(@) <= 1800; "must be between 10-1800"
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no refresh timer" -c "refresh timer $VAR(@)"; 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no refresh timer $VAR(@)";
 comp_help: possible completions:

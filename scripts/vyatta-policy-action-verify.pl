@@ -55,5 +55,5 @@ foreach my $qualifiers (@qualifiers) {
 #need to get a count of what's left and if action is deleted, but other nodes are present then reject
     
 if (-e "/tmp/delete-policy-route-map-$route_map-rule-$rule") {
-    system "/opt/vyatta/sbin/vyatta-vtysh.pl -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
+    system "/usr/bin/vyatta-vtysh -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
 }

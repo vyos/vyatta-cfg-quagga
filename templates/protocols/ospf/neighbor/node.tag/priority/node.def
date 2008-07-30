@@ -2,10 +2,10 @@ type: u32
 help: Set neighbor priority in seconds
 default: 0
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Priority must be between 0-255"
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "neighbor $VAR(../@) priority $VAR(@)"; 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "neighbor $VAR(../@) priority 0";
 comp_help: possible completions:

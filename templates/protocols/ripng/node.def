@@ -1,7 +1,7 @@
 help: Configure Routing Information Protocol (RIPng) parameters
 
-create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"
 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "no router ripng"

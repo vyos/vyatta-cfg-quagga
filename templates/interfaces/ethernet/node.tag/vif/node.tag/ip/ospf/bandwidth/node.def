@@ -3,12 +3,12 @@ help: Set bandwidth (kilobits/sec)
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10000000; \
        "Must be between 1-10000000"
 
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+update:expression: "vyatta-vtysh         \
         -c \"configure terminal\"                             \
         -c \"interface $VAR(../../../../@).$VAR(../../../@)\" \
         -c \"bandwidth $VAR(@) \"; "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl         \
+delete:expression: "vyatta-vtysh         \
         -c \"configure terminal\"                             \
         -c \"interface $VAR(../../../../@).$VAR(../../../@)\" \
         -c \"no bandwidth $VAR(@) \"; "

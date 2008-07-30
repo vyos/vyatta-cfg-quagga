@@ -1,5 +1,5 @@
 help: Enable rfc1583 criteria for handling AS external routes
-create:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"ospf rfc1583compatibility \"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"no ospf rfc1583compatibility \"; "

@@ -5,20 +5,20 @@ syntax:expression: $VAR(@) in "plaintext-password", "md5"; \
 
 update:expression: "\
         if [ x$VAR(@) == xplaintext-password ]; then               \
-           ${vyatta_sbindir}/vyatta-vtysh.pl                       \
+           vyatta-vtysh                       \
             -c \"configure terminal\"                              \
             -c \"router ospf \"                                    \
             -c \"no area $VAR(../@) authentication \"              \
             -c \"area $VAR(../@) authentication \" ;               \
          else                                                      \
-           ${vyatta_sbindir}/vyatta-vtysh.pl                       \
+           vyatta-vtysh                       \
             -c \"configure terminal\"                              \
             -c \"router ospf \"                                    \
             -c \"no area $VAR(../@) authentication \"              \
             -c \"area $VAR(../@) authentication message-digest\" ; \
          fi; "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
             -c \"router ospf \"                                                 \
             -c \"no area $VAR(../@) authentication \" "
 

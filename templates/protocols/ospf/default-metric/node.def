@@ -1,10 +1,10 @@
 type: u32
 help: Set metric of redistributed routes
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777214; "Must be between 0-16777214"
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+update:expression: "vyatta-vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"default-metric $VAR(@) \"; "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no default-metric $VAR(@) \"; "
 comp_help: possible completions:

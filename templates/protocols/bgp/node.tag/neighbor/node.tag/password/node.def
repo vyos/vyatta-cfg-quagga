@@ -10,10 +10,10 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
         else 
           peer="peer-group $VAR(../peer-group/@)"; 
         fi; 
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
 	-c "router bgp $VAR(../../@)" \
 	-c "neighbor $VAR(../@) $peer" \
 	-c "neighbor $VAR(../@) password $VAR(@)"
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl                            \
+delete: vyatta-vtysh                            \
           -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) password"

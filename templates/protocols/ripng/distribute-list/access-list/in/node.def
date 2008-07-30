@@ -3,11 +3,11 @@ help: Set access-list to apply to input packets
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";"access-list $VAR(@) doesn't exist"
 
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "distribute-list $VAR(@) in"
 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no distribute-list $VAR(@) in"
                      

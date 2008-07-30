@@ -6,7 +6,7 @@ syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
        "protocols bgp $VAR(../@) network $VAR(@): May specify route-map or backdoor but not both"
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID
-end: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router bgp $VAR(../@)" -c "no network $VAR(@)";
+end: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../@)" -c "no network $VAR(@)";
 
       if [ -f "/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" ]; then
         rm -rf /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID;
@@ -24,5 +24,5 @@ end: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" -c "router
           cond="route-map $VAR(./route-map/@)";
         fi;
 
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" -c "router bgp $VAR(../@)" -c "network $VAR(@) $cond";
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" -c "network $VAR(@) $cond";
       fi;

@@ -2,10 +2,10 @@ multi:
 type: txt
 help: Set filter for outgoing routing updates
 syntax:expression: $VAR(@) in "bgp", "connected", "kernel", "rip", "static"; "Must be (bgp, connected, kernel, rip, or static)"
-create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
             -c "router ospf"                                      \
             -c "distribute-list $VAR(../@) out $VAR(@)"; 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
             -c "router ospf"                                      \
             -c "no distribute-list $VAR(../@) out $VAR(@)";
 comp_help: possible completions:

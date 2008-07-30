@@ -2,9 +2,9 @@ type: ipv4
 help: Set Border Gateway Protocol (BGP) originator ID attribute
 comp_help: \1  <x.x.x.x>\toriginator IP address
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "set originator-id  $VAR(@)"
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no set originator-id "

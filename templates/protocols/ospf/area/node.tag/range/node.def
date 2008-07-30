@@ -6,7 +6,7 @@ syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 delete: touch /tmp/ospf-range.$PPID
 
 end: if [ -f /tmp/ospf-range.$PPID ]; then
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no area $VAR(../@) range $VAR(@)";
         rm /tmp/ospf-range.$PPID;
@@ -18,26 +18,26 @@ end: if [ -f /tmp/ospf-range.$PPID ]; then
               echo "Remove 'not-advertise' before setting cost or substitue";
 	      exit 1;
            fi;
-           ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
+           vyatta-vtysh --noerror -c "configure terminal" \
              -c "router ospf"                                               \
              -c "no area $VAR(../@) range $VAR(@)";
-           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+           vyatta-vtysh -c "configure terminal" \
              -c "router ospf"                                        \
              -c "area $VAR(../@) range $VAR(@) not-advertise";
         else
-           ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
+           vyatta-vtysh --noerror -c "configure terminal" \
              -c "router ospf"                                               \
              -c "no area $VAR(../@) range $VAR(@)";
-           ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+           vyatta-vtysh -c "configure terminal" \
              -c "router ospf"                                        \
              -c "area $VAR(../@) range $VAR(@)";
            if [ -n "$VAR(cost/@)" ]; then
-              ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+              vyatta-vtysh -c "configure terminal" \
                 -c "router ospf"                                        \
                 -c "area $VAR(../@) range $VAR(@) cost $VAR(cost/@)";
            fi;
            if [ -n "$VAR(substitute/@)" ]; then
-              ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+              vyatta-vtysh -c "configure terminal" \
                 -c "router ospf"                                        \
                 -c "area $VAR(../@) range $VAR(@) substitute $VAR(substitute/@)";
            fi;

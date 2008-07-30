@@ -4,11 +4,11 @@ help: Set RIPng static route
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
-create: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "route $VAR(@)"
 
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no route $VAR(@)"
 

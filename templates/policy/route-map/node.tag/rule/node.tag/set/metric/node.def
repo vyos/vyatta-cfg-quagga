@@ -4,9 +4,9 @@ comp_help: \1  <+/-metric>\tadd or subtract metric
   <0-4294967295>\tmetric value
 syntax:expression: exec "if [ -n \"$(echo $VAR(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
-update: ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "set metric $VAR(@)"
-delete: ${vyatta_sbindir}/vyatta-vtysh.pl -noerr -c "configure terminal" \
+delete: vyatta-vtysh --noerror -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no set metric "

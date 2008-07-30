@@ -1,10 +1,10 @@
 help: Enable split horizon on this interface
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+update:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../../@) \"             \
        -c \"ip rip split-horizon \" "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl \
+delete:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../../@) \"             \
        -c \"no ip rip split-horizon \" "

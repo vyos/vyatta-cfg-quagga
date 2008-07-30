@@ -6,14 +6,14 @@ syntax:expression: exec "                              \
           exit 1 ;                                     \
         fi ; "
 
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl                    \
+update:expression: "vyatta-vtysh                    \
        -c \"configure terminal\" -c \"interface $VAR(../../../../../@)\" \
        -c \"ip rip authentication mode md5\"                             \
        -c \"ip rip authentication key-chain $VAR(../../../../../@)-rip\" \
        -c \"key chain $VAR(../../../../../@)-rip\" -c \"key $VAR(../@)\" \
        -c \"key-string $VAR(@)\" "
 
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -noerr                \
+delete:expression: "vyatta-vtysh --noerror                \
        -c \"configure terminal\" -c \"interface $VAR(../../../../../@)\"    \
        -c \"no ip rip authentication mode md5\"                             \
        -c \"no ip rip authentication key-chain $VAR(../../../../../@)-rip\" \

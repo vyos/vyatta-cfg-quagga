@@ -1,8 +1,8 @@
 type: ipv4
 help: Set to override the default router identifier
-update:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+update:expression: "vyatta-vtysh -c \"configure terminal\" \
            -c \"router ospf\" \
            -c \"ospf router-id $VAR(@)\" "
-delete:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
            -c \"router ospf\" \
            -c \"no ospf router-id \" "

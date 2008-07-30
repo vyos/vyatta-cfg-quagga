@@ -1,6 +1,6 @@
 help: Set to redistribute connected routes
 delete:expression: "touch /tmp/rip-redist-connected.$PPID" 
-end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+end:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute connected \"; \
       if [ -f \"/tmp/rip-redist-connected.$PPID\" ]; then \
         rm -rf /tmp/rip-redist-connected.$PPID; \
@@ -11,6 +11,6 @@ end:expression: "${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c 
         if [ -n \"$VAR(./route-map/@)\" ]; then \
           COND=\"$COND route-map $VAR(./route-map/@)\"; \
         fi; \
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c \"configure terminal\" -c \"router rip\" \
+        vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"redistribute connected $COND\"; \
       fi; "

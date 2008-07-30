@@ -4,7 +4,7 @@ help: Set a BGP aggregate network
 comp_help: \1 <x.x.x.x/x>\taggregate network
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID 
-end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr \
+end:  vyatta-vtysh --noerror \
        -c "configure terminal" \
        -c "router bgp $VAR(../@)" \
        -c "no aggregate-address $VAR(@)"; 
@@ -17,7 +17,7 @@ end:  ${vyatta_sbindir}/vyatta-vtysh.pl -noerr \
         if ${vyatta_sbindir}/vyatta_quagga_utils.pl --exists 'protocols bgp $VAR(../@) aggregate-address $VAR(@) summary-only' ;  then 
           cond="$cond summary-only"; 
         fi; 
-        ${vyatta_sbindir}/vyatta-vtysh.pl -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router bgp $VAR(../@)" \
           -c "aggregate-address $VAR(@) $cond"; 
       fi; 
