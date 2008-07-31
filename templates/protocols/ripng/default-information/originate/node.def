@@ -6,5 +6,4 @@ create: vyatta-vtysh -c "configure terminal" \
 
 delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
-          -c "no default-information originate" "
-
+          -c "no default-information originate"

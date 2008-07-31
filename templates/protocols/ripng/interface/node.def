@@ -14,7 +14,7 @@ create: vyatta-vtysh -c "configure terminal" \
 
 delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                         \
-          -c "no network $VAR(@)" "
+          -c "no network $VAR(@)"
 
 allowed: local -a array;
  array=( /sys/class/net/{eth,vmnet}* ) ;
