@@ -16,3 +16,6 @@
 /Makefile.in
 /Makefile
 
+/src/.deps/
+/src/.dirstamp
+
