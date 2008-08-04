@@ -1,10 +1,22 @@
 tag:
 type: txt
 help: Set a BGP neighbor 
-comp_help: \1  <x.x.x.x>\tBGP neighbor IP address
-syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-name $VAR(@)"
-update:  if [ -n "`echo $VAR(@) | sed 's/[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}//'`" ]; then 
-           vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" -c "neighbor $VAR(@) peer-group" ; 
-         fi ; 
-delete:  /opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups --peergroup $VAR(@) --as $VAR(../@); 
-         vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" -c "no neighbor $VAR(@)"
+comp_help: 
+  <x.x.x.x>           BGP neighbor IP address
+  <h:h:h:h:h:h:h:h>   BGP neighbor IPv6 address
+
+syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
+                           --check-peer-name $VAR(@)"
+
+update: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
+                                          --peergroup $VAR(@); then
+	   vyatta-vtysh -c "configure terminal"    \
+                        -c "router bgp $VAR(../@)" \
+                        -c "neighbor $VAR(@) peer-group"; 
+        fi;
+
+delete:  /opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups \
+                                        --peergroup $VAR(@) --as $VAR(../@); 
+         vyatta-vtysh -c "configure terminal"    \
+                      -c "router bgp $VAR(../@)" \
+                      -c "no neighbor $VAR(@)"

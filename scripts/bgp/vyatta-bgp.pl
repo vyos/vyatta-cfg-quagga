@@ -7,6 +7,7 @@ use Getopt::Long;
 GetOptions("check-peer-name=s"      => \$peername,
 	   "check-as"		    => \$checkas,
 	   "check-peer-groups"	    => \$checkpeergroups,
+	   "check-if-peer-group"    => \$checkifpeergroup,
            "peergroup=s"    	    => \$pg,
            "as=s"		    => \$as,
            "neighbor=s"		    => \$neighbor,
@@ -23,23 +24,35 @@ elsif (defined $neighbor &&
 elsif (defined $neighbor && 
        defined $as && 
        defined $checkas)  	 	{ check_as(-1, $neighbor, $as); }
+elsif (defined $pg &&
+       defined $checkifpeergroup)       { check_if_peer_group($pg); }
 
 
 exit 0;
+
+sub check_if_peer_group {
+    my $neighbor = shift;
+
+    my $version = is_ip_v4_or_v6($neighbor);
+    exit 1 if defined $version;
+    exit 0;
+}
+
 
 # Make sure the neighbor is a proper IP or name
 sub check_peer_name() {
   my $neighbor = shift;
 
   $_ = $neighbor;
-  if ((! isIpAddress("$neighbor")) && (/[\s\W]/g)) { 
+  my $version = is_ip_v4_or_v6($neighbor);
+  if ((!defined($version)) && (/[\s\W]/g)) { 
     print "malformed neighbor address $neighbor\n";
     exit 1;
   }
   
   # Quagga treats the first byte as a potential IPv6 address
   # so we can't use it as a peer group name.  So let's check for it.
-  if (/^[A-Fa-f]{1,4}$/) {
+  if ($version == 6 && /^[A-Fa-f]{1,4}$/) {
     print "malformed neighbor address $neighbor\n";
     exit 1;
   }
@@ -55,8 +68,8 @@ sub check_for_peer_groups() {
   my @peers, @neighbors;
 
   # short circuit if the neighbor is an IP rather than name
-  $node =~ s/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}//;
-  if ($node eq "") { return; }
+  my $version = is_ip_v4_or_v6($node);
+  return if defined $version;
 
   # get the list of neighbors and see if they have a peer-group set
   $config->setLevel("protocols bgp $as neighbor");
@@ -91,8 +104,8 @@ sub check_as() {
   my $pgtest = $neighbor;
 
   # if this is peer-group then short circuit this
-  $pgtest =~ s/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}//;
-  if ($pgtest ne "") { return; }
+  my $version = is_ip_v4_or_v6($node);
+  return if ! defined $version;
 
   $config->setLevel("protocols bgp $as neighbor $neighbor");
   $remoteas = $config->returnValue("remote-as");

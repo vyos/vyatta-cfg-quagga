@@ -2,27 +2,27 @@ tag:
 type: ipv4net
 help: Set a BGP network
 comp_help: \1  <x.x.x.x/x>\tnetwork
+
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+
 commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
        "protocols bgp $VAR(../@) network $VAR(@): May specify route-map or backdoor but not both"
+
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID
-end: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../@)" -c "no network $VAR(@)";
 
-      if [ -f "/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" ]; then
+end: vyatta-vtysh -n -c "configure terminal"    \
+                     -c "router bgp $VAR(../@)" \
+                     -c "no network $VAR(@)";
+     if [ -f "/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" ]; then
         rm -rf /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID;
-      else
-        # uncomment and replace the call to vyatta-check-typeless-node.pl pending bug 2525
-        #if [ -n \"$VAR(./backdoor/)\" ]; then
-        #  COND=\"backdoor\";
-        #fi;
-        ${vyatta_sbindir}/vyatta-check-typeless-node.pl "protocols bgp $VAR(../@) network $VAR(@) backdoor";
-        if [ $? -eq 0 ]; then
-          cond="backdoor ";
-        fi ;
-
+     else
+        if [ -n "$VAR(./backdoor/)" ]; then
+          cond="backdoor";
+        fi;
         if [ -n "$VAR(./route-map/@)" ]; then
           cond="route-map $VAR(./route-map/@)";
         fi;
-
-        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" -c "network $VAR(@) $cond";
-      fi;
+        vyatta-vtysh -c "configure terminal"    \
+                     -c "router bgp $VAR(../@)" \
+                     -c "network $VAR(@) $cond";
+     fi;
