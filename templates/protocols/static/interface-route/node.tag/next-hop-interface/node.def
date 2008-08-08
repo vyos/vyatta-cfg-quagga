@@ -32,15 +32,16 @@ syntax:expression: exec " \
 	  fi ; \
         fi ; "
 
-delete:expression: "touch /tmp/static.$PPID"
+delete: touch /tmp/static.$PPID
 
-end:expression: "if [ -f \"/tmp/static.$PPID\" ]; then \
-         vyatta-vtysh -c \"configure terminal\" -c \"no ip route $VAR(../@) $VAR(@)\" ; \
-         rm /tmp/static.$PPID; \
-      else \
-         if [ -n \"$VAR(./distance/@)\" ]; then \
-	    DIST=\"$VAR(./distance/@)\"; \
-         fi; \	       
-         vyatta-vtysh -c \"configure terminal\" -c \"ip route $VAR(../@) $VAR(@) $DIST \" ; \
-      fi; "
-
+end: if [ -f "/tmp/static.$PPID" ]; then
+       vyatta-vtysh -c "configure terminal" \
+                    -c "no ip route $VAR(../@) $VAR(@)";
+       rm /tmp/static.$PPID;
+     else
+       if [ -n "$VAR(./distance/@)" ]; then
+	  DIST="$VAR(./distance/@)";
+       fi;
+       vyatta-vtysh -c "configure terminal" \
+                    -c "ip route $VAR(../@) $VAR(@) $DIST";
+      fi;
