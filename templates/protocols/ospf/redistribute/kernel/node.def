@@ -1,8 +1,8 @@
 help: Set to redistribute kernel routes
 delete:expression: "touch /tmp/ospf-redist-kernel.$PPID" 
-end: vyatta-vtysh -c \"configure terminal\"  \
-        -c "router ospf"                                          \
-        -c "no redistribute kernel";
+end: vyatta-vtysh -c "configure terminal" \
+                  -c "router ospf"        \
+                  -c "no redistribute kernel";
      if [ -f "/tmp/ospf-redist-kernel.$PPID" ]; then
         rm -f /tmp/ospf-redist-kernel.$PPID;
      else
@@ -16,6 +16,6 @@ end: vyatta-vtysh -c \"configure terminal\"  \
            COND="$COND route-map $VAR(./route-map/@)";
         fi;
         vyatta-vtysh -c "configure terminal" \
-           -c "router ospf"                                       \
-           -c "redistribute kernel $COND";
+                     -c "router ospf"        \
+                     -c "redistribute kernel $COND";
      fi;
