@@ -1,7 +1,10 @@
 help: Set any IP address to match
-commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "\ 
+
+commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "\
 policy access-list $VAR(../../../@) rule $VAR(../../@) destination: access-list number must be <100-199> or <2000-2699> to set destination matches"
+
 commit:expression: ($VAR(../host/) == "") && ($VAR(../network/) == ""); "\
 policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you may only define one filter type. (host|network|any)"
+
 commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you must specify an action"
 
