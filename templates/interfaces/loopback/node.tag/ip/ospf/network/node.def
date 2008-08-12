@@ -5,11 +5,11 @@ syntax:expression: $VAR(@) in "non-broadcast"; \
 
 allowed:echo non-broadcast
 
-update:expression: "vyatta-vtysh              \
+update:expression: "vtysh              \
        -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
        -c \"ip ospf network $VAR(@) \"; "
 
-delete:expression: "vyatta-vtysh              \
+delete:expression: "vtysh              \
        -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
        -c \"no ip ospf network \"; "
 

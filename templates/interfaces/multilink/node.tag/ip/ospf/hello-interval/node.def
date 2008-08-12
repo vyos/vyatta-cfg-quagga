@@ -2,10 +2,10 @@ type: u32
 help: Set interval between hello packets
 default: 10
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "vyatta-vtysh               \
+update:expression: "vtysh               \
        -c \"configure terminal\" -c \"interface $VAR(../../../@) \" \
        -c \"ip ospf hello-interval $VAR(@)\"; "
-delete:expression: "vyatta-vtysh               \
+delete:expression: "vtysh               \
        -c \"configure terminal\" -c \"interface $VAR(../../../@) \" \
        -c \"no ip ospf hello-interval \"; "
 comp_help: possible completions:

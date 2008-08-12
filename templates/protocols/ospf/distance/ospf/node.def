@@ -2,7 +2,7 @@ help: Set OSPF administrative distance
 delete:expression: "touch /tmp/ospf-distance.$PPID"
 end:expression: "\
       if [ -f \"/tmp/ospf-distance.$PPID\" ]; then                   \
-         vyatta-vtysh -c \"configure terminal\" \
+         vtysh -c \"configure terminal\" \
            -c \"router ospf\"                                        \
            -c \"no distance ospf\";                                  \
 	 rm /tmp/ospf-distance.$PPID;                                \
@@ -16,7 +16,7 @@ end:expression: "\
          if [ -n \"$VAR(./external/@)\" ]; then                      \
            PARM=\"$PARM external $VAR(./external/@)\";               \
          fi;                                                         \
-         vyatta-vtysh -c \"configure terminal\" \
+         vtysh -c \"configure terminal\" \
            -c \"router ospf\"                                        \
            -c \"no distance ospf\" -c \"distance ospf $PARM\";       \
       fi; "

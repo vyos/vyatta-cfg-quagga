@@ -9,10 +9,10 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
         else                                                        
           peer="peer-group $VAR(../peer-group/@)";                
         fi;                                                         
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
           -c "router bgp $VAR(../../@)" \
           -c "neighbor $VAR(../@) $peer" \
           -c "neighbor $VAR(../@) port $VAR(@)"
-delete: vyatta-vtysh --noerror \
+delete: vtysh --noerror \
           -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) port"

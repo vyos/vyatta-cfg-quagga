@@ -1,6 +1,6 @@
 help: Set to compare MEDs among confederation paths
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
            -c "bgp bestpath med confed"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
            -c "no bgp bestpath med confed"
 

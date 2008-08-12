@@ -3,9 +3,9 @@ type: ipv4net
 help: Set OSPF network
 priority: 1
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"network $VAR(@) area $VAR(../@)\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no network $VAR(@) area $VAR(../@)\"; "

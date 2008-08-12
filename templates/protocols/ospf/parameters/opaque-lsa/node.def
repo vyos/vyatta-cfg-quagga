@@ -1,6 +1,6 @@
 help: Enable the Opaque-LSA capability (rfc2370)
-create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
+create:expression: "vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"ospf opaque-lsa \"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "vtysh -c \"configure terminal\" -c \"router ospf\" \
           -c \"no ospf opaque-lsa \"; "
 

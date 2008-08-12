@@ -1,5 +1,5 @@
 help: Set to disable client to client route reflection
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "no bgp client-to-client reflection"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp client-to-client reflection"

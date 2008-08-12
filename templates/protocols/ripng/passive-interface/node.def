@@ -9,20 +9,20 @@ syntax:expression: exec " \
      fi ; "
 
 update: if [ x$VAR(x) == xdefault ]; then
-           vyatta-vtysh -c "configure terminal" \
+           vtysh -c "configure terminal" \
              -c "router ripng"                                       \
              -c "passive-interface default";
         else
-           vyatta-vtysh -c "configure terminal" \
+           vtysh -c "configure terminal" \
              -c "router ripng"                                       \
              -c "passive-interface $VAR(@)";
         fi;
 delete: if [ x$VAR(x) == xdefault ]; then
-           vyatta-vtysh -c "configure terminal" \
+           vtysh -c "configure terminal" \
              -c "router ripng"                                       \
              -c "no passive-interface default"
         else
-           vyatta-vtysh -c "configure terminal" \
+           vtysh -c "configure terminal" \
              -c "router ripng"                                       \
              -c "no passive-interface $VAR(@)"; 
         fi;

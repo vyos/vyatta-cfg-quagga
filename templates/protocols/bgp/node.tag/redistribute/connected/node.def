@@ -1,6 +1,6 @@
 help: Set to redistribute connected routes into BGP
 delete: touch /tmp/bgp-redist-connected.$PPID 
-end: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+end: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
         -c "no redistribute connected"; 
       if [ -f "/tmp/bgp-redist-connected.$PPID" ]; then 
         rm -rf /tmp/bgp-redist-connected.$PPID; 
@@ -11,6 +11,6 @@ end: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
         if [ -n "$VAR(./route-map/@)" ]; then 
           cond="$cond route-map $VAR(./route-map/@)"; 
         fi; 
-        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "redistribute connected $cond"; 
       fi;

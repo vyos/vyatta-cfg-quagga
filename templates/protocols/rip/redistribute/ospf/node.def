@@ -1,6 +1,6 @@
 help: Set to redistribute OSPF routes
 delete:expression: "touch /tmp/rip-redist-ospf.$PPID" 
-end:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
+end:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute ospf \"; \
       if [ -f \"/tmp/rip-redist-ospf.$PPID\" ]; then \
         rm -rf /tmp/rip-redist-ospf.$PPID; \
@@ -11,7 +11,7 @@ end:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
         if [ -n \"$VAR(./route-map/@)\" ]; then \
           COND=\"$COND route-map $VAR(./route-map/@)\"; \
         fi; \
-        vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
+        vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"redistribute ospf $COND\"; \
       fi; "
 

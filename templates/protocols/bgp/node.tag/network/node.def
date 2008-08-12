@@ -10,7 +10,7 @@ commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
 
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID
 
-end: vyatta-vtysh -n -c "configure terminal"    \
+end: vtysh -n -c "configure terminal"    \
                      -c "router bgp $VAR(../@)" \
                      -c "no network $VAR(@)";
      if [ -f "/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" ]; then
@@ -22,7 +22,7 @@ end: vyatta-vtysh -n -c "configure terminal"    \
         if [ -n "$VAR(./route-map/@)" ]; then
           cond="route-map $VAR(./route-map/@)";
         fi;
-        vyatta-vtysh -c "configure terminal"    \
+        vtysh -c "configure terminal"    \
                      -c "router bgp $VAR(../@)" \
                      -c "network $VAR(@) $cond";
      fi;

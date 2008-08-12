@@ -1,10 +1,10 @@
 type: u32
 help: Set interface cost
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "vyatta-vtysh -c \"configure terminal\" \
+update:expression: "vtysh -c \"configure terminal\" \
         -c \"interface pppoa$VAR(../../../@)\" \
         -c \"ip ospf cost $VAR(@) \"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
         -c \"interface pppoa$VAR(../../../@)\" \
         -c \"no ip ospf cost \"; "
 comp_help: possible completions:

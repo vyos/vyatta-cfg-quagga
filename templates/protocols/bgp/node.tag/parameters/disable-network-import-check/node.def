@@ -1,5 +1,5 @@
 help: Set to disable IGP route check for network statements
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "no bgp network import-check"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp network import-check"

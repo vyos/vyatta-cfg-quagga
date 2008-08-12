@@ -3,7 +3,7 @@ type: u32
 help: Set the peer ASs in the BGP confederation
 comp_help: \1  <1-4294967294>\tpeer AS number numbers (ex: "435 234")
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "confederation AS id must be between 1 and 4294967294"
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "bgp confederation peers $VAR(@)"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "no bgp confederation peers $VAR(@)"

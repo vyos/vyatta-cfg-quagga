@@ -4,7 +4,7 @@ use VyattaConfig;
 use VyattaMisc;
 use Getopt::Long;
 
-my $VTYSH='/usr/bin/vyatta-vtysh';
+my $VTYSH='/usr/bin/vtysh';
 
 GetOptions("update-access-list=s"    => \$accesslist,
            "update-aspath-list=s"    => \$aspathlist,

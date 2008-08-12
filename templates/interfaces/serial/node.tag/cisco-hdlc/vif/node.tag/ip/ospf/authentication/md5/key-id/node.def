@@ -9,12 +9,12 @@ delete:expression: "touch /tmp/ospf-md5.$PPID"
 
 end:expression: "\
       if [ -f \"/tmp/ospf-md5.$PPID\" ]; then                                \
-         vyatta-vtysh -c \"configure terminal\"         \
+         vtysh -c \"configure terminal\"         \
           -c \"interface $VAR(../../../../../../../@).$VAR(../../../../../@) \" \
           -c \"no ip ospf message-digest-key $VAR(@)\";                      \
          rm /tmp/ospf-md5.$PPID;                                             \
       else                                                                   \
-         vyatta-vtysh -c \"configure terminal\"         \
+         vtysh -c \"configure terminal\"         \
           -c \"interface $VAR(../../../../../../../@).$VAR(../../../../../@) \" \
           -c \"ip ospf message-digest-key $VAR(@) md5 $VAR(md5-key/@)\";     \
       fi; "

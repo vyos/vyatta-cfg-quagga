@@ -1,5 +1,5 @@
 help: Set to log neighbor up/down changes and reset reason
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp log-neighbor-changes"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "no bgp log-neighbor-changes"

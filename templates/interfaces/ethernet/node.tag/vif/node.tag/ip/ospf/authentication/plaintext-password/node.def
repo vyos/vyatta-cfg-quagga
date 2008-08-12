@@ -6,14 +6,14 @@ syntax:expression: exec "                              \
           exit 1 ;                                     \
         fi ; "
 
-update:expression: "vyatta-vtysh                 \
+update:expression: "vtysh                 \
          -c \"configure terminal\"                                    \
          -c \"interface $VAR(../../../../../@).$VAR(../../../../@) \" \
 	 -c \"no ip ospf authentication \"                            \
 	 -c \"ip ospf authentication \"                               \
 	 -c \"ip ospf authentication-key $VAR(@) \"; "
 
-delete:expression: "vyatta-vtysh                 \
+delete:expression: "vtysh                 \
          -c \"configure terminal\"                                    \
          -c \"interface $VAR(../../../../../@).$VAR(../../../../@) \" \
 	 -c \"no ip ospf authentication \"                            \

@@ -6,9 +6,9 @@ update:  if [ -n "$VAR(../../remote-as/@)" ]; then
          else 
            peer="peer-group $VAR(../../peer-group/@)"; 
          fi; 
-	 vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+	 vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
 	   -c "neighbor $VAR(../../@) $peer" \
            -c "no neighbor $VAR(../../@) send-community standard"
-delete:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+delete:  vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "neighbor $VAR(../../@) send-community standard"
 

@@ -6,7 +6,7 @@ syntax:expression: exec "                              \
           exit 1 ;                                     \
         fi ; "
 
-update:expression: "vyatta-vtysh                         \
+update:expression: "vtysh                         \
        -c \"configure terminal \"                                             \
        -c \"interface $VAR(../../../../../../@).$VAR(../../../../../@) \"     \
        -c \"ip rip authentication mode md5 \"                                 \
@@ -16,7 +16,7 @@ update:expression: "vyatta-vtysh                         \
        -c \"key $VAR(../@) \"                                                 \
        -c \"key-string $VAR(@) \" "
 
-delete:expression: "vyatta-vtysh --noerror              \
+delete:expression: "vtysh --noerror              \
        -c \"configure terminal \"                                         \
        -c \"interface $VAR(../../../../../../@).$VAR(../../../../../@) \" \
        -c \"no ip rip authentication mode md5 \"                          \

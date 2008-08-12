@@ -1,5 +1,5 @@
 help: Set to deactivate IPv4 unicast for a peer by default
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "no bgp default ipv4-unicast"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "bgp default ipv4-unicast "

@@ -3,8 +3,8 @@ type: u32
 help: Configure Border Gateway Protocol (BGP) parameters
 comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "AS number must be between 1 and 4294967294"
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)"
+update: vtysh -c "configure terminal" -c "router bgp $VAR(@)"
 # we need to set default parameters in BGP here since we can't do it in
 # startup scripts as we don't know the AS number at that point
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)" -c "bgp network import-check"
-delete: vyatta-vtysh -c "configure terminal" -c "no router bgp $VAR(@)"
+update: vtysh -c "configure terminal" -c "router bgp $VAR(@)" -c "bgp network import-check"
+delete: vtysh -c "configure terminal" -c "no router bgp $VAR(@)"

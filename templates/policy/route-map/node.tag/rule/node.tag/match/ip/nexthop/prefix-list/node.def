@@ -4,9 +4,9 @@ comp_help: \1  <txt>\t\tprefix-list name
 commit:expression: $VAR(../access-list/) == ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ip nexthop prefix-list: you can only specify a prefix-list or access-list"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" "; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ip nexthop prefix-list: prefix-list $VAR(@) does not exist"
 commit:expression: $VAR(../../../../action/) != ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@): you must specify an action"
-update: vyatta-vtysh -c "configure terminal" \
+update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../../../@) $VAR(../../../../action/@) $VAR(../../../../@)" \
          -c "match ip next-hop prefix-list $VAR(@)"
-delete: vyatta-vtysh -c "configure terminal" \
+delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../../../@) $VAR(../../../../action/@) $VAR(../../../../@)" \
          -c "no match ip next-hop prefix-list $VAR(@)"

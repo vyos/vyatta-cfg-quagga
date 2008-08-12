@@ -1,5 +1,5 @@
 help: Set to compare MEDs from different neighbors
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp always-compare-med"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "no bgp always-compare-med"

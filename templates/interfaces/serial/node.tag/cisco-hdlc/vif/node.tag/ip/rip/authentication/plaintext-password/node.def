@@ -6,13 +6,13 @@ syntax:expression: exec "                               \
           exit 1 ;                                      \
         fi ; "
 
-update: vyatta-vtysh                              \
+update: vtysh                              \
           -c "configure terminal"                                      \
           -c "interface $VAR(../../../../../../@).$VAR(../../../../@)" \
           -c "ip rip authentication mode text"                         \
           -c "ip rip authentication string $VAR(@)"
 
-delete: vyatta-vtysh                              \
+delete: vtysh                              \
           -c "configure terminal"                                      \
           -c "interface $VAR(../../../../../../@).$VAR(../../../../@)" \
           -c "no ip rip authentication mode"                           \

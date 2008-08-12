@@ -1,10 +1,10 @@
 help: Disable split horizon on specified interface
-create:expression: "vyatta-vtysh \
+create:expression: "vtysh \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../@) \"          \
        -c \"no ip rip split-horizon \" "
 
-delete:expression: "vyatta-vtysh \
+delete:expression: "vtysh \
        -c \"configure terminal \"                     \
        -c \"interface $VAR(../../../../@) \"          \
        -c \"ip rip split-horizon \" "

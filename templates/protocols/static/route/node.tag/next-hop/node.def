@@ -7,7 +7,7 @@ end: if [[ -f /tmp/static.$PPID ]]
          if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
          "$VAR(../@)" "$VAR(@)"
 	 then 
-            vyatta-vtysh -c "configure terminal" \
+            vtysh -c "configure terminal" \
                          -c "no ip route $VAR(../@) $VAR(@)"
          fi
          rm -f /tmp/static.$PPID
@@ -16,6 +16,6 @@ end: if [[ -f /tmp/static.$PPID ]]
 	 then
 	 	DIST="$VAR(./distance/@)"
          fi
-	 vyatta-vtysh -c "configure terminal" \
+	 vtysh -c "configure terminal" \
                       -c "ip route $VAR(../@) $VAR(@) $DIST";
      fi
