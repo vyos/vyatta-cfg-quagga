@@ -3,12 +3,12 @@ help: Set interval between hello packets
 default: 10
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 
-update:expression: "vtysh         \
+update:expression: "vyatta-vtysh         \
        -c \"configure terminal\"                              \
        -c \"interface $VAR(../../../../@).$VAR(../../../@) \" \
        -c \"ip ospf hello-interval $VAR(@)\"; "
 
-delete:expression: "vtysh         \
+delete:expression: "vyatta-vtysh         \
        -c \"configure terminal\"                              \
        -c \"interface $VAR(../../../../@).$VAR(../../../@) \" \
        -c \"no ip ospf hello-interval \"; "

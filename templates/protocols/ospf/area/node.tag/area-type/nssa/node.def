@@ -5,7 +5,7 @@ syntax:expression: $VAR(../stub/) == "" ; "Must delete stub area type first"
 
 delete: touch /tmp/ospf-area-nssa.$PPID
 end: if [ -f "/tmp/ospf-area-nssa.$PPID" ]; then
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router ospf" -c "no area $VAR(../../@) nssa";
 	rm /tmp/ospf-area-nssa.$PPID;
      else
@@ -22,6 +22,6 @@ end: if [ -f "/tmp/ospf-area-nssa.$PPID" ]; then
         if [ $? -eq 0 ] ; then
            PARM="$PARM no-summary";  
         fi;
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router ospf" -c "area $VAR(../../@) nssa $PARM";
      fi;

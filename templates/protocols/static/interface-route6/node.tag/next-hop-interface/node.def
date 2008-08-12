@@ -35,13 +35,13 @@ syntax:expression: exec " \
 delete: touch /tmp/static.$PPID
 
 end: if [ -f "/tmp/static.$PPID" ]; then
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
            -c "no ipv6 route $VAR(../@) $VAR(@)";
         rm /tmp/static.$PPID;
      else 
         if [ -n "$VAR(./distance/@)" ]; then
 	   DIST="$VAR(./distance/@)";
         fi;
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
            -c "ipv6 route $VAR(../@) $VAR(@) $DIST";
      fi;

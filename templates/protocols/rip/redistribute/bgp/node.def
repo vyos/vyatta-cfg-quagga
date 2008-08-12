@@ -1,6 +1,6 @@
 help: Set to redistribute BGP routes
 delete:expression: "touch /tmp/rip-redist-bgp.$PPID" 
-end:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
+end:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute bgp \"; \
       if [ -f \"/tmp/rip-redist-bgp.$PPID\" ]; then \
         rm -rf /tmp/rip-redist-bgp.$PPID; \
@@ -11,6 +11,6 @@ end:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
         if [ -n \"$VAR(./route-map/@)\" ]; then \
           COND=\"$COND route-map $VAR(./route-map/@)\"; \
         fi; \
-        vtysh -c \"configure terminal\" -c \"router rip\" \
+        vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"redistribute bgp $COND\"; \
       fi; "

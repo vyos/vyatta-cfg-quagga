@@ -2,11 +2,11 @@ type: u32
 help: Set metric of redistributed routes
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; "Must be between 1-16"
 
-update: vtysh -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "default-metric $VAR(@)"
 
-delete: vtysh -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no default-metric $VAR(@)"
 

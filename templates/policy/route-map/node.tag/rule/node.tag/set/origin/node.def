@@ -5,9 +5,9 @@ comp_help: \1  igp\t\tinterior gateway protocol origin
   incomplete\tincomplete origin
 syntax:expression: $VAR(@) in "igp", "egp", "incomplete"; "origin must be one of igp, egp, or incomplete"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
-update: vtysh -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "set origin  $VAR(@)"
-delete: vtysh -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no set origin "

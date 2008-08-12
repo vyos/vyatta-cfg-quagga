@@ -8,7 +8,7 @@ syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
 delete: touch /tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID 
 
-end:  vtysh -n -c "configure terminal" \
+end:  vyatta-vtysh -n -c "configure terminal" \
                       -c "router bgp $VAR(../../@)" \
                       -c "no ipv6 bgp aggregate-address $VAR(@)"; 
       if [ -f "/tmp/`echo $VAR(@) | sed 's!/!!'`.$PPID" ]; then 
@@ -17,7 +17,7 @@ end:  vtysh -n -c "configure terminal" \
         if [ -n "$VAR(./summary-only)" ]; then
           cond="$cond summary-only"; 
         fi;
-        vtysh -c "configure terminal"    \
+        vyatta-vtysh -c "configure terminal"    \
                      -c "router bgp $VAR(../../@)" \
                      -c "ipv6 bgp aggregate-address $VAR(@) $cond"; 
       fi; 

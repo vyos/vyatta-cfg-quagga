@@ -1,7 +1,7 @@
 help: Set MD5 key id
 commit:expression: $VAR(../plaintext-password/) == "" ; "plaintext-password already set"
 
-create: vtysh                          \
+create: vyatta-vtysh                          \
           -c "configure terminal"                                  \
           -c "router ospf"                                         \
           -c "no area $VAR(../../../@) virtual-link $VAR(../../@)  \
@@ -9,7 +9,7 @@ create: vtysh                          \
           -c "area $VAR(../../../@) virtual-link $VAR(../../@)     \
             authentication message-digest";
 
-delete: vtysh                          \
+delete: vyatta-vtysh                          \
           -c "configure terminal"                                  \
           -c "router ospf"                                         \
           -c "area $VAR(../../../@) virtual-link $VAR(../../@)     \

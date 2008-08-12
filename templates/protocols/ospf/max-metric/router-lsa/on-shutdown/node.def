@@ -1,10 +1,10 @@
 type: u32
 help: Set to advertise stub-router prior to full shutdown of OSPF
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 86400; "must be between 5-86400 seconds"
-update:expression: "vtysh -c \"configure terminal\" \
+update:expression: "vyatta-vtysh -c \"configure terminal\" \
         -c \"router ospf\" \
         -c \"max-metric router-lsa on-shutdown $VAR(@)\"; "
-delete:expression: "vtysh -c \"configure terminal\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
         -c \"router ospf\" \
         -c \"no max-metric router-lsa on-shutdown \"; "
 comp_help: possible completions:

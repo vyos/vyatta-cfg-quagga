@@ -1,12 +1,12 @@
 help: Set RIP timer values
 delete:expression: "touch /tmp/rip-timers.$PPID"
-end:expression: "vtysh        \
+end:expression: "vyatta-vtysh        \
     -c \"configure terminal\" -c \"router rip\"           \
     -c \"no timers basic\";                               \
     if [ -f \"/tmp/rip-timers.$PPID\" ]; then             \
        rm -rf /tmp/rip-timers.$PPID;                      \
     else                                                  \
-       vtysh                  \
+       vyatta-vtysh                  \
         -c \"configure terminal\" -c \"router rip\"       \
         -c \"timers basic $VAR(./update/@)                \
                           $VAR(./timeout/@)               \

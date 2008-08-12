@@ -4,14 +4,14 @@ default: 100
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967; \
        "Must be between 1-4294967"
 
-update:expression: "vtysh --noerror \
+update:expression: "vyatta-vtysh --noerror \
        -c \"configure terminal\"                       \
        -c \"router ospf\"                              \
        -c \"auto-cost reference-bandwidth $VAR(@) \";  \
        echo 'OSPF: Reference bandwidth is changed.';   \
        echo '      Please ensure reference bandwidth is consistent across all routers'; "
 
-delete:expression: "vtysh --noerror \
+delete:expression: "vyatta-vtysh --noerror \
        -c \"configure terminal\"                       \
        -c \"router ospf\"                              \
        -c \"no auto-cost reference-bandwidth \";       \

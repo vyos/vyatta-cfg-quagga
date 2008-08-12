@@ -2,7 +2,7 @@ help: Set to redistribute OSPFv3 routes into BGP
 
 delete: touch /tmp/bgp-redist-ospf.$PPID
 
-end: vtysh -c "configure terminal"          \
+end: vyatta-vtysh -c "configure terminal"          \
                   -c "router bgp $VAR(../../../@)" \
                   -c "address-family ipv6"         \
                   -c "no redistribute ospf6"; 
@@ -15,7 +15,7 @@ end: vtysh -c "configure terminal"          \
        if [ -n "$VAR(./route-map/@)" ]; then 
          cond="$cond route-map $VAR(./route-map/@)"; 
        fi; 
-       vtysh -c "configure terminal"          \
+       vyatta-vtysh -c "configure terminal"          \
                     -c "router bgp $VAR(../../../@)" \
                     -c "address-family ipv6"         \
                     -c "redistribute ospf6 $cond"; 

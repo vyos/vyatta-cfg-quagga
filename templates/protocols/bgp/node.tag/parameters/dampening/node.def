@@ -3,10 +3,10 @@ delete:expression: "touch /tmp/bgp-dampening.$PPID"
 # Note that there is a bug in quagga here.  If bgpd gets two 'no bgp dampening'
 # commands in a row it will crash
 end:  if [ -f "/tmp/bgp-dampening.$PPID" ]; then
-        vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "no bgp dampening" ;
         rm -f "/tmp/bgp-dampening.$PPID" ;
       else
-        vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "bgp dampening $VAR(./half-life/@) $VAR(./re-use/@) $VAR(./start-suppress-time/@) $VAR(./max-suppress-time/@)" ;
       fi ;

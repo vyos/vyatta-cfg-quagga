@@ -1,8 +1,8 @@
 multi:
 type: ipv4
 help: Set a neighbor router
-create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"neighbor $VAR(@)\"; "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no neighbor $VAR(@)\"; "
 

@@ -2,8 +2,8 @@ multi:
 type: ipv4net
 help: Set RIP static route
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
-create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
          -c \"route $VAR(@)\" "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
          -c \"no route $VAR(@)\" "
 

@@ -1,10 +1,10 @@
 help: Enable split-horizon with poison reverse
-create:expression: "vtysh \
+create:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface pppoe$VAR(../../../../@) \"          \
        -c \"ip rip split-horizon poisoned-reverse \" "
 
-delete:expression: "vtysh \
+delete:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface pppoe$VAR(../../../../@) \"          \
        -c \"no ip rip split-horizon \"                \

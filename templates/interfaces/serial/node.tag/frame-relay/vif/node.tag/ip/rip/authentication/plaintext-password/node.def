@@ -8,13 +8,13 @@ syntax:expression: exec "                               \
 
 commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
-update: vtysh                              \
+update: vyatta-vtysh                              \
           -c "configure terminal"                                      \
           -c "interface $VAR(../../../../../../@).$VAR(../../../../@)" \
           -c "ip rip authentication mode text"                         \
           -c "ip rip authentication string $VAR(@)"
 
-delete: vtysh                              \
+delete: vyatta-vtysh                              \
           -c "configure terminal"                                      \
           -c "interface $VAR(../../../../../../@).$VAR(../../../../@)" \
           -c "no ip rip authentication mode"                           \

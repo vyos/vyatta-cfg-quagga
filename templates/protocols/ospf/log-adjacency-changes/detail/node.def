@@ -1,6 +1,6 @@
 help: Set to log all state changes
-create:expression: "vtysh -c \"configure terminal\" -c \"router ospf\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
          -c \"log-adjacency-changes detail\"; "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router ospf\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router ospf\" \
          -c \"no log-adjacency-changes detail\"; "
 

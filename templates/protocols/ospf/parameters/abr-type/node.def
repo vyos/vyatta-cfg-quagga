@@ -2,10 +2,10 @@ type: txt
 help: Set OSPF ABR type
 default: "cisco"
 syntax:expression: $VAR(@) in "cisco", "ibm", "shortcut", "standard"; "Must be (cisco, ibm, shortcut, standard)"
-update: vtysh -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "ospf abr-type $VAR(@)";
-delete: vtysh -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "ospf abr-type cisco"; 
 comp_help: possible completions:

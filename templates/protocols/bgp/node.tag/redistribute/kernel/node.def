@@ -1,6 +1,6 @@
 help: Set to redistribute kernel routes into BGP
 delete: touch /tmp/bgp-redist-kernel.$PPID 
-end:  vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+end:  vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
         -c "no redistribute kernel "; 
       if [ -f "/tmp/bgp-redist-kernel.$PPID" ]; then 
         rm -rf /tmp/bgp-redist-kernel.$PPID; 
@@ -11,6 +11,6 @@ end:  vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
         if [ -n "$VAR(./route-map/@)" ]; then 
           cond="$cond route-map $VAR(./route-map/@)"; 
         fi; 
-        vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "redistribute kernel $cond"; 
       fi; 

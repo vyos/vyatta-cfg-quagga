@@ -1,9 +1,9 @@
 tag:
 type: ipv4
 help: Set neighbor IP address
-create:expression: "vtysh -c \"configure terminal\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"neighbor $VAR(@)\"; "
-delete:expression: "vtysh -c \"configure terminal\" \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no neighbor $VAR(@)\"; "

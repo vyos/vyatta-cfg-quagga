@@ -1,10 +1,10 @@
 help: Disable Maximum Transmission Unit (MTU) mismatch detection
-create:expression: "vtysh         \
+create:expression: "vyatta-vtysh         \
        -c \"configure terminal\"                              \
        -c \"interface $VAR(../../../../../@).$VAR(../../../@) \" \
        -c \"ip ospf mtu-ignore\"; "
 
-delete:expression: "vtysh         \
+delete:expression: "vyatta-vtysh         \
        -c \"configure terminal\"                              \
        -c \"interface $VAR(../../../../../@).$VAR(../../../@) \" \
        -c \"no ip ospf mtu-ignore\"; "

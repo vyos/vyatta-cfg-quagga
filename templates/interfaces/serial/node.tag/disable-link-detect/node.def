@@ -1,6 +1,6 @@
 help: ignore link state changes on this interface
-update: vtysh -c "configure terminal" -c "interface $VAR(../@)" \
+update: vyatta-vtysh -c "configure terminal" -c "interface $VAR(../@)" \
           -c "no link-detect"
-delete: vtysh -c "configure terminal" -c "interface $VAR(../@)" \
+delete: vyatta-vtysh -c "configure terminal" -c "interface $VAR(../@)" \
           -c "link-detect "
 

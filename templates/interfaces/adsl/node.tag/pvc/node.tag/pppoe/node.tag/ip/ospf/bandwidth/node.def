@@ -2,12 +2,12 @@ type: u32
 help: Set bandwidth in kilobits/sec
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10000000; \
        "Must be between 1-10000000"
-update:expression: "vtysh \
+update:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface pppoe$VAR(../../../@) \"             \
        -c \"bandwidth $VAR(@) \"; "
 
-delete:expression: "vtysh \
+delete:expression: "vyatta-vtysh \
        -c \"configure terminal \"                     \
        -c \"interface pppoe$VAR(../../../@) \"             \
        -c \"no bandwidth $VAR(@) \"; "

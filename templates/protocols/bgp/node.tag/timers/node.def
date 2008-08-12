@@ -2,11 +2,11 @@ help: Set BGP protocol timers
 commit:expression: $VAR(./keepalive/) != ""; "protocols bgp $VAR(../@) timers: you must set a keepalive interval"
 commit:expression: $VAR(./holdtime/) != ""; "protocols bgp $VAR(../@) timers: you must set a holdtime interval"
 delete: touch /tmp/bgp-timers.$PPID
-end:  vtysh -c "configure terminal" -c "router bgp $VAR(../@)" \
+end:  vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" \
         -c "no timers bgp"; 
       if [ -f "/tmp/bgp-timers.$PPID" ]; then 
         rm -rf /tmp/bgp-timers.$PPID; 
       else 
-        vtysh -c "configure terminal" -c "router bgp $VAR(../@)" \
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../@)" \
           -c "timers bgp $VAR(./keepalive/@) $VAR(./holdtime/@)"; 
       fi; 

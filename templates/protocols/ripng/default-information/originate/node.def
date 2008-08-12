@@ -1,9 +1,9 @@
 help: Set to distribute a default route
 
-create: vtysh -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "default-information originate"
 
-delete: vtysh -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no default-information originate"

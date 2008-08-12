@@ -1,7 +1,7 @@
 type: txt
 help: Set prefix-list to apply to output packets
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" ";"prefix-list $VAR(@) doesn't exist"
-update:expression: "vtysh -c \"configure terminal\" -c \"router rip\"  \
+update:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\"  \
            -c \"distribute-list prefix $VAR(@) out $VAR(../../@) \" "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\"  \
+delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\"  \
            -c \"no distribute-list prefix $VAR(@) out $VAR(../../@)\" "

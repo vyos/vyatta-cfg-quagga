@@ -9,10 +9,10 @@ end:expression: "if [ -n \"$VAR(./access-list/@)\" ]; then \
       fi; \
       if [ -f \"/tmp/rip-dist.$PPID\" ]; then \
           dist=$(cat /tmp/rip-network-distance.$PPID); \
-          vtysh -c \"configure terminal\" -c \"router rip\" \
+          vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"no distance $dist $VAR(@) $ACL \" ;
           rm -f \"/tmp/rip-dist.$PPID\";
       else \
-        vtysh -c \"configure terminal\" -c \"router rip\" \
+        vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"distance $VAR(./distance/@) $VAR(@) $ACL \" ;
       fi; "

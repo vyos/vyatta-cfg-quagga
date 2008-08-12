@@ -31,8 +31,6 @@ use strict;
 use POSIX;
 use File::Copy;
 
-my $VTYSH='/usr/bin/vtysh';
-
 #solution: put a commit statement in the rule node that does the action test and squirt out delete hook in rule node on a delete.
 
 my $route_map = shift;
@@ -57,5 +55,5 @@ foreach my $qualifiers (@qualifiers) {
 #need to get a count of what's left and if action is deleted, but other nodes are present then reject
     
 if (-e "/tmp/delete-policy-route-map-$route_map-rule-$rule") {
-    system "$VTYSH -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
+    system "/usr/bin/vyatta-vtysh -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
 }

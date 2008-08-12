@@ -8,12 +8,12 @@ syntax:expression: exec "                              \
 
 commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
-update: vtysh                      \
+update: vyatta-vtysh                      \
           -c "configure terminal" -c "router ospf"             \
           -c "area $VAR(../../../@) virtual-link $VAR(../../@) \
             authentication authentication-key $VAR(@) "
 
-delete: vtysh                         \
+delete: vyatta-vtysh                         \
           -c "configure terminal" -c "router ospf"                \
           -c "no area $VAR(../../../@) virtual-link $VAR(../../@) \
             authentication authentication-key";

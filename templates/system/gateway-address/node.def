@@ -1,9 +1,9 @@
 type: ipv4
 help: Set default gateway
-create:expression: "vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
+create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
 update:expression: "oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl '$(/system/gateway-address/@)' ` && \
-        vtysh --noerror -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $oldgw \" && \
-        vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
+        vyatta-vtysh --noerror -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $oldgw \" && \
+        vyatta-vtysh -c \"configure terminal\" -c \"ip route 0.0.0.0/0 $VAR(@)\" "
 delete:expression: "if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \"$VAR(@)\"; then \
-        vtysh -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $VAR(@)\"; fi"
+        vyatta-vtysh -c \"configure terminal\" -c \"no ip route 0.0.0.0/0 $VAR(@)\"; fi"
 

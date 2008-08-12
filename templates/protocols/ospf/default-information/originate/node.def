@@ -1,7 +1,7 @@
 help: Set to distribute a default route
 delete: touch /tmp/ospf-default-info.$PPID
 end: if [ -f "/tmp/ospf-default-info.$PPID" ]; then
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no default-information originate";
      else
@@ -24,7 +24,7 @@ end: if [ -f "/tmp/ospf-default-info.$PPID" ]; then
         if [ -n "$VAR(./route-map/@)" ]; then
            PARM="$PARM route-map $VAR(./route-map/@)";
         fi;
-        vtysh -c "configure terminal" \
+        vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "default-information originate $PARM";
      fi;

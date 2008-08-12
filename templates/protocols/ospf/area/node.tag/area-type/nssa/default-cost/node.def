@@ -2,16 +2,16 @@ type: u32
 help: Set the summary-default cost of nssa area
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Cost must be between 0-16777215"
 
-create: vtysh -c "configure terminal" \
+create: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "area $VAR(../../../@) nssa"                         \
           -c "area $VAR(../../../@) default-cost $VAR(@)";
 
-update: vtysh -c "configure terminal" \
+update: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "area $VAR(../../../@) default-cost $VAR(@)"; 
 
-delete: vtysh -c "configure terminal" \
+delete: vyatta-vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no area $VAR(../../../@) default-cost $VAR(@)";
 
