@@ -1,0 +1,5 @@
+tag:
+type: u32
+help: Set MD5 authentication key ID
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "ID must be between 1 and 255"
+
