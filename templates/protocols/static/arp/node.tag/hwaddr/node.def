@@ -1,0 +1,7 @@
+type: macaddr
+
+help: Set hardware protocol (e.g. MAC) address to translate to
+
+comp_help: Possible completions:
+  <macaddr>\tHardware protocol (e.g. MAC) address to translate to
+
