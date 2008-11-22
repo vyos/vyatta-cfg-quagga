@@ -23,8 +23,8 @@
 # **** End License ****
 #
 use lib "/opt/vyatta/share/perl5/";
-use VyattaConfig;
-use VyattaMisc;
+use Vyatta::Config;
+use Vyatta::Misc;
 
 use warnings;
 use strict;
@@ -41,7 +41,7 @@ if (!defined($rule) || !defined($route_map)) {
   exit 1;
 }
 
-my $config = new VyattaConfig;
+my $config = new Vyatta::Config;
 
 $config->setLevel('policy route-map $route_map rule $rule');
 if ($config->exists("action")) {

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use lib "/opt/vyatta/share/perl5/";
-use VyattaConfig;
-use VyattaMisc;
+use Vyatta::Config;
+use Vyatta::Misc;
 use NetAddr::IP;
 use Getopt::Long;
 
@@ -36,7 +36,7 @@ sub check_prefix_boundry() {
 
 sub check_exists() {
   my $node = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
 
   if ( $config->exists("$node") ) {
     exit 0;
@@ -47,7 +47,7 @@ sub check_exists() {
 
 sub check_not_exists() {
   my $node = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
 
   if (! $config->exists("$node") ) {
     exit 0;

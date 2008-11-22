@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use lib "/opt/vyatta/share/perl5/";
-use VyattaConfig;
-use VyattaMisc;
+use Vyatta::Config;
+use Vyatta::Misc;
 use Getopt::Long;
 
 my $VTYSH='/usr/bin/vyatta-vtysh';
@@ -47,7 +47,7 @@ sub is_community_list {
 
 sub update_community_list() {
   my $num = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
   my @rules = ();
   my $rule;
 
@@ -97,7 +97,7 @@ sub is_as_path_list {
 
 sub update_as_path() {
   my $word = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
   my @rules = ();
   my $rule;
 
@@ -147,7 +147,7 @@ sub is_access_list {
 
 sub update_access_list() {
   my $list = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
   my @rules = ();
   my $rule;
 
@@ -221,7 +221,7 @@ sub update_access_list() {
 # $1 = policy route-map <name> rule <num> action
 sub check_routemap_action() {
   my $routemap = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
 
   my $action = $config->setLevel("$routemap");
   my $origvalue = $config->returnOrigValue();
@@ -241,7 +241,7 @@ sub check_routemap_action() {
 # $1 = policy route-map <name> rule <num>
 sub check_delete_routemap_action() {
   my $routemap = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
 
   my @nodes = $config->listNodes("$routemap");
   if (defined @nodes) {

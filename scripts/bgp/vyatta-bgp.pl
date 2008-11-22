@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use lib "/opt/vyatta/share/perl5/";
-use VyattaConfig;
-use VyattaMisc;
+use Vyatta::Config;
+use Vyatta::Misc;
 use Getopt::Long;
 
 GetOptions("check-peer-name=s"      => \$peername,
@@ -61,7 +61,7 @@ sub check_peer_name() {
 # Make sure we aren't deleteing a peer-group that has 
 # neighbors configured to us it
 sub check_for_peer_groups() {
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
   my $pg = shift;
   my $as = shift;
   my $node = $pg;
@@ -100,7 +100,7 @@ sub check_as() {
   my $pg = shift;
   my $neighbor = shift;
   my $as = shift;
-  my $config = new VyattaConfig;
+  my $config = new Vyatta::Config;
   my $pgtest = $neighbor;
 
   # if this is peer-group then short circuit this

@@ -33,12 +33,12 @@ use warnings;
 use lib "/opt/vyatta/share/perl5/";
 
 use NetAddr::IP;
-use VyattaConfig;
+use Vyatta::Config;
 
 
 if (($#ARGV == 1) && ($ARGV[0] eq '0.0.0.0/0')) {
     # check when deleting static-route
-    my $vcCHECK_GATEWAY = new VyattaConfig();
+    my $vcCHECK_GATEWAY = new Vyatta::Config();
     $vcCHECK_GATEWAY->setLevel('system');
     if ( $vcCHECK_GATEWAY->exists('.') ) {
      my $gateway_ip = $vcCHECK_GATEWAY->returnValue('gateway-address');
@@ -49,7 +49,7 @@ if (($#ARGV == 1) && ($ARGV[0] eq '0.0.0.0/0')) {
     
 } elsif ($#ARGV == 0) {
     # check when deleting gateway-address                
-    my $vcCHECK_STATIC_ROUTE = new VyattaConfig();
+    my $vcCHECK_STATIC_ROUTE = new Vyatta::Config();
     $vcCHECK_STATIC_ROUTE->setLevel('protocols static');
     if ( $vcCHECK_STATIC_ROUTE->exists('.') ) {
      my @routes = $vcCHECK_STATIC_ROUTE->listNodes("route");
