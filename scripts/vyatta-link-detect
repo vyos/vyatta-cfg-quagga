@@ -1,0 +1,21 @@
+#! /bin/bash
+#
+# Usage: vyatta-link-detect devicename on|off
+#
+
+usage() {
+    echo "Usage: $0 devicename {on|off}"
+    exit 1
+}
+
+if [ $# -ne 2 ]; then
+    usage
+fi
+
+case $2 in
+on)	cmd="link-detect" ;;
+off)    cmd="no link-detect" ;;
+*)	usage;;
+esac
+
+exec vyatta-vtysh -c "configure terminal" -c "interface $1" -c "$cmd"
