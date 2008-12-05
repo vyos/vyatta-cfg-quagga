@@ -9,6 +9,9 @@ sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
 
+share_perl5dir = /opt/vyatta/share/perl5/Vyatta/Quagga
+share_perl5_data = lib/Vyatta/Quagga/Daemons.pm
+
 sbin_PROGRAMS = src/check_prefix_boundary
 
 src_check_prefix_boundary = src/check_prefix_boundary.c

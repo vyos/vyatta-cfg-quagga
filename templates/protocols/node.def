@@ -1,1 +1,3 @@
 help: Configure routing protocol parameters
+begin: vyatta-routing-daemons.pl --begin-update
+end: vyatta-routing-daemons.pl --end-update
