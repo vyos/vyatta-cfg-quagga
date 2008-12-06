@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# Module: vyatta-policy-action-verify.pl
+# Module: vyatta-wanloadbalance.pl
 # 
 # **** License ****
 # This program is free software; you can redistribute it and/or modify
@@ -15,6 +15,10 @@
 # This code was originally developed by Vyatta, Inc.
 # Portions created by Vyatta are Copyright (C) 2008 Vyatta, Inc.
 # All Rights Reserved.
+# 
+# Author: Michael Larson
+# Date: January 2008
+# Description: Writes exclusion list for linkstatus
 # 
 # **** End License ****
 #
