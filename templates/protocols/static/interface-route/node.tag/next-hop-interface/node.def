@@ -1,36 +1,11 @@
-#
-# Config template for
-# protocols/static/interface-route/<prefix>/next-hop-interface
-#
-
 tag:
-
 type: txt
-
 help: Set the next-hop interface
-
-#
-# Argument must be the name of an interface on the system.  PPP interfaces
-# only come into existance when they come up.  Allow interface routes
-# via them to be configured even though the link may not be up right now.
-# We need a special case for multilink interfaces because their names
-# are not coded into the name of the PPP config file in /etc/ppp/peers.
-#
-syntax:expression: exec " \
-        IFNAME=$VAR(@) ; \
-        if [ ! -e /sys/class/net/$IFNAME ]; then \
-	  if [ \"${IFNAME::5}\" != \"pppoa\" -a \"${IFNAME::5}\" != \"pppoe\" \
-	    -a \"${IFNAME::3}\" != \"wan\" \
-	    -a \"${IFNAME::2}\" != \"ml\" ]; then \
-		echo interface $IFNAME doesn\\'t exist on this system ; \
-		exit 1 ; \
-          fi ; \
-          if [ ! -e /etc/ppp/peers/${IFNAME} -a \"$IFNAME\" != \"ml0\" \
-	       -a \"$IFNAME\" != \"ml1\" ]; then \
-		echo PPP interface $IFNAME doesn\\'t exist on this system ; \
-		exit 1 ; \
-	  fi ; \
-        fi ; "
+# show all current interface
+# but syntax accepts any interface since it may exist later (ppp etc)
+allowed: local -a array
+	 array=( /sys/class/net/* )
+         echo -n ${array[@]##*/}
 
 delete: touch /tmp/static.$PPID
 
