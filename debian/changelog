@@ -1,3 +1,32 @@
+vyatta-cfg-quagga (0.13.1) unstable; urgency=low
+
+  [ Bob Gilligan ]
+  * Bugfix 3863: Provide ability to configure static ARP table entries
+
+  [ An-Cheng Huang ]
+  * add support for development build
+
+  [ Stephen Hemminger ]
+  * Convert to new Vyatta::Config hierarchy
+  * Add new script to wrap changes to link-detect
+  * Add vyatta-link-detect
+  * Use new link-detect script
+  * need full path to linkdetect
+  * Revert "need full path to linkdetect"
+  * fix comments that got copied
+  * Use full path to link-detect
+
+  [ An-Cheng Huang ]
+  * update maintainer information
+  * "files" file should be removed before package build
+
+  [ Stephen Hemminger ]
+  * Allow any interface for interface routes
+
+  [ An-Cheng Huang ]
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 08 Jan 2009 09:24:32 -0800
+
 vyatta-cfg-quagga (0.13) unstable; urgency=low
 
 	  3.2.0
