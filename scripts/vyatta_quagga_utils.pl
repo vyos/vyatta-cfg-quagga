@@ -33,14 +33,16 @@ sub check_exists {
   my $node = shift;
   my $config = new Vyatta::Config;
 
-  exit $config->exists($node)  ? 0 : 1;
+  exit 0 if $config->exists($node);
+  exit 1;
 }
 
 sub check_not_exists {
   my $node = shift;
   my $config = new Vyatta::Config;
 
-  exit $config->exists($node) ? 1 : 0;
+  exit 0 if ! $config->exists($node);
+  exit 1;
 }
 
 sub check_ospf_area {
