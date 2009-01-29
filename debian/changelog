@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.13.2) unstable; urgency=low
+
+  * bgp: cleanup
+  * check-as-prepend: turn on strict
+  * policy: turn on strict
+  * utils: turn on strict
+  * add new script for protocol restart
+  * Change mode of script files
+  * More work on protocol restart
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 28 Jan 2009 16:12:26 -0800
+
 vyatta-cfg-quagga (0.13.1) unstable; urgency=low
 
   [ Bob Gilligan ]
