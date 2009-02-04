@@ -1,5 +1,5 @@
 help: Configure Open Shortest Path First protocol (OSPF) parameters
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
-       -c \"router ospf\" "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
-       -c \"no router ospf\" "
+create: /opt/vyatta/sbin/vyatta-protocol start ospf
+	vyatta-vtysh -c "configure terminal" -c "router ospf"
+delete: vyatta-vtysh -c "configure terminal" -c "no router ospf"
+	/opt/vyatta/sbin/vyatta-protocol stop ospf

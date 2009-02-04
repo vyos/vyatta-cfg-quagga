@@ -1,4 +1,7 @@
 help: Configure Routing Information Protocol (RIP) parameters
-create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"no router rip\" "
+create: /opt/vyatta/sbin/vyatta-protocol start rip
+	vyatta-vtysh -c "configure terminal" -c "router rip"
+delete: vyatta-vtysh -c "configure terminal" -c "no router rip"
+	/opt/vyatta/sbin/vyatta-protocol stop rip
+
 
