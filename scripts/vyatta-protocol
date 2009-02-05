@@ -4,7 +4,7 @@
 #
 progname=$0
 usage() {
-    echo "Usage: $progname {start|stop|reload} {bgpd|ospfd|ripd|ripngd}"
+    echo "Usage: $progname {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
     exit 1;
 }
 
@@ -27,14 +27,13 @@ fi
 case "$1" in
     start)
 	sudo start-stop-daemon --start --quiet \
-	    --chdir $log_dir \
-	    --exec $exe_file \
+	    --chdir $log_dir --exec $exe_file \
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
 	sudo start-stop-daemon --start --quiet \
 	    --chdir $log_dir \
 	    --exec /usr/sbin/vyatta-watchquagga \
 	    -- -p $pid_dir/watch-${daemon}.pid \
-               -dz -r "/opt/vyatta/sbin/vyatta-quagga reload %s" $daemon
+               -dz -r "/opt/vyatta/sbin/vyatta-quagga restart %s" $daemon
 	;;
 
     stop) 
@@ -46,8 +45,14 @@ case "$1" in
 	sudo rm -f $pid_dir/${daemon}.pid
 	;;
 
-    reload)
-	# Start new transaction
+    restart)
+	# Restart daemon
+	sudo start-stop-daemon --stop --quiet --oknodo --exec $exe_file
+	sudo start-stop-daemon --start --quiet \
+	    --chdir $log_dir --exec $exe_file \
+	    -- -d -P 0 -i $pid_dir/${daemon}.pid
+
+	# Begin reloading transaction
 	/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin || exit 1
 
 	# In case of error undo
