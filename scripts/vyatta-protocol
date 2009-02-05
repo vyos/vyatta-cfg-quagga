@@ -27,7 +27,6 @@ fi
 
 case "$1" in
     start)
-	echo -n "Starting $protocol..."
 	sudo start-stop-daemon --start --quiet \
 	    --chdir $log_dir \
 	    --exec $exe_file \
@@ -37,20 +36,18 @@ case "$1" in
 	    --pidfile $pid_dir/watch-${daemon}.pid \
 	    --exec /usr/sbin/vyatta-watchquagga \
 	    -- -dz -R "/opt/vyatta/sbin/vyatta-quagga reload $protocol" $daemon
-	echo "done."
 	;;
 
     stop) 
-	echo -n "Stopping $protocol..."
 	sudo start-stop-daemon --stop --quiet --oknodo --retry 2 \
 	    --pidfile $pid_dir/watch-${daemon}.pid
+	sudo rm -f $pid_dir/watch-${daemon}.pid
 	sudo start-stop-daemon --stop --quiet --oknodo --retry 2 \
 	    --exec $exe_file
-	echo "done."
+	sudo rm -f $pid_dir/${daemon}.pid
 	;;
 
     reload)
-	echo -n "Reloading $1..."
 	# Start new transaction
 	/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin
 
@@ -66,7 +63,6 @@ case "$1" in
 
 	# Reload causing configuration to activate - implies commit
 	/opt/vyatta/sbin/vyatta-load-config.pl $TMP
-	echo "done."
 	;;
     *)
 	usage;;
