@@ -33,7 +33,7 @@ case "$1" in
 	    --chdir $log_dir \
 	    --exec /usr/sbin/vyatta-watchquagga \
 	    -- -p $pid_dir/watch-${daemon}.pid \
-               -dz -r "/opt/vyatta/sbin/vyatta-quagga restart %s" $daemon
+               -dz -r "$0 restart %s" $daemon
 	;;
 
     stop) 
@@ -52,25 +52,7 @@ case "$1" in
 	    --chdir $log_dir --exec $exe_file \
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
 
-	# Begin reloading transaction
-	/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin || exit 1
-
-	# In case of error undo
-	trap "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper end" EXIT HUP INT QUIT TERM
-
-	# Save current configuration
-	tmp=/tmp/${daemon}-restart.$$
-	/opt/vyatta/sbin/vyatta-save-config.pl $tmp || exit 1
-
-	# Erase active configuration for that protocol
-	rm -fr /opt/vyatta/config/active/protocols/${daemon/%d/}
-
-	# Reload causing configuration to activate - implies commit
-	# remove tmp file if successful
-	/opt/vyatta/sbin/vyatta-load-config.pl $tmp || exit 1
-
-	rm $tmp
-
+	sudo /opt/vyatta/sbin/vyatta-cfg-reload protocols ${daemon/%d/}
 	;;
     *)
 	usage;;
