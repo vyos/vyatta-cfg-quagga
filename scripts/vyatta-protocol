@@ -49,20 +49,24 @@ case "$1" in
 
     reload)
 	# Start new transaction
-	/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin
+	/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin || exit 1
 
 	# In case of error undo
 	trap "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper end" EXIT HUP INT QUIT TERM
 
 	# Save current configuration
 	tmp=/tmp/${protocol}-restart.$$
-	/opt/vyatta/sbin/vyatta-save-config.pl $tmp
+	/opt/vyatta/sbin/vyatta-save-config.pl $tmp || exit 1
 
 	# Erase active configuration for that protocol
 	rm -fr /opt/vyatta/config/active/protocols/$protocol
 
 	# Reload causing configuration to activate - implies commit
-	/opt/vyatta/sbin/vyatta-load-config.pl $TMP
+	# remove tmp file if successful
+	/opt/vyatta/sbin/vyatta-load-config.pl $tmp || exit 1
+
+	rm $tmp
+
 	;;
     *)
 	usage;;
