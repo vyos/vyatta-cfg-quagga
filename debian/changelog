@@ -1,3 +1,21 @@
+vyatta-cfg-quagga (0.13.5) unstable; urgency=low
+
+  * remove pid files on protocol stop
+  * Fix reload
+  * Manage daemons better
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 05 Feb 2009 11:45:20 -0800
+
+vyatta-cfg-quagga (0.13.4) unstable; urgency=low
+
+  [ Bob Gilligan ]
+  * Bugfix 4052:  Add support for PPPOE over ethernet VIFs.
+
+  [ Stephen Hemminger ]
+  * Protocol daemon management
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 04 Feb 2009 15:19:06 -0800
+
 vyatta-cfg-quagga (0.13.3) unstable; urgency=low
 
   * Fix exists/not exists function
