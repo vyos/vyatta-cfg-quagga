@@ -4,7 +4,7 @@
 #
 progname=$0
 usage() {
-    echo "Usage: $progname {start|stop|reload} {bgp|ospf|rip|ripng}"
+    echo "Usage: $progname {start|stop|reload} {bgpd|ospfd|ripd|ripngd}"
     exit 1;
 }
 
@@ -12,8 +12,7 @@ if [ $# -lt 2 ]; then
     usage
 fi
 
-protocol=$2
-daemon=${protocol}d
+daemon=$2
 exe_file=/usr/sbin/vyatta-$daemon
 
 pid_dir=/var/run/vyatta/quagga
@@ -21,7 +20,7 @@ pid_file=$pid_dir/${daemon}.pid
 log_dir=/var/log/vyatta/quagga
 
 if [ ! -x $exe_file ]; then
-    echo "Unknown protocol: $protocol";
+    echo "Unknown daemon $daemon"
     exit 1;
 fi
 
@@ -33,9 +32,9 @@ case "$1" in
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
 	sudo start-stop-daemon --start --quiet \
 	    --chdir $log_dir \
-	    --pidfile $pid_dir/watch-${daemon}.pid \
 	    --exec /usr/sbin/vyatta-watchquagga \
-	    -- -dz -R "/opt/vyatta/sbin/vyatta-quagga reload $protocol" $daemon
+	    -- -p $pid_dir/watch-${daemon}.pid \
+               -dz -r "/opt/vyatta/sbin/vyatta-quagga reload %s" $daemon
 	;;
 
     stop) 
@@ -55,11 +54,11 @@ case "$1" in
 	trap "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper end" EXIT HUP INT QUIT TERM
 
 	# Save current configuration
-	tmp=/tmp/${protocol}-restart.$$
+	tmp=/tmp/${daemon}-restart.$$
 	/opt/vyatta/sbin/vyatta-save-config.pl $tmp || exit 1
 
 	# Erase active configuration for that protocol
-	rm -fr /opt/vyatta/config/active/protocols/$protocol
+	rm -fr /opt/vyatta/config/active/protocols/${daemon/%d/}
 
 	# Reload causing configuration to activate - implies commit
 	# remove tmp file if successful
