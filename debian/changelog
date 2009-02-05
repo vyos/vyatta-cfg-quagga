@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.13.6) unstable; urgency=low
+
+  * Change reload to restart
+  * Move reload to vyatta-cfg-reload
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 05 Feb 2009 14:48:15 -0800
+
 vyatta-cfg-quagga (0.13.5) unstable; urgency=low
 
   * remove pid files on protocol stop
