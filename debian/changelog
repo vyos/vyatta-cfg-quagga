@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.13.5) unstable; urgency=low
+
+  * remove pid files on protocol stop
+  * Fix reload
+  * Manage daemons better
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 05 Feb 2009 11:45:20 -0800
+
 vyatta-cfg-quagga (0.13.4) unstable; urgency=low
 
   [ Bob Gilligan ]
