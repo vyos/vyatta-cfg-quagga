@@ -5,12 +5,13 @@
 progname=$0
 usage() {
     echo "Usage: $progname {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
-    exit 1;
+    exit 1
 }
 
 if [ $# -lt 2 ]; then
     usage
 fi
+
 
 daemon=$2
 exe_file=/usr/sbin/vyatta-$daemon
@@ -21,15 +22,20 @@ log_dir=/var/log/vyatta/quagga
 
 if [ ! -x $exe_file ]; then
     echo "Unknown daemon $daemon"
-    exit 1;
+    exit 1
+fi
+
+if [ $EUID -ne 0 ]; then
+    echo "must be root!"
+    exit 1
 fi
 
 case "$1" in
     start)
-	sudo start-stop-daemon --start --quiet \
+	start-stop-daemon --start --quiet \
 	    --chdir $log_dir --exec $exe_file \
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
-	sudo start-stop-daemon --start --quiet \
+	start-stop-daemon --start --quiet \
 	    --chdir $log_dir \
 	    --exec /usr/sbin/vyatta-watchquagga \
 	    -- -p $pid_dir/watch-${daemon}.pid \
@@ -37,22 +43,22 @@ case "$1" in
 	;;
 
     stop) 
-	sudo start-stop-daemon --stop --quiet --oknodo --retry 2 \
+	start-stop-daemon --stop --quiet --oknodo --retry 2 \
 	    --pidfile $pid_dir/watch-${daemon}.pid
-	sudo rm -f $pid_dir/watch-${daemon}.pid
-	sudo start-stop-daemon --stop --quiet --oknodo --retry 2 \
+	rm -f $pid_dir/watch-${daemon}.pid
+	start-stop-daemon --stop --quiet --oknodo --retry 2 \
 	    --exec $exe_file
-	sudo rm -f $pid_dir/${daemon}.pid
+	rm -f $pid_dir/${daemon}.pid
 	;;
 
     restart)
 	# Restart daemon
-	sudo start-stop-daemon --stop --quiet --oknodo --exec $exe_file
-	sudo start-stop-daemon --start --quiet \
+	start-stop-daemon --stop --quiet --oknodo --exec $exe_file
+	start-stop-daemon --start --quiet \
 	    --chdir $log_dir --exec $exe_file \
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
 
-	sudo /opt/vyatta/sbin/vyatta-cfg-reload protocols ${daemon/%d/}
+	/opt/vyatta/sbin/vyatta-cfg-reload protocols ${daemon/%d/}
 	;;
     *)
 	usage;;

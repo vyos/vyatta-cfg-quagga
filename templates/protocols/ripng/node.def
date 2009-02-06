@@ -1,5 +1,5 @@
 help: Configure Routing Information Protocol (RIPng) parameters
-create: /opt/vyatta/sbin/vyatta-protocol start ripngd
+create: sudo ${vyatta_sbindir}/vyatta-protocol start ripngd
 	vyatta-vtysh -c "configure terminal" -c "router ripng"
 delete: vyatta-vtysh -c "configure terminal" -c "no router ripng"
-	/opt/vyatta/sbin/vyatta-protocol stop ripngd
+	sudo ${vyatta_sbindir}/vyatta-protocol stop ripngd

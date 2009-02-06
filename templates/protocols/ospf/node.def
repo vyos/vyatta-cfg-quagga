@@ -1,5 +1,5 @@
 help: Configure Open Shortest Path First protocol (OSPF) parameters
-create: /opt/vyatta/sbin/vyatta-protocol start ospfd
+create: sudo ${vyatta_sbindir}/vyatta-protocol start ospfd
 	vyatta-vtysh -c "configure terminal" -c "router ospf"
 delete: vyatta-vtysh -c "configure terminal" -c "no router ospf"
-	/opt/vyatta/sbin/vyatta-protocol stop ospfd
+	sudo ${vyatta_sbindir}/vyatta-protocol stop ospfd
