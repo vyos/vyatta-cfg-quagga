@@ -1,0 +1,17 @@
+type: txt
+help: Set OSPFv3 area interface
+create:expression: "vyatta-vtysh --noerror -c \"configure terminal\" \
+        -c \"router ospf6 \" \
+        -c \"no interface $VAR(@) area $VAR(../@) \"; "
+create:expression: "vyatta-vtysh -c \"configure terminal\" \
+        -c \"router ospf6 \" \
+        -c \"interface $VAR(@) area $VAR(../@) \"; "
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+        -c \"router ospf6 \" \
+        -c \"no interface $VAR(@) area $VAR(../@) \"; "
+
+allowed: for dev in /sys/class/net/*; 
+         do if [[ -d $dev && -L $dev/device ]]
+	    then echo -n ${dev##*/} " "
+            fi
+         done

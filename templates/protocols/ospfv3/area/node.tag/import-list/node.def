@@ -1,0 +1,8 @@
+type: txt
+help: Set name of import-list 
+create:expression: "vyatta-vtysh -c \"configure terminal\" \
+        -c \"router ospf6 \" \
+        -c \"area $VAR(../@) import-list $VAR(@) \"; "
+delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+        -c \"router ospf6 \" \
+        -c \"no area $VAR(../@) import-list $VAR(@) \"; "

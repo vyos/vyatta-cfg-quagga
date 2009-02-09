@@ -1,0 +1,6 @@
+tag:
+type: txt
+help: Set OSPFv3 Area
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-ospf-area $VAR(@)"; "Invalid OSFPv3 area \"$VAR(@)\" "
+comp_help: possible completions:
+ <x.x.x.x>          Set OSPFv3 area in dotted decimal notation
