@@ -52,7 +52,7 @@ case "$1" in
 	    --chdir $log_dir --exec $exe_file \
 	    -- -d -P 0 -i $pid_dir/${daemon}.pid
 
-	sudo /opt/vyatta/sbin/vyatta-cfg-reload protocols ${daemon/%d/}
+	sudo /opt/vyatta/sbin/vyatta-reload-proto-config ${daemon/%d/}
 	;;
     *)
 	usage;;
