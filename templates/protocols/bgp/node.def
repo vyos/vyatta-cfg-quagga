@@ -5,15 +5,7 @@ comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 		   "AS number must be between 1 and 4294967294"
 
-create:	if [ $(pgrep -c -x vyatta-bgpd) -eq 0 ]
-	then sudo ${vyatta_sbindir}/vyatta-protocol start bgpd
-	fi
-	vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)"
 update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)" \
 		-c "bgp network import-check"
-delete: vyatta-vtysh -c "configure terminal" -c "no router bgp $VAR(@)"
-	if ! ${vyatta_sbindir}/vyatta-check-typeless-node.pl "protocols bgp"
-	then sudo ${vyatta_sbindir}/vyatta-protocol stop bgpd
-	fi
 
 	

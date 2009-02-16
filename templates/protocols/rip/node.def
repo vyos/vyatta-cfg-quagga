@@ -1,7 +1,3 @@
 help: Configure Routing Information Protocol (RIP) parameters
-create: sudo ${vyatta_sbindir}/vyatta-protocol start ripd
-	vyatta-vtysh -c "configure terminal" -c "router rip"
+create: vyatta-vtysh -c "configure terminal" -c "router rip"
 delete: vyatta-vtysh -c "configure terminal" -c "no router rip"
-	sudo ${vyatta_sbindir}/vyatta-protocol stop ripd
-
-
