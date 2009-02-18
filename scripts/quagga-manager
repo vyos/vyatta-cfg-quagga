@@ -1,0 +1,130 @@
+#! /bin/bash
+#
+# This is special script for start,stop,restart of quagga daemons
+#
+
+progname=$0
+usage() {
+    echo "Usage: $progname {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
+    exit 1
+}
+
+if [ $# -lt 1 ]; then
+    usage
+fi
+
+if [ $EUID -ne 0 ]; then
+    echo "must be root!"
+    exit 1
+fi
+
+pid_dir=/var/run/vyatta/quagga
+log_dir=/var/log/vyatta/quagga
+
+start() {
+    local daemon=$1
+    local exe_file=/usr/sbin/vyatta-$daemon
+
+    if [ ! -x $exe_file ]; then
+	echo "Unknown daemon $daemon"
+	exit 1
+    fi
+    
+    local -a args=( -d -P 0 -i ${pid_dir}/${daemon}.pid )
+    case $daemon in
+    zebra) args+=( -l -S -s 1048576 ) ;;
+    watchquagga)
+	    args=( -dz -p ${pid_dir}/${daemon}.pid );
+	    local -a daemons=(`/opt/vyatta/bin/vyatta-show-protocols configured`)
+	    if [ ${#daemons} -eq 0 ]
+	    then 
+		# Only zebra: mode 1 simple restart
+		args+=( -R "$0 zebra restart" )
+	    else
+		# Many daemons: phased restart
+		args+=(-A -r "$0 restart \%s" -s "$0 start \%s" -k "$0 stop \%s" );
+	    fi
+	    args+=( zebra $daemons )
+	    ;;
+    esac
+
+    start-stop-daemon --start --quiet \
+	--chdir $log_dir --exec $exe_file \
+	-- "${args[@]}"
+}
+
+stop() {
+    local daemon=$1
+    local exe_file=/usr/sbin/vyatta-$daemon
+
+    start-stop-daemon --stop --quiet --oknodo --retry 2 \
+	--exec $exe_file
+    rm -f $pid_dir/${daemon}.pid
+}
+
+vyatta_cfg=/opt/vyatta/config/active
+reload_config() {
+    local daemon=$1
+    local proto=${daemon/%d/}
+    local path=$vyatta_cfg/protocols/$proto
+
+    # No point in reloading if that portion of config doesn't exist
+    [ -d $path ] || return;
+
+    # Begin reloading transaction
+    /opt/vyatta/sbin/vyatta-cfg-cmd-wrapper begin || exit 1
+
+    # In case of error undo
+    trap "/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper end" EXIT HUP INT QUIT TERM
+    
+    # Save current configuration
+    tmp=/tmp/${daemon}-restart.$$
+    /opt/vyatta/sbin/vyatta-save-config.pl $tmp || exit 1
+
+    # Erase portion of active configuration for that protocol
+    rm -fr $path
+
+    # special case for interface configuration
+    case $proto in
+    rip|ospf)
+	    find $vyatta_cfg/interfaces -type d -name $daemon -exec rm -fr '{}' \; ;;
+    esac
+
+    # Reload causing configuration to activate - implies commit
+    /opt/vyatta/sbin/vyatta-load-config.pl $tmp || exit 1
+
+    # remove tmp file if successful
+    rm $tmp
+    trap "" EXIT HUP INT QUIT TERM
+}
+
+
+case "$1" in
+    start) start $2;;
+    stop)  stop $2;;
+
+    update)
+	deleted=`/opt/vyatta/bin/vyatta-show-protocols deleted`
+	added=`/opt/vyatta/bin/vyatta-show-protocols added`
+
+	# nothing lost, nothing gained
+	[ -z "$deleted" -a -z "$added" ] && exit 0
+
+	stop watchquagga
+	for daemon in $deleted
+	do stop ${daemon}
+	done
+
+	start watchquagga
+	;;
+
+    restart)
+	# Restart single daemon
+	stop $2
+	start $2
+	reload_config $2
+	;;
+    *)
+	usage;;
+esac
+
