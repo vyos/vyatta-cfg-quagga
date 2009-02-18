@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.14) unstable; urgency=low
+
+  * Move sudo from vyatta-protocol to nodes
+  * Move daemon start to the disable node
+  * Rework of protocol startup
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 18 Feb 2009 15:40:48 -0800
+
 vyatta-cfg-quagga (0.13.7) unstable; urgency=low
 
   * OSPF: allow any type interface
