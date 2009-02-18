@@ -11,7 +11,7 @@ vyatta-cfg-quagga (0.13.7) unstable; urgency=low
   * OSPF: allow any type interface
   * Handle reload of interface properties
 
- -- Stephen Hemminger <shemminger@debian>  Wed, 11 Feb 2009 22:20:25 -0800
+ -- Stephen Hemminger <shemminger@vyatta.com>  Wed, 11 Feb 2009 22:20:25 -0800
 
 vyatta-cfg-quagga (0.13.6) unstable; urgency=low
 
