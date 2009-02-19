@@ -48,7 +48,7 @@ start() {
 	    ;;
     esac
 
-    start-stop-daemon --start --quiet \
+    start-stop-daemon --start --quiet --oknodo \
 	--chdir $log_dir --exec $exe_file \
 	-- "${args[@]}"
 }
