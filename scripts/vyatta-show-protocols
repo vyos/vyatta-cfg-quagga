@@ -1,0 +1,51 @@
+#! /usr/bin/perl
+# Author: Stephen Hemminger
+# Date: 2009
+# Description: Helper script to display configured protocols
+
+# **** License ****
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# This code was originally developed by Vyatta, Inc.
+# Portions created by Vyatta are Copyright (C) 2006, 2007, 2008 Vyatta, Inc.
+# All Rights Reserved.
+# **** End License ****
+
+use lib "/opt/vyatta/share/perl5";
+use Vyatta::Config;
+use strict;
+use warnings;
+
+# Map from command line to config->XXX() function
+my %actions = (
+    'configured' => 'exists',
+    'added'	 => 'isAdded',
+    'changed'	 => 'isChanged',
+    'deleted'	 => 'isDeleted',
+);
+
+my @protocols = qw(bgp isis ospf ospf6 rip ripng);
+
+sub usage {
+    die "Usage: $0 {",join('|',keys %actions),"}\n"
+}
+
+usage if ($#ARGV == -1);
+my $match = $actions{$ARGV[0]};
+usage unless $match;
+
+my $config = new Vyatta::Config;
+$config->setLevel('protocols');
+    
+# Avoid the urge to do Perl Golf here...
+my @found = grep { $config->$match($_) } @protocols;
+my @daemons = map { $_ . 'd' } @found;
+print join(' ', @daemons), "\n";
+
