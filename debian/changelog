@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.16) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * force BGP on
+
+  [ slioch ]
+  * changes to support bgp start/stop
+  * applied same changes to ospf and rip as to bgp re: start/stop router
+    daemon hooks
+
+ -- slioch <slioch@eng-140.vyatta.com>  Thu, 19 Feb 2009 20:34:15 -0800
+
 vyatta-cfg-quagga (0.15) unstable; urgency=low
 
   * Fix email in changlog
