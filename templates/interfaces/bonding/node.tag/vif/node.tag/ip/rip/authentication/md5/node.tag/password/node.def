@@ -1,0 +1,29 @@
+type: txt
+help: Set authentication password
+syntax:expression: exec "                              \
+        if [ `echo -n $VAR(@) | wc -c` -gt 16 ]; then  \
+          echo MD5 key must be 16 characters or less ; \
+          exit 1 ;                                     \
+        fi ; "
+
+update:expression: "vyatta-vtysh                         \
+       -c \"configure terminal \"                                             \
+       -c \"interface $VAR(../../../../../../@).$VAR(../../../../../@) \"     \
+       -c \"ip rip authentication mode md5 \"                                 \
+       -c \"ip rip authentication                                             \
+        key-chain $VAR(../../../../../../@).$VAR(../../../../../@)-rip \"     \
+       -c \"key chain $VAR(../../../../../../@).$VAR(../../../../../@)-rip \" \
+       -c \"key $VAR(../@) \"                                                 \
+       -c \"key-string $VAR(@) \" "
+
+delete:expression: "vyatta-vtysh --noerror              \
+       -c \"configure terminal \"                                         \
+       -c \"interface $VAR(../../../../../../@).$VAR(../../../../../@) \" \
+       -c \"no ip rip authentication mode md5 \"                          \
+       -c \"no ip rip authentication key-chain                            \
+        $VAR(../../../../../../@).$VAR(../../../../../@)-rip \"           \
+       -c \"no                                                            \
+        key chain $VAR(../../../../../../@).$VAR(../../../../../@)-rip\" "
+
+comp_help: possible completions:
+ <text>             MD5 Key (16 characters or less)
