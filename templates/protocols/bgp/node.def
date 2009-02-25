@@ -5,7 +5,7 @@ comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 		   "AS number must be between 1 and 4294967294"
 create: sudo /opt/vyatta/sbin/quagga-manager start bgpd
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)"
+        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)"
 # we need to set default parameters in BGP here since we can't do it in
 # startup scripts as we don't know the AS number at that point
 update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)" \

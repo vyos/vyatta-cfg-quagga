@@ -31,7 +31,14 @@ my %actions = (
     'deleted'	 => 'isDeleted',
 );
 
-my @protocols = qw(bgp isis ospf ospf6 rip ripng);
+my %daemons = (
+    'bgp'	=> 'bgpd',
+    'ospf'	=> 'ospfd',
+    'ospfv3'	=> 'ospf6d',
+    'rip'	=> 'ripd',
+    'ripng'	=> 'ripngd',
+    'isis'	=> 'isisd',
+);
 
 sub usage {
     die "Usage: $0 {",join('|',keys %actions),"}\n"
@@ -44,8 +51,7 @@ usage unless $match;
 my $config = new Vyatta::Config;
 $config->setLevel('protocols');
     
-# Avoid the urge to do Perl Golf here...
-my @found = grep { $config->$match($_) } @protocols;
-my @daemons = map { $_ . 'd' } @found;
-print join(' ', @daemons), "\n";
+# Should have avoided the urge to do Perl golf here...
+my @found = grep { $config->$match($_) } keys %daemons;
+print join(' ', map { $daemons{$_} } @found),"\n";
 
