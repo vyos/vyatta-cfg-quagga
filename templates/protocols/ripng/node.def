@@ -1,5 +1,5 @@
 help: Configure Routing Information Protocol (RIPng) parameters
-begin:  sudo /opt/vyatta/sbin/quagga-manager start ripngd
-create: vyatta-vtysh -c "configure terminal" -c "router ripng"
+create:  sudo /opt/vyatta/sbin/quagga-manager start ripngd
+         vyatta-vtysh -c "configure terminal" -c "router ripng"
 delete: vyatta-vtysh -c "configure terminal" -c "no router ripng"
 end:	sudo /opt/vyatta/sbin/quagga-manager update
