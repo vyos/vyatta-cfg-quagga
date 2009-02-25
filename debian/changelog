@@ -1,3 +1,27 @@
+vyatta-cfg-quagga (0.17) unstable; urgency=low
+
+  [ root ]
+  * Initial commit of config commands for ospfv3
+
+  [ slioch ]
+  * as per discussion with Stephen. update handles shutdown of daemon
+    and explicit stop is not needed. Removed from
+
+  [ Stephen Hemminger ]
+  * Add quagga parameters for bridge and bonding devices
+
+  [ Stig Thormodsrud ]
+  * Make sure to quote $VAR(@) usage.
+
+  [ Stephen Hemminger ]
+  * Start BGP on create
+  * Use multi-line create on ospf
+  * Start ripngd on create
+  * Use multi-line in one create node
+  * OSPFv3 start ospf6d
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 25 Feb 2009 10:23:26 -0800
+
 vyatta-cfg-quagga (0.16) unstable; urgency=low
 
   [ Stephen Hemminger ]
