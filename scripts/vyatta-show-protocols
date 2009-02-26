@@ -25,10 +25,12 @@ use warnings;
 
 # Map from command line to config->XXX() function
 my %actions = (
-    'configured' => 'exists',
+    'configured' => 'existsOrig',
+    'exists'	 => 'exists',
     'added'	 => 'isAdded',
     'changed'	 => 'isChanged',
     'deleted'	 => 'isDeleted',
+    'modified'	 => 'isChangedOrDeleted',
 );
 
 my %daemons = (
