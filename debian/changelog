@@ -1,3 +1,19 @@
+vyatta-cfg-quagga (0.17.1) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Revert "Make sure to quote $VAR(@) usage."
+
+  [ Stephen Hemminger ]
+  * Handle mapping from ospfv3 to ospf6d
+
+  [ Stig Thormodsrud ]
+  * Change from double quote to single quote around $VAR(@).
+  * Use single quotes around $VAR(@).
+
+  [ An-Cheng Huang ]
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 25 Feb 2009 18:59:05 -0800
+
 vyatta-cfg-quagga (0.17) unstable; urgency=low
 
   [ root ]
