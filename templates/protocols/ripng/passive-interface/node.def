@@ -1,7 +1,7 @@
 multi:
 type: txt
 help: Set to suppress routing updates on an interface
-
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 syntax:expression: exec " \
      if [ -z \"`ip addr | grep $VAR(@) `\" ] && [ x$VAR(@) != xdefault ]; then \
         echo ethernet interface $VAR(@) doesn\\'t exist on this system ;       \
@@ -26,6 +26,3 @@ delete: if [ x$VAR(x) == xdefault ]; then
              -c "router ripng"                                       \
              -c "no passive-interface $VAR(@)"; 
         fi;
-allowed: local -a array;
- array=( /sys/class/net/{eth,vmnet}* ) ;
- echo -n ${array[@]##*/}

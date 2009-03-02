@@ -1,13 +1,9 @@
 tag:
 type: txt
 help: Set to apply filtering to an interface
-
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 syntax:expression: exec "\
     if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
       echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
       exit 1 ;                                                      \
     fi ; "
-
-allowed: local -a array;
- array=( /sys/class/net/{eth,vmnet}* ) ;
- echo -n ${array[@]##*/}
