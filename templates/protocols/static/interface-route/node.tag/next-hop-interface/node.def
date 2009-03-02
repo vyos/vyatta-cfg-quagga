@@ -3,9 +3,7 @@ type: txt
 help: Set the next-hop interface
 # show all current interface
 # but syntax accepts any interface since it may exist later (ppp etc)
-allowed: local -a array
-	 array=( /sys/class/net/* )
-         echo -n ${array[@]##*/}
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 
 delete: touch /tmp/static.$PPID
 
