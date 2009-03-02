@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.17.2) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add missing quote around quagga command.
+
+  [ Stephen Hemminger ]
+  * Add more options to show-protocols
+
+  [ Stig Thormodsrud ]
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Mon, 02 Mar 2009 09:33:29 -0800
+
 vyatta-cfg-quagga (0.17.1) unstable; urgency=low
 
   [ Stig Thormodsrud ]
