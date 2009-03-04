@@ -1,3 +1,17 @@
+vyatta-cfg-quagga (0.17.3) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add initial "interface <> ipv6 ripng" nodes.
+  * Minor cleanups to "interface <> ipv6 ospfv3" before copying to other
+    interfaces.
+
+  [ slioch ]
+  * ported example of node.def using commit environmental variable
+    rather than relying on /tmp pellets. should also improve performance
+    when delete large numbers of static
+
+ -- slioch <slioch@eng-140.vyatta.com>  Wed, 04 Mar 2009 09:47:28 -0800
+
 vyatta-cfg-quagga (0.17.2) unstable; urgency=low
 
   [ Stig Thormodsrud ]

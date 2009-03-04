@@ -7,12 +7,10 @@ allowed: local -a array
 	 array=( /sys/class/net/* )
          echo -n ${array[@]##*/}
 
-delete: touch /tmp/static.$PPID
 
-end: if [ -f "/tmp/static.$PPID" ]; then
+end: if [ ${COMMIT_ACTION} = 'DELETE' ]; then
        vyatta-vtysh -c "configure terminal" \
                     -c "no ip route $VAR(../@) $VAR(@)";
-       rm /tmp/static.$PPID;
      else
        if [ -n "$VAR(./distance/@)" ]; then
 	  DIST="$VAR(./distance/@)";
