@@ -1,8 +1,7 @@
 tag:
 type: ipv4
 help: Set the next-hop router
-delete: touch /tmp/static.$PPID
-end: if [[ -f /tmp/static.$PPID ]]
+end: if [[ ${COMMIT_ACTION} = 'DELETE' ]]
      then 
          if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
          "$VAR(../@)" "$VAR(@)"
@@ -10,7 +9,6 @@ end: if [[ -f /tmp/static.$PPID ]]
             vyatta-vtysh -c "configure terminal" \
                          -c "no ip route $VAR(../@) $VAR(@)"
          fi
-         rm -f /tmp/static.$PPID
      else
          if [[ -n "$VAR(./distance/@)" ]]
 	 then
