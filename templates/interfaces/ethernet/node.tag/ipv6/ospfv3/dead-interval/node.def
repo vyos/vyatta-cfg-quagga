@@ -2,8 +2,13 @@ type: u32
 help: Set interval after which a neighbor is declared dead
 default: 40
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "vyatta-vtysh              \
-       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
-       -c \"ipv6 ospf6 dead-interval $VAR(@)\"; "
+update: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "ipv6 ospf6 dead-interval $VAR(@)"
+delete: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "no ipv6 ospf6 dead-interval"
 comp_help: possible completions:
- <1-65535>          Seconds (default 40)
+  <1-65535>         Seconds (default 40)
