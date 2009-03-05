@@ -2,8 +2,9 @@ multi:
 type: txt
 help: Set to suppress routing updates on an interface
 
-syntax:expression: exec "${vyatta_sbindir}/vyatta-interfaces.pl               \
-                   --check $VAR(@) 2> /dev/null || [ x$VAR(@) == xdefault ]"; \
+syntax:expression: exec "${vyatta_sbindir}/vyatta-interfaces.pl \
+                   --check all --dev $VAR(@) 2> /dev/null ||    \
+                   [ x$VAR(@) == xdefault ]";                   \
                    "$VAR(@) is not 'default' or a known interface name"
 
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all && echo default
