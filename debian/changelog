@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.17.4) unstable; urgency=low
+
+  [ slioch ]
+  * clean up other static route commands to remove references to /tmp/
+    pellets and to use environment variable set via new cli.
+
+  [ Stig Thormodsrud ]
+  * Fix 4184: ospfv3 interface values don't work on vlans
+  * Fix 'passive-interface' to allow interface or 'default'.
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 10:48:20 -0800
+
 vyatta-cfg-quagga (0.17.3) unstable; urgency=low
 
   [ Stig Thormodsrud ]
