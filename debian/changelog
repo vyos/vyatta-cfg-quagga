@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.17.5) unstable; urgency=low
+
+  * Fix call to vyatta-interfaces.pl --check now requires --dev
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 15:07:48 -0800
+
 vyatta-cfg-quagga (0.17.4) unstable; urgency=low
 
   [ slioch ]
