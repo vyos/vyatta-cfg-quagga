@@ -1,8 +1,13 @@
 type: u32
 help: Set interface cost
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "vyatta-vtysh -c \"configure terminal\" \
-        -c \"interface $VAR(../../../@)\" \
-        -c \"ipv6 ospf6 cost $VAR(@) \"; "
+update: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "ipv6 ospf6 cost $VAR(@)"
+delete: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "no ipv6 ospf6 cost"
 comp_help: possible completions:
- <1-65535>          Set Cost
+  <1-65535>         Set cost

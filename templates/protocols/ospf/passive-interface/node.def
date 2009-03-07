@@ -1,8 +1,13 @@
 multi:
 type: txt
 help: Set to suppress routing updates on an interface
-syntax:expression: exec "${vyatta_sbindir}/vyatta-interfaces.pl --check $VAR(@)"
-allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
+
+syntax:expression: exec "${vyatta_sbindir}/vyatta-interfaces.pl \
+                   --check all --dev $VAR(@) 2> /dev/null ||    \
+                   [ x$VAR(@) == xdefault ]";                   \
+                   "$VAR(@) is not 'default' or a known interface name"
+
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all && echo default
 update: if [ -z $VAR(@) ]
         then  vyatta-vtysh -c "configure terminal" -c "router ospf" \
           -c "passive-interface default";
@@ -15,3 +20,6 @@ delete: if [ -z $VAR(@) ]
 	else vyatta-vtysh -c "configure terminal" -c "router ospf" \
           -c "no passive-interface $VAR(@)"
  	fi
+comp_help: possible completions:
+  <interface>     Set an interface to be passive (i.e. suppress routing updates)
+  default         Set default to suppress routing updates on all interfaces

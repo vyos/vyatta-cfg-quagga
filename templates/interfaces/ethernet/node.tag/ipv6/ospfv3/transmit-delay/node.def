@@ -2,8 +2,13 @@ type: u32
 help: Set link state transmit delay
 default: 1
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
-update:expression: "vyatta-vtysh              \
-       -c \"configure terminal\" -c \"interface $VAR(../../../@)\" \
-       -c \"ipv6 ospf6 transmit-delay $VAR(@)\"; "
+update: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "ipv6 ospf6 transmit-delay $VAR(@)"
+delete: vyatta-vtysh                      \
+          -c "configure terminal"         \
+          -c "interface $VAR(../../../@)" \
+          -c "no ipv6 ospf6 transmit-delay"
 comp_help: possible completions:
- <1-65535>          Seconds (default 1)
+  <1-65535>         Seconds (default 1)

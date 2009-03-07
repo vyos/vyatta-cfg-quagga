@@ -1,3 +1,35 @@
+vyatta-cfg-quagga (0.17.5) unstable; urgency=low
+
+  * Fix call to vyatta-interfaces.pl --check now requires --dev
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 15:07:48 -0800
+
+vyatta-cfg-quagga (0.17.4) unstable; urgency=low
+
+  [ slioch ]
+  * clean up other static route commands to remove references to /tmp/
+    pellets and to use environment variable set via new cli.
+
+  [ Stig Thormodsrud ]
+  * Fix 4184: ospfv3 interface values don't work on vlans
+  * Fix 'passive-interface' to allow interface or 'default'.
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 10:48:20 -0800
+
+vyatta-cfg-quagga (0.17.3) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add initial "interface <> ipv6 ripng" nodes.
+  * Minor cleanups to "interface <> ipv6 ospfv3" before copying to other
+    interfaces.
+
+  [ slioch ]
+  * ported example of node.def using commit environmental variable
+    rather than relying on /tmp pellets. should also improve performance
+    when delete large numbers of static
+
+ -- slioch <slioch@eng-140.vyatta.com>  Wed, 04 Mar 2009 09:47:28 -0800
+
 vyatta-cfg-quagga (0.17.2) unstable; urgency=low
 
   [ Stig Thormodsrud ]
