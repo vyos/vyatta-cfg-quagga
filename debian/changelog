@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.17.6) unstable; urgency=low
+
+  * Use new syntax and allow any interface
+  * RIP allow any interface type
+  * RIPNG: allow any interface type
+  * Static: show all interfaces in allowed list
+  * Add wirelessmodem router parameters
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sun, 08 Mar 2009 16:49:45 -0700
+
 vyatta-cfg-quagga (0.17.5) unstable; urgency=low
 
   * Fix call to vyatta-interfaces.pl --check now requires --dev
