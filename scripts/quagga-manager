@@ -3,9 +3,11 @@
 # This is special script for start,stop,restart of quagga daemons
 #
 
-progname=$0
+# debug
+#echo $* | logger -p local7.debug -t quagga-manager
+
 usage() {
-    echo "Usage: $progname {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
+    echo "Usage: $0 {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
     exit 1
 }
 
@@ -36,13 +38,16 @@ start() {
     watchquagga)
 	    args=( -dz -p ${pid_dir}/${daemon}.pid );
 	    local -a protocols=(`/opt/vyatta/bin/vyatta-show-protocols exists`)
+
 	    if [ ${#protocols[*]} -eq 0 ]
 	    then 
 		# Only zebra: mode 1 simple restart
-		args+=( -R "$0 zebra restart" zebra )
+		args+=( -R "$0 restart zebra" zebra )
 	    else
 		# With routing protocols: phased restart
-		args+=(-A -r "$0 restart \%s" -s "$0 start \%s" -k "$0 stop \%s" );
+		args+=( -A -r "$0 restart \%s" )
+		args+=( -s "$0 reload \%s" )
+		args+=( -k "$0 stop \%s" )
 		args+=( zebra ${protocols[*]} )
 	    fi
 	    ;;
@@ -57,18 +62,18 @@ stop() {
     local daemon=$1
     local exe_file=/usr/sbin/vyatta-$daemon
 
-    start-stop-daemon --stop --quiet --oknodo --retry 2 \
-	--exec $exe_file
+    start-stop-daemon --stop --quiet --oknodo --retry 5 \
+	--exec $exe_file --pidfile=$pid_dir/${daemon}.pid
     rm -f $pid_dir/${daemon}.pid
 }
 
-vyatta_cfg=/opt/vyatta/config/active
 reload_config() {
     local daemon=$1
     local proto=${daemon/%d/}
+    local vyatta_cfg=/opt/vyatta/config/active
     local path=$vyatta_cfg/protocols/$proto
 
-    # No point in reloading if that portion of config doesn't exist
+    # If daemon does not have config nothing to do.
     [ -d $path ] || return;
 
     # Begin reloading transaction
@@ -99,15 +104,18 @@ reload_config() {
 }
 
 update() {
-    local deleted=`/opt/vyatta/bin/vyatta-show-protocols deleted`
-    local added=`/opt/vyatta/bin/vyatta-show-protocols added`
+    local -a deleted=( `/opt/vyatta/bin/vyatta-show-protocols deleted` )
+    local -a added=( `/opt/vyatta/bin/vyatta-show-protocols added` )
 
     # nothing lost, nothing gained
-    [ -z "$deleted" -a -z "$added" ] && exit 0
+    [ ${#deleted[*]} -eq 0 -a ${#added[*]} -eq 0 ] && exit 0
 
+    # Stop watcher (or it will restart daemons!)
     stop watchquagga
-    for daemon in $deleted
-    do stop ${daemon}
+
+    # Cleanup any daemons no longer needed
+    for p in ${deleted[*]}
+    do stop $p
     done
 
     start watchquagga
@@ -115,16 +123,11 @@ update() {
 
 
 case "$1" in
-    start) start $2;;
-    stop)  stop $2;;
-    update) update;;
-    restart)
-	# Restart single daemon
-	stop $2
-	start $2
-	reload_config $2
-	;;
-    *)
-	usage;;
+    start)   start $2;;
+    stop)    stop $2;;
+    update)  update;;
+    reload)  start $2; reload_config $2;;
+    restart) stop $2; start $2;;
+    *)       usage;;
 esac
 
