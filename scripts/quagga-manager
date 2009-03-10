@@ -35,16 +35,16 @@ start() {
     zebra) args+=( -l -S -s 1048576 ) ;;
     watchquagga)
 	    args=( -dz -p ${pid_dir}/${daemon}.pid );
-	    local -a daemons=(`/opt/vyatta/bin/vyatta-show-protocols configured`)
-	    if [ ${#daemons} -eq 0 ]
+	    local -a protocols=(`/opt/vyatta/bin/vyatta-show-protocols exists`)
+	    if [ ${#protocols[*]} -eq 0 ]
 	    then 
 		# Only zebra: mode 1 simple restart
-		args+=( -R "$0 zebra restart" )
+		args+=( -R "$0 zebra restart" zebra )
 	    else
-		# Many daemons: phased restart
+		# With routing protocols: phased restart
 		args+=(-A -r "$0 restart \%s" -s "$0 start \%s" -k "$0 stop \%s" );
+		args+=( zebra ${protocols[*]} )
 	    fi
-	    args+=( zebra $daemons )
 	    ;;
     esac
 
@@ -98,26 +98,26 @@ reload_config() {
     trap "" EXIT HUP INT QUIT TERM
 }
 
+update() {
+    local deleted=`/opt/vyatta/bin/vyatta-show-protocols deleted`
+    local added=`/opt/vyatta/bin/vyatta-show-protocols added`
+
+    # nothing lost, nothing gained
+    [ -z "$deleted" -a -z "$added" ] && exit 0
+
+    stop watchquagga
+    for daemon in $deleted
+    do stop ${daemon}
+    done
+
+    start watchquagga
+}
+
 
 case "$1" in
     start) start $2;;
     stop)  stop $2;;
-
-    update)
-	deleted=`/opt/vyatta/bin/vyatta-show-protocols deleted`
-	added=`/opt/vyatta/bin/vyatta-show-protocols added`
-
-	# nothing lost, nothing gained
-	[ -z "$deleted" -a -z "$added" ] && exit 0
-
-	stop watchquagga
-	for daemon in $deleted
-	do stop ${daemon}
-	done
-
-	start watchquagga
-	;;
-
+    update) update;;
     restart)
 	# Restart single daemon
 	stop $2
