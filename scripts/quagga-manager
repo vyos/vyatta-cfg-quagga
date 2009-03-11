@@ -45,9 +45,9 @@ start() {
 		args+=( -R "$0 restart zebra" zebra )
 	    else
 		# With routing protocols: phased restart
-		args+=( -A -r "$0 restart \%s" )
-		args+=( -s "$0 reload \%s" )
-		args+=( -k "$0 stop \%s" )
+		args+=( -A -r "$0 restart %s" )
+		args+=( -s "$0 reload %s" )
+		args+=( -k "$0 stop %s" )
 		args+=( zebra ${protocols[*]} )
 	    fi
 	    ;;
