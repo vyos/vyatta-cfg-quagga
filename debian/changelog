@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.17.8) unstable; urgency=low
+
+  * Reload config on restart
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 10 Mar 2009 18:01:51 -0700
+
 vyatta-cfg-quagga (0.17.7) unstable; urgency=low
 
   * Manage daemon restart correctly
