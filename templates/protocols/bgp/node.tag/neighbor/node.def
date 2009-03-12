@@ -8,7 +8,7 @@ comp_help:
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peer-name $VAR(@)"
 
-update: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
+create: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
                                           --peergroup $VAR(@); then
 	   vyatta-vtysh -c "configure terminal"    \
                         -c "router bgp $VAR(../@)" \
