@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Module: vyatta-gateway-static_route-check.pl 
+# Module: vyatta-gateway-static_route-check.pl
 #
 # **** License ****
 # This program is free software; you can redistribute it and/or modify
@@ -35,37 +35,40 @@ use lib "/opt/vyatta/share/perl5/";
 use NetAddr::IP;
 use Vyatta::Config;
 
+if ( ( $#ARGV == 1 ) && ( $ARGV[0] eq '0.0.0.0/0' ) ) {
 
-if (($#ARGV == 1) && ($ARGV[0] eq '0.0.0.0/0')) {
     # check when deleting static-route
     my $vcCHECK_GATEWAY = new Vyatta::Config();
     $vcCHECK_GATEWAY->setLevel('system');
     if ( $vcCHECK_GATEWAY->exists('.') ) {
-     my $gateway_ip = $vcCHECK_GATEWAY->returnValue('gateway-address');
-     if ( defined($gateway_ip) && $gateway_ip eq $ARGV[1] ) {
-        exit 1;
-     }
+        my $gateway_ip = $vcCHECK_GATEWAY->returnValue('gateway-address');
+        if ( defined($gateway_ip) && $gateway_ip eq $ARGV[1] ) {
+            exit 1;
+        }
     }
-    
-} elsif ($#ARGV == 0) {
-    # check when deleting gateway-address                
+
+}
+elsif ( $#ARGV == 0 ) {
+
+    # check when deleting gateway-address
     my $vcCHECK_STATIC_ROUTE = new Vyatta::Config();
     $vcCHECK_STATIC_ROUTE->setLevel('protocols static');
     if ( $vcCHECK_STATIC_ROUTE->exists('.') ) {
-     my @routes = $vcCHECK_STATIC_ROUTE->listNodes("route");
-     if (@routes > 0) {
-      foreach my $route (@routes) {
-       if ($route eq '0.0.0.0/0') {
-         my @next_hops = $vcCHECK_STATIC_ROUTE->listNodes("route $route next-hop");
-          foreach my $next_hop (@next_hops) {
-           if ($next_hop eq $ARGV[0]) {
-            exit 1;
-           }
-          }
-       }
-      } 
-     }
+        my @routes = $vcCHECK_STATIC_ROUTE->listNodes("route");
+        if ( @routes > 0 ) {
+            foreach my $route (@routes) {
+                if ( $route eq '0.0.0.0/0' ) {
+                    my @next_hops =
+                      $vcCHECK_STATIC_ROUTE->listNodes("route $route next-hop");
+                    foreach my $next_hop (@next_hops) {
+                        if ( $next_hop eq $ARGV[0] ) {
+                            exit 1;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
- 
-exit 0;    
+
+exit 0;
