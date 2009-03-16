@@ -6,11 +6,18 @@ use Vyatta::Misc;
 use NetAddr::IP;
 use Getopt::Long;
 
-GetOptions("check-prefix-boundry=s" => sub { check_prefix_boundry( $_[1] ); },
-           "not-exists=s"           => sub { check_not_exists($_[1]); },
-	   "exists=s"		    => sub { check_exists($_[1]); },
-	   "check-ospf-area=s"      => sub { check_ospf_area($_[1]); },
+my ($prefix, $exists, $not_exists, $area);
+
+GetOptions("check-prefix-boundry=s" => \$prefix,
+           "not-exists=s"           => \$not_exists,
+	   "exists=s"		    => \$exists,
+	   "check-ospf-area=s"      => \$area,
 );
+
+check_prefix_boundry($prefix) if ($prefix);
+check_not_exists($not_exists) if ($not_exists);
+check_exists($exists)         if ($exists);
+check_ospf_area($area)        if ($area);
 
 exit 0;
 
@@ -62,6 +69,7 @@ sub check_ospf_area {
 	}
 	exit 0
     }
-    exit 1;
+
+    die "Invalid OSPF area: $area\n";
 }
 
