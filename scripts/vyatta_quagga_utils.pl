@@ -19,7 +19,7 @@ sub check_prefix_boundry {
   my ($net, $network, $cidr);
 
   $net = new NetAddr::IP $prefix;
-  $network = $net->network();
+  $network = $net->network()->cidr();
   $cidr    = $net->cidr();
 
   die "Your prefix must fall on a natural network boundry.  ", 
