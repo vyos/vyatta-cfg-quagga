@@ -1,1 +1,2 @@
 help: Set Routing Inforamtion Protocol (RIP) parameters for specified interface
+create: sudo /opt/vyatta/sbin/quagga-manager check ripd

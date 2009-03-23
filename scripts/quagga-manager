@@ -7,7 +7,7 @@
 #echo $* | logger -p local7.debug -t quagga-manager
 
 usage() {
-    echo "Usage: $0 {start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
+    echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
     exit 1
 }
 
@@ -22,6 +22,11 @@ fi
 
 pid_dir=/var/run/vyatta/quagga
 log_dir=/var/log/vyatta/quagga
+
+check() {
+    local daemon=$1
+    [  -f ${pid_dir}/${daemon}.pid ] || start $daemon
+}
 
 start() {
     local daemon=$1
@@ -123,6 +128,7 @@ update() {
 
 
 case "$1" in
+    check)   check $2;;
     start)   start $2;;
     stop)    stop $2;;
     update)  update;;
