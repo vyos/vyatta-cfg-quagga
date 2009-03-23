@@ -13,8 +13,12 @@ if [ $# -ne 2 ]; then
 fi
 
 case $2 in
-on)	cmd="link-detect" ;;
-off)    cmd="no link-detect" ;;
+on)	sysctl -w "net.ipv4.conf.$1.link_filter=2"
+	sysctl -w "net.ipv6.conf.$1.link_filter=2"
+	cmd="link-detect" ;;
+off)    sysctl -w "net.ipv4.conf.$1.link_filter=1"
+	sysctl -w "net.ipv6.conf.$1.link_filter=1"
+	cmd="no link-detect" ;;
 *)	usage;;
 esac
 
