@@ -1,1 +1,2 @@
 help: Set IPv6 Open Shortest Path First (OSPFv3) parameters for specified interface
+create: sudo /opt/vyatta/sbin/quagga-manager check ospf6d
