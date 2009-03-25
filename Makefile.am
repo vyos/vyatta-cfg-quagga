@@ -1,5 +1,6 @@
 cfgdir = $(datadir)/vyatta-cfg/templates
 curverdir = $(sysconfdir)/config-migrate/current
+gentmpdir = generated-templates
 
 bin_SCRIPTS = scripts/vyatta-show-protocols
 
@@ -21,6 +22,15 @@ curver_DATA = cfg-version/quagga@1
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 	cpio -0pd
 
+all-local:
+	rm -rf $(gentmpdir)
+	./gen-interface-templates.pl $(gentmpdir)
+	rm -r $(gentmpdir)/interfaces/loopback/node.tag/disable-link-detect
+
+clean-local:
+	rm -rf $(gentmpdir)
+
 install-exec-hook:
 	mkdir -p $(DESTDIR)$(cfgdir)
 	cd templates; $(cpiop) $(DESTDIR)$(cfgdir)
+	cd $(gentmpdir); $(cpiop) $(DESTDIR)$(cfgdir)
