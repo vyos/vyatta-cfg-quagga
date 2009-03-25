@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.17.11) unstable; urgency=low
+
+  * Change "syntax" to "commit" check for "protocol ospf passive-
+    interace"
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 24 Mar 2009 18:26:35 -0700
+
 vyatta-cfg-quagga (0.17.10) unstable; urgency=low
 
   * Enable link filtering
