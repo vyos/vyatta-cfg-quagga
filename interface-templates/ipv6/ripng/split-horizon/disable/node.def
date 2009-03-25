@@ -1,0 +1,6 @@
+help: Disable split horizon on specified interface
+create: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ipv6 ripng split-horizon"
+delete: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ripng split-horizon"
+
+commit:expression: ($VAR(../poison-reverse/) == "");  \
+    "You cannot have 'split-horizon poison-reverse' enabled with 'split-horizon' disabled for $IFNAME"

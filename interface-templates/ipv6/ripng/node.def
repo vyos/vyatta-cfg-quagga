@@ -1,0 +1,2 @@
+help: Set Routing Information Protocol (RIPng) for specified interface
+create: sudo /opt/vyatta/sbin/quagga-manager check ripngd
