@@ -1,3 +1,23 @@
+vyatta-cfg-quagga (0.18.1) unstable; urgency=low
+
+  * Change "rip/ripng interface" check from "syntax" to "commit".
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 25 Mar 2009 18:18:22 -0700
+
+vyatta-cfg-quagga (0.18.0) unstable; urgency=low
+
+  * Start ipv6 daemons as needed during ospf/rip config
+  * Generate interface templates as part of build
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 25 Mar 2009 14:47:53 -0700
+
+vyatta-cfg-quagga (0.17.11) unstable; urgency=low
+
+  * Change "syntax" to "commit" check for "protocol ospf passive-
+    interace"
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 24 Mar 2009 18:26:35 -0700
+
 vyatta-cfg-quagga (0.17.10) unstable; urgency=low
 
   * Enable link filtering
