@@ -1,6 +1,6 @@
 type: txt
 help: Set plain text password
-syntax:expression: pattern $VAR(@) "^[^[:space:]{1,16}$" ; "Password must be 16 characters or less"
+syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$" ; "Password must be 16 characters or less"
 commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
 update: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \

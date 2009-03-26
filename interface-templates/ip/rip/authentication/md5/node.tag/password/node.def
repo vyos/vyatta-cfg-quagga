@@ -1,6 +1,6 @@
 type: txt
 help: Set authentication password
-syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}" ; "MD5 key must be 16 characters or less"
+syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$" ; "MD5 key must be 16 characters or less"
 
 update:vyatta-vtysh                                     \
        -c "configure terminal" -c "interface $IFNAME"   \
