@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.2) unstable; urgency=low
+
+  * Fix link_filter setting
+  * Fix regex in password checks
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 26 Mar 2009 12:09:15 -0700
+
 vyatta-cfg-quagga (0.18.1) unstable; urgency=low
 
   * Change "rip/ripng interface" check from "syntax" to "commit".
