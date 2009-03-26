@@ -1,9 +1,9 @@
 multi:
 type: txt
 help: Set interface name
-syntax:expression: exec " \
+commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
-          echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
+          echo interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
 create:vyatta-vtysh -c "configure terminal" -c "router rip" -c "network $VAR(@)"
