@@ -7,15 +7,24 @@ use Getopt::Long;
 
 my $VTYSH = '/usr/bin/vyatta-vtysh';
 
+my ( $accesslist, $aspathlist, $communitylist, $peer );
+my ( $routemap, $deleteroutemap );
+
 GetOptions(
-    "update-access-list=s"    => sub { update_access_list( $_[1] ); },
-    "update-aspath-list=s"    => sub { update_as_path( $_[1] ); },
-    "update-community-list=s" => sub { update_community_list( $_[1] ); },
-    "check-peer-syntax=s"     => sub { check_peer_syntax( $_[1] ); },
-    "check-routemap-action=s" => sub { check_routemap_action( $_[1] ); },
-    "check-delete-routemap-action=s" =>
-      sub { check_delete_routemap_action( $_[1] ); },
-);
+    "update-access-list=s"           => \$accesslist,
+    "update-aspath-list=s"           => \$aspathlist,
+    "update-community-list=s"        => \$communitylist,
+    "check-peer-syntax=s"            => \$peer,
+    "check-routemap-action=s"        => \$routemap,
+    "check-delete-routemap-action=s" => \$deleteroutemap,
+) or exit 1;
+
+update_access_list($accesslist)               if ($accesslist);
+update_as_path($aspathlist)                   if ($aspathlist);
+update_community_list($communitylist)         if ($communitylist);
+check_peer_syntax($peer)                      if ($peer);
+check_routemap_action($routemap)              if ($routemap);
+check_delete_routemap_action($deleteroutemap) if ($deleteroutemap);
 
 exit 0;
 
@@ -33,8 +42,7 @@ sub check_peer_syntax {
 sub is_community_list {
     my $list = shift;
 
-    my $count =
-      `$VTYSH -c \"show ip community-list $list\" | grep $list | wc -l`;
+    my $count = `$VTYSH -c \"show ip community-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -83,7 +91,7 @@ sub is_as_path_list {
     my $list = shift;
 
     my $count =
-      `$VTYSH -c \"show ip as-path-access-list $list\" | grep $list | wc -l`;
+      `$VTYSH -c \"show ip as-path-access-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -129,7 +137,7 @@ sub update_as_path {
 
 sub is_access_list {
     my $list  = shift;
-    my $count = `$VTYSH -c \"show ip access-list $list\" | grep $list | wc -l`;
+    my $count = `$VTYSH -c \"show ip access-list $list\" | grep -c $list`;
     return ( $count > 0 );
 }
 
