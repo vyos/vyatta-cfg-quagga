@@ -1,9 +1,6 @@
 type: txt
 help: Set md5 key
-syntax:expression: exec "                              \
-        if [ `echo -n '$VAR(@)' | wc -c` -gt 16 ]; then  \
-          echo MD5 key must be 16 characters or less ; \
-          exit 1 ;                                     \
-        fi ; "
+syntax:expression: pattern "^[^[:space:]]{1,16}" ; \
+          "MD5 key must be 16 characters or less"
 comp_help: possible completions:
  <text>             MD5 Key (16 characters or less)
