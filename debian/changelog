@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.3) unstable; urgency=low
+
+  * Fix some possible issues with policy script
+  * Use CLI regex to check length of key
+  * Cleanup indentation of authentication template
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 27 Mar 2009 17:03:30 -0700
+
 vyatta-cfg-quagga (0.18.2) unstable; urgency=low
 
   * Fix link_filter setting
