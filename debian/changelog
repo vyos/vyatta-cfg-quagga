@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.4) unstable; urgency=low
+
+  * Get rid of extra trailing space in command
+  * Remove extra ; from delete node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sat, 28 Mar 2009 17:46:06 -0700
+
 vyatta-cfg-quagga (0.18.3) unstable; urgency=low
 
   * Fix some possible issues with policy script
