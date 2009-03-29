@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.5) unstable; urgency=low
+
+  * Fix sysctl setting link_filter on vif
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sun, 29 Mar 2009 10:01:48 -0700
+
 vyatta-cfg-quagga (0.18.4) unstable; urgency=low
 
   * Get rid of extra trailing space in command
