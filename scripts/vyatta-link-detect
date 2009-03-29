@@ -12,14 +12,23 @@ if [ $# -ne 2 ]; then
     usage
 fi
 
+# Note can't use sysctl it is broken for vif name because of dots
+# link_filter values:
+#   0 - always receive
+#   1 - ignore receive if admin_down
+#   2 - ignore receive if admin_down or link down
+set-sysctl () {
+    sudo sh -c "echo $2 >/proc/sys/net/ipv4/conf/$1/link_filter"
+#   sudo sh -c "echo $2 >/proc/sys/net/ipv6/conf/$1/link_filter"
+}
+
 case $2 in
-on)	sudo sysctl -w "net.ipv4.conf.$1.link_filter=2"
-#	sudo sysctl -w "net.ipv6.conf.$1.link_filter=2"
-	cmd="link-detect" ;;
-off)    sudo sysctl -w "net.ipv4.conf.$1.link_filter=1"
-#	sudo sysctl -w "net.ipv6.conf.$1.link_filter=1"
-	cmd="no link-detect" ;;
+on)	set-sysctl $1 2
+	exec vyatta-vtysh -c "configure terminal" -c "interface $1" \
+	    -c "link-detect" ;;
+off)    set-sysctl $1 1
+	exec vyatta-vtysh -c "configure terminal" -c "interface $1" \
+	    -c "no link-detect" ;;
 *)	usage;;
 esac
-
-exec vyatta-vtysh -c "configure terminal" -c "interface $1" -c "$cmd"
+# not reached
