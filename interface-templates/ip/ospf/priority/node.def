@@ -3,6 +3,6 @@ help: Set router priority
 default: 1
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Must be between 0-255"
 update:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "ip ospf priority $VAR(@)"
-delete:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ip ospf priority "
+delete:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ip ospf priority"
 comp_help: possible completions:
  <0-255>            Priority (default 1)
