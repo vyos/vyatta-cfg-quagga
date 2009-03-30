@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.8) unstable; urgency=low
+
+  * Fix bgp check script
+  * Fix interface name on rip authentication node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 30 Mar 2009 13:47:40 -0700
+
 vyatta-cfg-quagga (0.18.7) unstable; urgency=low
 
   * Add missing backslash
