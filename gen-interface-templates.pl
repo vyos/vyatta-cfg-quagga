@@ -64,9 +64,10 @@ sub gen_template {
         my $in  = "$inpath/$name";
         my $out = "$outpath/$name";
 
+	# recurse into subdirectory
         if ( -d $in ) {
             my $subif = $ifname;
-            $subif =~ s#@\)#../@)#g;
+            $subif =~ s#@\)#../@)#g if ($name ne 'node.tag');
 
             ( -d $out )
               or mkdir($out)
