@@ -99,7 +99,7 @@ sub check_as {
     $config->setLevel("protocols bgp $as neighbor $neighbor");
     my $remoteas = $config->returnValue("remote-as");
 
-    return unless $remoteas;
+    return if defined $remoteas;
 
     return if ( $pg > 0 );
 
