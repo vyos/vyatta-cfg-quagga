@@ -20,7 +20,7 @@ GetOptions(
 
 check_peer_name($peername)	  	if ($peername);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
-check_as( $pg, $neighbor, $as ) 	if ($checkas);
+check_as( $neighbor, $as, $pg ) 	if ($checkas);
 check_if_peer_group($pg)		if ($checkifpeergroup);
 
 exit 0;
@@ -85,10 +85,10 @@ sub check_for_peer_groups {
 # make sure nodes are either in a peer group of have
 # a remote AS assigned to them.
 sub check_as {
-    my ($pg,$neighbor, $as) = @_;
+    my ($neighbor, $as, $pg) = @_;
 
-    die "Neighbor not defined" unless $neighbor;
-    die "neighbor must be address" unless is_ip_v4_or_v6($neighbor);
+    die "neighbor not defined\n" unless $neighbor;
+    die "neighbor:$neighbor must be address\n" unless is_ip_v4_or_v6($neighbor);
     die "AS not defined\n" unless $as;
 
     # if this is peer-group then short circuit this
