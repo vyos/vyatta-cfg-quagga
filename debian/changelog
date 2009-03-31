@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.9) unstable; urgency=low
+
+  * Fix error checking of remote-as
+  * Yet another logic error in vyatta-bgp
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 31 Mar 2009 07:41:07 -0700
+
 vyatta-cfg-quagga (0.18.8) unstable; urgency=low
 
   * Fix bgp check script
