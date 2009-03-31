@@ -18,10 +18,10 @@ GetOptions(
     "check-if-peer-group" => \$checkifpeergroup,
 );
 
-check_peer_name($peername)	  	       if ($peername);
-check_for_peer_groups( $pg, $as )	       if ($checkpeergroups);
-check_as( ( $pg ? $pg : -1 ), $neighbor, $as ) if ($checkas);
-check_if_peer_group($pg)		       if ($checkifpeergroup);
+check_peer_name($peername)	  	if ($peername);
+check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
+check_as( $pg, $neighbor, $as ) 	if ($checkas);
+check_if_peer_group($pg)		if ($checkifpeergroup);
 
 exit 0;
 
@@ -85,30 +85,25 @@ sub check_for_peer_groups {
 # make sure nodes are either in a peer group of have
 # a remote AS assigned to them.
 sub check_as {
-    my $pg       = shift;
-    my $neighbor = shift;
+    my ($pg,$neighbor, $as) = @_;
+
     die "Neighbor not defined" unless $neighbor;
-    my $as = shift;
+    die "neighbor must be address" unless is_ip_v4_or_v6($neighbor);
     die "AS not defined\n" unless $as;
-    my $config = new Vyatta::Config;
-    my $pgtest = $neighbor;
 
     # if this is peer-group then short circuit this
-    return unless is_ip_v4_or_v6($pg);
-
+    my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as neighbor $neighbor");
     my $remoteas = $config->returnValue("remote-as");
-
     return if defined $remoteas;
 
-    return if ( $pg > 0 );
+    return if $pg;
 
     my $peergroup   = $config->returnValue("peer-group");
-    my $peergroupas = $config->returnValue(" .. $peergroup remote-as");
-
     die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
       unless $peergroup;
 
+    my $peergroupas = $config->returnValue(" .. $peergroup remote-as");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
       unless $peergroupas;
 }
