@@ -1,6 +1,4 @@
 help: Set inbound soft reconfiguration for this neighbor
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as \
-                           --as $VAR(../../../@) --neighbor $VAR(../../@)"
 
 update: if [ -n "$VAR(../../remote-as/@)" ]; then 
           peer="remote-as $VAR(../../remote-as/@)"; 
