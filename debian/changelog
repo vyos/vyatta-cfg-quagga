@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.11) unstable; urgency=low
+
+  * Remove redundant check-as call since it doesn't work with peer-
+    groups.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 31 Mar 2009 16:27:09 -0700
+
 vyatta-cfg-quagga (0.18.10) unstable; urgency=low
 
   * Swap order of parameters
