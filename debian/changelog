@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.13) unstable; urgency=low
+
+  * Handle ipv6 daemons
+  * Don't stop daemon if OSPF/RIP still has parameters
+  * Don't stop daemon if OSPF/RIP still has parameters
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 02 Apr 2009 15:06:15 -0700
+
 vyatta-cfg-quagga (0.18.12) unstable; urgency=low
 
   * Revert "Remove redundant check-as call since it doesn't work with
