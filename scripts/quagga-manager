@@ -129,7 +129,11 @@ update() {
 
     # Cleanup any daemons no longer needed
     for p in ${deleted[*]}
-    do stop $p
+    do
+	# Need daemon to hold state of interface
+	if [ -z "$(find $vyatta_cfg/interfaces -type d -name $p)" ]
+	then stop $p
+	fi
     done
 
     start watchquagga
