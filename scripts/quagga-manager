@@ -7,7 +7,7 @@
 #echo $* | logger -p local7.debug -t quagga-manager
 
 usage() {
-    echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ripngd}"
+    echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ospf6d|ripngd}"
     exit 1
 }
 
@@ -74,7 +74,15 @@ stop() {
 
 reload_config() {
     local daemon=$1
-    local proto=${daemon/%d/}
+    local proto
+    
+    # handle exception...
+    case $daemon in
+    bgpd|ospfd|ripd|ripngd|isisd)   proto=${daemon/%d/};;
+    ospf6d)			    proto="ospfv3";;
+    *)  echo "Unknown daemon $daemon"; exit 1;;
+    esac
+
     local vyatta_cfg=/opt/vyatta/config/active
     local path=$vyatta_cfg/protocols/$proto
 
@@ -94,10 +102,11 @@ reload_config() {
     # Erase portion of active configuration for that protocol
     rm -fr $path
 
-    # special case for interface configuration
+    # special case for interface, remove parameters force reload
     case $proto in
-    rip|ospf)
-	    find $vyatta_cfg/interfaces -type d -name $daemon -exec rm -fr '{}' \; ;;
+    rip|ospf|ripng|ospfv3)
+	    find $vyatta_cfg/interfaces -type d -name $proto \
+		-exec rm -fr '{}' \; ;;
     esac
 
     # Reload causing configuration to activate - implies commit
