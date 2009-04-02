@@ -4,7 +4,7 @@
 #
 
 # debug
-#echo $* | logger -p local7.debug -t quagga-manager
+# echo $* | logger -p local7.debug -t quagga-manager
 
 usage() {
     echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ospf6d|ripngd}"
@@ -42,6 +42,8 @@ start() {
     zebra) args+=( -l -S -s 1048576 ) ;;
     watchquagga)
 	    args=( -dz -p ${pid_dir}/${daemon}.pid );
+	    # Note: at present ospf/rip only monitored if actually active
+	    # probably should get smarter in future here
 	    local -a protocols=(`/opt/vyatta/bin/vyatta-show-protocols exists`)
 
 	    if [ ${#protocols[*]} -eq 0 ]
@@ -72,16 +74,18 @@ stop() {
     rm -f $pid_dir/${daemon}.pid
 }
 
+get_protocol() {
+    local daemon=$1
+    case $daemon in
+    bgpd|ospfd|ripd|ripngd|isisd)   echo ${daemon/%d/};;
+    ospf6d)			    echo "ospfv3";;
+    *)  echo "Unknown daemon $daemon" 1>&2; exit 1;;
+    esac
+}
+
 reload_config() {
     local daemon=$1
-    local proto
-    
-    # handle exception...
-    case $daemon in
-    bgpd|ospfd|ripd|ripngd|isisd)   proto=${daemon/%d/};;
-    ospf6d)			    proto="ospfv3";;
-    *)  echo "Unknown daemon $daemon"; exit 1;;
-    esac
+    local proto=$(get_protocol $daemon)
 
     local vyatta_cfg=/opt/vyatta/config/active
     local path=$vyatta_cfg/protocols/$proto
@@ -104,8 +108,11 @@ reload_config() {
 
     # special case for interface, remove parameters force reload
     case $proto in
-    rip|ospf|ripng|ospfv3)
-	    find $vyatta_cfg/interfaces -type d -name $proto \
+    rip|ospf)
+	    find $vyatta_cfg/interfaces -type d -path "*/ip/$proto" \
+		-exec rm -fr '{}' \; ;;
+    ripng|ospfv3)
+	    find $vyatta_cfg/interfaces -type d -path "*/ipv6/$proto" \
 		-exec rm -fr '{}' \; ;;
     esac
 
@@ -117,7 +124,24 @@ reload_config() {
     trap "" EXIT HUP INT QUIT TERM
 }
 
+# Check if interface configuration exists for this protocol
+okay_to_stop() {
+    local daemon=$1
+    local proto=$(get_protocol $daemon)
+    local cfg=/opt/vyatta/config/active/interfaces
+
+    case $proto in
+    rip|ospf)
+        return $(find $cfg -type d -path "*/ip/$proto" | wc -l);;
+    ripng|ospfv3)
+	return $(find $cfg -type d -path "*/ipv6/$proto" | wc -l);;
+    *)
+        return 0;;
+    esac
+}
+
 update() {
+    # get list of daemons deleted and added in current transaction
     local -a deleted=( `/opt/vyatta/bin/vyatta-show-protocols deleted` )
     local -a added=( `/opt/vyatta/bin/vyatta-show-protocols added` )
 
@@ -131,7 +155,7 @@ update() {
     for p in ${deleted[*]}
     do
 	# Need daemon to hold state of interface
-	if [ -z "$(find $vyatta_cfg/interfaces -type d -name $p)" ]
+	if okay_to_stop $p
 	then stop $p
 	fi
     done
