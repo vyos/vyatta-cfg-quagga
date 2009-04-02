@@ -82,16 +82,17 @@ sub check_for_peer_groups {
     }
 }
 
-# make sure nodes are either in a peer group of have
+# make sure nodes are either in a peer group or have
 # a remote AS assigned to them.
 sub check_as {
     my ($neighbor, $as, $pg) = @_;
 
     die "neighbor not defined\n" unless $neighbor;
-    die "neighbor:$neighbor must be address\n" unless is_ip_v4_or_v6($neighbor);
     die "AS not defined\n" unless $as;
 
     # if this is peer-group then short circuit this
+    return if ! is_ip_v4_or_v6($neighbor); 
+
     my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as neighbor $neighbor");
     my $remoteas = $config->returnValue("remote-as");
