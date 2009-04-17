@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.15) unstable; urgency=low
+
+  * Bugfix 4275: Don't allow user to configure link-detect on PPP
+    interfaces.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 17 Apr 2009 15:03:28 -0700
+
 vyatta-cfg-quagga (0.18.14) unstable; urgency=low
 
   * Move "commit" check out of invalid node.tag/node.def.
