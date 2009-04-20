@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.18.16) unstable; urgency=low
+
+  * Revert "Bugfix 4275: Don't allow user to configure link-detect on
+    PPP interfaces."
+  * Don't autogenerate disable-link-detect
+  * No longer need to special case loopback
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 20 Apr 2009 09:22:32 -0700
+
 vyatta-cfg-quagga (0.18.15) unstable; urgency=low
 
   * Bugfix 4275: Don't allow user to configure link-detect on PPP
