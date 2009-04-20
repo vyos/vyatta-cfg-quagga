@@ -31,19 +31,25 @@ my $debug = $ENV{'DEBUG'};
 my %interface_hash = (
     'loopback/node.tag'                             => '$VAR(@)',
     'ethernet/node.tag'                             => '$VAR(@)',
+    'ethernet/node.tag/pppoe/node.tag'              => 'pppoe$VAR(@)',
     'ethernet/node.tag/vif/node.tag'                => '$VAR(../@).$VAR(@)',
+    'ethernet/node.tag/vif/node.tag/pppoe/node.tag' => 'pppoe$VAR(@)',
     'bonding/node.tag'                              => '$VAR(@)',
     'bonding/node.tag/vif/node.tag'                 => '$VAR(../@).$VAR(@)',
     'tunnel/node.tag'                               => '$VAR(@)',
     'bridge/node.tag'                               => '$VAR(@)',
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
+    'multilink/node.tag/vif/node.tag'               => '$VAR(../@)',
 
     'adsl/node.tag/pvc/node.tag/bridged-ethernet' => '$VAR(../../@)',
     'adsl/node.tag/pvc/node.tag/classical-ipoa'   => '$VAR(../../@)',
+    'adsl/node.tag/pvc/node.tag/pppoa/node.tag'   => '$VAR(../../@)',
+    'adsl/node.tag/pvc/node.tag/pppoe/node.tag'   => '$VAR(../../@)',
 
     'serial/node.tag/cisco-hdlc/vif/node.tag'  => '$VAR(../../@).$VAR(@)',
     'serial/node.tag/frame-relay/vif/node.tag' => '$VAR(../../@).$VAR(@)',
+    'serial/node.tag/ppp/vif/node.tag'         => '$VAR(../../@).$VAR(@)',
 );
 
 sub gen_template {
