@@ -25,7 +25,6 @@ cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 all-local:
 	rm -rf $(gentmpdir)
 	./gen-interface-templates.pl $(gentmpdir)
-	rm -r $(gentmpdir)/interfaces/loopback/node.tag/disable-link-detect
 
 clean-local:
 	rm -rf $(gentmpdir)
