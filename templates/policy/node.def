@@ -1,1 +1,2 @@
 help: Configure routing policy
+create: sudo /opt/vyatta/sbin/quagga-manager start bgpd
