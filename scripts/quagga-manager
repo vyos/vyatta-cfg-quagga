@@ -23,19 +23,27 @@ fi
 pid_dir=/var/run/vyatta/quagga
 log_dir=/var/log/vyatta/quagga
 
-check() {
+. /lib/lsb/init-functions
+
+status() {
     local daemon=$1
-    [  -f ${pid_dir}/${daemon}.pid ] || start $daemon
+    local pidfile=${pid_dir}/${daemon}.pid
+    local binpath=/usr/sbin/vyatta-$daemon
+    status_of_proc -p $pidfile $binpath $daemon && exit 0 || exit $?
 }
 
 start() {
     local daemon=$1
-    local exe_file=/usr/sbin/vyatta-$daemon
+    local pidfile=${pid_dir}/${daemon}.pid
+    local binpath=/usr/sbin/vyatta-$daemon
 
-    if [ ! -x $exe_file ]; then
+    if [ ! -x $binpath ]; then
 	echo "Unknown daemon $daemon"
-	exit 1
+	return 1
     fi
+
+    # already running?
+    pidofproc $pidfile $daemon >/dev/null && return 0
     
     local -a args=( -d -P 0 -i ${pid_dir}/${daemon}.pid )
     case $daemon in
@@ -60,17 +68,17 @@ start() {
 	    ;;
     esac
 
-    start-stop-daemon --start --quiet --oknodo \
-	--chdir $log_dir --exec $exe_file \
+    start-stop-daemon --start --quiet \
+	--chdir $log_dir --exec $binpath \
 	-- "${args[@]}"
 }
 
 stop() {
     local daemon=$1
-    local exe_file=/usr/sbin/vyatta-$daemon
+    local binpath=/usr/sbin/vyatta-$daemon
 
     start-stop-daemon --stop --quiet --oknodo --retry 5 \
-	--exec $exe_file --pidfile=$pid_dir/${daemon}.pid
+	--exec $binpath --pidfile=$pid_dir/${daemon}.pid
     rm -f $pid_dir/${daemon}.pid
 }
 
@@ -165,9 +173,9 @@ update() {
 
 
 case "$1" in
-    check)   check $2;;
     start)   start $2;;
     stop)    stop $2;;
+    status)  status $2;;
     update)  update;;
     reload)  start $2; reload_config $2;;
     restart) stop $2; start $2;;
