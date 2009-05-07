@@ -11,4 +11,4 @@ create: sudo /opt/vyatta/sbin/quagga-manager start bgpd
 update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(@)" \
 		-c "bgp network import-check"
 delete: vyatta-vtysh -c "configure terminal" -c "no router bgp $VAR(@)"
-end:	sudo /opt/vyatta/sbin/quagga-manager update
+

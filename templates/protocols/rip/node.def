@@ -2,4 +2,3 @@ help: Configure Routing Information Protocol (RIP) parameters
 create: sudo /opt/vyatta/sbin/quagga-manager start ripd
         vyatta-vtysh -c "configure terminal" -c "router rip"
 delete: vyatta-vtysh -c "configure terminal" -c "no router rip"
-end: sudo /opt/vyatta/sbin/quagga-manager update

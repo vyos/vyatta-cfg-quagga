@@ -132,51 +132,10 @@ reload_config() {
     trap "" EXIT HUP INT QUIT TERM
 }
 
-# Check if interface configuration exists for this protocol
-okay_to_stop() {
-    local daemon=$1
-    local proto=$(get_protocol $daemon)
-    local cfg=/opt/vyatta/config/active/interfaces
-
-    case $proto in
-    rip|ospf)
-        return $(find $cfg -type d -path "*/ip/$proto" | wc -l);;
-    ripng|ospfv3)
-	return $(find $cfg -type d -path "*/ipv6/$proto" | wc -l);;
-    *)
-        return 0;;
-    esac
-}
-
-update() {
-    # get list of daemons deleted and added in current transaction
-    local -a deleted=( `/opt/vyatta/bin/vyatta-show-protocols deleted` )
-    local -a added=( `/opt/vyatta/bin/vyatta-show-protocols added` )
-
-    # nothing lost, nothing gained
-    [ ${#deleted[*]} -eq 0 -a ${#added[*]} -eq 0 ] && exit 0
-
-    # Stop watcher (or it will restart daemons!)
-    stop watchquagga
-
-    # Cleanup any daemons no longer needed
-    for p in ${deleted[*]}
-    do
-	# Need daemon to hold state of interface
-	if okay_to_stop $p
-	then stop $p
-	fi
-    done
-
-    start watchquagga
-}
-
-
 case "$1" in
     start)   start $2;;
     stop)    stop $2;;
     status)  status $2;;
-    update)  update;;
     reload)  start $2; reload_config $2;;
     restart) stop $2; start $2;;
     *)       usage;;
