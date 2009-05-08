@@ -42,44 +42,24 @@ start() {
 	return 1
     fi
 
-    # already running?
-    pidofproc $pidfile $daemon >/dev/null && return 0
-    
-    local -a args=( -d -P 0 -i ${pid_dir}/${daemon}.pid )
-    case $daemon in
-    zebra) args+=( -l -S -s 1048576 ) ;;
-    watchquagga)
-	    args=( -dz -p ${pid_dir}/${daemon}.pid );
-	    # Note: at present ospf/rip only monitored if actually active
-	    # probably should get smarter in future here
-	    local -a protocols=(`/opt/vyatta/bin/vyatta-show-protocols exists`)
+    local -a args=( -d -P 0 -i $pidfile )
+    if [ "$daemon" = "zebra" ]; then
+	args+=( -l -S -s 1048576 )
+    fi
 
-	    if [ ${#protocols[*]} -eq 0 ]
-	    then 
-		# Only zebra: mode 1 simple restart
-		args+=( -R "$0 restart zebra" zebra )
-	    else
-		# With routing protocols: phased restart
-		args+=( -A -r "$0 restart %s" )
-		args+=( -s "$0 reload %s" )
-		args+=( -k "$0 stop %s" )
-		args+=( zebra ${protocols[*]} )
-	    fi
-	    ;;
-    esac
-
-    start-stop-daemon --start --quiet \
-	--chdir $log_dir --exec $binpath \
-	-- "${args[@]}"
+    exec start-stop-daemon --start --oknodo --quiet --name $daemon  \
+		--chdir $log_dir --exec $binpath --pidfile $pidfile \
+		-- ${args[@]}
 }
 
 stop() {
     local daemon=$1
+    local pidfile=${pid_dir}/${daemon}.pid
     local binpath=/usr/sbin/vyatta-$daemon
 
     start-stop-daemon --stop --quiet --oknodo --retry 5 \
-	--exec $binpath --pidfile=$pid_dir/${daemon}.pid
-    rm -f $pid_dir/${daemon}.pid
+	--name $daemon --exec $binpath --pidfile=$pidfile
+    rm -f $pidfile
 }
 
 get_protocol() {
