@@ -42,26 +42,24 @@ start() {
 	return 1
     fi
 
-    # already running?
-    pidofproc $pidfile $daemon >/dev/null && return 0
-    
-    local -a args=( -d -P 0 -i ${pid_dir}/${daemon}.pid )
+    local -a args=( -d -P 0 -i $pidfile )
     if [ "$daemon" = "zebra" ]; then
 	args+=( -l -S -s 1048576 )
     fi
 
-    start-stop-daemon --start --quiet \
-	--chdir $log_dir --exec $binpath \
-	-- "${args[@]}"
+    exec start-stop-daemon --start --oknodo --quiet --name $daemon  \
+		--chdir $log_dir --exec $binpath --pidfile $pidfile \
+		-- ${args[@]}
 }
 
 stop() {
     local daemon=$1
+    local pidfile=${pid_dir}/${daemon}.pid
     local binpath=/usr/sbin/vyatta-$daemon
 
     start-stop-daemon --stop --quiet --oknodo --retry 5 \
-	--exec $binpath --pidfile=$pid_dir/${daemon}.pid
-    rm -f $pid_dir/${daemon}.pid
+	--name $daemon --exec $binpath --pidfile=$pidfile
+    rm -f $pidfile
 }
 
 get_protocol() {
