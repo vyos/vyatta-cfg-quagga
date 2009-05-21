@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.20) unstable; urgency=low
+
+  * Allow interface as BGP source
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 21 May 2009 16:59:14 -0700
+
 vyatta-cfg-quagga (0.18.19) unstable; urgency=low
 
   * Syntax error in gateway-address template
