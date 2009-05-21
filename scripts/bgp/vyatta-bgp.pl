@@ -4,9 +4,10 @@ use lib "/opt/vyatta/share/perl5/";
 use Vyatta::Config;
 use Vyatta::Misc;
 use Getopt::Long;
+use NetAddr::IP::Lite;
 
 my ( $pg, $as, $neighbor );
-my ( $checkas, $peername, $checkifpeergroup, $checkpeergroups );
+my ( $checkas, $peername, $checkifpeergroup, $checkpeergroups, $checksource );
 
 GetOptions(
     "peergroup=s"         => \$pg,
@@ -16,12 +17,14 @@ GetOptions(
     "check-as"            => \$checkas,
     "check-peer-groups"   => \$checkpeergroups,
     "check-if-peer-group" => \$checkifpeergroup,
+    "check-source=s"	  => \$checksource,
 );
 
 check_peer_name($peername)	  	if ($peername);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
 check_as( $neighbor, $as, $pg ) 	if ($checkas);
 check_if_peer_group($pg)		if ($checkifpeergroup);
+check_source($checksource)	        if ($checksource);
 
 exit 0;
 
@@ -107,4 +110,19 @@ sub check_as {
     my $peergroupas = $config->returnValue(" .. $peergroup remote-as");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
       unless $peergroupas;
+}
+
+# check that value is either an IPV4 address on system or an interface
+sub check_source {
+    my $src = shift;
+    my $ip = new NetAddr::IP::Lite($src);
+    
+    if ($ip) {
+	my $found = grep { my $a = new NetAddr::IP::Lite($_);
+			   $a->addr() eq $ip->addr() } Vyatta::Misc::getIP();
+	die "IP address $ip does not exist on this system\n" if ($found == 0);
+    } else {
+	my $found = grep { $_ eq $src } Vyatta::Misc::getInterfaces();
+	die "Interface $src does not exist on the system\n" if ($found == 0);
+    }
 }

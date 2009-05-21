@@ -1,11 +1,9 @@
-type: ipv4
+type: txt
 help: Set the source IP of routing updates
-comp_help: \1  <x.x.x.x>\tIP address of route source
-syntax:expression: exec " \
-        if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
-          echo $VAR(@) doesn\\'t exist on this system ; \
-          exit 1 ; \
-        fi ; "
+comp_help:
+    <x.x.x.x>    Set IP address of route source
+    <interface>  Set interface as route source
+syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-source $VAR(@)"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 update: if [ -n "$VAR(../remote-as/@)" ]; then 
            peer="remote-as $VAR(../remote-as/@)"; 
@@ -15,5 +13,6 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
 	 vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
 	  -c "neighbor $VAR(../@) $peer" \
           -c "neighbor $VAR(../@) update-source $VAR(@)"
-delete: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vyatta-vtysh --noerror -c "configure terminal" \
+	  -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) update-source"
