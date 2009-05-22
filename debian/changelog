@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.21) unstable; urgency=low
+
+  * Start daemon at begining
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 22 May 2009 10:50:05 -0700
+
 vyatta-cfg-quagga (0.18.20) unstable; urgency=low
 
   * Allow interface as BGP source
