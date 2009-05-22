@@ -1,4 +1,4 @@
 help: Configure IPv6 Open Shortest Path First protocol (OSPFv3) parameters
-create:  sudo /opt/vyatta/sbin/quagga-manager start ospf6d
-       vyatta-vtysh -c "configure terminal" -c "router ospf6"
-delete:vyatta-vtysh -c "configure terminal" -c "no router ospf6"
+begin:  sudo /opt/vyatta/sbin/quagga-manager start ospf6d
+create: vyatta-vtysh -c "configure terminal" -c "router ospf6"
+delete: vyatta-vtysh -c "configure terminal" -c "no router ospf6"
