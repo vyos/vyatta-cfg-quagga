@@ -1,4 +1,4 @@
 help: Configure Open Shortest Path First protocol (OSPF) parameters
-create:  sudo /opt/vyatta/sbin/quagga-manager start ospfd
-         vyatta-vtysh -c "configure terminal" -c "router ospf"
+begin:  sudo /opt/vyatta/sbin/quagga-manager start ospfd
+create: vyatta-vtysh -c "configure terminal" -c "router ospf"
 delete: vyatta-vtysh -c "configure terminal" -c "no router ospf"
