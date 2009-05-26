@@ -47,7 +47,7 @@ start() {
 	args+=( -l -S -s 1048576 )
     fi
 
-    exec start-stop-daemon --start --oknodo --quiet --name $daemon  \
+    exec start-stop-daemon --start --oknodo --quiet \
 		--chdir $log_dir --exec $binpath --pidfile $pidfile \
 		-- ${args[@]}
 }
@@ -58,7 +58,7 @@ stop() {
     local binpath=/usr/sbin/vyatta-$daemon
 
     start-stop-daemon --stop --quiet --oknodo --retry 5 \
-	--name $daemon --exec $binpath --pidfile=$pidfile
+	--exec $binpath --pidfile=$pidfile
     rm -f $pidfile
 }
 
