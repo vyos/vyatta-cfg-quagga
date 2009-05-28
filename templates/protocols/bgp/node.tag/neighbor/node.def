@@ -16,7 +16,7 @@ create: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
         fi;
 
 delete:  /opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups \
-                                        --peergroup $VAR(@) --as $VAR(../@); 
+ 		--peergroup $VAR(@) --as $VAR(../@) || exit 1
          vyatta-vtysh -c "configure terminal"    \
                       -c "router bgp $VAR(../@)" \
                       -c "no neighbor $VAR(@)"
