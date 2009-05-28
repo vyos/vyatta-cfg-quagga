@@ -1,3 +1,22 @@
+vyatta-cfg-quagga (0.18.22) unstable; urgency=low
+
+  * Don't use --name option
+  * Start BGP at start of policy transaction
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 26 May 2009 10:30:30 -0700
+
+vyatta-cfg-quagga (0.18.21) unstable; urgency=low
+
+  * Start daemon at begining
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 22 May 2009 10:50:05 -0700
+
+vyatta-cfg-quagga (0.18.20) unstable; urgency=low
+
+  * Allow interface as BGP source
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 21 May 2009 16:59:14 -0700
+
 vyatta-cfg-quagga (0.18.19) unstable; urgency=low
 
   * Syntax error in gateway-address template
