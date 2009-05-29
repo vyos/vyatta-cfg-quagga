@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.23) unstable; urgency=low
+
+  * Convert template to new syntax
+  * Allow passive-interface definition for any device
+  * Manage OSPFv3 interface cost
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 28 May 2009 11:21:09 -0700
+
 vyatta-cfg-quagga (0.18.22) unstable; urgency=low
 
   * Don't use --name option
