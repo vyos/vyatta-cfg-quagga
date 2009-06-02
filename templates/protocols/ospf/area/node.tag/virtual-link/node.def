@@ -2,7 +2,7 @@ tag:
 type: ipv4
 help: Set a virtual link
 syntax:expression: ! $VAR(../@) in "0", "0.0.0.0"; "Can't configure VL over area $VAR(../@)"
-update:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vyatta-vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"area $VAR(../@) virtual-link $VAR(@)\"; "
 delete:expression: "vyatta-vtysh -c \"configure terminal\" \
