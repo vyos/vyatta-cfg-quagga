@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.23+jenner5) unstable; urgency=low
+
+  * Allow status operations as non-root user
+  * Start bgpd earlier in process
+  * Use bgpd default import-check flag
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 03 Jun 2009 11:48:57 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner4) unstable; urgency=low
 
   * Replace update tag on multi-nodes
