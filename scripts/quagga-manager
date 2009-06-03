@@ -43,9 +43,10 @@ start() {
     fi
 
     local -a args=( -d -P 0 -i $pidfile )
-    if [ "$daemon" = "zebra" ]; then
-	args+=( -l -S -s 1048576 )
-    fi
+    case $daemon in
+    zebra)	args+=( -l -S -s 1048576 );;
+    bgpd)	args+=( -I );;
+    esac
 
     exec start-stop-daemon --start --oknodo --quiet \
 		--chdir $log_dir --exec $binpath --pidfile $pidfile \
