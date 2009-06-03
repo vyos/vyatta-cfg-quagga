@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.23+jenner4) unstable; urgency=low
+
+  * Replace update tag on multi-nodes
+  * Use create to get remote-as to go first
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 02 Jun 2009 19:54:21 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner3) unstable; urgency=low
 
   * Convert update: on mulitnodes to create:
