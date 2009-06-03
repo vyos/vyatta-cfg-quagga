@@ -1,5 +1,4 @@
 type: u32
-priority: 1
 help: Set neighbor BGP AS number
 comp_help: 
   <1-4294967294>    AS number

@@ -8,7 +8,7 @@ syntax:expression: exec " \
         exit 1;                                                                \
      fi ; "
 
-update: if [ x$VAR(x) == xdefault ]; then
+create: if [ x$VAR(x) == xdefault ]; then
            vyatta-vtysh -c "configure terminal" \
              -c "router ripng"                                       \
              -c "passive-interface default";
