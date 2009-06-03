@@ -6,6 +6,19 @@ comp_help:
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
                    "remote-as must be between 1 and 4294967294"
 
+# Create action so this leaf is done before others
+create: vyatta-vtysh -c "configure terminal"       \
+                     -c "router bgp $VAR(../../@)" \
+                     -c "neighbor $VAR(../@) remote-as $VAR(@)";
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@)
+        then
+	   vyatta-vtysh -c "configure terminal"              \
+                        -c "router bgp $VAR(../../@)"        \
+                        -c "no neighbor $VAR(../@) activate" \
+                        -c "address-family ipv6"             \
+			-c "neighbor $VAR(../@) activate";
+        fi
+
 update: vyatta-vtysh -c "configure terminal"       \
                      -c "router bgp $VAR(../../@)" \
                      -c "neighbor $VAR(../@) remote-as $VAR(@)";
