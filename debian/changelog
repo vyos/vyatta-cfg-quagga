@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.23+jenner6) unstable; urgency=low
+
+  * Fix OSPFv3 filter list node
+  * Remove bogus templates
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 08 Jun 2009 21:57:35 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner5) unstable; urgency=low
 
   * Allow status operations as non-root user
