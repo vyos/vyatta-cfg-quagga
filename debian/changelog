@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.18.23+jenner8) unstable; urgency=low
+
+  * Hide filter-list node until bug 4498 is fixed.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 10 Jun 2009 15:07:12 -0700
+
+vyatta-cfg-quagga (0.18.23+jenner7) unstable; urgency=low
+
+  * Remove hidden templates
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 09 Jun 2009 15:58:20 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner6) unstable; urgency=low
 
   * Fix OSPFv3 filter list node
