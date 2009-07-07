@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.23+jenner10) unstable; urgency=low
+
+  * Bugfix 4546:  Re-structure to avoid nested "end" field.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 07 Jul 2009 16:31:33 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner9) unstable; urgency=low
 
   * remove pseudo-ethernet vif
