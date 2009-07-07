@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.26) unstable; urgency=low
+
+  * Bugfix 4546:  Re-structure to avoid nested "end" field.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 07 Jul 2009 16:33:31 -0700
+
 vyatta-cfg-quagga (0.18.25) unstable; urgency=low
 
   * Hide filter-list node until bug 4498 is fixed.
