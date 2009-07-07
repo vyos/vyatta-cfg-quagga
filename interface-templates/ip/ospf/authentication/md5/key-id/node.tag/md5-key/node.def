@@ -1,5 +1,18 @@
 type: txt
+
 help: Set md5 key
+
 syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$"; "MD5 key must be 16 characters or less"
+
 comp_help: possible completions:
  <text>             MD5 Key (16 characters or less)
+
+# If this node is created or its value changed
+update:
+	vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+             -c "ip ospf message-digest-key $VAR(../@) md5 $VAR(@)"
+
+# If this node is deleted
+delete:
+        vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+             -c "no ip ospf message-digest-key $VAR(../@)"
