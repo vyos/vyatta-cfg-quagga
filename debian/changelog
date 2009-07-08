@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.23+jenner11) unstable; urgency=low
+
+  * Change gateway-address from static to kernel route
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 08 Jul 2009 14:12:58 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner10) unstable; urgency=low
 
   * Bugfix 4546:  Re-structure to avoid nested "end" field.
