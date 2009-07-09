@@ -1,6 +1,12 @@
 type: ipv4
 help: Set default gateway
-update: sudo ip route replace to default via $VAR(@)
+create: vyatta-vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
+update: oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl '$(/system/gateway-address/@)'`
+	if [ -n "$oldgw" ]; then
+            vyatta-vtysh --noerror -c "configure terminal" \
+                      -c "no ip route 0.0.0.0/0 $oldgw"
+        fi
+        vyatta-vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
 delete: if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl "$VAR(@)"
-	then sudo ip route delete to default via $VAR(@)
+	then vyatta-vtysh -c "configure terminal" -c "no ip route 0.0.0.0/0 $VAR(@)"
 	fi
