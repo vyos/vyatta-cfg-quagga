@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.23+jenner12) unstable; urgency=low
+
+  * Revert "Change gateway-address from static to kernel route"
+  * Allow starting multiple daemons at once
+  * Start all routing daemons when/if policy defined
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 09 Jul 2009 14:57:50 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner11) unstable; urgency=low
 
   * Change gateway-address from static to kernel route
