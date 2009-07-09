@@ -1,3 +1,21 @@
+vyatta-cfg-quagga (0.18.27) unstable; urgency=low
+
+  * Abort transaction on delete of neighbor in peer group
+  * Convert template to new syntax
+  * Fix setup of protocols on boot
+  * Convert update: on mulitnodes to create:
+  * Add pseudo-ethernet
+  * Replace update tag on multi-nodes
+  * Use create to get remote-as to go first
+  * Allow status operations as non-root user
+  * Start bgpd earlier in process
+  * Use bgpd default import-check flag
+  * Fix OSPFv3 filter list node
+  * Remove bogus templates
+  * Remove hidden templates
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 09 Jul 2009 16:50:32 -0700
+
 vyatta-cfg-quagga (0.18.26) unstable; urgency=low
 
   * Bugfix 4546:  Re-structure to avoid nested "end" field.
