@@ -1,2 +1,2 @@
 help: Configure routing policy
-begin: sudo /opt/vyatta/sbin/quagga-manager start bgpd
+begin: sudo /opt/vyatta/sbin/quagga-manager start bgpd ospfd ripd ripngd ospf6d
