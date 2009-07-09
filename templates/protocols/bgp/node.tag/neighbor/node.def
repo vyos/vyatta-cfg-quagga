@@ -8,7 +8,6 @@ comp_help:
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peer-name $VAR(@)"
 
-begin:  sudo /opt/vyatta/sbin/quagga-manager start bgpd
 
 create: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
                                           --peergroup $VAR(@); then
