@@ -5,7 +5,6 @@ comp_help:
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
                    "remote-as must be between 1 and 4294967294"
-begin:  sudo /opt/vyatta/sbin/quagga-manager start bgpd
 
 # Create action so this leaf is done before others
 create: vyatta-vtysh -c "configure terminal"       \
