@@ -7,7 +7,7 @@
 # echo $* | logger -p local7.debug -t quagga-manager
 
 usage() {
-    echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ospf6d|ripngd}"
+    echo "Usage: $0 {check|start|stop|restart} {bgpd|ospfd|ripd|ospf6d|ripngd} ..."
     exit 1
 }
 
@@ -48,9 +48,8 @@ start() {
     bgpd)	args+=( -I );;
     esac
 
-    exec start-stop-daemon --start --oknodo --quiet \
-		--chdir $log_dir --exec $binpath --pidfile $pidfile \
-		-- ${args[@]}
+    start-stop-daemon --start --oknodo --quiet \
+	--chdir $log_dir --exec $binpath --pidfile $pidfile -- ${args[@]}
 }
 
 stop() {
@@ -117,12 +116,17 @@ reload_config() {
     trap "" EXIT HUP INT QUIT TERM
 }
 
-case "$1" in
-    start)   start $2;;
-    stop)    stop $2;;
-    status)  status $2;;
-    reload)  start $2; reload_config $2;;
-    restart) stop $2; start $2;;
-    *)       usage;;
-esac
+action=$1
+shift
+
+for daemon; do
+    case "$action" in
+	start)   start $daemon ;;
+	stop)    stop $daemon ;;
+	status)  status $daemon ;;
+	reload)  start $daemon; reload_config $daemon ;;
+	restart) stop $daemon; start $daemon ;;
+	*)       usage;;
+    esac
+done
 
