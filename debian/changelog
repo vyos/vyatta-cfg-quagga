@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.23+jenner13) unstable; urgency=low
+
+  * Remove dynamic start of routing daemons
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 09 Jul 2009 16:33:41 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner12) unstable; urgency=low
 
   * Revert "Change gateway-address from static to kernel route"
