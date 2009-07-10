@@ -15,11 +15,6 @@ if [ $# -lt 1 ]; then
     usage
 fi
 
-if [ $EUID -ne 0 ]; then
-    echo "must be root!"
-    exit 1
-fi
-
 pid_dir=/var/run/vyatta/quagga
 log_dir=/var/log/vyatta/quagga
 
@@ -37,15 +32,21 @@ start() {
     local pidfile=${pid_dir}/${daemon}.pid
     local binpath=/usr/sbin/vyatta-$daemon
 
+    if [ $EUID -ne 0 ]; then
+        echo "must be root!"
+        exit 1
+    fi
+
     if [ ! -x $binpath ]; then
 	echo "Unknown daemon $daemon"
 	return 1
     fi
 
     local -a args=( -d -P 0 -i $pidfile )
-    if [ "$daemon" = "zebra" ]; then
-	args+=( -l -S -s 1048576 )
-    fi
+    case $daemon in
+    zebra)	args+=( -l -S -s 1048576 );;
+    bgpd)	args+=( -I );;
+    esac
 
     exec start-stop-daemon --start --oknodo --quiet \
 		--chdir $log_dir --exec $binpath --pidfile $pidfile \
@@ -57,6 +58,10 @@ stop() {
     local pidfile=${pid_dir}/${daemon}.pid
     local binpath=/usr/sbin/vyatta-$daemon
 
+    if [ $EUID -ne 0 ]; then
+        echo "must be root!"
+        exit 1
+    fi
     start-stop-daemon --stop --quiet --oknodo --retry 5 \
 	--exec $binpath --pidfile=$pidfile
     rm -f $pidfile

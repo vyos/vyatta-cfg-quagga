@@ -1,1 +1,2 @@
 help: Set BGP parameters
+begin:  sudo /opt/vyatta/sbin/quagga-manager start bgpd
