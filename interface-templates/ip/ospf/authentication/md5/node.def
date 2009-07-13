@@ -1,5 +1,14 @@
 help: Set MD5 key id
-update:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
-       -c "no ip ospf authentication" -c "ip ospf authentication message-digest"
-delete:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
-       -c "no ip ospf authentication"
+
+create:
+	vyatta-vtysh \
+	-c "configure terminal" \
+	-c "interface $IFNAME" \
+	-c "no ip ospf authentication" \
+	-c "ip ospf authentication message-digest"
+
+delete:
+	vyatta-vtysh \
+	-c "configure terminal" \
+	-c "interface $IFNAME" \
+        -c "no ip ospf authentication"
