@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.29) unstable; urgency=low
+
+  * Bugfix 4708:  Use "create" field instead of "update" for non-leaf
+    multi-nodes.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Mon, 13 Jul 2009 16:23:20 -0700
+
 vyatta-cfg-quagga (0.18.28) unstable; urgency=low
 
   * Bugfix 4716: Need to perform different actions on "update" and
