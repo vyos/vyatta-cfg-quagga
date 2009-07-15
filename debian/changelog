@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.23+jenner16) unstable; urgency=low
+
+  * Bugfix 4708: Change update action in non-leaf valueless node to
+    create
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 15 Jul 2009 11:50:20 -0700
+
 vyatta-cfg-quagga (0.18.23+jenner15) unstable; urgency=low
 
   * Bugfix 4708:  Use "create" field instead of "update" for non-leaf
