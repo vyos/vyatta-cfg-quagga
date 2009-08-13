@@ -1,13 +1,30 @@
 tag:
 type: ipv6
 help: Set the next-hop IPv6 router
-end: if [ ${COMMIT_ACTION} = 'DELETE' ]; then 
-        if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl "$VAR(../@)" "$VAR(@)"; then 
-           vyatta-vtysh -c "configure terminal" -c "no ipv6 route $VAR(../@) $VAR(@)" ; 
-        fi;
-     else 
-        if [ -n "$VAR(./distance/@)" ]; then
-	   DIST="$VAR(./distance/@)";
-        fi;
-        vyatta-vtysh -c "configure terminal" -c "ipv6 route $VAR(../@) $VAR(@) $DIST"; 
-    fi; 
+end:
+  if [[ -z "$VAR(./disable)" ]]
+  then
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+    then
+      if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+          "$VAR(../@)" "$VAR(@)"
+      then
+        vyatta-vtysh -c "configure terminal" \
+                     -c "no ipv6 route $VAR(../@) $VAR(@)"
+      fi
+    else
+      if [[ -n "$VAR(./distance/@)" ]]
+      then
+        DIST="$VAR(./distance/@)"
+      fi
+      vyatta-vtysh -c "configure terminal" \
+                   -c "ipv6 route $VAR(../@) $VAR(@) $DIST";
+    fi
+  else
+    if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+        "$VAR(../@)" "$VAR(@)"
+    then
+      vyatta-vtysh -c "configure terminal" \
+                   -c "no ipv6 route $VAR(../@) $VAR(@)"
+    fi
+  fi
