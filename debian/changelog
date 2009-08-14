@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.32) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Reset to default value when deleted
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 14 Aug 2009 12:40:19 -0700
+
 vyatta-cfg-quagga (0.18.31) unstable; urgency=low
 
   [ Stig Thormodsrud ]
