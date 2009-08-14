@@ -5,6 +5,6 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
 update: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
           -c "ipv6 ospf6 hello-interval $VAR(@)"
 delete: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
-          -c "no ipv6 ospf6 hello-interval"
+          -c "ipv6 ospf6 hello-interval 10"
 comp_help: possible completions:
   <1-65535>         Seconds (default 10)
