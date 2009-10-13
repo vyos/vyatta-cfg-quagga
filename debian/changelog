@@ -1,3 +1,14 @@
+vyatta-cfg-quagga (0.18.34) unstable; urgency=low
+
+  * Fix setup of protocols on boot
+  * Convert update: on mulitnodes to create:
+  * remove pseudo-ethernet vif
+  * Allow starting multiple daemons at once
+  * Start all routing daemons when/if policy defined
+  * Remove dynamic start of routing daemons
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 13 Oct 2009 16:43:02 -0700
+
 vyatta-cfg-quagga (0.18.33) unstable; urgency=low
 
   * Generate templates for wirless devices
