@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.35) unstable; urgency=low
+
+  * add .merge-branch-exclude
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 14 Oct 2009 13:17:06 -0700
+
 vyatta-cfg-quagga (0.18.34) unstable; urgency=low
 
   * Fix setup of protocols on boot
