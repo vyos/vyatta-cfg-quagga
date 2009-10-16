@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.36) unstable; urgency=low
+
+  * Fix 5015: Route maps terms that contain reference to VIF interfaces
+    fail to load on boot
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 16 Oct 2009 14:37:02 -0700
+
 vyatta-cfg-quagga (0.18.35) unstable; urgency=low
 
   * add .merge-branch-exclude
