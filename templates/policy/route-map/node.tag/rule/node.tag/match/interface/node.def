@@ -2,7 +2,7 @@ type: txt
 help: Set the first hop interface of a route to match
 comp_help: \1  <txt>\t\tinterface name
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
-syntax:expression: exec " \
+commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
           echo policy route-map $VAR(../../../@) rule $VAR(../../@) match interface: interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
