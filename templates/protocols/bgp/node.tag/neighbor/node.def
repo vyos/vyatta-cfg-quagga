@@ -1,3 +1,4 @@
+priority: 510
 tag:
 type: txt
 help: Set a BGP neighbor 

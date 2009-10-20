@@ -1,3 +1,4 @@
+priority: 400
 type: ipv4
 help: Set default gateway
 create: vyatta-vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"

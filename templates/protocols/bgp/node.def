@@ -1,3 +1,4 @@
+priority: 520
 tag:
 type: u32
 help: Configure Border Gateway Protocol (BGP) parameters

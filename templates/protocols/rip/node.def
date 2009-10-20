@@ -1,3 +1,4 @@
+priority: 650
 help: Configure Routing Information Protocol (RIP) parameters
 create: vyatta-vtysh -c "configure terminal" -c "router rip"
 delete: vyatta-vtysh -c "configure terminal" -c "no router rip"
