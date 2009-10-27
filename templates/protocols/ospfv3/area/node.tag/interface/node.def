@@ -1,3 +1,4 @@
+multi:
 type: txt
 help: Set OSPFv3 area interface
 create:vyatta-vtysh --noerror -c "configure terminal" -c "router ospf6" \
