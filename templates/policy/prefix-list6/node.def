@@ -1,0 +1,8 @@
+tag:
+type: txt
+help: Set IPv6 prefix-list filter
+
+syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "prefix-list6 name must be alpha-numeric"
+
+comp_help: possible completions:
+  <txt>    prefix-list list name

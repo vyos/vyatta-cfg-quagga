@@ -1,0 +1,8 @@
+type: txt
+help: Set action to take on prefixes matching this rule
+
+syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
+
+comp_help: possible completions:
+  permit     permit matching prefixes
+  deny       deny matching prefixes

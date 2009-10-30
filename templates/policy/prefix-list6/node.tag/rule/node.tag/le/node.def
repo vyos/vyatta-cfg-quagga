@@ -1,0 +1,7 @@
+type: u32
+help: Set prefix length to match a netmask less than or equal to it
+
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 128; "le must be between 0 and 128"
+
+comp_help: possible completions:
+  <0-128>     netmask less than length

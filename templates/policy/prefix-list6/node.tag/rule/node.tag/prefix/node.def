@@ -1,0 +1,5 @@
+type: ipv6net
+help: Set a prefix to match
+
+comp_help: possible completions:
+  <h:h:h:h:h:h:h:h/x>   Set the IPv6 prefix

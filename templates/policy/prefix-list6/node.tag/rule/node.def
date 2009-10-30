@@ -1,0 +1,44 @@
+tag:
+type: u32
+help: Set a rule for this prefix-list6
+
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
+
+commit:expression: $VAR(./prefix/) != ""; "policy prefix-list6 $VAR(../@) rule $VAR(@): You must specify a prefix"
+
+commit:expression: $VAR(./action/) != ""; "policy prefix-list6 $VAR(../@) rule $VAR(@): You must specify an action"
+
+delete:  len=`echo $VAR(@) | awk -F/ '{ print $2 }'` ; 
+         if [ -n "$VAR(./ge/@)" ]; then 
+           cond="ge $VAR(./ge/@) ";
+         fi;
+         if [ -n "$VAR(./le/@)" ]; then 
+           cond="$cond le $VAR(./le/@) "; 
+         fi; 
+         vyatta-vtysh -c "configure terminal"  \
+           -c "no ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " 
+
+end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; 
+      if [ -n "$VAR(./ge/@)" ]; then 
+        if [ $len -ge $VAR(./ge/@) ]; then 
+          echo "policy prefix-list $VAR(../@) rule $VAR(@): ge must be greater than prefix length";
+          exit 1 ; 
+        fi ; 
+        cond="ge $VAR(./ge/@) ";
+      fi;
+      if [ -n "$VAR(./le/@)" ]; then 
+        if [ $VAR(./le/@) -ne 128 ] && [ -n "$VAR(./ge/@)" ] && [ $VAR(./le/@) -le $VAR(./ge/@) ]; then 
+          echo "policy prefix-list $VAR(../@) rule $VAR(@): le must be greater than or equal to ge"; 
+          exit 1 ; 
+        fi ; 
+        cond="$cond le $VAR(./le/@) "; 
+      fi; 
+
+      if [ ${COMMIT_ACTION} = 'SET' ]; then
+        vyatta-vtysh -c "configure terminal" \
+          -c "ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
+      fi;
+      exit 0 ; 
+
+comp_help: possible completions:
+  <1-65535>    prefix-list rule number
