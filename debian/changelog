@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.43) unstable; urgency=low
+
+  * Partial fix for 4984: Configuring an IP of a local interface as a
+    bgp neighbor results in an out of sync condition between the vyatta
+    config and the bgpd config
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 30 Oct 2009 19:49:59 -0700
+
 vyatta-cfg-quagga (0.18.42) unstable; urgency=low
 
   * Fix 5060: error adding bgp policy to ipv6 peer.
