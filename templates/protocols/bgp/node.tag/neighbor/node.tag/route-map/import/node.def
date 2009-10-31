@@ -1,17 +1,45 @@
 type: txt
 help: Set a route-map to filter incoming route updates from this neighbor
-comp_help: \1  <txt>\t\troute-map name
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a route-map for a neighbor in a peer-group"
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) import: route-map $VAR(@) doesn't exist"
+
 update: if [ -n "$VAR(../../remote-as/@)" ]; then 
           peer="remote-as $VAR(../../remote-as/@)"; 
         else 
           peer="peer-group $VAR(../../peer-group/@)"; 
         fi; 
-        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-	  -c "neighbor $VAR(../../@) $peer" \
-          -c "neighbor $VAR(../../@) route-map $VAR(@) in"
-delete: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-          -c "no neighbor $VAR(../../@) route-map $VAR(@) in"
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
+        then
+           vyatta-vtysh -c "configure terminal"           \
+                        -c "router bgp $VAR(../../../@)"  \
+                        -c "address-family ipv6"          \
+	                -c "neighbor $VAR(../../@) $peer" \
+                        -c "address-family ipv6"          \
+                        -c "neighbor $VAR(../../@) route-map $VAR(@) in"
+        else
+           vyatta-vtysh -c "configure terminal"           \
+                        -c "router bgp $VAR(../../../@)"  \
+	                -c "neighbor $VAR(../../@) $peer" \
+                        -c "neighbor $VAR(../../@) route-map $VAR(@) in"
+        fi
 
+delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
+        then
+           vyatta-vtysh -c "configure terminal"           \
+                        -c "router bgp $VAR(../../../@)"  \
+                        -c "address-family ipv6"          \
+                        -c "no neighbor $VAR(../../@) route-map $VAR(@) in"
+        else
+           vyatta-vtysh -c "configure terminal"           \
+                        -c "router bgp $VAR(../../../@)"  \
+                        -c "no neighbor $VAR(../../@) route-map $VAR(@) in"
+        fi
+
+
+
+comp_help: possible completions:
+  <txt>    route-map name
