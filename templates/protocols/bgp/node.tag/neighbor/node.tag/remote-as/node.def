@@ -1,6 +1,7 @@
 type: u32
 help: Set neighbor BGP AS number
-comp_help: 
+
+comp_help: possible completions:
   <1-4294967294>    AS number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
@@ -9,7 +10,7 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
 # Create action so this leaf is done before others
 create: vyatta-vtysh -c "configure terminal"       \
                      -c "router bgp $VAR(../../@)" \
-                     -c "neighbor $VAR(../@) remote-as $VAR(@)";
+                     -c "neighbor $VAR(../@) remote-as $VAR(@)" || exit 1;
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@)
         then
 	   vyatta-vtysh -c "configure terminal"              \
@@ -21,7 +22,7 @@ create: vyatta-vtysh -c "configure terminal"       \
 
 update: vyatta-vtysh -c "configure terminal"       \
                      -c "router bgp $VAR(../../@)" \
-                     -c "neighbor $VAR(../@) remote-as $VAR(@)";
+                     -c "neighbor $VAR(../@) remote-as $VAR(@)" || exit 1;
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@)
         then
 	   vyatta-vtysh -c "configure terminal"              \
