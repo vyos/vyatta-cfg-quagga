@@ -13,7 +13,7 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
         vyatta-vtysh -c "configure terminal" \
 	-c "router bgp $VAR(../../@)" \
 	-c "neighbor $VAR(../@) $peer" \
-	-c "neighbor $VAR(../@) password $VAR(@)"
+	-c 'neighbor $VAR(../@) password $VAR(@)'
 delete: vyatta-vtysh                            \
           -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) password"
