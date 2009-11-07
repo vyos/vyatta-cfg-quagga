@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.47) unstable; urgency=low
+
+  [ David S. Madole ]
+  * arp command for statics needs to be run under sudo
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sat, 07 Nov 2009 11:15:13 -0800
+
 vyatta-cfg-quagga (0.18.46) unstable; urgency=low
 
   * corresponding fix for bug 5037 in kenwood
