@@ -1,1 +1,2 @@
+priority: 705
 help: Set a route-map to filter route updates to/from this neighbor

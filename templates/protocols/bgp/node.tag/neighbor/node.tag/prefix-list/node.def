@@ -1,1 +1,2 @@
+priority: 707
 help: Set a prefix-list to filter route updates to/from this neighbor
