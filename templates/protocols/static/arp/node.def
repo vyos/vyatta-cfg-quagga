@@ -36,8 +36,8 @@ end:
 	ipaddr=$VAR(@)
 	hwaddr=$VAR(hwaddr/@)
 
-	arp -d $ipaddr > /dev/null
+	sudo arp -d $ipaddr > /dev/null
 	if [ -n "$hwaddr" ]; then
-	    arp -s $ipaddr $hwaddr
+	    sudo arp -s $ipaddr $hwaddr
 	fi
 	exit 0
