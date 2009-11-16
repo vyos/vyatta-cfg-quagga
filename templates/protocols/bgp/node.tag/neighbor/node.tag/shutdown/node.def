@@ -1,4 +1,5 @@
 help: Set to administratively shut down neighbor
+priority: 705
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 update: if [ -n "$VAR(../remote-as/@)" ]; then 
           peer="remote-as $VAR(../remote-as/@)"; 

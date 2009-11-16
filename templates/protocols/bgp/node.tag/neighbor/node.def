@@ -1,5 +1,5 @@
 tag:
-priority: 710
+priority: 720
 type: txt
 help: Set a BGP neighbor 
 comp_help: 

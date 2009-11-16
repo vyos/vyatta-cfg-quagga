@@ -1,5 +1,5 @@
 type: txt
-priority: 709    
+priority: 719    
 help: Set a route-map to selectively unsuppress suppressed routes
 comp_help: \1  <txt>\t\troute-map name
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
