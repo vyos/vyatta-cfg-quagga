@@ -1,6 +1,6 @@
 tag:
 type: ipv6
-help: Set the next-hop IPv6 router
+help: Set the next-hop IPv6 router [REQUIRED]
 end:
   if [[ -z "$VAR(./disable)" ]]
   then

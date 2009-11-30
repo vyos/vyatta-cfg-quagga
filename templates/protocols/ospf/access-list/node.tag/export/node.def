@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set filter for outgoing routing updates
+help: Set filter for outgoing routing updates [REQUIRED]
 syntax:expression: $VAR(@) in "bgp", "connected", "kernel", "rip", "static"; "Must be (bgp, connected, kernel, rip, or static)"
 create: vyatta-vtysh -c "configure terminal" \
             -c "router ospf"                                      \

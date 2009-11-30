@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set the next-hop interface
+help: Set the next-hop interface [REQUIRED]
 # show all current interface
 # but syntax accepts any interface since it may exist later (ppp etc)
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all

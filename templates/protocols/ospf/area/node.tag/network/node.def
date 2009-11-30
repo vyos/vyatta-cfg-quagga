@@ -1,6 +1,6 @@
 multi:
 type: ipv4net
-help: Set OSPF network
+help: Set OSPF network [REQUIRED]
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 create:vyatta-vtysh -c "configure terminal" \
        -c "router ospf" -c "network $VAR(@) area $VAR(../@)"
