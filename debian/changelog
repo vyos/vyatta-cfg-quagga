@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.50) unstable; urgency=low
+
+  * added required keyword to help text.
+
+ -- Michael Larson <slioch@slioch.vyatta.com>  Mon, 30 Nov 2009 15:43:58 -0800
+
 vyatta-cfg-quagga (0.18.49) unstable; urgency=low
 
   * modify priorities (see bug 5114) for kenwood
