@@ -1,12 +1,22 @@
 help: Set to send default route to this neighbor
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+
 commit:expression: $VAR(../peer-group/) == ""; "protocold bgp $VAR(../../@) neighbor $VAR(../@): you can't set default-originate for a neighbor in a peer-group"
-delete: touch /tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID
-end:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
-         -c "no neighbor $VAR(../@) default-originate "; 
-      if [ -f "/tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID" ]; then 
-        rm -rf /tmp/bgp-neighbor-$VAR(../@)-default-originate.$PPID; 
+
+end:  if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
+        vyatta-vtysh --noerror          \
+          -c "configure terminal"       \
+          -c "router bgp $VAR(../../@)" \
+          -c "address-family ipv6"      \
+          -c "no neighbor $VAR(../@) default-originate "; 
       else 
+        vyatta-vtysh --noerror          \
+          -c "configure terminal"       \
+          -c "router bgp $VAR(../../@)" \
+          -c "no neighbor $VAR(../@) default-originate "; 
+      fi;
+      if [ ${COMMIT_ACTION} = 'SET' ]; then
         if [ -n "$VAR(./route-map/@)" ]; then 
           cond="route-map $VAR(./route-map/@) " ; 
         fi ; 
@@ -14,9 +24,18 @@ end:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@
            peer="remote-as $VAR(../remote-as/@)"; 
          else 
            peer="peer-group $VAR(../peer-group/@)"; 
-         fi; 
-        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-	   -c "neighbor $VAR(../@) $peer" \
-           -c "neighbor $VAR(../@) default-originate $cond"; \
+        fi; 
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../@)"      \
+            -c "address-family ipv6"           \
+	    -c "neighbor $VAR(../@) $peer"     \
+            -c "address-family ipv6"           \
+            -c "neighbor $VAR(../@) default-originate $cond";
+        else
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../@)"      \
+	    -c "neighbor $VAR(../@) $peer"     \
+            -c "neighbor $VAR(../@) default-originate $cond";
+        fi;
       fi; 
-
