@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.53) unstable; urgency=low
+
+  * Add VIF support for wireless
+  * Check arguement to policy route-map COMMUNITY rule N set community
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 14 Jan 2010 15:06:53 -0800
+
 vyatta-cfg-quagga (0.18.52) unstable; urgency=low
 
   * Fix 5113: bgp default-originate commit fails for IPv6
