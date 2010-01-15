@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.54) unstable; urgency=low
+
+  * Bugfix 5221: Allow outgoing interface to be specified for IPv6
+    static route.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 15 Jan 2010 14:38:59 -0800
+
 vyatta-cfg-quagga (0.18.53) unstable; urgency=low
 
   * Add VIF support for wireless
