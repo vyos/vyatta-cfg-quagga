@@ -7,10 +7,10 @@ comp_help: \1  <AA:NN>\t\tcommunity in 4 octet AS:value format
   no-advertise\tdon't advertise this route to any peer (NO_ADVERTISE)
   no-export\t\tdon't advertise outside of this AS of confederation boundry (NO_EXPORT)
 
-allowed:echo "local-as no-advertise no-export internet additive"
+allowed:echo "none local-AS no-advertise no-export internet additive"
 
 syntax:expression: pattern $VAR(@) "^[[:digit:]]+:[[:digit:]]+$" \
-	|| $VAR(@) in "local-as", "no-advertise","no-export","internet","additive" \
+	|| $VAR(@) in "none","local-AS","no-advertise","no-export","internet","additive" \
 	; "$VAR(@): Unknown community string or attribute"
 
 commit:expression: $VAR(../../action/) != ""; \
