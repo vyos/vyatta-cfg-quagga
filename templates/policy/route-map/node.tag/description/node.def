@@ -1,2 +1,2 @@
 type: txt
-help: Set a description for this access-list
+help: Set a description for this route-map

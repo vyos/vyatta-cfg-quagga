@@ -7,11 +7,12 @@ use Getopt::Long;
 
 my $VTYSH = '/usr/bin/vyatta-vtysh';
 
-my ( $accesslist, $aspathlist, $communitylist, $peer );
+my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $peer );
 my ( $routemap, $deleteroutemap );
 
 GetOptions(
     "update-access-list=s"           => \$accesslist,
+    "update-access-list6=s"          => \$accesslist6,
     "update-aspath-list=s"           => \$aspathlist,
     "update-community-list=s"        => \$communitylist,
     "check-peer-syntax=s"            => \$peer,
@@ -20,6 +21,7 @@ GetOptions(
 ) or exit 1;
 
 update_access_list($accesslist)               if ($accesslist);
+update_access_list6($accesslist6)             if ($accesslist6);
 update_as_path($aspathlist)                   if ($aspathlist);
 update_community_list($communitylist)         if ($communitylist);
 check_peer_syntax($peer)                      if ($peer);
@@ -141,6 +143,12 @@ sub is_access_list {
     return ( $count > 0 );
 }
 
+sub is_access_list6 {
+    my $list  = shift;
+    my $count = `$VTYSH -c \"show ipv6 access-list $list\" | grep -c $list`;
+    return ( $count > 0 );
+}
+
 sub update_access_list {
     my $list   = shift;
     my $config = new Vyatta::Config;
@@ -215,6 +223,53 @@ sub update_access_list {
 
         system(
 "$VTYSH -c \"configure terminal\" -c \"access-list $list $action $ip $src $srcmsk $dst $dstmsk\" "
+        );
+    }
+
+    exit 0;
+}
+
+sub update_access_list6 {
+    my $list   = shift;
+    my $config = new Vyatta::Config;
+    my @rules  = ();
+
+    # remove the old rule if it already exists
+    if ( is_access_list6($list) ) {
+        system("$VTYSH -c \"conf t\" -c \"no ipv6 access-list $list\" ");
+    }
+
+    $config->setLevel("policy access-list6 $list rule");
+    @rules = $config->listNodes();
+
+    foreach my $rule ( sort numerically @rules ) {
+        my ($action, $src, $exact) = '';
+
+        # set the action
+        $action = $config->returnValue("$rule action");
+        if ( !defined $action ) {
+            print
+"policy access-list6 $list rule $rule: You must specify an action\n";
+            exit 1;
+        }
+
+        if ( defined $config->returnValue("$rule source network") ) {
+            $src   = $config->returnValue("$rule source network");
+            if ($config->exists("$rule source exact-match")) {
+                $exact = 'exact-match';
+            }
+        }
+        else {
+            if ( $config->exists("$rule source any") ) { $src = "any"; }
+            else {
+                print
+"policy access-list6 $list rule $rule source: incorrect source filter\n";
+                exit 1;
+            }
+        }
+
+        system(
+"$VTYSH -c \"configure terminal\" -c \"ipv6 access-list $list $action $src $exact\" "
         );
     }
 

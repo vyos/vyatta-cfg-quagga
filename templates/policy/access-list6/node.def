@@ -1,0 +1,17 @@
+tag:
+
+type: txt
+
+help: Set IPv6 access-list filter 
+
+syntax:expression: pattern $VAR(@) "^[[:graph:]]{1,64}$" ; \
+                   "access-list name must be 64 characters or less"
+syntax:expression: pattern $VAR(@) "^[^-]" ; \
+                   "access-list name cannot start with \"-\""
+syntax:expression: pattern $VAR(@) "^[^|;&$<>]*$" ; \
+                   "access-list name cannot contain shell punctuation"
+
+end: /opt/vyatta/sbin/vyatta-policy.pl --update-access-list6 "$VAR(@)"
+
+comp_help: possible completions:
+  <txt>    Set name of ipv6 access-list

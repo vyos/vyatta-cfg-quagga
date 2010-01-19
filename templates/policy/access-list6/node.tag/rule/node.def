@@ -1,0 +1,11 @@
+tag:
+
+type: u32
+
+help: Set a rule for this access-list6
+
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; \
+                   "rule number must be between 1 and 65535"
+
+comp_help: possible completions:
+  <1-65535>      Set access-list6 rule number

@@ -1,0 +1,10 @@
+type: ipv6net
+
+help: Set a network/netmask to match (requires inverse-mask be defined)
+
+comp_help: possible completions:
+  <h:h:h:h:h:h:h:h/x>   Set the IPv6 address and prefix length
+
+commit:expression: ($VAR(../any/) == ""); "policy access-list6 $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type.  (network|any)"
+
+commit:expression: $VAR(../../action/) != ""; "policy access-list6 $VAR(../../../@) rule $VAR(../../@) source: you must specify an action"

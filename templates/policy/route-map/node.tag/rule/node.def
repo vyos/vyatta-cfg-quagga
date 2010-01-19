@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Set a rule for this access-list
+help: Set a rule for this route-map
 comp_help: \1  <1-65535>\troute-map rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
 delete: if [ -f /tmp/route-map-$VAR(../@)-rule-$VAR(@)-action.$PPID ]; then
