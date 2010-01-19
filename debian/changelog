@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.18.55) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Allow none as argument to set community
+
+  [ Stig Thormodsrud ]
+  * Add IPv6 policy access-list.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 18 Jan 2010 16:23:54 -0800
+
 vyatta-cfg-quagga (0.18.54) unstable; urgency=low
 
   * Bugfix 5221: Allow outgoing interface to be specified for IPv6
