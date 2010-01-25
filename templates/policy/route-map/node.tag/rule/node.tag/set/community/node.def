@@ -1,20 +1,23 @@
 type: txt
 help: Set the Border Gateway Protocl (BGP) community attribute
-comp_help: \1  <AA:NN>\t\tcommunity in 4 octet AS:value format
-  additive\t\tcommunities are appended to existing community string
-  internet\t\tsymbolic Internet community 0
+comp_help: \1  <AA:NN>\tcommunity in 4 octet AS:value format
   local-AS\t\tadvertise communities in local AS only (NO_EXPORT_SUBCONFED)
   no-advertise\tdon't advertise this route to any peer (NO_ADVERTISE)
   no-export\t\tdon't advertise outside of this AS of confederation boundry (NO_EXPORT)
+  internet\t\tsymbolic Internet community 0
+  The above maybe prefixed by "additive "
 
-allowed:echo "none local-AS no-advertise no-export internet additive"
+allowed:echo "none local-AS no-advertise no-export internet"
 
-syntax:expression: pattern $VAR(@) "^[[:digit:]]+:[[:digit:]]+$" \
-	|| $VAR(@) in "none","local-AS","no-advertise","no-export","internet","additive" \
-	; "$VAR(@): Unknown community string or attribute"
+syntax:expression: pattern $VAR(@) \
+     "^(additive )?([0-9]+:[0-9]+|none|local-AS|no-advertise|no-export|internet)$" \
+    ; "\"$VAR(@)\" unknown community string or attribute"
 
-commit:expression: $VAR(../../action/) != ""; \
-   "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
+syntax:expression: "$VAR(@)" != "additive none" \
+    ; "\"additive none\" is meaningless"
+
+commit:expression: $VAR(../../action/) != "" \
+    ; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
 
 update: vyatta-vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
