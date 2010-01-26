@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.18.56) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add IPv6 policy access-list.
+  * 0.18.55
+  * Fix 5235: Not possible to run OSPFv3 on multiple interfaces
+
+  [ Stephen Hemminger ]
+  * Fix set community additive
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 25 Jan 2010 16:30:20 -0800
+
 vyatta-cfg-quagga (0.18.55) unstable; urgency=low
 
   [ Stephen Hemminger ]
