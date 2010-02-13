@@ -1,0 +1,24 @@
+multi:
+type: txt
+help: Set interface to exclude when using 'passive-interface default'
+
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all 
+
+syntax:expression: $VAR(../passive-interface/@) == "default"; \
+  "passive-interface-excluded can only be used with 'passive-interface default'"
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta-interfaces.pl --dev=$VAR(@) --warn"
+
+create: if [ -z $VAR(@) ] ; then
+          echo "Error: must include interface";
+          exit 1;
+     	else  
+          vyatta-vtysh -c "configure terminal" -c "router ospf" \
+             -c "no passive-interface $VAR(@)"
+	fi;
+
+delete: vyatta-vtysh -c "configure terminal" -c "router ospf" \
+          -c "passive-interface $VAR(@)";
+
+comp_help: possible completions:
+  <interface>     Set an interface to exclude from 'passive-interface default'
