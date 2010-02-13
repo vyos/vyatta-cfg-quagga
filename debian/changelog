@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.57) unstable; urgency=low
+
+  * Fix 4161: Bad config handling of "procotols ospf passive-interface".
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 12 Feb 2010 16:09:58 -0800
+
 vyatta-cfg-quagga (0.18.56) unstable; urgency=low
 
   [ Stig Thormodsrud ]
