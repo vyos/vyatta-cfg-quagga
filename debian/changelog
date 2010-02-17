@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.58) unstable; urgency=low
+
+  * Fix 5344: committing prefix-list6 as bgp ipv6 neighbor prefix-list
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 17 Feb 2010 11:24:21 -0800
+
 vyatta-cfg-quagga (0.18.57) unstable; urgency=low
 
   * Fix 4161: Bad config handling of "procotols ospf passive-interface".
