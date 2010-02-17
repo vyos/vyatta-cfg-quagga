@@ -1,18 +1,52 @@
 type: txt
 help: Set a prefix-list to filter incoming route updates from this neighbor
-comp_help: \1  <txt>\t\tprefix-list name
+
+allowed: local -a params
+        params=( /opt/vyatta/config/active/policy/prefix-list/* 
+                 /opt/vyatta/config/active/policy/prefix-list6/*)
+        echo -n ${params[@]##*/}
+
+comp_help: possible completions:
+  <txt>    prefix-list name
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a prefix-list for a neighbor in a peer-group"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: prefix-list $VAR(@) doesn't exist"
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" || /opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\""; \
+"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: prefix-list $VAR(@) doesn't exist"
+
 commit:expression: $VAR(../../distribute-list/import/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: you can't set both a prefix-list and a distribute list"
+
 update: if [ -n "$VAR(../../remote-as/@)" ]; then 
           peer="remote-as $VAR(../../remote-as/@)"; 
         else 
           peer="peer-group $VAR(../../peer-group/@)"; 
         fi; 
-	vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-	  -c "neighbor $VAR(../../@) $peer" \
-          -c "neighbor $VAR(../../@) prefix-list $VAR(@) in"
-delete: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-          -c "no neighbor $VAR(../../@) prefix-list $VAR(@) in"
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); then
+  	  vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../../@)"   \
+            -c "address-family ipv6"           \
+	    -c "neighbor $VAR(../../@) $peer"  \
+            -c "address-family ipv6"           \
+            -c "neighbor $VAR(../../@) prefix-list $VAR(@) in"
+        else
+  	  vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../../@)"   \
+	    -c "neighbor $VAR(../../@) $peer"  \
+            -c "neighbor $VAR(../../@) prefix-list $VAR(@) in"
+        fi;
 
+delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); then
+          vyatta-vtysh --noerror             \
+            -c "configure terminal"          \
+            -c "address-family ipv6"         \
+            -c "router bgp $VAR(../../../@)" \
+            -c "address-family ipv6"         \
+            -c "no neighbor $VAR(../../@) prefix-list $VAR(@) in"
+        else
+          vyatta-vtysh --noerror             \
+            -c "configure terminal"          \
+            -c "router bgp $VAR(../../../@)" \
+            -c "no neighbor $VAR(../../@) prefix-list $VAR(@) in"
+        fi
