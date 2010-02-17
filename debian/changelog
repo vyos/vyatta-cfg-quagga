@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.59) unstable; urgency=low
+
+  * Fix 5345: committing filter-list for bgp ipv6 neigbor failed
+  * Fix 5347: committing unsuppress-map for bgp ipv6 neigbor failed
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 17 Feb 2010 12:27:13 -0800
+
 vyatta-cfg-quagga (0.18.58) unstable; urgency=low
 
   * Fix 5344: committing prefix-list6 as bgp ipv6 neighbor prefix-list
