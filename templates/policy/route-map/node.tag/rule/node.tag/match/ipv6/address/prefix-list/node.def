@@ -1,6 +1,10 @@
 type: txt
 help: Set an IPv6 prefix-list to match
 
+allowed: local -a params
+        params=( /opt/vyatta/config/active/policy/prefix-list6/* )
+        echo -n ${params[@]##*/}
+
 commit:expression: $VAR(../access-list/) == ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ipv6 address prefix-list: you may only specify a prefix-list or access-list"
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ipv6 address prefix-list: prefix-list6 $VAR(@) does not exist"
