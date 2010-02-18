@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.59+kenwood1) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 17 Feb 2010 16:06:43 -0800
+
 vyatta-cfg-quagga (0.18.59) unstable; urgency=low
 
   * Fix 5345: committing filter-list for bgp ipv6 neigbor failed
