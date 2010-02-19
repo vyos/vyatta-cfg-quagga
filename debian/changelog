@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.62) unstable; urgency=low
+
+  * BGP IPv6 peer route-map fails on boot-up.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 18 Feb 2010 20:51:35 -0800
+
 vyatta-cfg-quagga (0.18.61) unstable; urgency=low
 
   * Fixes to support IPv6 BGP peer.
