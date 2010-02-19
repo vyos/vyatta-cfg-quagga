@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.61) unstable; urgency=low
+
+  * Fixes to support IPv6 BGP peer.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 18 Feb 2010 18:41:02 -0800
+
 vyatta-cfg-quagga (0.18.60) unstable; urgency=low
 
   * UNRELEASED
