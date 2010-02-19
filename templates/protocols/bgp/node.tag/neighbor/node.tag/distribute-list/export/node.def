@@ -1,18 +1,57 @@
-type: u32
+type: txt
 help: Set an access-list to filter outgoing route updates to this neighbor
-comp_help: \1  <1-65535>\taccess-list number
+
+comp_help: possible completions:
+  <1-65535>    access-list number
+  <txt>        access-list6 name
+
+allowed: local -a params
+        params=( /opt/vyatta/config/active/policy/access-list/* 
+                 /opt/vyatta/config/active/policy/access-list6/* )
+        echo -n ${params[@]##*/}
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a distribute-list for a neighbor in a peer-group"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) export: access-list $VAR(@) doesn't exist"
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" || /opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list6 $VAR(@)\" "; \
+"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) export: access-list $VAR(@) doesn't exist"
+
 commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) distribute-list export: you can't set both a prefix-list and a distribute list"
-update:  if [ -n "$VAR(../../remote-as/@)" ]; then 
-           peer="remote-as $VAR(../../remote-as/@)"; 
-         else 
-           peer="peer-group $VAR(../../peer-group/@)"; 
-         fi; 
-	 vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-	   -c "neighbor $VAR(../../@) $peer" \
-           -c "neighbor $VAR(../../@) distribute-list $VAR(@) out"
-delete:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-          -c "no neighbor $VAR(../../@) distribute-list $VAR(@) out"
+
+update: if [ -n "$VAR(../../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../../peer-group/@)"; 
+        fi; 
+
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); 
+        then
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../../@)"   \
+	    -c "neighbor $VAR(../../@) $peer"  \
+            -c "address-family ipv6"           \
+	    -c "neighbor $VAR(../../@) activate"  \
+            -c "neighbor $VAR(../../@) distribute-list $VAR(@) out"
+        else
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../../@)"   \
+	    -c "neighbor $VAR(../../@) $peer"  \
+            -c "neighbor $VAR(../../@) distribute-list $VAR(@) out"
+        fi
+
+delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); 
+        then
+          vyatta-vtysh --noerror             \
+            -c "configure terminal"          \
+            -c "router bgp $VAR(../../../@)" \
+            -c "address-family ipv6"         \
+            -c "no neighbor $VAR(../../@) distribute-list $VAR(@) out"
+        else
+          vyatta-vtysh --noerror             \
+            -c "configure terminal"          \
+            -c "router bgp $VAR(../../../@)" \
+            -c "no neighbor $VAR(../../@) distribute-list $VAR(@) out"
+        fi
+
 

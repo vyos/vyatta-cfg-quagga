@@ -16,7 +16,8 @@ end:  if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
           -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) default-originate "; 
       fi;
-      if [ ${COMMIT_ACTION} = 'SET' ]; then
+
+      if [ ${COMMIT_ACTION} = 'SET' -o ${COMMIT_ACTION} = 'ACTIVE' ]; then
         if [ -n "$VAR(./route-map/@)" ]; then 
           cond="route-map $VAR(./route-map/@) " ; 
         fi ; 

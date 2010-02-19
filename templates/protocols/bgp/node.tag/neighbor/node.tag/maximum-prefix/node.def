@@ -1,15 +1,42 @@
 type: u32
-help: Set the maximum number of prefixes to accept from this neighbor
-comp_help: \1  <1-4294967295>\tprefix limit
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update:  if [ -n "$VAR(../remote-as/@)" ]; then 
-           peer="remote-as $VAR(../remote-as/@)"; 
-         else 
-           peer="peer-group $VAR(../peer-group/@)"; 
-         fi; 
-	 vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-	   -c "neighbor $VAR(../@) $peer" \
-           -c "neighbor $VAR(../@) maximum-prefix $VAR(@)"
-delete:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
-          -c "no neighbor $VAR(../@) maximum-prefix"
 
+help: Set the maximum number of prefixes to accept from this neighbor
+
+comp_help: possible completions:
+  <1-4294967295>    prefix limit
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+
+update: if [ -n "$VAR(../remote-as/@)" ]; then 
+          peer="remote-as $VAR(../remote-as/@)"; 
+        else 
+          peer="peer-group $VAR(../peer-group/@)"; 
+        fi; 
+
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
+        then
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../@)"      \
+	    -c "neighbor $VAR(../@) $peer"     \
+            -c "address-family ipv6"           \
+            -c "neighbor $VAR(../@) maximum-prefix $VAR(@)"
+        else
+          vyatta-vtysh -c "configure terminal" \
+            -c "router bgp $VAR(../../@)"      \
+	    -c "neighbor $VAR(../@) $peer"     \
+            -c "neighbor $VAR(../@) maximum-prefix $VAR(@)"
+        fi
+
+delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
+        then
+          vyatta-vtysh --noerror          \
+            -c "configure terminal"       \
+            -c "router bgp $VAR(../../@)" \
+            -c "address-family ipv6"      \
+            -c "no neighbor $VAR(../@) maximum-prefix"
+        else
+          vyatta-vtysh --noerror          \
+            -c "configure terminal"       \
+            -c "router bgp $VAR(../../@)" \
+            -c "no neighbor $VAR(../@) maximum-prefix"
+        fi

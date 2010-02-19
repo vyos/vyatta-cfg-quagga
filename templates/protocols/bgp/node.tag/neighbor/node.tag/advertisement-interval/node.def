@@ -1,15 +1,25 @@
 type: u32
+
 help: Set the minimum interval for sending routing updates
-comp_help: \1  <0-600>\tadvertisement interval in seconds
+
+comp_help: possible completions:
+  <0-600>    advertisement interval in seconds
+
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 600; "must be between 0 and 600"
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
+
 update:  if [ -n "$VAR(../remote-as/@)" ]; then 
            peer="remote-as $VAR(../remote-as/@)"; 
          else 
            peer="peer-group $VAR(../peer-group/@)"; 
          fi; 
-	 vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-	   -c "neighbor $VAR(../@) $peer" \
+	 vyatta-vtysh -c "configure terminal" \
+           -c "router bgp $VAR(../../@)"      \
+	   -c "neighbor $VAR(../@) $peer"     \
            -c "neighbor $VAR(../@) advertisement-interval $VAR(@)"
-delete:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
-            -c "no neighbor $VAR(../@) advertisement-interval"
+
+delete:  vyatta-vtysh --noerror          \
+           -c "configure terminal"       \
+           -c "router bgp $VAR(../../@)" \
+           -c "no neighbor $VAR(../@) advertisement-interval"

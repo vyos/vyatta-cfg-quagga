@@ -1,17 +1,34 @@
 help: Set to accept a route that contains the local-AS in the as-path 
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-delete: touch /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID
-end:  vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
+
+end: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
+       vyatta-vtysh --noerror          \
+         -c "configure terminal"       \
+         -c "router bgp $VAR(../../@)" \
+         -c "address-family ipv6"      \
          -c "no neighbor $VAR(../@) allowas-in "; 
-      if [ -f "/tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID" ]; then 
-        rm -rf /tmp/bgp-neighbor-$VAR(../@)-allowas-in.$PPID; 
-      else 
+     else
+       vyatta-vtysh --noerror          \
+         -c "configure terminal"       \
+         -c "router bgp $VAR(../../@)" \
+         -c "no neighbor $VAR(../@) allowas-in "; 
+     fi;
+
+     if [ ${COMMIT_ACTION} = 'SET' -o ${COMMIT_ACTION} = 'ACTIVE' ]; then
         if [ -n "$VAR(../remote-as/@)" ]; then 
            peer="remote-as $VAR(../remote-as/@)"; 
         else 
            peer="peer-group $VAR(../peer-group/@)"; 
         fi; 
-        vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-	  -c "neighbor $VAR(../@) $peer" \
-          -c "neighbor $VAR(../@) allowas-in $VAR(./number/@)"; 
-      fi; 
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
+          vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	    -c "neighbor $VAR(../@) $peer" \
+            -c "address-family ipv6"       \
+            -c "neighbor $VAR(../@) allowas-in $VAR(./number/@)"; 
+        else
+          vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+	    -c "neighbor $VAR(../@) $peer" \
+            -c "neighbor $VAR(../@) allowas-in $VAR(./number/@)"; 
+        fi
+     fi;
