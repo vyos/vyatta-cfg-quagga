@@ -9,12 +9,7 @@ comp_help: \1  <AA:NN>\tcommunity in 4 octet AS:value format
 
 allowed:echo "none local-AS no-advertise no-export internet"
 
-syntax:expression: pattern $VAR(@) \
-     "^(additive )?([0-9]+:[0-9]+|none|local-AS|no-advertise|no-export|internet)$" \
-    ; "\"$VAR(@)\" unknown community string or attribute"
-
-syntax:expression: "$VAR(@)" != "additive none" \
-    ; "\"additive none\" is meaningless"
+syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-community $VAR(@)"
 
 commit:expression: $VAR(../../action/) != "" \
     ; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
