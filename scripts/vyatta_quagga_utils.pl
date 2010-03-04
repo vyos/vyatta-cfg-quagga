@@ -6,15 +6,27 @@ use Vyatta::Misc;
 use NetAddr::IP;
 use Getopt::Long;
 
-my ( $prefix, $exists, $not_exists, $area );
+my ( $prefix, $exists, $not_exists, $area, $community );
+
+# Allowed well-know community values (see set commuinity)
+my %communities = (
+    'additive'   => 1,
+    'internet'   => 1,
+    'local-AS'   => 1,
+    'no-advertise' => 1,
+    'no-export'  => 1,
+    'none'       => 1,
+);
 
 GetOptions(
     "check-prefix-boundry=s" => \$prefix,
     "not-exists=s"           => \$not_exists,
     "exists=s"               => \$exists,
     "check-ospf-area=s"      => \$area,
+    "check-community"        => \$community,
 );
 
+check_community(@ARGV)	      if ($community);
 check_prefix_boundry($prefix) if ($prefix);
 check_not_exists($not_exists) if ($not_exists);
 check_exists($exists)         if ($exists);
@@ -74,3 +86,11 @@ sub check_ospf_area {
     die "Invalid OSPF area: $area\n";
 }
 
+sub check_community {
+    foreach my $arg (@_) {
+	next if ($arg =~ /\d+:\d+/);
+	next if $communities{$arg};
+
+	die "$arg unknown community value\n"
+    }
+}
