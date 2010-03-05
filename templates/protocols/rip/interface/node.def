@@ -6,6 +6,6 @@ commit:expression: exec " \
           echo interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
-create:vyatta-vtysh -c "configure terminal" -c "router rip" -c "network $VAR(@)"
-delete:vyatta-vtysh -c "configure terminal" -c "router rip" -c "no network $VAR(@)"
+create:vtysh -c "configure terminal" -c "router rip" -c "network $VAR(@)"
+delete:vtysh -c "configure terminal" -c "router rip" -c "no network $VAR(@)"
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all

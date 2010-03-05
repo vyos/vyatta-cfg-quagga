@@ -13,7 +13,7 @@ delete:  touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID ;
          if [ -n "$VAR(./le/@)" ]; then 
            cond="$cond le $VAR(./le/@) "; 
          fi; 
-         vyatta-vtysh -c "configure terminal"  \
+         vtysh -c "configure terminal"  \
            -c "no ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " 
 end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; 
       if [ -n "$VAR(./ge/@)" ]; then 
@@ -33,7 +33,7 @@ end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ;
       if [ -f "/tmp/protocols-$VAR(../@)-$VAR(@).$PPID" ]; then 
         rm -f "protocols-$VAR(../@)-$VAR(@).$PPID" ; 
       else 
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
           -c "ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
       fi ; 
       exit 0 ; 

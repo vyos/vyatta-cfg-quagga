@@ -1,7 +1,7 @@
 help: Set to not advertise this range
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf6\" \
        -c \"area $VAR(../../@) range $VAR(../@) not-advertise\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf6\" \
        -c \"no area $VAR(../../@) range $VAR(../@) not-advertise\"; "

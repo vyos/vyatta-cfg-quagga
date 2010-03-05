@@ -1,7 +1,7 @@
 help: Set to log changes in adjacency state
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"log-adjacency-changes\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no log-adjacency-changes\"; "

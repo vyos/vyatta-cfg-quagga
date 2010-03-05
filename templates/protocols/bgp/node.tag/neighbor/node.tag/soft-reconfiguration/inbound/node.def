@@ -9,13 +9,13 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
         fi; 
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
         then
-          vyatta-vtysh -c "configure terminal"           \
+          vtysh -c "configure terminal"           \
                        -c "router bgp $VAR(../../../@)"  \
 	               -c "neighbor $VAR(../../@) $peer" \
                        -c "address-family ipv6"          \
                        -c "neighbor $VAR(../../@) soft-reconfiguration inbound";
         else
-          vyatta-vtysh -c "configure terminal"           \
+          vtysh -c "configure terminal"           \
                        -c "router bgp $VAR(../../../@)"  \
 	               -c "neighbor $VAR(../../@) $peer" \
                        -c "neighbor $VAR(../../@) soft-reconfiguration inbound";
@@ -23,12 +23,12 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
 
 delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
         then
-          vyatta-vtysh -n -c "configure terminal"     \
+          vtysh -n -c "configure terminal"     \
                     -c "router bgp $VAR(../../../@)" \
                     -c "address-family ipv6"         \
                     -c "no neighbor $VAR(../../@) soft-reconfiguration inbound";
         else
-          vyatta-vtysh -n -c "configure terminal"     \
+          vtysh -n -c "configure terminal"     \
                     -c "router bgp $VAR(../../../@)" \
                     -c "no neighbor $VAR(../../@) soft-reconfiguration inbound";
         fi;

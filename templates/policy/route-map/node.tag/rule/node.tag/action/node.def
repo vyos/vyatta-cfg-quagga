@@ -5,7 +5,7 @@ comp_help: \1  permit\tpermit matching prefixes
 syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
 update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@) action";
         if [ $? -eq 0 ]; then
-          vyatta-vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
+          vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
         else
           echo    "policy route-map $VAR(../../@) rule $VAR(../@): You can not change the action.";
           echo    "  To change the action you must first delete the rule ";

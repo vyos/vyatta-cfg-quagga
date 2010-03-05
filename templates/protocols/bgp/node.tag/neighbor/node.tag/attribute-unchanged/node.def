@@ -5,14 +5,14 @@ commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set attribute-unchanged for a neighbor in a peer-group"
 
 end: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then  
-       vyatta-vtysh --noerror          \
+       vtysh --noerror          \
          -c "configure terminal"       \
          -c "router bgp $VAR(../../@)" \
          -c "address-family ipv6"      \
 	 -c "neighbor $VAR(../@) activate" \
          -c "no neighbor $VAR(../@) attribute-unchanged "; 
      else 
-       vyatta-vtysh --noerror          \
+       vtysh --noerror          \
          -c "configure terminal"       \
          -c "router bgp $VAR(../../@)" \
          -c "no neighbor $VAR(../@) attribute-unchanged "; 
@@ -38,13 +38,13 @@ end: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
        fi; 
 
        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); then
-         vyatta-vtysh -c "configure terminal" \
+         vtysh -c "configure terminal" \
            -c "router bgp $VAR(../../@)"      \
 	   -c "neighbor $VAR(../@) $peer"     \
            -c "address-family ipv6"           \
            -c "neighbor $VAR(../@) attribute-unchanged $cond"; 
        else
-         vyatta-vtysh -c "configure terminal" \
+         vtysh -c "configure terminal" \
            -c "router bgp $VAR(../../@)"      \
 	   -c "neighbor $VAR(../@) $peer"     \
            -c "neighbor $VAR(../@) attribute-unchanged $cond"; 

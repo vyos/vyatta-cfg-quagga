@@ -2,9 +2,9 @@ multi:
 type: txt
 help: Set route type to redistribute
 allowed: echo "static kernel connected ripng bgp"
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf6 \" \
         -c \"redistribute $VAR(@) \"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf6 \" \
         -c \"no redistribute $VAR(@) \"; "

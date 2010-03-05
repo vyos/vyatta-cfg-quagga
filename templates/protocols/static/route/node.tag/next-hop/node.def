@@ -9,7 +9,7 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then 
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
                      -c "no ip route $VAR(../@) $VAR(@)"
       fi
     else
@@ -17,14 +17,14 @@ end:
       then
 	 	    DIST="$VAR(./distance/@)"
       fi
-	    vyatta-vtysh -c "configure terminal" \
+	    vtysh -c "configure terminal" \
                    -c "ip route $VAR(../@) $VAR(@) $DIST";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
         "$VAR(../@)" "$VAR(@)"
     then
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "no ip route $VAR(../@) $VAR(@)"
     fi
   fi

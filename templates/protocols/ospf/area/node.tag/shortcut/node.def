@@ -1,10 +1,10 @@
 type: txt
 help: Set area's shortcut mode
 syntax:expression: $VAR(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
-update:expression: "vyatta-vtysh -c \"configure terminal\" \
+update:expression: "vtysh -c \"configure terminal\" \
           -c \"router ospf\" \
           -c \"area $VAR(../@) shortcut $VAR(@)\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
           -c \"router ospf\" \
           -c \"no area $VAR(../@) shortcut $VAR(@)\"; "
 comp_help: possible completions:

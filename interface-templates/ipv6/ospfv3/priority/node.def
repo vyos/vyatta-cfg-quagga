@@ -2,7 +2,7 @@ type: u32
 help: Set router priority
 default: 1
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Must be between 0-255"
-update: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ospf6 priority $VAR(@)"
-delete: vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ospf6 priority 1"
+update: vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ospf6 priority $VAR(@)"
+delete: vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ospf6 priority 1"
 comp_help: possible completions:
   <0-255>           Priority (default 1)

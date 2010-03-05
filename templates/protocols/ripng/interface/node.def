@@ -8,8 +8,8 @@ commit:expression: exec " \
           exit 1 ; \
         fi ; "
 
-create: vyatta-vtysh -c "configure terminal" -c "router ripng" \
+create: vtysh -c "configure terminal" -c "router ripng" \
 	  -c "network $VAR(@)"
 
-delete: vyatta-vtysh -c "configure terminal" -c "router ripng" \
+delete: vtysh -c "configure terminal" -c "router ripng" \
           -c "no network $VAR(@)"

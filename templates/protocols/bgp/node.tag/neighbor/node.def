@@ -12,13 +12,13 @@ syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
 
 create: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
                                           --peergroup $VAR(@); then
-	   vyatta-vtysh -c "configure terminal"    \
+	   vtysh -c "configure terminal"    \
                         -c "router bgp $VAR(../@)" \
                         -c "neighbor $VAR(@) peer-group"; 
         fi;
 
 delete:  /opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups \
  		--peergroup $VAR(@) --as $VAR(../@) || exit 1
-         vyatta-vtysh -c "configure terminal"    \
+         vtysh -c "configure terminal"    \
                       -c "router bgp $VAR(../@)" \
                       -c "no neighbor $VAR(@)"

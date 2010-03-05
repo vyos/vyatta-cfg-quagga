@@ -1,4 +1,4 @@
 priority: 620
 help: Configure Open Shortest Path First protocol (OSPF) parameters
-create: vyatta-vtysh -c "configure terminal" -c "router ospf"
-delete: vyatta-vtysh -c "configure terminal" -c "no router ospf"
+create: vtysh -c "configure terminal" -c "router ospf"
+delete: vtysh -c "configure terminal" -c "no router ospf"

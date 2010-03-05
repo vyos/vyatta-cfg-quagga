@@ -9,16 +9,16 @@ comp_help: possible completions:
 
 # If this node is created 
 create:
-	vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+	vtysh -c "configure terminal" -c "interface $IFNAME" \
              -c "ip ospf message-digest-key $VAR(../@) md5 $VAR(@)"
 
 # If the value of this node is changed
 update:
-	vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+	vtysh -c "configure terminal" -c "interface $IFNAME" \
              -c "no ip ospf message-digest-key $VAR(../@)" \
              -c "ip ospf message-digest-key $VAR(../@) md5 $VAR(@)"
 
 # If this node is deleted
 delete:
-        vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+        vtysh -c "configure terminal" -c "interface $IFNAME" \
              -c "no ip ospf message-digest-key $VAR(../@)"

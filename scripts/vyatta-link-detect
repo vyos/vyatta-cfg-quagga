@@ -24,10 +24,10 @@ set-sysctl () {
 
 case $2 in
 on)	set-sysctl $1 2
-	exec vyatta-vtysh -c "configure terminal" -c "interface $1" \
+	exec vtysh -c "configure terminal" -c "interface $1" \
 	    -c "link-detect" ;;
 off)    set-sysctl $1 1
-	exec vyatta-vtysh -c "configure terminal" -c "interface $1" \
+	exec vtysh -c "configure terminal" -c "interface $1" \
 	    -c "no link-detect" ;;
 *)	usage;;
 esac

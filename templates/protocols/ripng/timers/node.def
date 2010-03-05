@@ -2,13 +2,13 @@ help: Set RIPng timer values
 
 delete: touch /tmp/ripng-timers.$PPID
 
-end: vyatta-vtysh -c "configure terminal" \
+end: vtysh -c "configure terminal" \
        -c "router ripng"                                       \
        -c "no timers basic";                                   \
      if [ -f "/tmp/ripng-timers.$PPID" ]; then
         rm -rf /tmp/ripng-timers.$PPID;
      else
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "timers basic $VAR(./update/@)                       \
                            $VAR(./timeout/@)                      \

@@ -1,8 +1,8 @@
 help: Enable poison reverse for split-horizon
-create:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+create:vtysh -c "configure terminal" -c "interface $IFNAME" \
        -c "ip rip split-horizon poisoned-reverse"
 
-delete:vyatta-vtysh -c "configure terminal" -c "interface $IFNAME" \
+delete:vtysh -c "configure terminal" -c "interface $IFNAME" \
        -c "no ip rip split-horizon" -c "ip rip split-horizon "
 
 commit:expression: ($VAR(../disable/) == ""); \

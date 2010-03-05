@@ -24,28 +24,28 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
           peer="peer-group $VAR(../../peer-group/@)"; 
         fi; 
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); then
-  	  vyatta-vtysh -c "configure terminal" \
+  	  vtysh -c "configure terminal" \
             -c "router bgp $VAR(../../../@)"   \
             -c "address-family ipv6"           \
 	    -c "neighbor $VAR(../../@) $peer"  \
             -c "address-family ipv6"           \
             -c "neighbor $VAR(../../@) prefix-list $VAR(@) out"
         else
-  	  vyatta-vtysh -c "configure terminal" \
+  	  vtysh -c "configure terminal" \
             -c "router bgp $VAR(../../../@)"   \
 	    -c "neighbor $VAR(../../@) $peer"  \
             -c "neighbor $VAR(../../@) prefix-list $VAR(@) out"
         fi;
 
 delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); then
-          vyatta-vtysh --noerror             \
+          vtysh --noerror             \
             -c "configure terminal"          \
             -c "address-family ipv6"         \
             -c "router bgp $VAR(../../../@)" \
             -c "address-family ipv6"         \
             -c "no neighbor $VAR(../../@) prefix-list $VAR(@) out"
         else
-          vyatta-vtysh --noerror             \
+          vtysh --noerror             \
             -c "configure terminal"          \
             -c "router bgp $VAR(../../../@)" \
             -c "no neighbor $VAR(../../@) prefix-list $VAR(@) out"

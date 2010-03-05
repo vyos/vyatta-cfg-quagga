@@ -6,10 +6,10 @@ comp_help:
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
-create: vyatta-vtysh -c "configure terminal"       \
+create: vtysh -c "configure terminal"       \
                      -c "router bgp $VAR(../../@)" \
                      -c "ipv6 bgp network $VAR(@)";
 
-delete: vyatta-vtysh -c "configure terminal"       \
+delete: vtysh -c "configure terminal"       \
                      -c "router bgp $VAR(../../@)" \
                      -c "no ipv6 bgp network $VAR(@)";

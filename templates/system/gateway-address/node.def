@@ -1,13 +1,13 @@
 priority: 400
 type: ipv4
 help: Set default gateway
-create: vyatta-vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
+create: vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
 update: oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl \\$VAR\(/system/gateway-address/@\)`
 	if [ -n "$oldgw" ]; then
-            vyatta-vtysh --noerror -c "configure terminal" \
+            vtysh --noerror -c "configure terminal" \
                       -c "no ip route 0.0.0.0/0 $oldgw"
         fi
-        vyatta-vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
+        vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
 delete: if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl "$VAR(@)"
-	then vyatta-vtysh -c "configure terminal" -c "no ip route 0.0.0.0/0 $VAR(@)"
+	then vtysh -c "configure terminal" -c "no ip route 0.0.0.0/0 $VAR(@)"
 	fi

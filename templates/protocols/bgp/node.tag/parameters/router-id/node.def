@@ -1,7 +1,7 @@
 type: ipv4
 help: Set BGP router id
 comp_help: \1  <x.x.x.x>\tBGP router-id IP
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "bgp router-id $VAR(@)"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
            -c "no bgp router-id"

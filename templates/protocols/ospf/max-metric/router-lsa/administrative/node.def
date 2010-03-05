@@ -1,7 +1,7 @@
 help: Set to administratively apply, for an indefinite period
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"max-metric router-lsa administrative\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no max-metric router-lsa administrative \"; "

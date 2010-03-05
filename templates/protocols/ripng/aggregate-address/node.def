@@ -4,10 +4,10 @@ help: Set aggregate RIPng route announcement
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
-create: vyatta-vtysh -c "configure terminal" \
+create: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "aggregate-address $VAR(@)"
 
-delete: vyatta-vtysh -c "configure terminal" \
+delete: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no aggregate-address $VAR(@)"

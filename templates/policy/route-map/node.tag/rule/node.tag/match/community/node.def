@@ -3,7 +3,7 @@ delete: echo route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@) >>  /
 end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID ]; then
         routemap=`cat /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID`
         rm -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID;
-        vyatta-vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match community " ;
+        vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match community " ;
         exit 0;
       else
         if [ -z "$VAR(./community-list/@)" ]; then
@@ -25,6 +25,6 @@ end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-
           cond="exact-match ";
         fi ;
 
-        vyatta-vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match community " ;
-        vyatta-vtysh -c "configure terminal" -c "$routemap " -c "match community $VAR(./community-list/@) $cond" ;
+        vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match community " ;
+        vtysh -c "configure terminal" -c "$routemap " -c "match community $VAR(./community-list/@) $cond" ;
       fi

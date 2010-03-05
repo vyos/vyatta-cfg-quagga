@@ -22,13 +22,13 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
 
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); 
         then
-          vyatta-vtysh -c "configure terminal" \
+          vtysh -c "configure terminal" \
             -c "router bgp $VAR(../../../@)"   \
 	    -c "neighbor $VAR(../../@) $peer"  \
             -c "address-family ipv6"           \
             -c "neighbor $VAR(../../@) distribute-list $VAR(@) in"
         else
-          vyatta-vtysh -c "configure terminal" \
+          vtysh -c "configure terminal" \
             -c "router bgp $VAR(../../../@)"   \
 	    -c "neighbor $VAR(../../@) $peer"  \
             -c "neighbor $VAR(../../@) distribute-list $VAR(@) in"
@@ -36,13 +36,13 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
 
 delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); 
         then
-          vyatta-vtysh --noerror             \
+          vtysh --noerror             \
             -c "configure terminal"          \
             -c "router bgp $VAR(../../../@)" \
             -c "address-family ipv6"         \
             -c "no neighbor $VAR(../../@) distribute-list $VAR(@) in"
         else
-          vyatta-vtysh --noerror             \
+          vtysh --noerror             \
             -c "configure terminal"          \
             -c "router bgp $VAR(../../../@)" \
             -c "no neighbor $VAR(../../@) distribute-list $VAR(@) in"

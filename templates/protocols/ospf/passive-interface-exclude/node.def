@@ -13,11 +13,11 @@ create: if [ -z $VAR(@) ] ; then
           echo "Error: must include interface";
           exit 1;
      	else  
-          vyatta-vtysh -c "configure terminal" -c "router ospf" \
+          vtysh -c "configure terminal" -c "router ospf" \
              -c "no passive-interface $VAR(@)"
 	fi;
 
-delete: vyatta-vtysh -c "configure terminal" -c "router ospf" \
+delete: vtysh -c "configure terminal" -c "router ospf" \
           -c "passive-interface $VAR(@)";
 
 comp_help: possible completions:

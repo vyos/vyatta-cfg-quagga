@@ -2,7 +2,7 @@ multi:
 type: ipv4net
 help: Set RIP network
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
-create:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
+create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"network $VAR(@)\"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" -c \"router rip\" \
+delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"no network $VAR(@)\"; "

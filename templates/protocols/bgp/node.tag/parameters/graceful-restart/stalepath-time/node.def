@@ -2,7 +2,7 @@ type: u32
 help: Set the maximum time to hold onto restarting peer's stale paths
 comp_help: \1  <1-3600>\thold time in seconds
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 3600; "stalepath-time must be between 1 and 3600"
-update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "bgp graceful-restart stalepath-time $VAR(@)"
-delete: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
+delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
            -c "no bgp graceful-restart stalepath-time"

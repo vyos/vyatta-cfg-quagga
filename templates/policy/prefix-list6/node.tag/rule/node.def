@@ -15,7 +15,7 @@ delete:  len=`echo $VAR(@) | awk -F/ '{ print $2 }'` ;
          if [ -n "$VAR(./le/@)" ]; then 
            cond="$cond le $VAR(./le/@) "; 
          fi; 
-         vyatta-vtysh -c "configure terminal"  \
+         vtysh -c "configure terminal"  \
            -c "no ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " 
 
 end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; 
@@ -35,7 +35,7 @@ end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ;
       fi; 
 
       if [ ${COMMIT_ACTION} = 'SET' ]; then
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
           -c "ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
       fi;
       exit 0 ; 

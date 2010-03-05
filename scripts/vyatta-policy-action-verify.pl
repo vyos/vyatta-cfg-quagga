@@ -52,5 +52,5 @@ foreach my $qualifiers (@qualifiers) {
 
 if ( -e "/tmp/delete-policy-route-map-$route_map-rule-$rule" ) {
     system
-"/usr/bin/vyatta-vtysh -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
+"/usr/bin/vtysh -c \"configure terminal\" -c \"no route-map $route_map $action $rule\"";
 }

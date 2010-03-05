@@ -2,9 +2,9 @@ tag:
 type: txt
 help: Set direction of filter (in|out)
 allowed: echo "in out"
-create:expression: "vyatta-vtysh -c \"configure terminal\" \
+create:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf6 \" \
         -c \"area $VAR(../../@) filter-list $VAR(../@) $VAR(@) \"; "
-delete:expression: "vyatta-vtysh -c \"configure terminal\" \
+delete:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf6 \" \
         -c \"no area $VAR(../../@) filter-list $VAR(../@) $VAR(@) \"; "

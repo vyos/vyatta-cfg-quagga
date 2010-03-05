@@ -3,13 +3,11 @@ help: Set plain text password
 syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$" ; "Password must be 16 characters or less"
 commit:expression: $VAR(../md5/) == "" ; "md5 password already set"
 
-update: vyatta-vtysh \
-	-c "configure terminal" -c "interface $IFNAME" \
+update: vtysh -c "configure terminal" -c "interface $IFNAME" \
 	-c "ip rip authentication mode text" \
 	-c "ip rip authentication string $VAR(@)"
 
-delete: vyatta-vtysh \
-	-c "configure terminal" -c "interface $IFNAME" \
+delete: vtysh -c "configure terminal" -c "interface $IFNAME" \
 	-c "no ip rip authentication mode" \
 	-c "no ip rip authentication string $VAR(@)"
 

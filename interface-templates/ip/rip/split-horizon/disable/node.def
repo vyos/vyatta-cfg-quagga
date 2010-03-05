@@ -1,9 +1,7 @@
 help: Disable split horizon on specified interface
-create:vyatta-vtysh \
-    -c "configure terminal" -c "interface $IFNAME" \
+create: vtysh -c "configure terminal" -c "interface $IFNAME" \
     -c "no ip rip split-horizon"
-delete:vyatta-vtysh \
-    -c "configure terminal" -c "interface $IFNAME" \
+delete: vtysh -c "configure terminal" -c "interface $IFNAME" \
     -c "ip rip split-horizon"
 
 commit:expression: ($VAR(../poison-reverse/) == ""); \

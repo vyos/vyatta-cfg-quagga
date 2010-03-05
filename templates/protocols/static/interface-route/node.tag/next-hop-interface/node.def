@@ -11,17 +11,17 @@ end:
   then
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "no ip route $VAR(../@) $VAR(@)"
     else
       if [[ -n "$VAR(./distance/@)" ]]
       then
         DIST="$VAR(./distance/@)"
       fi
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "ip route $VAR(../@) $VAR(@) $DIST";
     fi
   else
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "no ip route $VAR(../@) $VAR(@)"
   fi

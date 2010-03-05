@@ -18,14 +18,14 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
         fi; 
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
         then
-           vyatta-vtysh -c "configure terminal"              \
+           vtysh -c "configure terminal"              \
                         -c "router bgp $VAR(../../../@)"     \
 	                -c "neighbor $VAR(../../@) $peer"    \
                         -c "address-family ipv6"             \
 	                -c "neighbor $VAR(../../@) activate" \
                         -c "neighbor $VAR(../../@) route-map $VAR(@) out"
         else
-           vyatta-vtysh -c "configure terminal"           \
+           vtysh -c "configure terminal"           \
                         -c "router bgp $VAR(../../../@)"  \
 	                -c "neighbor $VAR(../../@) $peer" \
                         -c "neighbor $VAR(../../@) route-map $VAR(@) out"
@@ -33,12 +33,12 @@ update: if [ -n "$VAR(../../remote-as/@)" ]; then
 
 delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
         then
-           vyatta-vtysh -c "configure terminal"           \
+           vtysh -c "configure terminal"           \
                         -c "router bgp $VAR(../../../@)"  \
                         -c "address-family ipv6"          \
                         -c "no neighbor $VAR(../../@) route-map $VAR(@) out"
         else
-           vyatta-vtysh -c "configure terminal"           \
+           vtysh -c "configure terminal"           \
                         -c "router bgp $VAR(../../../@)"  \
                         -c "no neighbor $VAR(../../@) route-map $VAR(@) out"
         fi

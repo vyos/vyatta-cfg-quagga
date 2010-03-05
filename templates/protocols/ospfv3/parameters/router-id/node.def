@@ -1,5 +1,5 @@
 type: ipv4
 help: Set router identifier
-update:expression: "vyatta-vtysh -c \"configure terminal\" \
+update:expression: "vtysh -c \"configure terminal\" \
            -c \"router ospf6\" \
            -c \"router-id $VAR(@)\" "

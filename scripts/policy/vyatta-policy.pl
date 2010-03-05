@@ -5,7 +5,7 @@ use Vyatta::Config;
 use Vyatta::Misc;
 use Getopt::Long;
 
-my $VTYSH = '/usr/bin/vyatta-vtysh';
+my $VTYSH = '/usr/bin/vtysh';
 
 my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $peer );
 my ( $routemap, $deleteroutemap );

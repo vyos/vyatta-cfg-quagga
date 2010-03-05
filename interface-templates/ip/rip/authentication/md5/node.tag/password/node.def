@@ -2,14 +2,14 @@ type: txt
 help: Set authentication password
 syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$" ; "MD5 key must be 16 characters or less"
 
-update:vyatta-vtysh                                     \
+update:vtysh                                     \
        -c "configure terminal" -c "interface $IFNAME"   \
        -c "ip rip authentication mode md5"              \
        -c "ip rip authentication key-chain $IFNAME-rip" \
        -c "key chain $IFNAME-rip" -c "key $VAR(../@)"   \
        -c "key-string $VAR(@)"
 
-delete:vyatta-vtysh --noerror                              \
+delete:vtysh --noerror                              \
        -c "configure terminal" -c "interface $IFNAME"      \
        -c "no ip rip authentication mode md5"              \
        -c "no ip rip authentication key-chain $IFNAME-rip" \

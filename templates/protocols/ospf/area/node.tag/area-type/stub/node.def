@@ -7,11 +7,11 @@ syntax:expression: $VAR(../nssa/) == "" ; "Must delete nssa area type first"
 syntax:expression: $VAR(../normal/) == "" ; "Must delete normal area type first"
 
 create:
-	vyatta-vtysh -c "configure terminal" \
+	vtysh -c "configure terminal" \
 	    -c "router ospf" \
 	    -c "area $VAR(../../@) stub"
 
 delete:
-	vyatta-vtysh -c "configure terminal" \
+	vtysh -c "configure terminal" \
 	    -c "router ospf" \
 	    -c "no area $VAR(../../@) stub"

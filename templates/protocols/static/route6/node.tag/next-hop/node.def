@@ -9,7 +9,7 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then
-        vyatta-vtysh -c "configure terminal" \
+        vtysh -c "configure terminal" \
                      -c "no ipv6 route $VAR(../@) $VAR(@)"
       fi
     else
@@ -23,14 +23,14 @@ end:
         INTERFACE="$VAR(./interface/@)"
       fi
 
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "ipv6 route $VAR(../@) $VAR(@) $INTERFACE $DIST";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
         "$VAR(../@)" "$VAR(@)"
     then
-      vyatta-vtysh -c "configure terminal" \
+      vtysh -c "configure terminal" \
                    -c "no ipv6 route $VAR(../@) $VAR(@)"
     fi
   fi

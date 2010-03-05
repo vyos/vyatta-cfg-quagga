@@ -3,15 +3,15 @@ type: txt
 help: Set to suppress routing updates on an interface
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all && echo default
 create: if [ -z $VAR(@) ]
-        then  vyatta-vtysh -c "configure terminal" -c "router ospf" \
+        then  vtysh -c "configure terminal" -c "router ospf" \
           -c "passive-interface default";
-     	else  vyatta-vtysh -c "configure terminal" -c "router ospf" \
+     	else  vtysh -c "configure terminal" -c "router ospf" \
           -c "passive-interface $VAR(@)"
 	fi
 delete: if [ -z $VAR(@) ]
-	then vyatta-vtysh -c "configure terminal" -c "router ospf" \
+	then vtysh -c "configure terminal" -c "router ospf" \
           -c "no passive-interface default"
-	else vyatta-vtysh -c "configure terminal" -c "router ospf" \
+	else vtysh -c "configure terminal" -c "router ospf" \
           -c "no passive-interface $VAR(@)"
  	fi
 comp_help: possible completions:

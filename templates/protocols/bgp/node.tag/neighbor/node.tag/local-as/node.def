@@ -8,7 +8,7 @@ commit:expression: $VAR(./local-as/@) != $VAR(../../@); "protocols bgp $VAR(../.
 
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set local-as for a neighbor in a peer-group"
 
-end: vyatta-vtysh --noerror          \
+end: vtysh --noerror          \
        -c "configure terminal"       \
        -c "router bgp $VAR(../../@)" \
        -c "no neighbor $VAR(../@) local-as "; 
@@ -33,7 +33,7 @@ end: vyatta-vtysh --noerror          \
          peer="peer-group $VAR(../peer-group/@)"; 
        fi; 
 
-       vyatta-vtysh -c "configure terminal" \
+       vtysh -c "configure terminal" \
          -c "router bgp $VAR(../../@)"      \
          -c "neighbor $VAR(../@) $peer"     \
          -c "neighbor $VAR(../@) local-as $VAR(./local-as/@) $cond "; 
