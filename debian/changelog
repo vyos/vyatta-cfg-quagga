@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.63) unstable; urgency=low
+
+  * Allow multiple values in 'set community'
+  * Get rid of vyatta-vtysh
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 08 Mar 2010 16:33:45 -0800
+
 vyatta-cfg-quagga (0.18.62) unstable; urgency=low
 
   * BGP IPv6 peer route-map fails on boot-up.
