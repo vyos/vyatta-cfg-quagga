@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.64) unstable; urgency=low
+
+  * Force dependency on more recent quagga
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 08 Mar 2010 16:48:59 -0800
+
 vyatta-cfg-quagga (0.18.63) unstable; urgency=low
 
   * Allow multiple values in 'set community'
