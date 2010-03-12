@@ -14,7 +14,7 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
 
         if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
         then
-          vtysh -c "configure terminal" \
+          vtysh -c "configure terminal"        \
             -c "router bgp $VAR(../../@)"      \
 	    -c "neighbor $VAR(../@) $peer"     \
             -c "address-family ipv6"           \
@@ -28,14 +28,14 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
 
 delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
         then
-          vtysh --noerror          \
-            -c "configure terminal"       \ 
+          vtysh --noerror                 \
+            -c "configure terminal"       \
             -c "router bgp $VAR(../../@)" \
             -c "address-family ipv6"      \
             -c "no neighbor $VAR(../@) route-reflector-client"
         else
-          vtysh --noerror          \
-            -c "configure terminal"       \ 
+          vtysh --noerror                 \
+            -c "configure terminal"       \
             -c "router bgp $VAR(../../@)" \
             -c "no neighbor $VAR(../@) route-reflector-client"
         fi
