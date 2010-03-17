@@ -1,0 +1,31 @@
+type: txt
+
+help: Set an access-list to filter outgoing route updates to this neighbor
+
+comp_help: possible completions:
+ <txt>		access-list name
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../@) --neighbor $VAR(../../../@)"
+
+commit:expression: $VAR(../../../peer-group/) == ""; "protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@) address-family $VAR(../../@): you can't set a distribute-list for a neighbor in a peer-group"
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list6 $VAR(@)\" ";"protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@) address-family $VAR(../../@) import: access-list6 $VAR(@) doesn't exist"
+
+commit:expression: $VAR(../../prefix-list/import/) == ""; "protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@) ) address-family $VAR(../../@) distribute-list import: you can't set both a prefix-list and a distribute list"
+
+update:
+	af=$VAR(../../@)
+	af=${af%-*}
+	vyatta-vtysh -c "configure terminal" \
+	    -c "router bgp $VAR(../../../../@)" \
+            -c "address-family $af" \
+	    -c "neighbor $VAR(../../../@) activate" \
+	    -c "neighbor $VAR(../../../@) distribute-list $VAR(@) in"
+
+delete:  
+	af=$VAR(../../@)
+	af=${af%-*}
+	vyatta-vtysh --noerror -c "configure terminal" \
+	    -c "router bgp $VAR(../../../../@)" \
+	    -c "address-family $af" \
+	    -c "no neighbor $VAR(../../../@) distribute-list $VAR(@) in"

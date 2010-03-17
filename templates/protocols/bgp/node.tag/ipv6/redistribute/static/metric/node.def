@@ -1,3 +1,0 @@
-type: u32
-help: Set the metric for redistributed routes
-comp_help: \1  <0-4294967295>\tmetric

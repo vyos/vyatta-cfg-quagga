@@ -1,0 +1,16 @@
+tag:
+
+type: txt
+
+help: Neighbor specific parameters for IPv4 or IPv6
+
+comp_help: Possible completions:
+ ipv6-unicast   Neighbor specific parameters for IPv6 unicast routes
+
+allowed: echo -n "ipv6-unicast"
+
+sytax:expression: $VAR(@) in "ipv6-unicast"; "Must be ipv6-unicast"
+
+
+
+
