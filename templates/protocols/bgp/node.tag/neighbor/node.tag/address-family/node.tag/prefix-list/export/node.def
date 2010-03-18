@@ -3,12 +3,11 @@ type: txt
 help: Set a prefix-list to filter outgoing route updates to this neighbor
 
 allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/prefix-list/* 
-                 /opt/vyatta/config/active/policy/prefix-list6/*)
+        params=(/opt/vyatta/config/active/policy/prefix-list6/*)
         echo -n ${params[@]##*/}
 
 comp_help: possible completions:
-  <txt>     prefix-list name
+  <txt>     prefix-list6 name
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../@) --neighbor $VAR(../../../@)"
 

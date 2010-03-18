@@ -3,7 +3,7 @@ type: txt
 help: Set an access-list to filter outgoing route updates to this neighbor
 
 comp_help: possible completions:
- <txt>		access-list name
+ <txt>		access-list6 name
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../@) --neighbor $VAR(../../../@)"
 

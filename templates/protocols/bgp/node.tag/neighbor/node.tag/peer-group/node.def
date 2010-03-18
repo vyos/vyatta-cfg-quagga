@@ -1,12 +1,19 @@
 type: txt
+
 help: Set to add this neighbor to a peer-group
+
 comp_help: \1  <txt>\tpeer-group name
+
 syntax:expression: exec "if [ -n \"`echo $VAR(../@) | sed 's/[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}.[0-9]\\{1,3\\}//'`\" ]; then \
                 exit 1; \
               fi; "; "peer-group token may not be specified for a peer-group"
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --peergroup=$VAR(@) --as $VAR(../../@) --neighbor $VAR(../@)"
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"protocols bgp $VAR(../../@) neighbor $VAR(@)\" "; "protocols bgp $VAR(../../@) neighbor $VAR(../@) peer-group: peer-group $VAR(@) doesn't exist"
+
 update: vyatta-vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "neighbor $VAR(../@) peer-group $VAR(@)"
+
 delete: vyatta-vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
           -c "no neighbor $VAR(../@) peer-group $VAR(@)"
