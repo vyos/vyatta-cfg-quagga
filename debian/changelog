@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.67) unstable; urgency=low
+
+  * Fix warnings found by check_tmpl.
+  * Fix 4161: Bad config handling of "protocols ospf passive-interface"
+  * Revert "Fix warnings found by check_tmpl."
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sat, 20 Mar 2010 13:11:01 -0700
+
 vyatta-cfg-quagga (0.18.66) unstable; urgency=low
 
   * Bugfix 5458: Include interface name, if present, when deleting IPv6
