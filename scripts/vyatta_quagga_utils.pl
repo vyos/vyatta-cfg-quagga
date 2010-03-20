@@ -6,7 +6,7 @@ use Vyatta::Misc;
 use NetAddr::IP;
 use Getopt::Long;
 
-my ( $prefix, $exists, $not_exists, $area, $community );
+my ( $prefix, $exists, $not_exists, $area, $community, $passive );
 
 # Allowed well-know community values (see set commuinity)
 my %communities = (
@@ -24,6 +24,7 @@ GetOptions(
     "exists=s"               => \$exists,
     "check-ospf-area=s"      => \$area,
     "check-community"        => \$community,
+    "check-ospf-passive=s"   => \$passive,
 );
 
 check_community(@ARGV)	      if ($community);
@@ -31,6 +32,7 @@ check_prefix_boundry($prefix) if ($prefix);
 check_not_exists($not_exists) if ($not_exists);
 check_exists($exists)         if ($exists);
 check_ospf_area($area)        if ($area);
+check_ospf_passive($passive)  if ($passive);
 
 exit 0;
 
@@ -93,4 +95,29 @@ sub check_community {
 
 	die "$arg unknown community value\n"
     }
+}
+
+sub check_ospf_passive {
+    my $passive = shift;
+
+    my $config = new Vyatta::Config;
+    $config->setLevel('protocols ospf passive-interface');
+    my @nodesO = $config->returnOrigValues();
+    my @nodes  = $config->returnValues();
+    
+    my %nO_hash = map { $_ => 1 } @nodesO;
+    my %n_hash  = map { $_ => 1 } @nodes;
+
+    if ($nO_hash{'default'}) {
+        exit 0 if ! $n_hash{'default'};
+        print "Error: can't add interface when using 'default'\n";
+        exit 1;
+    } else {
+        if (scalar(@nodes) > 1 and $n_hash{'default'}) {
+            print "Error: delete other interfaces before using 'default'\n";
+            exit 1;
+        }
+    }
+
+    exit 0;
 }
