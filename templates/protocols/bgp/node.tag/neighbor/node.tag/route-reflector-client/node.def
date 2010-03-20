@@ -6,13 +6,13 @@ commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neig
 
 commit:expression: $VAR(../../@) == $VAR(../remote-as/@); "protocols bgp $VAR(../../@) neighbor $VAR(../@) route-reflector-client: remote-as must equal local-as"
 
-update: if [ -n "$VAR(../remote-as/@)" ]; then 
-          peer="remote-as $VAR(../remote-as/@)"; 
-        else 
-          peer="peer-group $VAR(../peer-group/@)"; 
-        fi; 
+update: if [ -n "$VAR(../remote-as/@)" ]; then
+          peer="remote-as $VAR(../remote-as/@)";
+        else
+          peer="peer-group $VAR(../peer-group/@)";
+        fi;
 
-        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
+        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@);
         then
           vtysh -c "configure terminal" \
             -c "router bgp $VAR(../../@)"      \
@@ -26,16 +26,16 @@ update: if [ -n "$VAR(../remote-as/@)" ]; then
             -c "neighbor $VAR(../@) route-reflector-client"
         fi
 
-delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@); 
+delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../@);
         then
           vtysh --noerror          \
-            -c "configure terminal"       \ 
+            -c "configure terminal"       \
             -c "router bgp $VAR(../../@)" \
             -c "address-family ipv6"      \
             -c "no neighbor $VAR(../@) route-reflector-client"
         else
           vtysh --noerror          \
-            -c "configure terminal"       \ 
+            -c "configure terminal"       \
             -c "router bgp $VAR(../../@)" \
             -c "no neighbor $VAR(../@) route-reflector-client"
         fi

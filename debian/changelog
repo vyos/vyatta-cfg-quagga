@@ -1,3 +1,16 @@
+vyatta-cfg-quagga (0.18.66) unstable; urgency=low
+
+  * Bugfix 5458: Include interface name, if present, when deleting IPv6
+    routes.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 17 Mar 2010 11:00:43 -0700
+
+vyatta-cfg-quagga (0.18.65) unstable; urgency=low
+
+  * Fix trailing whitespace errors
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 15 Mar 2010 10:11:03 -0700
+
 vyatta-cfg-quagga (0.18.64) unstable; urgency=low
 
   * Force dependency on more recent quagga
