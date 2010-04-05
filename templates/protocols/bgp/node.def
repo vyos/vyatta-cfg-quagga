@@ -5,7 +5,4 @@ help: Configure Border Gateway Protocol (BGP) parameters
 comp_help: \1  <1-4294967294>\tAS number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 		   "AS number must be between 1 and 4294967294"
-create: vtysh -c "configure terminal" -c "router bgp $VAR(@)"
-delete: vtysh -c "configure terminal" -c "no router bgp $VAR(@)"
-
-
+end: /opt/vyatta/sbin/vyatta-bgp.pl --main

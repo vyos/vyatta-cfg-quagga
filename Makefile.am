@@ -1,3 +1,4 @@
+share_perl5dir = /opt/vyatta/share/perl5/Vyatta/Quagga
 cfgdir = $(datadir)/vyatta-cfg/templates
 curverdir = $(sysconfdir)/config-migrate/current
 gentmpdir = generated-templates
@@ -13,6 +14,8 @@ sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
 
 sbin_PROGRAMS = src/check_prefix_boundary
+
+share_perl5_DATA = lib/Vyatta/Quagga/Config.pm
 
 src_check_prefix_boundary = src/check_prefix_boundary.c
 

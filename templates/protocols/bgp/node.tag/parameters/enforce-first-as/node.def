@@ -1,5 +1,1 @@
 help: Set to require first AS in the path to match peer's AS
-update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-           -c "bgp enforce-first-as "
-delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-           -c "no bgp enforce-first-as "

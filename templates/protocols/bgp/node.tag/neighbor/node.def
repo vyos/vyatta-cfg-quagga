@@ -1,5 +1,4 @@
 tag:
-priority: 720
 type: txt
 help: Set a BGP neighbor 
 comp_help: 
@@ -8,17 +7,3 @@ comp_help:
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peer-name $VAR(@)"
-
-
-create: if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
-                                          --peergroup $VAR(@); then
-	   vtysh -c "configure terminal"    \
-                        -c "router bgp $VAR(../@)" \
-                        -c "neighbor $VAR(@) peer-group"; 
-        fi;
-
-delete:  /opt/vyatta/sbin/vyatta-bgp.pl --check-peer-groups \
- 		--peergroup $VAR(@) --as $VAR(../@) || exit 1
-         vtysh -c "configure terminal"    \
-                      -c "router bgp $VAR(../@)" \
-                      -c "no neighbor $VAR(@)"

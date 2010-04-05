@@ -1,5 +1,1 @@
 help: Set to compare MEDs between different peers in the same AS 
-update: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-           -c "bgp deterministic-med"
-delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-           -c "no bgp deterministic-med"

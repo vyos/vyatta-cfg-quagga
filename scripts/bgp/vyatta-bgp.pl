@@ -1,13 +1,308 @@
 #!/usr/bin/perl
+# **** License ****
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# A copy of the GNU General Public License is available as
+# `/usr/share/common-licenses/GPL' in the Debian GNU/Linux distribution
+# or on the World Wide Web at `http://www.gnu.org/copyleft/gpl.html'.
+# You can also obtain it by writing to the Free Software Foundation,
+# Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+# This code was originally developed by Vyatta, Inc.
+# Portions created by Vyatta are Copyright (C) 2009,2010 Vyatta, Inc.
+# All Rights Reserved.
+#
+# Author: Various
+# Date: 2009-2010
+# Description: Script to setup Quagga BGP configuration
+#
+# **** End License ****
+#
+
 use strict;
-use lib "/opt/vyatta/share/perl5/";
-use Vyatta::Config;
-use Vyatta::Misc;
+use warnings;
+
 use Getopt::Long;
 use NetAddr::IP::Lite;
 
+use lib "/opt/vyatta/share/perl5/";
+use Vyatta::Config;
+use Vyatta::Quagga::Config;
+use Vyatta::Misc;
+
+my %qcom = ( 
+  "protocols" => undef,
+  "protocols bgp" => undef,
+  "protocols bgp var" => "router bgp #3",
+  "protocols bgp var aggregate-address" => undef,
+  "protocols bgp var aggregate-address var" => "router bgp #3 ; no aggregate-address #5 ; aggregate-address #5 ?as-set ?summary-only",
+  "protocols bgp var ipv6" => undef,
+  "protocols bgp var ipv6 aggregate-address" => undef,
+  "protocols bgp var ipv6 aggregate-address var" => "router bgp #3 ; no ipv6 bgp aggregate-address #6 ; ipv6 bgp aggregate-address #6 ?summary-only",
+  "protocols bgp var ipv6 network" => "router bgp #3 ; no ipv6 bgp network #6 ; ipv6 bgp network #6",
+  "protocols bgp var ipv6 redistribute" => undef,
+  "protocols bgp var ipv6 redistribute connected" => "router bgp #3 ; address-family ipv6 ; redistribute connected",
+  "protocols bgp var ipv6 redistribute connected metric" => "router bgp #3 ; address-family ipv6 ; redistribute connected metric #8",
+  "protocols bgp var ipv6 redistribute connected route-map" => "router bgp #3 ; address-family ipv6 ; redistribute connected route-map #8",
+  "protocols bgp var ipv6 redistribute kernel" => "router bgp #3 ; address-family ipv6 ; redistribute kernel",
+  "protocols bgp var ipv6 redistribute kernel metric" => "router bgp #3 ; address-family ipv6 ; redistribute kernel metric #8",
+  "protocols bgp var ipv6 redistribute kernel route-map" => "router bgp #3 ; address-family ipv6 ; redistribute kernel route-map #8",
+  "protocols bgp var ipv6 redistribute ospfv3" => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3",
+  "protocols bgp var ipv6 redistribute ospfv3 metric" => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3 metric #8",
+  "protocols bgp var ipv6 redistribute ospfv3 route-map" => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3 route-map #8",
+  "protocols bgp var ipv6 redistribute ripng" => "router bgp #3 ; address-family ipv6 ; redistribute ripng",
+  "protocols bgp var ipv6 redistribute ripng metric" => "router bgp #3 ; address-family ipv6 ; redistribute ripng metric #8",
+  "protocols bgp var ipv6 redistribute ripng route-map" => "router bgp #3 ; address-family ipv6 ; redistribute ripng route-map #8",
+  "protocols bgp var ipv6 redistribute static" => "router bgp #3 ; address-family ipv6 ; redistribute static",
+  "protocols bgp var ipv6 redistribute static metric" => "router bgp #3 ; address-family ipv6 ; redistribute static metric #8",
+  "protocols bgp var ipv6 redistribute static route-map" => "router bgp #3 ; address-family ipv6 ; redistribute static route-map #8",
+  "protocols bgp var neighbor" => undef,
+  "protocols bgp var neighbor var" => "router bgp #3 ; neighbor #5",
+  "protocols bgp var neighbor var advertisement-interval" => "router bgp #3 ; neighbor #5 advertisement-interval #7",
+  # allowas-in as a standalone means any number of times.  append number and you will only accept local-as N number of times in as-path
+  "protocols bgp var neighbor var allowas-in" => "router bgp #3 ; neighbor #5 allowas-in",
+  # default is 3, default won't be shown in quagga
+  "protocols bgp var neighbor var allowas-in number" => "router bgp #3 ; neighbor #5 allowas-in #8",
+  # it looks like "attribute-unchanged" as a standalone is really "attribute-unchanged as-path med next-hop"
+  "protocols bgp var neighbor var attribute-unchanged" => "router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop",
+  "protocols bgp var neighbor var capability" => undef,
+  "protocols bgp var neighbor var capability dynamic" => "router bgp #3 ; neighbor #5 capability dynamic",
+  "protocols bgp var neighbor var capability orf" => undef,
+  "protocols bgp var neighbor var capability orf prefix-list" => undef,
+  # if both send and receive are sent then this gets translated to both in Quagga config.  Doesn't mess up the delete though.
+  "protocols bgp var neighbor var capability orf prefix-list receive" => "router bgp #3 ; neighbor #5 capability orf prefix-list receive",
+  "protocols bgp var neighbor var capability orf prefix-list send" => "router bgp #3 ; neighbor #5 capability orf prefix-list send",
+  "protocols bgp var neighbor var default-originate" => "router bgp #3 ; neighbor #5 default-originate",
+  "protocols bgp var neighbor var default-originate route-map" => "router bgp #3 ; neighbor #5 default-originate route-map #8",
+  "protocols bgp var neighbor var disable-capability-negotiation" => "router bgp #3 ; neighbor #5 dont-capability-negotiate",
+  "protocols bgp var neighbor var disable-connected-check" => "router bgp #3 ; neighbor #5 disable-connected-check",
+  "protocols bgp var neighbor var disable-send-community" => undef,
+  "protocols bgp var neighbor var disable-send-community extended" => "router bgp #3 ; no neighbor #5 send-community extended",
+  "protocols bgp var neighbor var disable-send-community standard" => "router bgp #3 ; no neighbor #5 send-community standard",
+  "protocols bgp var neighbor var distribute-list" => undef,
+  "protocols bgp var neighbor var distribute-list export" => "router bgp #3 ; neighbor #5 distribute-list #8 out",
+  "protocols bgp var neighbor var distribute-list import" => "router bgp #3 ; neighbor #5 distribute-list #8 in",
+  "protocols bgp var neighbor var ebgp-multihop" => "router bgp #3 ; neighbor #5 ebgp-multihop #7",
+  "protocols bgp var neighbor var filter-list" => undef,
+  "protocols bgp var neighbor var filter-list export" => "router bgp #3 ; neighbor #5 filter-list #8 out",
+  "protocols bgp var neighbor var filter-list import" => "router bgp #3 ; neighbor #5 filter-list #8 in",
+  "protocols bgp var neighbor var local-as" => undef,
+  "protocols bgp var neighbor var local-as var" => "router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7",
+  "protocols bgp var neighbor var local-as var no-prepend" => "router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend",
+  "protocols bgp var neighbor var maximum-prefix" => "router bgp #3 ; neighbor #5 maximum-prefix #7",
+  "protocols bgp var neighbor var nexthop-self" => "router bgp #3 ; neighbor #5 next-hop-self",
+  "protocols bgp var neighbor var override-capability" => "router bgp #3 ; neighbor #5 override-capability",
+  "protocols bgp var neighbor var passive" => "router bgp #3 ; neighbor #5 passive",
+  "protocols bgp var neighbor var password" => "router bgp #3 ; neighbor #5 password #7",
+  "protocols bgp var neighbor var port" => "router bgp #3 ; neighbor #5 port #7",
+  "protocols bgp var neighbor var prefix-list" => undef,
+  "protocols bgp var neighbor var prefix-list export" => "router bgp #3 ; neighbor #5 prefix-list #8 out",
+  "protocols bgp var neighbor var prefix-list import" => "router bgp #3 ; neighbor #5 prefix-list #8 in",
+  "protocols bgp var neighbor var remote-as" => "router bgp #3 ; neighbor #5 remote-as #7",
+  "protocols bgp var neighbor var remove-private-as" => "router bgp #3 ; neighbor #5 remove-private-AS",
+  "protocols bgp var neighbor var route-map" => undef,
+  "protocols bgp var neighbor var route-map export" => "router bgp #3 ; neighbor #5 route-map #8 out",
+  "protocols bgp var neighbor var route-map import" => "router bgp #3 ; neighbor #5 route-map #8 in",
+  "protocols bgp var neighbor var route-reflector-client" => "router bgp #3 ; neighbor #5 route-reflector-client",
+  "protocols bgp var neighbor var route-server-client" => "router bgp #3 ; neighbor #5 route-server-client",
+  "protocols bgp var neighbor var shutdown" => "router bgp #3 ; neighbor #5 shutdown",
+  "protocols bgp var neighbor var soft-reconfiguration" => undef,
+  "protocols bgp var neighbor var soft-reconfiguration inbound" => "router bgp #3 ; neighbor #5 soft-reconfiguration inbound",
+  "protocols bgp var neighbor var strict-capability-match" => "router bgp #3 ; neighbor #5 strict-capability-match", 
+  "protocols bgp var neighbor var timers" => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime',
+  "protocols bgp var neighbor var timers connect" => "router bgp #3 ; neighbor #5 timers connect #8",
+  "protocols bgp var neighbor var unsuppress-map" => "router bgp #3 ; neighbor #5 unsuppress-map #7",
+  "protocols bgp var neighbor var update-source" => "router bgp #3 ; neighbor #5 update-source #7",
+  "protocols bgp var neighbor var weight" => "router bgp #3 ; neighbor #5 weight #7",
+  "protocols bgp var network" => undef,
+  "protocols bgp var network var" => "router bgp #3 ; network #5 ?backdoor",
+  "protocols bgp var network var route-map" => "router bgp #3 ; network #5 route-map #7",
+  "protocols bgp var parameters" => undef,
+  "protocols bgp var parameters always-compare-med" => "router bgp #3 ; bgp always-compare-med",
+  "protocols bgp var parameters bestpath" => undef,
+  "protocols bgp var parameters bestpath as-path" => undef,
+  "protocols bgp var parameters bestpath as-path confed" => "router bgp #3 ; bgp bestpath as-path confed",
+  "protocols bgp var parameters bestpath as-path ignore" => "router bgp #3 ; bgp bestpath as-path ignore",
+  "protocols bgp var parameters bestpath compare-routerid" => "router bgp #3 ; bgp bestpath compare-routerid",
+  "protocols bgp var parameters bestpath med" => undef,
+  "protocols bgp var parameters bestpath med confed" => "router bgp #3 ; bgp bestpath med confed",
+  "protocols bgp var parameters bestpath med missing-as-worst" => "router bgp #3 ; bgp bestpath med missing-as-worst",
+  "protocols bgp var parameters cluster-id" => "router bgp #3 ; bgp cluster-id #6",
+  "protocols bgp var parameters confederation" => undef,
+  "protocols bgp var parameters confederation identifier" => "router bgp #3 ; bgp confederation identifier #7",
+  "protocols bgp var parameters confederation peers" => "router bgp #3 ; bgp confederation peers #7",
+  "protocols bgp var parameters dampening" => 'router bgp #3 ; no bgp dampening ; bgp dampening @half-life @re-use @start-suppress-time @max-suppress-time',
+  "protocols bgp var parameters default" => undef,
+  "protocols bgp var parameters default local-pref" => "router bgp #3 ; bgp default local-preference #7",
+  "protocols bgp var parameters default no-ipv4-unicast" => "router bgp #3 ; no bgp default ipv4-unicast",
+  "protocols bgp var parameters deterministic-med" => "router bgp #3 ; bgp deterministic-med",
+  "protocols bgp var parameters disable-network-import-check" => "router bgp #3 ; no bgp network import-check",
+  "protocols bgp var parameters enforce-first-as" => "router bgp #3 ; bgp enforce-first-as",
+  "protocols bgp var parameters graceful-restart" => undef,
+  "protocols bgp var parameters graceful-restart stalepath-time" => "router bgp #3 ; bgp graceful-restart stalepath-time #7",
+  "protocols bgp var parameters log-neighbor-changes" => "router bgp #3 ; bgp log-neighbor-changes",
+  "protocols bgp var parameters no-client-to-client-reflection" => "router bgp #3 ; no bgp client-to-client reflection",
+  "protocols bgp var parameters no-fast-external-failover" => "router bgp #3 ; no bgp fast-external-failover",
+  "protocols bgp var parameters router-id" => "router bgp #3 ; bgp router-id #6",
+  "protocols bgp var parameters scan-time" => "router bgp #3 ; bgp scan-time #6",
+  "protocols bgp var redistribute" => undef,
+  "protocols bgp var redistribute connected" => "router bgp #3 ; redistribute connected",
+  "protocols bgp var redistribute connected metric" => "router bgp #3 ; redistribute connected metric #7",
+  "protocols bgp var redistribute connected route-map" => "router bgp #3 ; redistribute connected route-map #7",
+  "protocols bgp var redistribute kernel" => "router bgp #3 ; redistribute kernel",
+  "protocols bgp var redistribute kernel metric" => "router bgp #3 ; redistribute kernel metric #7",
+  "protocols bgp var redistribute kernel route-map" => "router bgp #3 ; redistribute kernel route-map #7",
+  "protocols bgp var redistribute ospf" => "router bgp #3 ; redistribute ospf",
+  "protocols bgp var redistribute ospf metric" => "router bgp #3 ; redistribute ospf metric #7",
+  "protocols bgp var redistribute ospf route-map" => "router bgp #3 ; redistribute ospf route-map #7",
+  "protocols bgp var redistribute rip" => "router bgp #3 ; redistribute rip",
+  "protocols bgp var redistribute rip metric" => "router bgp #3 ; redistribute rip metric #7",
+  "protocols bgp var redistribute rip route-map" => "router bgp #3 ; redistribute rip route-map #7",
+  "protocols bgp var redistribute static" => "router bgp #3 ; redistribute static",
+  "protocols bgp var redistribute static metric" => "router bgp #3 ; redistribute static metric #7",
+  "protocols bgp var redistribute static route-map" => "router bgp #3 ; redistribute static route-map #7",
+  "protocols bgp var timers" => 'router bgp #3 ; timers bgp @keepalive @holdtime',
+);
+
+my %qcomdel = (
+  "protocols" => undef,
+  "protocols bgp" => undef,
+  "protocols bgp var" => "no router bgp #3",
+  "protocols bgp var aggregate-address" => undef,
+  "protocols bgp var aggregate-address var" => "router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only",
+  "protocols bgp var ipv6" => undef,
+  "protocols bgp var ipv6 aggregate-address" => undef,
+  "protocols bgp var ipv6 aggregate-address var" => "router bgp #3 ; no ipv6 bgp aggregate-address #6 ?summary-only",
+  "protocols bgp var ipv6 network" => "router bgp #3 ; no ipv6 bgp network #6",
+  "protocols bgp var ipv6 redistribute" => undef,
+  "protocols bgp var ipv6 redistribute connected" => "router bgp #3 ; address-family ipv6 ; no redistribute connected",
+  "protocols bgp var ipv6 redistribute connected metric" => "router bgp #3 ; address-family ipv6 ; no redistribute connected metric #8",
+  "protocols bgp var ipv6 redistribute connected route-map" => "router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #8",
+  "protocols bgp var ipv6 redistribute kernel" => "router bgp #3 ; address-family ipv6 ; no redistribute kernel",
+  "protocols bgp var ipv6 redistribute kernel metric" => "router bgp #3 ; address-family ipv6 ; no redistribute kernel metric #8",
+  "protocols bgp var ipv6 redistribute kernel route-map" => "router bgp #3 ; address-family ipv6 ; no redistribute kernel route-map #8",
+  "protocols bgp var ipv6 redistribute ospfv3" => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3",
+  "protocols bgp var ipv6 redistribute ospfv3 metric" => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 metric #8",
+  "protocols bgp var ipv6 redistribute ospfv3 route-map" => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 route-map #8",
+  "protocols bgp var ipv6 redistribute ripng" => "router bgp #3 ; address-family ipv6 ; no redistribute ripng",
+  "protocols bgp var ipv6 redistribute ripng metric" => "router bgp #3 ; address-family ipv6 ; no redistribute ripng metric #8",
+  "protocols bgp var ipv6 redistribute ripng route-map" => "router bgp #3 ; address-family ipv6 ; no redistribute ripng route-map #8",
+  "protocols bgp var ipv6 redistribute static" => "router bgp #3 ; address-family ipv6 ; no redistribute static",
+  "protocols bgp var ipv6 redistribute static metric" => "router bgp #3 ; address-family ipv6 ; no redistribute static metric #8",
+  "protocols bgp var ipv6 redistribute static route-map" => "router bgp #3 ; address-family ipv6 ; no redistribute static route-map #8",
+  "protocols bgp var neighbor" => undef,
+  "protocols bgp var neighbor var" => "router bgp #3 ; no neighbor #5",
+  "protocols bgp var neighbor var advertisement-interval" => "router bgp #3 ; no neighbor #5 advertisement-interval",
+  "protocols bgp var neighbor var allowas-in" => "router bgp #3 ; no neighbor #5 allowas-in",
+  "protocols bgp var neighbor var allowas-in number" => "router bgp #3 ; no neighbor #5 allowas-in #8 ; neighbor #5 allowas-in",
+  "protocols bgp var neighbor var attribute-unchanged" => "router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop",
+  "protocols bgp var neighbor var capability" => undef,
+  "protocols bgp var neighbor var capability dynamic" => "router bgp #3 ; no neighbor #5 capability dynamic",
+  "protocols bgp var neighbor var capability orf" => undef,
+  "protocols bgp var neighbor var capability orf prefix-list" => undef,
+  "protocols bgp var neighbor var capability orf prefix-list receive" => "router bgp #3 ; no neighbor #5 capability orf prefix-list receive",
+  "protocols bgp var neighbor var capability orf prefix-list send" => "router bgp #3 ; no neighbor #5 capability orf prefix-list send",
+  "protocols bgp var neighbor var default-originate" => "router bgp #3 ; no neighbor #5 default-originate",
+  "protocols bgp var neighbor var default-originate route-map" => "router bgp #3 ; no neighbor #5 default-originate route-map #8",
+  "protocols bgp var neighbor var disable-capability-negotiation" => "router bgp #3 ; no neighbor #5 dont-capability-negotiate",
+  "protocols bgp var neighbor var disable-connected-check" => "router bgp #3 ; no neighbor #5 disable-connected-check",
+  "protocols bgp var neighbor var disable-send-community" => undef,
+  "protocols bgp var neighbor var disable-send-community extended" => "router bgp #3 ; neighbor #5 send-community extended",
+  "protocols bgp var neighbor var disable-send-community standard" => "router bgp #3 ; neighbor #5 send-community standard",
+  "protocols bgp var neighbor var distribute-list" => undef,
+  "protocols bgp var neighbor var distribute-list export" => "router bgp #3 ; no neighbor #5 distribute-list #8 out",
+  "protocols bgp var neighbor var distribute-list import" => "router bgp #3 ; no neighbor #5 distribute-list #8 in",
+  "protocols bgp var neighbor var ebgp-multihop" => "router bgp #3 ; no neighbor #5 ebgp-multihop",
+  "protocols bgp var neighbor var filter-list" => undef,
+  "protocols bgp var neighbor var filter-list export" => "router bgp #3 ; no neighbor #5 filter-list #8 out",
+  "protocols bgp var neighbor var filter-list import" => "router bgp #3 ; no neighbor #5 filter-list #8 in",
+  "protocols bgp var neighbor var local-as" => "router bgp #3 ; no neighbor #5 local-as",
+  "protocols bgp var neighbor var local-as no-prepend" => "router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7",
+  "protocols bgp var neighbor var maximum-prefix" => "router bgp #3 ; no neighbor #5 maximum-prefix ",
+  "protocols bgp var neighbor var nexthop-self" => "router bgp #3 ; no neighbor #5 next-hop-self",
+  "protocols bgp var neighbor var override-capability" => "router bgp #3 ; no neighbor #5 override-capability",
+  "protocols bgp var neighbor var passive" => "router bgp #3 ; no neighbor #5 passive",
+  "protocols bgp var neighbor var password" => "router bgp #3 ; no neighbor #5 password",
+  "protocols bgp var neighbor var port" => "router bgp #3 ; no neighbor #5 port",
+  "protocols bgp var neighbor var prefix-list" => undef,
+  "protocols bgp var neighbor var prefix-list export" => "router bgp #3 ; no neighbor #5 prefix-list #8 out",
+  "protocols bgp var neighbor var prefix-list import" => "router bgp #3 ; no neighbor #5 prefix-list #8 in",
+  "protocols bgp var neighbor var remote-as" => "router bgp #3 ; no neighbor #5 remote-as #7",
+  "protocols bgp var neighbor var remove-private-as" => "router bgp #3 ; no neighbor #5 remove-private-AS",
+  "protocols bgp var neighbor var route-map" => undef,
+  "protocols bgp var neighbor var route-map export" => "router bgp #3 ; no neighbor #5 route-map #8 out",
+  "protocols bgp var neighbor var route-map import" => "router bgp #3 ; no neighbor #5 route-map #8 in",
+  "protocols bgp var neighbor var route-reflector-client" => "router bgp #3 ; no neighbor #5 route-reflector-client",
+  "protocols bgp var neighbor var route-server-client" => "router bgp #3 ; no neighbor #5 route-server-client",
+  "protocols bgp var neighbor var shutdown" => "router bgp #3 ; no neighbor #5 shutdown",
+  "protocols bgp var neighbor var soft-reconfiguration" => undef,
+  "protocols bgp var neighbor var soft-reconfiguration inbound" => "router bgp #3 ; no neighbor #5 soft-reconfiguration inbound",
+  "protocols bgp var neighbor var strict-capability-match" => "router bgp #3 ; no neighbor #5 strict-capability-match",
+  "protocols bgp var neighbor var timers" => 'router bgp #3 ; no neighbor #5 timers',
+  "protocols bgp var neighbor var timers connect" => "router bgp #3 ; no neighbor #5 timers connect",
+  "protocols bgp var neighbor var unsuppress-map" => "router bgp #3 ; no neighbor #5 unsuppress-map #7",
+  "protocols bgp var neighbor var update-source" => "router bgp #3 ; no neighbor #5 update-source",
+  "protocols bgp var neighbor var weight" => "router bgp #3 ; no neighbor #5 weight",
+  "protocols bgp var network" => undef,
+  "protocols bgp var network var" => "router bgp #3 ; no network #5",
+  "protocols bgp var network var route-map" => "router bgp #3 ; no network #5 route-map #7",
+  "protocols bgp var parameters" => undef,
+  "protocols bgp var parameters always-compare-med" => "router bgp #3 ; no bgp always-compare-med",
+  "protocols bgp var parameters bestpath" => undef,
+  "protocols bgp var parameters bestpath as-path" => undef,
+  "protocols bgp var parameters bestpath as-path confed" => "router bgp #3 ; no bgp bestpath as-path confed",
+  "protocols bgp var parameters bestpath as-path ignore" => "router bgp #3 ; no bgp bestpath as-path ignore",
+  "protocols bgp var parameters bestpath compare-routerid" => "router bgp #3 ; no bgp bestpath compare-routerid",
+  "protocols bgp var parameters bestpath med" => undef,
+  "protocols bgp var parameters bestpath med confed" => "router bgp #3 ; no bgp bestpath med confed",
+  "protocols bgp var parameters bestpath med missing-as-worst" => "router bgp #3 ; no bgp bestpath med missing-as-worst",
+  "protocols bgp var parameters cluster-id" => "router bgp #3 ; no bgp cluster-id #6",
+  "protocols bgp var parameters confederation" => undef,
+  "protocols bgp var parameters confederation identifier" => "router bgp #3 ; no bgp confederation identifier #7",
+  "protocols bgp var parameters confederation peers" => "router bgp #3 ; no bgp confederation peers #7",
+  "protocols bgp var parameters dampening" => "router bgp #3 ; no bgp dampening",
+  "protocols bgp var parameters default" => undef,
+  "protocols bgp var parameters default local-pref" => "router bgp #3 ; no bgp default local-preference #7",
+  "protocols bgp var parameters default no-ipv4-unicast" => "router bgp #3 ; bgp default ipv4-unicast",
+  "protocols bgp var parameters deterministic-med" => "router bgp #3 ; no bgp deterministic-med",
+  "protocols bgp var parameters disable-network-import-check" => "router bgp #3 ; bgp network import-check",
+  "protocols bgp var parameters enforce-first-as" => "router bgp #3 ; no bgp enforce-first-as",
+  "protocols bgp var parameters graceful-restart" => undef,
+  "protocols bgp var parameters graceful-restart stalepath-time" => "router bgp #3 ; no bgp graceful-restart stalepath-time #7",
+  "protocols bgp var parameters log-neighbor-changes" => "router bgp #3 ; no bgp log-neighbor-changes",
+  "protocols bgp var parameters no-client-to-client-reflection" => "router bgp #3 ; bgp client-to-client reflection",
+  "protocols bgp var parameters no-fast-external-failover" => "router bgp #3 ; bgp fast-external-failover",
+  "protocols bgp var parameters router-id" => "router bgp #3 ; no bgp router-id #6",
+  "protocols bgp var parameters scan-time" => "router bgp #3 ; no bgp scan-time #6",
+  "protocols bgp var redistribute" => undef,
+  "protocols bgp var redistribute connected" => "router bgp #3 ; no redistribute connected",
+  "protocols bgp var redistribute connected metric" => "router bgp #3 ; no redistribute connected metric #7",
+  "protocols bgp var redistribute connected route-map" => "router bgp #3 ; no redistribute connected route-map #7",
+  "protocols bgp var redistribute kernel" => "router bgp #3 ; no redistribute kernel",
+  "protocols bgp var redistribute kernel metric" => "router bgp #3 ; no redistribute kernel metric #7",
+  "protocols bgp var redistribute kernel route-map" => "router bgp #3 ; no redistribute kernel route-map #7",
+  "protocols bgp var redistribute ospf" => "router bgp #3 ; no redistribute ospf",
+  "protocols bgp var redistribute ospf metric" => "router bgp #3 ; no redistribute ospf metric #7",
+  "protocols bgp var redistribute ospf route-map" => "router bgp #3 ; no redistribute ospf route-map #7",
+  "protocols bgp var redistribute rip" => "router bgp #3 ; no redistribute rip",
+  "protocols bgp var redistribute rip metric" => "router bgp #3 ; no redistribute rip metric #7",
+  "protocols bgp var redistribute rip route-map" => "router bgp #3 ; no redistribute rip route-map #7",
+  "protocols bgp var redistribute static" => "router bgp #3 ; no redistribute static",
+  "protocols bgp var redistribute static metric" => "router bgp #3 ; no redistribute static metric #7",
+  "protocols bgp var redistribute static route-map" => "router bgp #3 ; no redistribute static route-map #7",
+  "protocols bgp var timers" => "router bgp #3 ; no timers bgp",
+);
+
 my ( $pg, $as, $neighbor );
-my ( $checkas, $peername, $checkifpeergroup, $checkpeergroups, $checksource );
+my ( $main, $checkas, $peername, $checkifpeergroup, $checkpeergroups, $checksource );
 
 GetOptions(
     "peergroup=s"         => \$pg,
@@ -18,8 +313,10 @@ GetOptions(
     "check-peer-groups"   => \$checkpeergroups,
     "check-if-peer-group" => \$checkifpeergroup,
     "check-source=s"	  => \$checksource,
+    "main"                => \$main,
 );
 
+main()					if ($main);
 check_peer_name($peername)	  	if ($peername);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
 check_as( $neighbor, $as, $pg ) 	if ($checkas);
@@ -126,3 +423,45 @@ sub check_source {
 	die "Interface $src does not exist on the system\n" if ($found == 0);
     }
 }
+
+sub printQuaggaCommands {
+   my $cref = shift;
+   my @cmds;
+   my $cmd;
+
+   $cref->returnQuaggaCommands(\@cmds);
+   foreach $cmd (@cmds) { print "$cmd\n"; }
+}
+
+sub main {
+   # initialize the Quagga Config object with data from Vyatta config tree
+   my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom, \%qcomdel);
+
+   #$qconfig->setDebugLevel('3');
+   #$qconfig->_reInitialize();
+
+   print "deleteConfigTreeRecursive(protocols bgp)\n";
+   print "---\n"; printQuaggaCommands($qconfig); print "---\n";
+   $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
+
+   print "setConfigTree(protocols bgp var neighbor var remote-as)\n";
+   print "---\n"; printQuaggaCommands($qconfig); print "---\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var remote-as') || die "exiting $?\n";
+
+   print "setConfigTreeRecursive(protocols bgp)\n";
+   print "---\n"; printQuaggaCommands($qconfig); print "---\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
+
+   print "---\n"; printQuaggaCommands($qconfig); print "---\n";
+
+   #700 protocols bgp var parameters
+   #705 protocols bgp var neighbhor shutdown
+   #715 protocols bgp var neighbhor route-map
+   #716 protocols bgp var neighbhor filter-list
+   #717 protocols bgp var neighbhor prefix-list
+   #718 protocols bgp var neighbhor distribute-list
+   #719 protocols bgp var neighbhor unsuppress-map
+   #720 protocols bgp var neighbhor
+   #730 protocols bgp var
+}
+

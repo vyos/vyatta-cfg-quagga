@@ -1,6 +1,1 @@
 help: Set to compare the router-id for identical EBGP paths
-update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-           -c "bgp bestpath compare-routerid"
-delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../@)" \
-           -c "no bgp bestpath compare-routerid"
-

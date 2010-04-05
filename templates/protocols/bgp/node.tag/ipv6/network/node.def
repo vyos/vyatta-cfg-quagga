@@ -5,11 +5,3 @@ comp_help:
   <h:h:h:h:h:h:h:h/x>    IPv6 network
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
-
-create: vtysh -c "configure terminal"       \
-                     -c "router bgp $VAR(../../@)" \
-                     -c "ipv6 bgp network $VAR(@)";
-
-delete: vtysh -c "configure terminal"       \
-                     -c "router bgp $VAR(../../@)" \
-                     -c "no ipv6 bgp network $VAR(@)";

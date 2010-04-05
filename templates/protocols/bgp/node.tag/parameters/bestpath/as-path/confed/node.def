@@ -1,6 +1,1 @@
 help: Set to compare AS-path lengths including confederation sets & sequences 
-update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
-           -c "bgp bestpath as-path confed"
-delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
-           -c "no bgp bestpath as-path confed "
-

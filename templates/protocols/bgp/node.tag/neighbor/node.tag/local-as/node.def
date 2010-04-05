@@ -1,40 +1,8 @@
-help: Set a different AS number to use with this neighbor
-
-syntax:expression: $VAR(./local-as/@) >= 1 && $VAR(./local-as/@) <= 4294967294; "AS number must be between 1 and 4294967294"
-
+tag:
+type: u32
+help: Set the local AS number [REQUIRED]
+comp_help: possible completions:
+  <1-4294967294>    local AS number
+syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
+commit:expression: $VAR(@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set local-as the same as the router AS"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-
-commit:expression: $VAR(./local-as/@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set a different local-as for iBGP neighbors"
-
-commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you can't set local-as for a neighbor in a peer-group"
-
-end: vtysh --noerror          \
-       -c "configure terminal"       \
-       -c "router bgp $VAR(../../@)" \
-       -c "no neighbor $VAR(../@) local-as "; 
-
-     if [ ${COMMIT_ACTION} = 'SET' -o ${COMMIT_ACTION} = 'ACTIVE' ]; then
-       if [ -z "$VAR(./local-as/@)" ]; then 
-          echo protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as: you must specify local-as local-as ; 
-          exit 1 ; 
-       fi ; 
-       ## uncomment when 2525 is fixed
-       #if [ -n "$VAR(./no-prepend/@)" ]; then
-       #  cond="no-prepend " ;
-       #fi ;
-       ${vyatta_sbindir}/vyatta-check-typeless-node.pl "protocols bgp $VAR(../../@) neighbor $VAR(../@) local-as no-prepend";
-       if [ $? -eq 0 ]; then
-         cond="no-prepend ";
-       fi;
-
-       if [ -n "$VAR(../remote-as/@)" ]; then 
-         peer="remote-as $VAR(../remote-as/@)"; 
-       else 
-         peer="peer-group $VAR(../peer-group/@)"; 
-       fi; 
-
-       vtysh -c "configure terminal" \
-         -c "router bgp $VAR(../../@)"      \
-         -c "neighbor $VAR(../@) $peer"     \
-         -c "neighbor $VAR(../@) local-as $VAR(./local-as/@) $cond "; 
-      fi;

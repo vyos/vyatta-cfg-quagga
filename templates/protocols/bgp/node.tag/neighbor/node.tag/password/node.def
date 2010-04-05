@@ -5,15 +5,3 @@ syntax:expression: exec "			      \
           echo Password must be 80 characters or less;\
           exit 1 ;                                     \
         fi ; "
-update: if [ -n "$VAR(../remote-as/@)" ]; then 
-          peer="remote-as $VAR(../remote-as/@)"; 
-        else 
-          peer="peer-group $VAR(../peer-group/@)"; 
-        fi; 
-        vtysh -c "configure terminal" \
-	-c "router bgp $VAR(../../@)" \
-	-c "neighbor $VAR(../@) $peer" \
-	-c 'neighbor $VAR(../@) password $VAR(@)'
-delete: vtysh                            \
-          -c "configure terminal" -c "router bgp $VAR(../../@)" \
-          -c "no neighbor $VAR(../@) password"

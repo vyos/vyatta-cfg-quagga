@@ -1,47 +1,10 @@
 type: txt
 help: Set a route-map to filter outgoing route updates to this neighbor
-
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/route-map/* ) 
         echo -n ${params[@]##*/}
-
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
-
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a route-map for a neighbor in a peer-group"
-
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) export: route-map $VAR(@) doesn't exist"
-
-update: if [ -n "$VAR(../../remote-as/@)" ]; then 
-          peer="remote-as $VAR(../../remote-as/@)"; 
-        else 
-          peer="peer-group $VAR(../../peer-group/@)"; 
-        fi; 
-        if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
-        then
-           vtysh -c "configure terminal"              \
-                        -c "router bgp $VAR(../../../@)"     \
-	                -c "neighbor $VAR(../../@) $peer"    \
-                        -c "address-family ipv6"             \
-	                -c "neighbor $VAR(../../@) activate" \
-                        -c "neighbor $VAR(../../@) route-map $VAR(@) out"
-        else
-           vtysh -c "configure terminal"           \
-                        -c "router bgp $VAR(../../../@)"  \
-	                -c "neighbor $VAR(../../@) $peer" \
-                        -c "neighbor $VAR(../../@) route-map $VAR(@) out"
-        fi
-
-delete: if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@)
-        then
-           vtysh -c "configure terminal"           \
-                        -c "router bgp $VAR(../../../@)"  \
-                        -c "address-family ipv6"          \
-                        -c "no neighbor $VAR(../../@) route-map $VAR(@) out"
-        else
-           vtysh -c "configure terminal"           \
-                        -c "router bgp $VAR(../../../@)"  \
-                        -c "no neighbor $VAR(../../@) route-map $VAR(@) out"
-        fi
-
 comp_help: possible completions:
   <txt>    route-map name

@@ -1,5 +1,1 @@
 help: Set to ignore AS-path length in selecting a route
-update: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
-           -c "bgp bestpath as-path ignore"
-delete: vtysh -c "configure terminal" -c "router bgp $VAR(../../../../@)" \
-           -c "no bgp bestpath as-path ignore"

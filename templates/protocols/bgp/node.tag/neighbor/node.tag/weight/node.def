@@ -3,13 +3,3 @@ help: Set default weight for routes from this neighbor
 comp_help: \1  <1-65535>\tweight for routes from this neighbor
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "weight must be between 1 and 65535"
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
-update: if [ -n "$VAR(../remote-as/@)" ]; then 
-          peer="remote-as $VAR(../remote-as/@)"; 
-        else 
-          peer="peer-group $VAR(../peer-group/@)"; 
-        fi; 
-        vtysh -c "configure terminal" -c "router bgp $VAR(../../@)" \
-	  -c "neighbor $VAR(../@) $peer" \
-          -c "neighbor $VAR(../@) weight $VAR(@)"
-delete: vtysh --noerror -c "configure terminal" -c "router bgp $VAR(../../@)" \
-          -c "no neighbor $VAR(../@) weight $VAR(@)"
