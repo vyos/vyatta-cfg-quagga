@@ -1,0 +1,2 @@
+help: Leave link-local nexthop unchanged for this peer
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"

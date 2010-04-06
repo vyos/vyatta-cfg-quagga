@@ -1,0 +1,3 @@
+help: Set inbound soft reconfiguration for this neighbor [REQUIRED]
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as \
+                           --as $VAR(../../../@) --neighbor $VAR(../../@)"

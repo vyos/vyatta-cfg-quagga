@@ -30,6 +30,7 @@ my %_vtysh;
 my %_vtyshdel;
 my $_qcomref = '';
 my $_qcomdelref = '';
+my $_vtyshexe = '/usr/bin/vtysh';
 
 ###  Public methods -
 # Create the class.  
@@ -187,7 +188,7 @@ sub cmpb { $b cmp $a }
 sub _sendQuaggaCommand {
   my ($command) = @_;
   my $section;
-  my $args = "/usr/sbin/vtysh --noerr -c 'configure terminal' ";
+  my $args = "$_vtyshexe --noerr -c 'configure terminal' ";
 
   my @commands = split / ; /, $command;
   foreach $section (@commands) {
@@ -195,6 +196,7 @@ sub _sendQuaggaCommand {
   }
   
   if ($_DEBUG >= 2) { print "DEBUG: _sendQuaggaCommand - args prior to system call - $args\n"; }
+  # TODO: need to fix this system call.  split into command and args.
   system("$args");
   if ($? != 0) {
     # TODO: note that DEBUG will never happen here with --noerr as an argument.

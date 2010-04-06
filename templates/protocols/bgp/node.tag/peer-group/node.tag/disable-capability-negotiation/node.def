@@ -1,0 +1,2 @@
+help: Set to not perform capability negotiation with this neighbor
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

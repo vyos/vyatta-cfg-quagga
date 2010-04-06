@@ -1,0 +1,14 @@
+type: txt
+help: Set a prefix-list to filter incoming route updates from this neighbor
+allowed: local -a params
+        params=( /opt/vyatta/config/active/policy/prefix-list/* 
+                 /opt/vyatta/config/active/policy/prefix-list6/*)
+        echo -n ${params[@]##*/}
+comp_help: possible completions:
+  <txt>    prefix-list name
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a prefix-list for a neighbor in a peer-group"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" "; \
+"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: prefix-list $VAR(@) doesn't exist"
+commit:expression: $VAR(../../distribute-list/import/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: you can't set both a prefix-list and a distribute list"
+

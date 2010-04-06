@@ -1,0 +1,6 @@
+type: u32
+help: Set neighbor BGP AS number [REQUIRED]
+comp_help: possible completions:
+  <1-4294967294>    AS number
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; \
+                   "remote-as must be between 1 and 4294967294"

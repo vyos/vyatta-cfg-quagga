@@ -1,0 +1,2 @@
+help: Set to accept a route that contains the local-AS in the as-path 
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

@@ -1,0 +1,9 @@
+tag:
+type: txt
+help: Set a BGP neighbor 
+comp_help: 
+  <x.x.x.x>           BGP neighbor IP address
+  <h:h:h:h:h:h:h:h>   BGP neighbor IPv6 address
+
+syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
+                           --check-peer-name $VAR(@)"
