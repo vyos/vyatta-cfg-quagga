@@ -1,0 +1,3 @@
+type: txt
+help: Set a peer group for this peer
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
