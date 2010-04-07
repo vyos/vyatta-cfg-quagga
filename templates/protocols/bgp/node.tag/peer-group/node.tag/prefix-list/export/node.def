@@ -6,7 +6,7 @@ allowed: local -a params
         echo -n ${params[@]##*/}
 comp_help: possible completions:
   <txt>     prefix-list name
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a prefix-list for a neighbor in a peer-group"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" "; \
 "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) prefix-list import: prefix-list $VAR(@) doesn't exist"

@@ -192,6 +192,7 @@ my %qcom = (
   "protocols bgp var parameters no-fast-external-failover" => "router bgp #3 ; no bgp fast-external-failover",
   "protocols bgp var parameters router-id" => "router bgp #3 ; bgp router-id #6",
   "protocols bgp var parameters scan-time" => "router bgp #3 ; bgp scan-time #6",
+  "protocols bgp var peer-group" => undef,
   "protocols bgp var peer-group var" => "router bgp #3 ; neighbor #5 peer-group",
   "protocols bgp var peer-group var address-family" => undef,
   "protocols bgp var peer-group var address-family ipv6-unicast" => undef,
@@ -265,7 +266,7 @@ my %qcom = (
   "protocols bgp var peer-group var prefix-list" => undef,
   "protocols bgp var peer-group var prefix-list export" => "router bgp #3 ; neighbor #5 prefix-list #8 out",
   "protocols bgp var peer-group var prefix-list import" => "router bgp #3 ; neighbor #5 prefix-list #8 in",
-  "protocols bgp var peer-group var remote-as" => "router bgp #3 ; neighbor #5 remote-as #7",
+  "protocols bgp var peer-group var remote-as" => "router bgp #3 ; neighbor #5 peer-group ; neighbor #5 remote-as #7",
   "protocols bgp var peer-group var remove-private-as" => "router bgp #3 ; neighbor #5 remove-private-AS",
   "protocols bgp var peer-group var route-map" => undef,
   "protocols bgp var peer-group var route-map export" => "router bgp #3 ; neighbor #5 route-map #8 out",
@@ -391,7 +392,7 @@ my %qcomdel = (
   "protocols bgp var neighbor var filter-list import" => "router bgp #3 ; no neighbor #5 filter-list #8 in",
   "protocols bgp var neighbor var local-as" => "router bgp #3 ; no neighbor #5 local-as",
   "protocols bgp var neighbor var local-as no-prepend" => "router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7",
-  "protocols bgp var neighbor var maximum-prefix" => "router bgp #3 ; no neighbor #5 maximum-prefix ",
+  "protocols bgp var neighbor var maximum-prefix" => "router bgp #3 ; no neighbor #5 maximum-prefix",
   "protocols bgp var neighbor var nexthop-self" => "router bgp #3 ; no neighbor #5 next-hop-self",
   "protocols bgp var neighbor var override-capability" => "router bgp #3 ; no neighbor #5 override-capability",
   "protocols bgp var neighbor var passive" => "router bgp #3 ; no neighbor #5 passive",
@@ -448,6 +449,7 @@ my %qcomdel = (
   "protocols bgp var parameters no-fast-external-failover" => "router bgp #3 ; bgp fast-external-failover",
   "protocols bgp var parameters router-id" => "router bgp #3 ; no bgp router-id #6",
   "protocols bgp var parameters scan-time" => "router bgp #3 ; no bgp scan-time #6",
+  "protocols bgp var peer-group" => undef,
   "protocols bgp var peer-group var" => "router bgp #3 ; no neighbor #5 peer-group",
   "protocols bgp var peer-group var address-family" => undef,
   "protocols bgp var peer-group var address-family ipv6-unicast" => undef,
@@ -521,7 +523,7 @@ my %qcomdel = (
   "protocols bgp var peer-group var prefix-list" => undef,
   "protocols bgp var peer-group var prefix-list export" => "router bgp #3 ; no neighbor #5 prefix-list #8 out",
   "protocols bgp var peer-group var prefix-list import" => "router bgp #3 ; no neighbor #5 prefix-list #8 in",
-  "protocols bgp var peer-group var remote-as" => "router bgp #3 ; no neighbor #5 remote-as #7",
+  "protocols bgp var peer-group var remote-as" => "router bgp #3 ; no neighbor #5",
   "protocols bgp var peer-group var remove-private-as" => "router bgp #3 ; no neighbor #5 remove-private-AS",
   "protocols bgp var peer-group var route-map" => undef,
   "protocols bgp var peer-group var route-map export" => "router bgp #3 ; no neighbor #5 route-map #8 out",
@@ -531,7 +533,7 @@ my %qcomdel = (
   "protocols bgp var peer-group var shutdown" => "router bgp #3 ; no neighbor #5 shutdown",
   "protocols bgp var peer-group var soft-reconfiguration" => undef,
   "protocols bgp var peer-group var soft-reconfiguration inbound" => "router bgp #3 ; no neighbor #5 soft-reconfiguration inbound",
-  "protocols bgp var peer-group var timers" => 'router bgp #3 ; no neighbor #5",
+  "protocols bgp var peer-group var timers" => "router bgp #3 ; no neighbor #5",
   "protocols bgp var peer-group var timers connect" => "router bgp #3 ; no neighbor #5 timers connect #8",
   "protocols bgp var peer-group var unsuppress-map" => "router bgp #3 ; no neighbor #5 unsuppress-map #7",
   "protocols bgp var peer-group var update-source" => "router bgp #3 ; no neighbor #5 update-source #7",
@@ -556,50 +558,53 @@ my %qcomdel = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $checkas, $peername, $checkifpeergroup, $checkpeergroups, $checksource );
+my ( $main, $checkas, $peername, $isneighbor, $checkpeergroupas, $checkpeergroups, $checksource );
 
 GetOptions(
-    "peergroup=s"         => \$pg,
-    "as=s"                => \$as,
-    "neighbor=s"          => \$neighbor,
-    "check-peer-name=s"   => \$peername,
-    "check-as"            => \$checkas,
-    "check-peer-groups"   => \$checkpeergroups,
-    "check-if-peer-group" => \$checkifpeergroup,
-    "check-source=s"	  => \$checksource,
-    "main"                => \$main,
+    "peergroup=s"             => \$pg,
+    "as=s"                    => \$as,
+    "neighbor=s"              => \$neighbor,
+    "check-peergroup-name=s"  => \$peername,
+    "check-neighbor-ip"       => \$isneighbor,
+    "check-as"                => \$checkas,
+    "check-peergroup-as"      => \$checkpeergroupas,
+    "check-peer-groups"       => \$checkpeergroups,
+    "check-source=s"	      => \$checksource,
+    "main"                    => \$main,
 );
 
 main()					if ($main);
-check_peer_name($peername)	  	if ($peername);
+check_peergroup_name($peername)	  	if ($peername);
+check_neighbor_ip($neighbor)            if ($isneighbor);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
-check_as( $neighbor, $as, $pg ) 	if ($checkas);
-check_if_peer_group($pg)		if ($checkifpeergroup);
+check_neighbor_as( $neighbor, $as) 	if ($checkas);
+check_peergroup_as( $neighbor, $as)     if ($checkpeergroupas);
 check_source($checksource)	        if ($checksource);
 
 exit 0;
 
-sub check_if_peer_group {
+# Make sure the peer IP is properly formatted
+sub check_neighbor_ip {
     my $neighbor = shift;
 
-    exit 1 if is_ip_v4_or_v6($neighbor);
+    exit 1 if ! is_ip_v4_or_v6($neighbor);
     exit 0;
 }
 
-# Make sure the neighbor is a proper IP or name
-sub check_peer_name {
+# Make sure the peer-group name is properly formatted
+sub check_peergroup_name {
     my $neighbor = shift;
 
     $_ = $neighbor;
     my $version = is_ip_v4_or_v6($neighbor);
-    if ( ( !defined($version) ) && (/[\s\W]/g) ) {
-        die "malformed neighbor address $neighbor\n";
+    if ( ( defined($version) ) || (/[\s\W]/g) ) {
+        die "malformed peer-group name $neighbor\n";
     }
 
     # Quagga treats the first byte as a potential IPv6 address
     # so we can't use it as a peer group name.  So let's check for it.
-    if ( $version == 6 && /^[A-Fa-f]{1,4}$/ ) {
-	die "malformed neighbor address $neighbor\n";
+    if (/^[A-Fa-f]{1,4}$/) {
+	die "malformed peer-group name $neighbor\n";
     }
 }
 
@@ -612,9 +617,6 @@ sub check_for_peer_groups {
     my $as = shift;
     die "AS not defined\n" unless $as;
     my @peers;
-
-    # short circuit if the neighbor is an IP rather than name
-    return if is_ip_v4_or_v6($pg);
 
     # get the list of neighbors and see if they have a peer-group set
     $config->setLevel("protocols bgp $as neighbor");
@@ -638,29 +640,38 @@ sub check_for_peer_groups {
 
 # make sure nodes are either in a peer group or have
 # a remote AS assigned to them.
-sub check_as {
-    my ($neighbor, $as, $pg) = @_;
+sub check_neighbor_as {
+    my ($neighbor, $as) = @_;
 
     die "neighbor not defined\n" unless $neighbor;
     die "AS not defined\n" unless $as;
-
-    # if this is peer-group then short circuit this
-    return if ! is_ip_v4_or_v6($neighbor); 
 
     my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as neighbor $neighbor");
     my $remoteas = $config->returnValue("remote-as");
     return if defined $remoteas;
 
-    return if $pg;
-
     my $peergroup   = $config->returnValue("peer-group");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
       unless $peergroup;
 
-    my $peergroupas = $config->returnValue(" .. $peergroup remote-as");
+    my $peergroupas = $config->returnValue(" .. .. peer-group $peergroup remote-as");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
       unless $peergroupas;
+}
+
+# make sure peer-group has a remote-as
+sub check_peergroup_as {
+    my ($neighbor, $as) = @_;
+
+    die "neighbor not defined\n" unless $neighbor;
+    die "AS not defined\n" unless $as;
+
+    my $config = new Vyatta::Config;
+    $config->setLevel("protocols bgp $as peer-group $neighbor");
+    my $remoteas = $config->returnValue("remote-as");
+    return if defined $remoteas;
+    die "protocols bgp $as peer-group $neighbor: must define a remote-as\n";
 }
 
 # check that value is either an IPV4 address on system or an interface
@@ -676,15 +687,6 @@ sub check_source {
 	my $found = grep { $_ eq $src } Vyatta::Misc::getInterfaces();
 	die "Interface $src does not exist on the system\n" if ($found == 0);
     }
-}
-
-sub printQuaggaCommands {
-   my $cref = shift;
-   my @cmds;
-   my $cmd;
-
-   $cref->returnQuaggaCommands(\@cmds);
-   foreach $cmd (@cmds) { print "$cmd\n"; }
 }
 
 sub main {

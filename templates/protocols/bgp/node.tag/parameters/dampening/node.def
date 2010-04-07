@@ -1,4 +1,3 @@
 help: Enable route-flap dampening
-delete:expression: "touch /tmp/bgp-dampening.$PPID"
 # Note that there is a bug in quagga here.  If bgpd gets two 'no bgp dampening'
 # commands in a row it will crash

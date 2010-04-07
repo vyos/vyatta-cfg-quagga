@@ -5,3 +5,5 @@ syntax:expression: exec "			      \
           echo Password must be 80 characters or less;\
           exit 1 ;                                     \
         fi ; "
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
+

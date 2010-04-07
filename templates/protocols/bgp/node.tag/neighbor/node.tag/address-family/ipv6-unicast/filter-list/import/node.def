@@ -7,3 +7,4 @@ comp_help: possible completions:
   <txt>     as-path-list name
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) filter-list import: as-path-list $VAR(@) doesn't exist"
+commit:expression: $VAR(../../../../peer-group/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@): you can't set filter-list import for a neighbor in a peer-group"

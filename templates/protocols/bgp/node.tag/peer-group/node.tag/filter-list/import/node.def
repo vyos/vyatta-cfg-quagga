@@ -5,6 +5,6 @@ allowed: local -a params
         echo -n ${params[@]##*/}
 comp_help: possible completions:
   <txt>     as-path-list name
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
 commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a filter-list for a neighbor in peer-group"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) filter-list import: as-path-list $VAR(@) doesn't exist"

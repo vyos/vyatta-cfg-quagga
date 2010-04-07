@@ -6,4 +6,4 @@ comp_help:
   <h:h:h:h:h:h:h:h>   BGP neighbor IPv6 address
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
-                           --check-peer-name $VAR(@)"
+                           --check-neighbor-ip --neighbor $VAR(@)"

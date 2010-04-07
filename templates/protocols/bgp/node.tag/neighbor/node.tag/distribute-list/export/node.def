@@ -8,7 +8,6 @@ allowed: local -a params
                  /opt/vyatta/config/active/policy/access-list6/* )
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
-commit:expression: $VAR(../../peer-group/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@): you can't set a distribute-list for a neighbor in a peer-group"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; \
 "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) export: access-list $VAR(@) doesn't exist"
 commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) distribute-list export: you can't set both a prefix-list and a distribute list"
