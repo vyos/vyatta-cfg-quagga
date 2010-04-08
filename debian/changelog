@@ -1,3 +1,16 @@
+vyatta-cfg-quagga (0.18.68) unstable; urgency=low
+
+  [ Robert Bays ]
+  * initial update to migrate bgp to transaction library
+  * initial update to bgp with new ipv6 and peer-group nodes
+  * update for peer-group support and general cleanup.  Still need at
+    least one more pass before release.
+  * more ipv6 and peer-group updates
+
+  [ Stig Thormodsrud ]
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 08 Apr 2010 10:45:08 -0700
+
 vyatta-cfg-quagga (0.18.67) unstable; urgency=low
 
   * Fix warnings found by check_tmpl.
