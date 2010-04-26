@@ -1,6 +1,6 @@
 tag:
 type: ipv6net
-help: Set to spcify IPv6 prefix (border routers only)
+help: Set to specify IPv6 prefix (border routers only)
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
 delete: touch /tmp/ospf6-range.$PPID
