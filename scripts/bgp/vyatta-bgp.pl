@@ -129,6 +129,8 @@ my %qcom = (
   "protocols bgp var neighbor var distribute-list export" => "router bgp #3 ; neighbor #5 distribute-list #8 out",
   "protocols bgp var neighbor var distribute-list import" => "router bgp #3 ; neighbor #5 distribute-list #8 in",
   "protocols bgp var neighbor var ebgp-multihop" => "router bgp #3 ; neighbor #5 ebgp-multihop #7",
+  "protocols bgp var neighbor var ttl-security" => undef,
+  "protocols bgp var neighbor var ttl-security hops" => "router bgp #3 ; neighbor #5 ttl-security hops #8",
   "protocols bgp var neighbor var filter-list" => undef,
   "protocols bgp var neighbor var filter-list export" => "router bgp #3 ; neighbor #5 filter-list #8 out",
   "protocols bgp var neighbor var filter-list import" => "router bgp #3 ; neighbor #5 filter-list #8 in",
@@ -387,6 +389,8 @@ my %qcomdel = (
   "protocols bgp var neighbor var distribute-list export" => "router bgp #3 ; no neighbor #5 distribute-list #8 out",
   "protocols bgp var neighbor var distribute-list import" => "router bgp #3 ; no neighbor #5 distribute-list #8 in",
   "protocols bgp var neighbor var ebgp-multihop" => "router bgp #3 ; no neighbor #5 ebgp-multihop",
+  "protocols bgp var neighbor var ttl-security" => undef,
+  "protocols bgp var neighbor var ttl-security hops" => "router bgp #3 ; no neighbor #5 ttl-security hops",
   "protocols bgp var neighbor var filter-list" => undef,
   "protocols bgp var neighbor var filter-list export" => "router bgp #3 ; no neighbor #5 filter-list #8 out",
   "protocols bgp var neighbor var filter-list import" => "router bgp #3 ; no neighbor #5 filter-list #8 in",
@@ -649,7 +653,14 @@ sub check_neighbor_as {
     my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as neighbor $neighbor");
     my $remoteas = $config->returnValue("remote-as");
-    return if defined $remoteas;
+    my $ttlsecurity = $config->returnValue("ttl-security hops");
+
+    if ($remoteas) {
+	my $ebgp = $config->returnValue("ebgp-multihops");
+	die "protocols bgp $as neighbor $neighbor: cannot configure both ttl-security hops and ebgp-multihop\n"
+	    if (defined($ttlsecurity) && defined($ebgp));
+	return;
+    }
 
     my $peergroup   = $config->returnValue("peer-group");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
@@ -658,6 +669,11 @@ sub check_neighbor_as {
     my $peergroupas = $config->returnValue(" .. .. peer-group $peergroup remote-as");
     die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
       unless $peergroupas;
+    
+    my $peerebgp = $config->returnValue(".. .. peer-group $peergroup ebgp-multihop");
+
+    die "protocols bgp $as neighbor $neighbor: cannot configure both ttl-security hops and ebgp-multihop (peer $peergroup)\n"
+	if (defined($ttlsecurity) && defined($peerebgp))
 }
 
 # make sure peer-group has a remote-as
