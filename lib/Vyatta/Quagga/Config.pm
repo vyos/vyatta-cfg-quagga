@@ -81,17 +81,15 @@ sub _reInitialize {
 # populate an array reference with Quagga commands
 sub returnQuaggaCommands {
   my ($self, $arrayref) = @_; 
-  my $key;
-  my $string;
 
-  foreach $key (sort { $b cmp $a } keys %_vtyshdel) {
-    foreach $string (@{$_vtyshdel{$key}}) {
+  foreach my $key (sort { $b cmp $a } keys %_vtyshdel) {
+    foreach my $string (@{$_vtyshdel{$key}}) {
       push @{$arrayref}, "$string";
     }
   }
 
-  foreach $key (sort keys %_vtysh) {
-    foreach $string (@{$_vtysh{$key}}) {
+  foreach my $key (sort keys %_vtysh) {
+    foreach my $string (@{$_vtysh{$key}}) {
       push @{$arrayref}, "$string";
     }
   }
@@ -156,15 +154,13 @@ sub _setConfigTree {
 
   if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\n"; }
 
-  my $key;
   my @keys;
-  foreach $key (sort $sortfunc keys %$vtyshref) {
+  foreach my $key (sort $sortfunc keys %$vtyshref) {
     if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
 
     if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
-      my ($index, $cmd);
-      $index = 0;
-      foreach $cmd (@{$vtyshref->{$key}}) {
+      my $index = 0;
+      foreach my $cmd (@{$vtyshref->{$key}}) {
         if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
 
         if (! _sendQuaggaCommand("$cmd")) { return 0; }
@@ -187,11 +183,10 @@ sub cmpb { $b cmp $a }
 # output: none, return failure if needed
 sub _sendQuaggaCommand {
   my ($command) = @_;
-  my $section;
   my $args = "$_vtyshexe --noerr -c 'configure terminal' ";
 
   my @commands = split / ; /, $command;
-  foreach $section (@commands) {
+  foreach my $section (@commands) {
     $args .= "-c '$section' ";
   }
   
@@ -227,10 +222,9 @@ sub _qVarReplace {
   my @qcommands = split /\s/, $qcommand;
 
   my $result = '';
-  my $token;
   # try to replace (#num, ?var) references foreach item in Quagga command template array
   # with their corresponding value in Vyatta command array at (#num) index
-  foreach $token (@qcommands) {
+  foreach my $token (@qcommands) {
     # is this a #var reference? if so translate and append to result
     if ($token =~ s/\#(\d+);*/$1/) {
       $token--;
@@ -277,7 +271,6 @@ sub _qVarReplace {
 sub _qCommandFind {
   my $vyattaconfig = shift;
   my $qcom = shift;
-  my $token = '';
   my $command = '';
 
   my @nodes = split /\s+/, $vyattaconfig;
@@ -286,7 +279,7 @@ sub _qCommandFind {
   # check if there is a corresponding hash in %qcom.  if not,
   # do same check again replacing the end param with var to see
   # if this is a var replacement
-  foreach $token (@nodes) {
+  foreach my $token (@nodes) {
     if    (exists $qcom->{$token})            { $command = $token; }
     elsif (exists $qcom->{"$command $token"}) { $command = "$command $token"; }
     elsif (exists $qcom->{"$command var"})    { $command = "$command var"; }
@@ -333,8 +326,7 @@ sub _qtree {
 
   # traverse the Vyatta config tree and translate to Quagga commands where apropos
   if (@nodes > 0) {
-    my $node;
-    foreach $node (@nodes) {
+    foreach my $node (@nodes) {
       if ($_DEBUG >= 2) { print "DEBUG: _qtree - foreach node loop - node $node\n"; }
 
       # for set action, need to check that the node was actually changed.  Otherwise
