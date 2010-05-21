@@ -29,27 +29,23 @@ my $_DEBUG = 0;
 my %_vtysh;
 my %_vtyshdel;
 my $_qcomref = '';
-my $_qcomdelref = '';
 my $_vtyshexe = '/usr/bin/vtysh';
 
 ###  Public methods -
 # Create the class.  
 # input: $1 - level of the Vyatta config tree to start at
-#        $2 - hashref to Quagga add/change command templates
-#        $3 - hashref to Quagga delete command templates
+#        $2 - hash of hashes ref to Quagga set/delete command templates
 sub new {
   my $that = shift;
   my $class = ref ($that) || $that;
   my $self = {
     _level  => shift,
     _qcref  => shift,
-    _qcdref => shift,
   };
 
   $_qcomref = $self->{_qcref};
-  $_qcomdelref = $self->{_qcdref};
 
-  if (! _qtree($self->{_level}, 'delete')) { return 0; }
+  if (! _qtree($self->{_level}, 'del')) { return 0; }
   if (! _qtree($self->{_level}, 'set')) { return 0; }
 
   bless $self, $class;
@@ -74,7 +70,7 @@ sub _reInitialize {
 
   %_vtysh = ();
   %_vtyshdel = ();
-  _qtree($self->{_level}, 'delete');
+  _qtree($self->{_level}, 'del');
   _qtree($self->{_level}, 'set');
 }
 
@@ -264,12 +260,14 @@ sub _qVarReplace {
 }
 
 # For given Vyatta config tree string, find a corresponding Quagga command template 
-# string as defined in correctly referenced %qcom.  i.e. add or delete %qcom.
+# string as defined in %qcom
 # input: $1 - Vyatta config tree string
-#        $2 - Quagga command template hash 
+#        $2 - action (set|del)
+#        $3 - Quagga command template hash
 # output: %qcom hash key to corresponding Quagga command template string
 sub _qCommandFind {
   my $vyattaconfig = shift;
+  my $action = shift;
   my $qcom = shift;
   my $command = '';
 
@@ -280,14 +278,14 @@ sub _qCommandFind {
   # do same check again replacing the end param with var to see
   # if this is a var replacement
   foreach my $token (@nodes) {
-    if    (exists $qcom->{$token})            { $command = $token; }
-    elsif (exists $qcom->{"$command $token"}) { $command = "$command $token"; }
-    elsif (exists $qcom->{"$command var"})    { $command = "$command var"; }
+    if    (exists $qcom->{$token}->{$action})            { $command = $token; }
+    elsif (exists $qcom->{"$command $token"}->{$action}) { $command = "$command $token"; }
+    elsif (exists $qcom->{"$command var"}->{$action})    { $command = "$command var"; }
     else { return undef; }
   }
 
   # return hash key if Quagga command template string is found
-  if (defined $qcom->{$command}) { return $command; }
+  if (defined $qcom->{$command}->{$action}) { return $command; }
   else { return undef; }
 }
 
@@ -301,6 +299,7 @@ sub _qtree {
   my @nodes;
   my ($qcom, $vtysh);
 
+  $qcom = $_qcomref;
   
   # It's ugly that I have to create a new Vyatta config object every time,
   # but something gets messed up on the stack if I don't.  not sure
@@ -310,15 +309,11 @@ sub _qtree {
 
   # setup references for set or delete action
   if ($action eq 'set') {
-    $qcom = $_qcomref;
     $vtysh = \%_vtysh;
-
     @nodes = $config->listNodes();
   }
   else {
-    $qcom = $_qcomdelref;
     $vtysh = \%_vtyshdel;
-
     @nodes = $config->listDeleted();
   }
 
@@ -331,10 +326,10 @@ sub _qtree {
 
       # for set action, need to check that the node was actually changed.  Otherwise
       # we end up re-writing every node to Quagga every commit, which is bad. Mmm' ok?
-      if (($action eq 'delete') || ($config->isChanged("$node"))) {
+      if (($action eq 'del') || ($config->isChanged("$node"))) {
         # is there a Quagga command template?
         # TODO: need to add function reference support to qcom hash for complicated nodes
-        my $qcommand = _qCommandFind("$level $node", $qcom);
+        my $qcommand = _qCommandFind("$level $node", $action, $qcom);
 
         # if I found a Quagga command template, then replace any vars
         if ($qcommand) {
@@ -345,14 +340,14 @@ sub _qtree {
 
           # is this a leaf node?
           if ($val) {
-            my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand});
+            my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, $var;
             if ($_DEBUG) {
               print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
             }
           }
           else {
-            my $var = _qVarReplace("$level $node", $qcom->{$qcommand});
+            my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, $var;
             if ($_DEBUG) {
               print "DEBUG: _qtree node command: set $level $action $node \n\t\t\t\t$var\n";
@@ -361,7 +356,7 @@ sub _qtree {
         }
       }
       # recurse to next level in tree
-      _qtree("$level $node", 'delete');
+      _qtree("$level $node", 'del');
       _qtree("$level $node", 'set');
     }
   }
