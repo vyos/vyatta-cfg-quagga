@@ -17,16 +17,15 @@ fi
 #   0 - always receive
 #   1 - ignore receive if admin_down
 #   2 - ignore receive if admin_down or link down
-set-sysctl () {
-    sudo sh -c "echo $2 >/proc/sys/net/ipv4/conf/$1/link_filter"
-#   sudo sh -c "echo $2 >/proc/sys/net/ipv6/conf/$1/link_filter"
+set_linkfilter () {
+    net_set /proc/sys/net/ipv4/conf/$1/link_filter=$2
 }
 
 case $2 in
-on)	set-sysctl $1 2
+on)	set_linkfilter $1 2
 	exec vtysh -c "configure terminal" -c "interface $1" \
 	    -c "link-detect" ;;
-off)    set-sysctl $1 1
+off)    set_linkfilter $1 1
 	exec vtysh -c "configure terminal" -c "interface $1" \
 	    -c "no link-detect" ;;
 *)	usage;;
