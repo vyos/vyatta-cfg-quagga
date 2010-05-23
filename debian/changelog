@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.18.74) unstable; urgency=low
+
+  * silence the perl critic.
+  * change qcom struct to hash of hashes to make it easier for the
+    developer to read
+  * add functionality to skip nodes while in _setConfigTree
+  * add differential noerr.  now it supports one of set, del, or both.
+  * change the system call in _sendQuaggaCommand().  with the selective
+    noerr fixed,
+
+ -- Robert Bays <rbays@roatan>  Sun, 23 May 2010 01:00:39 -0700
+
 vyatta-cfg-quagga (0.18.73) unstable; urgency=low
 
   * Add support for TTL security hops
