@@ -202,30 +202,24 @@ sub cmpb { $b cmp $a }
 
 # properly format a Quagga command for vtysh and send to Quagga
 # input: $1 - qVarReplaced Quagga Command string
+#        $2 - boolean: should we use noerr?
 # output: none, return failure if needed
 sub _sendQuaggaCommand {
   my ($command, $noerr) = @_;
   
-  if ($noerr) { $noerr = '--noerr'; }
-  my $args = "$_vtyshexe $noerr -c 'configure terminal' ";
+  my @arg_array = ("$_vtyshexe");
+  if ($noerr) { push (@arg_array, '--noerr'); }
+  if ($_DEBUG >= 2) { push (@arg_array, '-E'); }
+  push (@arg_array, '-c');
+  push (@arg_array, 'configure terminal');
 
   my @commands = split / ; /, $command;
   foreach my $section (@commands) {
-    $args .= "-c '$section' ";
+    push (@arg_array, '-c');
+    push (@arg_array, "$section");
   }
   
-  if ($_DEBUG >= 2) { print "DEBUG: _sendQuaggaCommand - args prior to system call - $args\n"; }
-  # TODO: need to fix this system call.  split into command and args.
-  system("$args");
-  if ($? != 0) {
-    # TODO: need to fix to return error on output and error codes.
-    if ($_DEBUG) { 
-      print "DEBUG: _sendQuaggaCommand - vtysh failure $? - $args\n";
-      print "\n";
-    }
-    return 0;
-  }
-
+  system(@arg_array) == 0 or die "_sendQuaggaCommand: @arg_array failed: $?";
   return 1;
 }
 
