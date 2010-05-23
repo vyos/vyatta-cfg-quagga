@@ -156,6 +156,7 @@ sub _setConfigTree {
     print "\n";
   }
 
+  # This loop walks the list of commands and sends to quagga if appropriate
   foreach my $key (sort $sortfunc keys %$vtyshref) {
     if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
 
@@ -173,7 +174,10 @@ sub _setConfigTree {
 
     # should we run the vtysh command with noerr?
     my $noerr = '';
-    if ($qcom->{$key}->{'noerr'}) { $noerr = 1; }
+    if ( (defined $qcom->{$key}->{'noerr'}) && (
+         ($qcom->{$key}->{'noerr'} eq "both") || 
+         (($qcom->{$key}->{'noerr'} eq "del") && ($delete)) ||
+         (($qcom->{$key}->{'noerr'} eq "set") && (!$delete)))) { $noerr = 1; }
 
     # this conditional matches key to level exactly or if recurse, start of key to level
     if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
