@@ -95,26 +95,26 @@ sub returnQuaggaCommands {
 
 # methods to send the commands to Quagga
 sub setConfigTree {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 0, 0)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 0, 0, @skip_list)) { return 1; }
   return 0;
 }
 
 sub setConfigTreeRecursive {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 0, 1)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 0, 1, @skip_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTree {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 1, 0)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 1, 0, @skip_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTreeRecursive {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 1, 1)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 1, 1, @skip_list)) { return 1; }
   return 0;
 }
 
@@ -129,9 +129,11 @@ sub deleteConfigTreeRecursive {
 # input: $1 - level of the tree to start at
 #        $2 - delete bool
 #        $3 - recursive bool
+#        $4 - arrays of strings to skip 
 # output: none, return failure if needed
 sub _setConfigTree {
-  my ($level, $delete, $recurse) = @_;
+  my ($level, $delete, $recurse, @skip_list) = @_;
+  my $qcom = $_qcomref;
 
   if ((! defined $level)   ||
       (! defined $delete)  ||
@@ -148,18 +150,38 @@ sub _setConfigTree {
     $sortfunc = \&cmpb;
   }
 
-  if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\n"; }
+  if ($_DEBUG >= 3) { 
+    print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: "; 
+    foreach my $key (@skip_list) { print "$key "; }
+    print "\n";
+  }
 
-  my @keys;
   foreach my $key (sort $sortfunc keys %$vtyshref) {
     if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
 
+    # skip parameters in skip_list
+    my $found = 0;
+    if ((scalar @skip_list) > 0) {
+      foreach my $node (@skip_list) {
+        if ($key =~ /$node/) { 
+          $found = 1; 
+          if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $node in skip list\n"; }
+        }
+      }
+    }
+    if ($found) { next; }
+
+    # should we run the vtysh command with noerr?
+    my $noerr = '';
+    if ($qcom->{$key}->{'noerr'}) { $noerr = 1; }
+
+    # this conditional matches key to level exactly or if recurse, start of key to level
     if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
       my $index = 0;
       foreach my $cmd (@{$vtyshref->{$key}}) {
         if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
 
-        if (! _sendQuaggaCommand("$cmd")) { return 0; }
+        if (! _sendQuaggaCommand("$cmd", "$noerr")) { return 0; }
         # remove this command so we don't hit it again in another Recurse call
         delete ${$vtyshref->{$key}}[$index];
         $index++;
@@ -178,8 +200,10 @@ sub cmpb { $b cmp $a }
 # input: $1 - qVarReplaced Quagga Command string
 # output: none, return failure if needed
 sub _sendQuaggaCommand {
-  my ($command) = @_;
-  my $args = "$_vtyshexe --noerr -c 'configure terminal' ";
+  my ($command, $noerr) = @_;
+  
+  if ($noerr) { $noerr = '--noerr'; }
+  my $args = "$_vtyshexe $noerr -c 'configure terminal' ";
 
   my @commands = split / ; /, $command;
   foreach my $section (@commands) {
@@ -190,8 +214,7 @@ sub _sendQuaggaCommand {
   # TODO: need to fix this system call.  split into command and args.
   system("$args");
   if ($? != 0) {
-    # TODO: note that DEBUG will never happen here with --noerr as an argument.
-    # need to fix --noerr.  Also probably need to code a way to conditionally use --noerr.
+    # TODO: need to fix to return error on output and error codes.
     if ($_DEBUG) { 
       print "DEBUG: _sendQuaggaCommand - vtysh failure $? - $args\n";
       print "\n";

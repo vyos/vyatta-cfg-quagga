@@ -148,7 +148,7 @@ my %qcom = (
        del => undef,
   },
   "protocols bgp var neighbor var" => {
-       set => "router bgp #3 ; neighbor #5", 
+       set => undef, 
        del => "router bgp #3 ; no neighbor #5", 
   },
   "protocols bgp var neighbor var address-family" => {
@@ -1213,8 +1213,18 @@ sub main {
    #$qconfig->_reInitialize();
 
    # deletes with priority
+   # TODO: need to put syntax check in remote-as
+   # delete everything in neighbhor except for the important nodes
+   my @skip_array = ('remote-as', 'route-map', 'filter-list', 'prefix-list', 'distribute-list', 'unsuppress-map');
+   # notice the extra space in the level string.  keeps the parent from being deleted.
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
+   # now delete everything in neighbor except remote-as
+   @skip_array = ('remote-as');
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
+   # now finish off neighbor
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var') || die "exiting $?\n";
+   # now delete everything else
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
-   # would be cool if I could add a recursive delete such as everything but (protocols bgp var neigh var remote-as)
 
    # sets with priority
    $qconfig->setConfigTreeRecursive('protocols bgp var parameters') || die "exiting $?\n";
