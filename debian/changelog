@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.75) unstable; urgency=low
+
+  * re-add the disable-send-comunity node to peer-groups
+
+ -- Robert Bays <rbays@roatan>  Tue, 25 May 2010 16:26:01 -0700
+
 vyatta-cfg-quagga (0.18.74) unstable; urgency=low
 
   * silence the perl critic.
