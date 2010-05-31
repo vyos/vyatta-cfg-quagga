@@ -19,6 +19,12 @@ update:  if [ -n "$VAR(../../remote-as/@)" ]; then
          else 
            peer="peer-group $VAR(../../peer-group/@)"; 
          fi;
+         if /opt/vyatta/sbin/vyatta-bgp.pl --check-if-peer-group \
+                                           --peergroup $VAR(../../@); then
+            vyatta-vtysh --noerr -c "configure terminal"    \
+                         -c "router bgp $VAR(../../../@)" \
+                         -c "neighbor $VAR(../../@) peer-group";
+         fi;
          if /opt/vyatta/sbin/vyatta-validate-type.pl -q ipv6 $VAR(../../@); then
            vyatta-vtysh -c "configure terminal"           \
                         -c "router bgp $VAR(../../../@)"  \
