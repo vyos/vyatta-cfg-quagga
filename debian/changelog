@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.59+kenwood8) unstable; urgency=low
+
+  * yet another putback for another bug but we will call it 5593 again
+
+ -- Robert Bays <rbays@roatan>  Tue, 01 Jun 2010 10:28:51 -0700
+
 vyatta-cfg-quagga (0.18.59+kenwood7) unstable; urgency=low
 
   * fix second part of bug 5593
