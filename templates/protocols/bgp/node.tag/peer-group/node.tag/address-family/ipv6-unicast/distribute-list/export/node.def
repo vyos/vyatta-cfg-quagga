@@ -1,5 +1,5 @@
 type: txt
-help: Set an access-list to filter outgoing route updates to this neighbor
+help: Set an access-list to filter outgoing route updates to this peer-group
 comp_help: possible completions:
   <1-65535>    access-list number
   <txt>        access-list6 name
@@ -9,5 +9,5 @@ allowed: local -a params
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; \
-"protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) export: access-list $VAR(@) doesn't exist"
-commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) distribute-list export: you can't set both a prefix-list and a distribute list"
+"protocols bgp $VAR(../../../../../@) peer-group $VAR(../../../../@) export: access-list $VAR(@) doesn't exist"
+commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../../../@) peer-group $VAR(../../../../@) distribute-list export: you can't set both a prefix-list and a distribute list"

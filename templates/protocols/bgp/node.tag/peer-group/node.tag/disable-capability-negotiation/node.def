@@ -1,2 +1,2 @@
-help: Set to not perform capability negotiation with this neighbor
+help: Set to not perform capability negotiation with this peer-group
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"

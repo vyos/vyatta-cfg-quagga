@@ -1,5 +1,5 @@
 type: u32
-help: Set the maximum number of prefixes to accept from this neighbor
+help: Set the maximum number of prefixes to accept from this peer-group
 comp_help: possible completions:
   <1-4294967295>    prefix limit
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../../@) --neighbor $VAR(../../../@)"

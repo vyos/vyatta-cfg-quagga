@@ -1,6 +1,6 @@
 type: txt
 
-help: Set a prefix-list to filter incoming route updates from this neighbor
+help: Set a prefix-list to filter incoming route updates from this peer-group
 
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/prefix-list6/*)
