@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.76) unstable; urgency=low
+
+  * fix for bug 5653
+
+ -- Robert Bays <rbays@roatan>  Wed, 02 Jun 2010 17:15:41 -0700
+
 vyatta-cfg-quagga (0.18.75) unstable; urgency=low
 
   * re-add the disable-send-comunity node to peer-groups
