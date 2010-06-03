@@ -163,6 +163,10 @@ my %qcom = (
        set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in", 
        del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in", 
   },
+  "protocols bgp var neighbor var address-family ipv6-unicast allowas-in number" => {
+       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10",
+       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in",
+  },
   "protocols bgp var neighbor var address-family ipv6-unicast attribute-unchanged" => {
        set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
        del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged", 
@@ -305,7 +309,7 @@ my %qcom = (
   },
   "protocols bgp var neighbor var allowas-in number" => {
        set => "router bgp #3 ; neighbor #5 allowas-in #8", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in #8 ; neighbor #5 allowas-in", 
+       del => "router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in", 
   },
   "protocols bgp var neighbor var attribute-unchanged" => {
        set => "router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
@@ -659,6 +663,10 @@ my %qcom = (
        set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in", 
        del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in", 
   },
+  "protocols bgp var peer-group var address-family ipv6-unicast allowas-in number" => {
+       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10",
+       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in",
+  },
   "protocols bgp var peer-group var address-family ipv6-unicast attribute-unchanged" => {
        set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
        del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged", 
@@ -797,7 +805,7 @@ my %qcom = (
   },
   "protocols bgp var peer-group var allowas-in number" => {
        set => "router bgp #3 ; neighbor #5 allowas-in #8", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in #8 ; neighbor #5 allowas-in", 
+       del => "router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in", 
   },
   "protocols bgp var peer-group var attribute-unchanged" => {
        set => "router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
