@@ -1,16 +1,10 @@
 type: txt
-
 help: Set a prefix-list to filter outgoing route updates to this peer-group
-
-allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/prefix-list6/*)
-        echo -n ${params[@]##*/}
-
 comp_help: possible completions:
   <txt>     prefix-list name
-
-
+allowed: local -a params
+        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list6 )
+        echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; \
 "protocols bgp $VAR(../../../../../@) peer-group $VAR(../../../../@) address-family ipv6-unicast prefix-list export: prefix-list $VAR(@) doesn't exist"
-
 commit:expression: $VAR(../../distribute-list/export/) == ""; "protocols bgp $VAR(../../../../../@) peer-group $VAR(../../../../@) address-family ipv6-unicast prefix-list export: you can't set both a prefix-list and a distribute list"

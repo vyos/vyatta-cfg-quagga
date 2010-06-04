@@ -1,6 +1,8 @@
 type: txt
 help: Set the route-map to specify criteria of the default
+comp_help: possible completions:
+  <txt>    route-map name
 allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/route-map/* )
+        params=$(/opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map)
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" " ; "protocols bgp $VAR(../../../@) peer-group $VAR(../../@) default-originate: route-map $VAR(@) doesn't exist"

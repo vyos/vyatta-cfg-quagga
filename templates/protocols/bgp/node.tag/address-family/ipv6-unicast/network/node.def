@@ -3,5 +3,4 @@ type: ipv6net
 help: Set a BGP IPv6 network
 comp_help: 
   <h:h:h:h:h:h:h:h/x>    IPv6 network
-
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"

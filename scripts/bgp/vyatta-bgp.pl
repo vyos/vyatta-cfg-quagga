@@ -38,1039 +38,1041 @@ use Vyatta::Config;
 use Vyatta::Quagga::Config;
 use Vyatta::Misc;
 
-my %qcom = ( 
-  "protocols" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var" => {
-       set => "router bgp #3", 
-       del => "no router bgp #3", 
-  },
-  "protocols bgp var address-family" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var address-family ipv6-unicast" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var address-family ipv6-unicast aggregate-address" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var address-family ipv6-unicast aggregate-address var" => {
-       set => "router bgp #3 ; no ipv6 bgp aggregate-address #7 ; ipv6 bgp aggregate-address #7 ?summary-only", 
-       del => "router bgp #3 ; no ipv6 bgp aggregate-address #7", 
-  },
-  "protocols bgp var address-family ipv6-unicast network" => {
-       set => "router bgp #3 ; no ipv6 bgp network #7 ; ipv6 bgp network #7", 
-       del => "router bgp #3 ; no ipv6 bgp network #7 ; no ipv6 bgp network #7", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute connected" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute connected", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute connected", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute connected metric" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute connected metric #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute connected metric #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute connected route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute kernel" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute kernel", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute kernel", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute kernel metric" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute kernel metric #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute kernel metric #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute kernel route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute kernel route-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute kernel route-map #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ospfv3" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ospfv3 metric" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3 metric #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 metric #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ospfv3 route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ospfv3 route-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 route-map #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ripng" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ripng", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ripng", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ripng metric" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ripng metric #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ripng metric #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute ripng route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute ripng route-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute ripng route-map #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute static" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute static", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute static", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute static metric" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute static metric #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute static metric #9", 
-  },
-  "protocols bgp var address-family ipv6-unicast redistribute static route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; redistribute static route-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no redistribute static route-map #9", 
-  },
-  "protocols bgp var aggregate-address" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var aggregate-address var" => {
-       set => "router bgp #3 ; no aggregate-address #5 ; aggregate-address #5 ?as-set ?summary-only", 
-       del => "router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only", 
+my %qcom = (
+  'protocols' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var' => {
+      set => 'router bgp #3',
+      del => 'no router bgp #3',
+  },
+  'protocols bgp var address-family' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var address-family ipv6-unicast' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var address-family ipv6-unicast aggregate-address' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var address-family ipv6-unicast aggregate-address var' => {
+      set => 'router bgp #3 ; no ipv6 bgp aggregate-address #7 ; ipv6 bgp aggregate-address #7 ?summary-only',
+      del => 'router bgp #3 ; no ipv6 bgp aggregate-address #7',
+  },
+  'protocols bgp var address-family ipv6-unicast network' => {
+      set => 'router bgp #3 ; no ipv6 bgp network #7 ; ipv6 bgp network #7',
+      del => 'router bgp #3 ; no ipv6 bgp network #7 ; no ipv6 bgp network #7',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute connected' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute connected metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected metric #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute connected route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute kernel' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute kernel metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel metric #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute kernel route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel route-map #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ospfv3' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ospfv3 metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3 metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 metric #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ospfv3 route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3 route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 route-map #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ripng' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ripng metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng metric #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute ripng route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng route-map #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute static' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute static',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute static',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute static metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute static metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute static metric #9',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute static route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute static route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute static route-map #9',
+  },
+  'protocols bgp var aggregate-address' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var aggregate-address var' => {
+      set => 'router bgp #3 ; no aggregate-address #5 ; aggregate-address #5 ?as-set ?summary-only',
+      del => 'router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only',
   },
-  "protocols bgp var neighbor" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var" => {
-       set => undef, 
-       del => "router bgp #3 ; no neighbor #5", 
+  'protocols bgp var neighbor var' => {
+      set => 'undef',
+      del => 'router bgp #3 ; no neighbor #5',
   },
-  "protocols bgp var neighbor var address-family" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 activate", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 activate", 
+  'protocols bgp var neighbor var address-family ipv6-unicast' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 activate',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast allowas-in" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in", 
+  'protocols bgp var neighbor var address-family ipv6-unicast allowas-in' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast allowas-in number" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10",
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in",
+  'protocols bgp var neighbor var address-family ipv6-unicast allowas-in number' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast attribute-unchanged" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged", 
+  'protocols bgp var neighbor var address-family ipv6-unicast attribute-unchanged' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast capability' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability dynamic" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic", 
+  'protocols bgp var neighbor var address-family ipv6-unicast capability dynamic' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability orf" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast capability orf' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list receive" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list receive", 
+  'protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list receive' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list receive',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list send" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list send", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list send", 
+  'protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list send' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list send',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list send',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast default-originate" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate", 
+  'protocols bgp var neighbor var address-family ipv6-unicast default-originate' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast default-originate route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate route-map #10", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10", 
+  'protocols bgp var neighbor var address-family ipv6-unicast default-originate route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate route-map #10',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast disable-send-community" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast disable-send-community' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast disable-send-community extended" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended", 
-       del => "router bgp #3 ; address-family ipv6 ; neighbor #5 send-community extended", 
+  'protocols bgp var neighbor var address-family ipv6-unicast disable-send-community extended' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended',
+      del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community extended',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast disable-send-community standard" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community standard", 
-       del => "router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard", 
+  'protocols bgp var neighbor var address-family ipv6-unicast disable-send-community standard' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community standard',
+      del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast distribute-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast distribute-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast distribute-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 out", 
+  'protocols bgp var neighbor var address-family ipv6-unicast distribute-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 out',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast distribute-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in", 
+  'protocols bgp var neighbor var address-family ipv6-unicast distribute-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast filter-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast filter-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast filter-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 out", 
+  'protocols bgp var neighbor var address-family ipv6-unicast filter-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 out',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast filter-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 in", 
+  'protocols bgp var neighbor var address-family ipv6-unicast filter-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast maximum-prefix" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 maximum-prefix #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 maximum-prefix #9", 
+  'protocols bgp var neighbor var address-family ipv6-unicast maximum-prefix' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 maximum-prefix #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 maximum-prefix #9',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast nexthop-local" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 nexthop-local unchanged", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 nexthop-local unchanged", 
+  'protocols bgp var neighbor var address-family ipv6-unicast nexthop-local' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 nexthop-local unchanged',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 nexthop-local unchanged',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast nexthop-self" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self", 
+  'protocols bgp var neighbor var address-family ipv6-unicast nexthop-self' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast prefix-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast prefix-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast prefix-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 out", 
+  'protocols bgp var neighbor var address-family ipv6-unicast prefix-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 out',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast prefix-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 in", 
+  'protocols bgp var neighbor var address-family ipv6-unicast prefix-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast remove-private-as" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS", 
+  'protocols bgp var neighbor var address-family ipv6-unicast remove-private-as' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast route-map" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast route-map' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast route-map export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 out", 
+  'protocols bgp var neighbor var address-family ipv6-unicast route-map export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 out',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast route-map import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 in", 
+  'protocols bgp var neighbor var address-family ipv6-unicast route-map import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 in',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast route-reflector-client" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-reflector-client", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-reflector-client", 
+  'protocols bgp var neighbor var address-family ipv6-unicast route-reflector-client' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-reflector-client',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-reflector-client',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast route-server-client" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-server-client", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client", 
+  'protocols bgp var neighbor var address-family ipv6-unicast route-server-client' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-server-client',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration inbound" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 soft-reconfiguration inbound", 
+  'protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration inbound' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 soft-reconfiguration inbound',
   },
-  "protocols bgp var neighbor var address-family ipv6-unicast unsuppress-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 unsuppress-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 unsuppress-map #9", 
+  'protocols bgp var neighbor var address-family ipv6-unicast unsuppress-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 unsuppress-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 unsuppress-map #9',
   },
-  "protocols bgp var neighbor var advertisement-interval" => {
-       set => "router bgp #3 ; neighbor #5 advertisement-interval #7", 
-       del => "router bgp #3 ; no neighbor #5 advertisement-interval", 
+  'protocols bgp var neighbor var advertisement-interval' => {
+      set => 'router bgp #3 ; neighbor #5 advertisement-interval #7',
+      del => 'router bgp #3 ; no neighbor #5 advertisement-interval',
   },
-  "protocols bgp var neighbor var allowas-in" => {
-       set => "router bgp #3 ; neighbor #5 allowas-in", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in", 
+  'protocols bgp var neighbor var allowas-in' => {
+      set => 'router bgp #3 ; neighbor #5 allowas-in',
+      del => 'router bgp #3 ; no neighbor #5 allowas-in',
   },
-  "protocols bgp var neighbor var allowas-in number" => {
-       set => "router bgp #3 ; neighbor #5 allowas-in #8", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in", 
+  'protocols bgp var neighbor var allowas-in number' => {
+      set => 'router bgp #3 ; neighbor #5 allowas-in #8',
+      del => 'router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in',
   },
-  "protocols bgp var neighbor var attribute-unchanged" => {
-       set => "router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
-       del => "router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
+  'protocols bgp var neighbor var attribute-unchanged' => {
+      set => 'router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
+      del => 'router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
   },
-  "protocols bgp var neighbor var capability" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var capability' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var capability dynamic" => {
-       set => "router bgp #3 ; neighbor #5 capability dynamic", 
-       del => "router bgp #3 ; no neighbor #5 capability dynamic", 
+  'protocols bgp var neighbor var capability dynamic' => {
+      set => 'router bgp #3 ; neighbor #5 capability dynamic',
+      del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
-  "protocols bgp var neighbor var capability orf" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var capability orf' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var capability orf prefix-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var capability orf prefix-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var capability orf prefix-list receive" => {
-       set => "router bgp #3 ; neighbor #5 capability orf prefix-list receive", 
-       del => "router bgp #3 ; no neighbor #5 capability orf prefix-list receive", 
+  'protocols bgp var neighbor var capability orf prefix-list receive' => {
+      set => 'router bgp #3 ; neighbor #5 capability orf prefix-list receive',
+      del => 'router bgp #3 ; no neighbor #5 capability orf prefix-list receive',
   },
-  "protocols bgp var neighbor var capability orf prefix-list send" => {
-       set => "router bgp #3 ; neighbor #5 capability orf prefix-list send", 
-       del => "router bgp #3 ; no neighbor #5 capability orf prefix-list send", 
+  'protocols bgp var neighbor var capability orf prefix-list send' => {
+      set => 'router bgp #3 ; neighbor #5 capability orf prefix-list send',
+      del => 'router bgp #3 ; no neighbor #5 capability orf prefix-list send',
   },
-  "protocols bgp var neighbor var default-originate" => {
-       set => "router bgp #3 ; neighbor #5 default-originate", 
-       del => "router bgp #3 ; no neighbor #5 default-originate", 
+  'protocols bgp var neighbor var default-originate' => {
+      set => 'router bgp #3 ; neighbor #5 default-originate',
+      del => 'router bgp #3 ; no neighbor #5 default-originate',
   },
-  "protocols bgp var neighbor var default-originate route-map" => {
-       set => "router bgp #3 ; neighbor #5 default-originate route-map #8", 
-       del => "router bgp #3 ; no neighbor #5 default-originate route-map #8", 
+  'protocols bgp var neighbor var default-originate route-map' => {
+      set => 'router bgp #3 ; neighbor #5 default-originate route-map #8',
+      del => 'router bgp #3 ; no neighbor #5 default-originate route-map #8',
   },
-  "protocols bgp var neighbor var disable-capability-negotiation" => {
-       set => "router bgp #3 ; neighbor #5 dont-capability-negotiate", 
-       del => "router bgp #3 ; no neighbor #5 dont-capability-negotiate", 
+  'protocols bgp var neighbor var disable-capability-negotiation' => {
+      set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
+      del => 'router bgp #3 ; no neighbor #5 dont-capability-negotiate',
   },
-  "protocols bgp var neighbor var disable-connected-check" => {
-       set => "router bgp #3 ; neighbor #5 disable-connected-check", 
-       del => "router bgp #3 ; no neighbor #5 disable-connected-check", 
+  'protocols bgp var neighbor var disable-connected-check' => {
+      set => 'router bgp #3 ; neighbor #5 disable-connected-check',
+      del => 'router bgp #3 ; no neighbor #5 disable-connected-check',
   },
-  "protocols bgp var neighbor var disable-send-community" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var disable-send-community' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var disable-send-community extended" => {
-       set => "router bgp #3 ; no neighbor #5 send-community extended", 
-       del => "router bgp #3 ; neighbor #5 send-community extended", 
+  'protocols bgp var neighbor var disable-send-community extended' => {
+      set => 'router bgp #3 ; no neighbor #5 send-community extended',
+      del => 'router bgp #3 ; neighbor #5 send-community extended',
   },
-  "protocols bgp var neighbor var disable-send-community standard" => {
-       set => "router bgp #3 ; no neighbor #5 send-community standard", 
-       del => "router bgp #3 ; neighbor #5 send-community standard", 
+  'protocols bgp var neighbor var disable-send-community standard' => {
+      set => 'router bgp #3 ; no neighbor #5 send-community standard',
+      del => 'router bgp #3 ; neighbor #5 send-community standard',
   },
-  "protocols bgp var neighbor var distribute-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var distribute-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var distribute-list export" => {
-       set => "router bgp #3 ; neighbor #5 distribute-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 distribute-list #8 out", 
+  'protocols bgp var neighbor var distribute-list export' => {
+      set => 'router bgp #3 ; neighbor #5 distribute-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 distribute-list #8 out',
   },
-  "protocols bgp var neighbor var distribute-list import" => {
-       set => "router bgp #3 ; neighbor #5 distribute-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 distribute-list #8 in", 
+  'protocols bgp var neighbor var distribute-list import' => {
+      set => 'router bgp #3 ; neighbor #5 distribute-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 distribute-list #8 in',
   },
-  "protocols bgp var neighbor var ebgp-multihop" => {
-       set => "router bgp #3 ; neighbor #5 ebgp-multihop #7", 
-       del => "router bgp #3 ; no neighbor #5 ebgp-multihop", 
+  'protocols bgp var neighbor var ebgp-multihop' => {
+      set => 'router bgp #3 ; neighbor #5 ebgp-multihop #7',
+      del => 'router bgp #3 ; no neighbor #5 ebgp-multihop',
   },
-  "protocols bgp var neighbor var filter-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var filter-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var filter-list export" => {
-       set => "router bgp #3 ; neighbor #5 filter-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 filter-list #8 out", 
+  'protocols bgp var neighbor var filter-list export' => {
+      set => 'router bgp #3 ; neighbor #5 filter-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 filter-list #8 out',
   },
-  "protocols bgp var neighbor var filter-list import" => {
-       set => "router bgp #3 ; neighbor #5 filter-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 filter-list #8 in", 
+  'protocols bgp var neighbor var filter-list import' => {
+      set => 'router bgp #3 ; neighbor #5 filter-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 filter-list #8 in',
   },
-  "protocols bgp var neighbor var local-as" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var local-as' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var local-as var" => {
-       set => "router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7", 
-       del => "router bgp #3 ; no neighbor #5 local-as", 
+  'protocols bgp var neighbor var local-as var' => {
+      set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7',
+      del => 'router bgp #3 ; no neighbor #5 local-as',
   },
-  "protocols bgp var neighbor var local-as var no-prepend" => {
-       set => "router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend", 
-       del => "router bgp #3 ; no neighbor #5 local-as #7 no-prepend; neighbor #5 local-as #7", 
+  'protocols bgp var neighbor var local-as var no-prepend' => {
+      set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend',
+      del => 'router bgp #3 ; no neighbor #5 local-as #7 no-prepend; neighbor #5 local-as #7',
   },
-  "protocols bgp var neighbor var maximum-prefix" => {
-       set => "router bgp #3 ; neighbor #5 maximum-prefix #7", 
-       del => "router bgp #3 ; no neighbor #5 maximum-prefix", 
+  'protocols bgp var neighbor var maximum-prefix' => {
+      set => 'router bgp #3 ; neighbor #5 maximum-prefix #7',
+      del => 'router bgp #3 ; no neighbor #5 maximum-prefix',
   },
-  "protocols bgp var neighbor var nexthop-self" => {
-       set => "router bgp #3 ; neighbor #5 next-hop-self", 
-       del => "router bgp #3 ; no neighbor #5 next-hop-self", 
+  'protocols bgp var neighbor var nexthop-self' => {
+      set => 'router bgp #3 ; neighbor #5 next-hop-self',
+      del => 'router bgp #3 ; no neighbor #5 next-hop-self',
   },
-  "protocols bgp var neighbor var override-capability" => {
-       set => "router bgp #3 ; neighbor #5 override-capability", 
-       del => "router bgp #3 ; no neighbor #5 override-capability", 
+  'protocols bgp var neighbor var override-capability' => {
+      set => 'router bgp #3 ; neighbor #5 override-capability',
+      del => 'router bgp #3 ; no neighbor #5 override-capability',
   },
-  "protocols bgp var neighbor var passive" => {
-       set => "router bgp #3 ; neighbor #5 passive", 
-       del => "router bgp #3 ; no neighbor #5 passive", 
+  'protocols bgp var neighbor var passive' => {
+      set => 'router bgp #3 ; neighbor #5 passive',
+      del => 'router bgp #3 ; no neighbor #5 passive',
   },
-  "protocols bgp var neighbor var password" => {
-       set => "router bgp #3 ; neighbor #5 password #7", 
-       del => "router bgp #3 ; no neighbor #5 password", 
+  'protocols bgp var neighbor var password' => {
+      set => 'router bgp #3 ; neighbor #5 password #7',
+      del => 'router bgp #3 ; no neighbor #5 password',
   },
-  "protocols bgp var neighbor var peer-group" => {
-       set => "router bgp #3 ; neighbor #5 peer-group #7", 
-       del => "router bgp #3 ; no neighbor #5 peer-group #7", 
+  'protocols bgp var neighbor var peer-group' => {
+      set => 'router bgp #3 ; neighbor #5 peer-group #7',
+      del => 'router bgp #3 ; no neighbor #5 peer-group #7',
   },
-  "protocols bgp var neighbor var port" => {
-       set => "router bgp #3 ; neighbor #5 port #7", 
-       del => "router bgp #3 ; no neighbor #5 port", 
+  'protocols bgp var neighbor var port' => {
+      set => 'router bgp #3 ; neighbor #5 port #7',
+      del => 'router bgp #3 ; no neighbor #5 port',
   },
-  "protocols bgp var neighbor var prefix-list" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var prefix-list' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var prefix-list export" => {
-       set => "router bgp #3 ; neighbor #5 prefix-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 prefix-list #8 out", 
+  'protocols bgp var neighbor var prefix-list export' => {
+      set => 'router bgp #3 ; neighbor #5 prefix-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 prefix-list #8 out',
   },
-  "protocols bgp var neighbor var prefix-list import" => {
-       set => "router bgp #3 ; neighbor #5 prefix-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 prefix-list #8 in", 
+  'protocols bgp var neighbor var prefix-list import' => {
+      set => 'router bgp #3 ; neighbor #5 prefix-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 prefix-list #8 in',
   },
-  "protocols bgp var neighbor var remote-as" => {
-       set => "router bgp #3 ; neighbor #5 remote-as #7", 
-       del => "router bgp #3 ; no neighbor #5 remote-as #7", 
+  'protocols bgp var neighbor var remote-as' => {
+      set => 'router bgp #3 ; neighbor #5 remote-as #7',
+      del => 'router bgp #3 ; no neighbor #5 remote-as #7',
   },
-  "protocols bgp var neighbor var remove-private-as" => {
-       set => "router bgp #3 ; neighbor #5 remove-private-AS", 
-       del => "router bgp #3 ; no neighbor #5 remove-private-AS", 
+  'protocols bgp var neighbor var remove-private-as' => {
+      set => 'router bgp #3 ; neighbor #5 remove-private-AS',
+      del => 'router bgp #3 ; no neighbor #5 remove-private-AS',
   },
-  "protocols bgp var neighbor var route-map" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var route-map' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var route-map export" => {
-       set => "router bgp #3 ; neighbor #5 route-map #8 out", 
-       del => "router bgp #3 ; no neighbor #5 route-map #8 out", 
+  'protocols bgp var neighbor var route-map export' => {
+      set => 'router bgp #3 ; neighbor #5 route-map #8 out',
+      del => 'router bgp #3 ; no neighbor #5 route-map #8 out',
   },
-  "protocols bgp var neighbor var route-map import" => {
-       set => "router bgp #3 ; neighbor #5 route-map #8 in", 
-       del => "router bgp #3 ; no neighbor #5 route-map #8 in", 
+  'protocols bgp var neighbor var route-map import' => {
+      set => 'router bgp #3 ; neighbor #5 route-map #8 in',
+      del => 'router bgp #3 ; no neighbor #5 route-map #8 in',
   },
-  "protocols bgp var neighbor var route-reflector-client" => {
-       set => "router bgp #3 ; neighbor #5 route-reflector-client", 
-       del => "router bgp #3 ; no neighbor #5 route-reflector-client", 
+  'protocols bgp var neighbor var route-reflector-client' => {
+      set => 'router bgp #3 ; neighbor #5 route-reflector-client',
+      del => 'router bgp #3 ; no neighbor #5 route-reflector-client',
   },
-  "protocols bgp var neighbor var route-server-client" => {
-       set => "router bgp #3 ; neighbor #5 route-server-client", 
-       del => "router bgp #3 ; no neighbor #5 route-server-client", 
+  'protocols bgp var neighbor var route-server-client' => {
+      set => 'router bgp #3 ; neighbor #5 route-server-client',
+      del => 'router bgp #3 ; no neighbor #5 route-server-client',
   },
-  "protocols bgp var neighbor var shutdown" => {
-       set => "router bgp #3 ; neighbor #5 shutdown", 
-       del => "router bgp #3 ; no neighbor #5 shutdown", 
+  'protocols bgp var neighbor var shutdown' => {
+      set => 'router bgp #3 ; neighbor #5 shutdown',
+      del => 'router bgp #3 ; no neighbor #5 shutdown',
   },
-  "protocols bgp var neighbor var soft-reconfiguration" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var soft-reconfiguration' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var soft-reconfiguration inbound" => {
-       set => "router bgp #3 ; neighbor #5 soft-reconfiguration inbound", 
-       del => "router bgp #3 ; no neighbor #5 soft-reconfiguration inbound", 
+  'protocols bgp var neighbor var soft-reconfiguration inbound' => {
+      set => 'router bgp #3 ; neighbor #5 soft-reconfiguration inbound',
+      del => 'router bgp #3 ; no neighbor #5 soft-reconfiguration inbound',
   },
-  "protocols bgp var neighbor var strict-capability-match" => {
-       set => "router bgp #3 ; neighbor #5 strict-capability-match", 
-       del => "router bgp #3 ; no neighbor #5 strict-capability-match", 
+  'protocols bgp var neighbor var strict-capability-match' => {
+      set => 'router bgp #3 ; neighbor #5 strict-capability-match',
+      del => 'router bgp #3 ; no neighbor #5 strict-capability-match',
   },
-  "protocols bgp var neighbor var timers" => {
-       set => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime', 
-       del => 'router bgp #3 ; no neighbor #5 timers', 
+  'protocols bgp var neighbor var timers' => {
+      set => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime',
+      del => 'router bgp #3 ; no neighbor #5 timers',
   },
-  "protocols bgp var neighbor var timers connect" => {
-       set => "router bgp #3 ; neighbor #5 timers connect #8", 
-       del => "router bgp #3 ; no neighbor #5 timers connect", 
+  'protocols bgp var neighbor var timers connect' => {
+      set => 'router bgp #3 ; neighbor #5 timers connect #8',
+      del => 'router bgp #3 ; no neighbor #5 timers connect',
   },
-  "protocols bgp var neighbor var ttl-security" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var neighbor var ttl-security' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var neighbor var ttl-security hops" => {
-       set => "router bgp #3 ; neighbor #5 ttl-security hops #8", 
-       del => "router bgp #3 ; no neighbor #5 ttl-security hops", 
+  'protocols bgp var neighbor var ttl-security hops' => {
+      set => 'router bgp #3 ; neighbor #5 ttl-security hops #8',
+      del => 'router bgp #3 ; no neighbor #5 ttl-security hops #8',
   },
-  "protocols bgp var neighbor var unsuppress-map" => {
-       set => "router bgp #3 ; neighbor #5 unsuppress-map #7", 
-       del => "router bgp #3 ; no neighbor #5 unsuppress-map #7", 
+  'protocols bgp var neighbor var unsuppress-map' => {
+      set => 'router bgp #3 ; neighbor #5 unsuppress-map #7',
+      del => 'router bgp #3 ; no neighbor #5 unsuppress-map #7',
   },
-  "protocols bgp var neighbor var update-source" => {
-       set => "router bgp #3 ; neighbor #5 update-source #7", 
-       del => "router bgp #3 ; no neighbor #5 update-source", 
+  'protocols bgp var neighbor var update-source' => {
+      set => 'router bgp #3 ; neighbor #5 update-source #7',
+      del => 'router bgp #3 ; no neighbor #5 update-source',
   },
-  "protocols bgp var neighbor var weight" => {
-       set => "router bgp #3 ; neighbor #5 weight #7", 
-       del => "router bgp #3 ; no neighbor #5 weight", 
+  'protocols bgp var neighbor var weight' => {
+      set => 'router bgp #3 ; neighbor #5 weight #7',
+      del => 'router bgp #3 ; no neighbor #5 weight',
   },
-  "protocols bgp var network" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var network' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var network var" => {
-       set => "router bgp #3 ; network #5 ?backdoor", 
-       del => "router bgp #3 ; no network #5", 
+  'protocols bgp var network var' => {
+      set => 'router bgp #3 ; network #5 ?backdoor',
+      del => 'router bgp #3 ; no network #5',
   },
-  "protocols bgp var network var route-map" => {
-       set => "router bgp #3 ; network #5 route-map #7", 
-       del => "router bgp #3 ; no network #5 route-map #7", 
+  'protocols bgp var network var route-map' => {
+      set => 'router bgp #3 ; network #5 route-map #7',
+      del => 'router bgp #3 ; no network #5 route-map #7',
   },
-  "protocols bgp var parameters" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters always-compare-med" => {
-       set => "router bgp #3 ; bgp always-compare-med", 
-       del => "router bgp #3 ; no bgp always-compare-med", 
+  'protocols bgp var parameters always-compare-med' => {
+      set => 'router bgp #3 ; bgp always-compare-med',
+      del => 'router bgp #3 ; no bgp always-compare-med',
   },
-  "protocols bgp var parameters bestpath" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters bestpath' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters bestpath as-path" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters bestpath as-path' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters bestpath as-path confed" => {
-       set => "router bgp #3 ; bgp bestpath as-path confed", 
-       del => "router bgp #3 ; no bgp bestpath as-path confed", 
+  'protocols bgp var parameters bestpath as-path confed' => {
+      set => 'router bgp #3 ; bgp bestpath as-path confed',
+      del => 'router bgp #3 ; no bgp bestpath as-path confed',
   },
-  "protocols bgp var parameters bestpath as-path ignore" => {
-       set => "router bgp #3 ; bgp bestpath as-path ignore", 
-       del => "router bgp #3 ; no bgp bestpath as-path ignore", 
+  'protocols bgp var parameters bestpath as-path ignore' => {
+      set => 'router bgp #3 ; bgp bestpath as-path ignore',
+      del => 'router bgp #3 ; no bgp bestpath as-path ignore',
   },
-  "protocols bgp var parameters bestpath compare-routerid" => {
-       set => "router bgp #3 ; bgp bestpath compare-routerid", 
-       del => "router bgp #3 ; no bgp bestpath compare-routerid", 
+  'protocols bgp var parameters bestpath compare-routerid' => {
+      set => 'router bgp #3 ; bgp bestpath compare-routerid',
+      del => 'router bgp #3 ; no bgp bestpath compare-routerid',
   },
-  "protocols bgp var parameters bestpath med" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters bestpath med' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters bestpath med confed" => {
-       set => "router bgp #3 ; bgp bestpath med confed", 
-       del => "router bgp #3 ; no bgp bestpath med confed", 
+  'protocols bgp var parameters bestpath med confed' => {
+      set => 'router bgp #3 ; bgp bestpath med confed',
+      del => 'router bgp #3 ; no bgp bestpath med confed',
   },
-  "protocols bgp var parameters bestpath med missing-as-worst" => {
-       set => "router bgp #3 ; bgp bestpath med missing-as-worst", 
-       del => "router bgp #3 ; no bgp bestpath med missing-as-worst", 
+  'protocols bgp var parameters bestpath med missing-as-worst' => {
+      set => 'router bgp #3 ; bgp bestpath med missing-as-worst',
+      del => 'router bgp #3 ; no bgp bestpath med missing-as-worst',
   },
-  "protocols bgp var parameters cluster-id" => {
-       set => "router bgp #3 ; bgp cluster-id #6", 
-       del => "router bgp #3 ; no bgp cluster-id #6", 
+  'protocols bgp var parameters cluster-id' => {
+      set => 'router bgp #3 ; bgp cluster-id #6',
+      del => 'router bgp #3 ; no bgp cluster-id #6',
   },
-  "protocols bgp var parameters confederation" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters confederation' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters confederation identifier" => {
-       set => "router bgp #3 ; bgp confederation identifier #7", 
-       del => "router bgp #3 ; no bgp confederation identifier #7", 
+  'protocols bgp var parameters confederation identifier' => {
+      set => 'router bgp #3 ; bgp confederation identifier #7',
+      del => 'router bgp #3 ; no bgp confederation identifier #7',
   },
-  "protocols bgp var parameters confederation peers" => {
-       set => "router bgp #3 ; bgp confederation peers #7", 
-       del => "router bgp #3 ; no bgp confederation peers #7", 
+  'protocols bgp var parameters confederation peers' => {
+      set => 'router bgp #3 ; bgp confederation peers #7',
+      del => 'router bgp #3 ; no bgp confederation peers #7',
   },
-  "protocols bgp var parameters dampening" => {
-       set => 'router bgp #3 ; no bgp dampening ; bgp dampening @half-life @re-use @start-suppress-time @max-suppress-time', 
-       del => "router bgp #3 ; no bgp dampening", 
+  'protocols bgp var parameters dampening' => {
+      set => 'router bgp #3 ; no bgp dampening ; bgp dampening @half-life @re-use @start-suppress-time @max-suppress-time',
+      del => 'router bgp #3 ; no bgp dampening',
   },
-  "protocols bgp var parameters default" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters default' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters default local-pref" => {
-       set => "router bgp #3 ; bgp default local-preference #7", 
-       del => "router bgp #3 ; no bgp default local-preference #7", 
+  'protocols bgp var parameters default local-pref' => {
+      set => 'router bgp #3 ; bgp default local-preference #7',
+      del => 'router bgp #3 ; no bgp default local-preference #7',
   },
-  "protocols bgp var parameters default no-ipv4-unicast" => {
-       set => "router bgp #3 ; no bgp default ipv4-unicast", 
-       del => "router bgp #3 ; bgp default ipv4-unicast", 
+  'protocols bgp var parameters default no-ipv4-unicast' => {
+      set => 'router bgp #3 ; no bgp default ipv4-unicast',
+      del => 'router bgp #3 ; bgp default ipv4-unicast',
   },
-  "protocols bgp var parameters deterministic-med" => {
-       set => "router bgp #3 ; bgp deterministic-med", 
-       del => "router bgp #3 ; no bgp deterministic-med", 
+  'protocols bgp var parameters deterministic-med' => {
+      set => 'router bgp #3 ; bgp deterministic-med',
+      del => 'router bgp #3 ; no bgp deterministic-med',
   },
-  "protocols bgp var parameters disable-network-import-check" => {
-       set => "router bgp #3 ; no bgp network import-check", 
-       del => "router bgp #3 ; bgp network import-check", 
+  'protocols bgp var parameters disable-network-import-check' => {
+      set => 'router bgp #3 ; no bgp network import-check',
+      del => 'router bgp #3 ; bgp network import-check',
   },
-  "protocols bgp var parameters enforce-first-as" => {
-       set => "router bgp #3 ; bgp enforce-first-as", 
-       del => "router bgp #3 ; no bgp enforce-first-as", 
+  'protocols bgp var parameters enforce-first-as' => {
+      set => 'router bgp #3 ; bgp enforce-first-as',
+      del => 'router bgp #3 ; no bgp enforce-first-as',
   },
-  "protocols bgp var parameters graceful-restart" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var parameters graceful-restart' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var parameters graceful-restart stalepath-time" => {
-       set => "router bgp #3 ; bgp graceful-restart stalepath-time #7", 
-       del => "router bgp #3 ; no bgp graceful-restart stalepath-time #7", 
+  'protocols bgp var parameters graceful-restart stalepath-time' => {
+      set => 'router bgp #3 ; bgp graceful-restart stalepath-time #7',
+      del => 'router bgp #3 ; no bgp graceful-restart stalepath-time #7',
   },
-  "protocols bgp var parameters log-neighbor-changes" => {
-       set => "router bgp #3 ; bgp log-neighbor-changes", 
-       del => "router bgp #3 ; no bgp log-neighbor-changes", 
+  'protocols bgp var parameters log-neighbor-changes' => {
+      set => 'router bgp #3 ; bgp log-neighbor-changes',
+      del => 'router bgp #3 ; no bgp log-neighbor-changes',
   },
-  "protocols bgp var parameters no-client-to-client-reflection" => {
-       set => "router bgp #3 ; no bgp client-to-client reflection", 
-       del => "router bgp #3 ; bgp client-to-client reflection", 
+  'protocols bgp var parameters no-client-to-client-reflection' => {
+      set => 'router bgp #3 ; no bgp client-to-client reflection',
+      del => 'router bgp #3 ; bgp client-to-client reflection',
   },
-  "protocols bgp var parameters no-fast-external-failover" => {
-       set => "router bgp #3 ; no bgp fast-external-failover", 
-       del => "router bgp #3 ; bgp fast-external-failover", 
+  'protocols bgp var parameters no-fast-external-failover' => {
+      set => 'router bgp #3 ; no bgp fast-external-failover',
+      del => 'router bgp #3 ; bgp fast-external-failover',
   },
-  "protocols bgp var parameters router-id" => {
-       set => "router bgp #3 ; bgp router-id #6", 
-       del => "router bgp #3 ; no bgp router-id #6", 
+  'protocols bgp var parameters router-id' => {
+      set => 'router bgp #3 ; bgp router-id #6',
+      del => 'router bgp #3 ; no bgp router-id #6',
   },
-  "protocols bgp var parameters scan-time" => {
-       set => "router bgp #3 ; bgp scan-time #6", 
-       del => "router bgp #3 ; no bgp scan-time #6", 
+  'protocols bgp var parameters scan-time' => {
+      set => 'router bgp #3 ; bgp scan-time #6',
+      del => 'router bgp #3 ; no bgp scan-time #6',
   },
-  "protocols bgp var peer-group" => {
-       set => undef, 
-       del => undef,
+  'protocols bgp var peer-group' => {
+      set => 'undef',
+      del => 'undef',
   },
-  "protocols bgp var peer-group var" => {
-       set => "router bgp #3 ; neighbor #5 peer-group", 
-       del => "router bgp #3 ; no neighbor #5 peer-group", 
-  },
-  "protocols bgp var peer-group var address-family" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 activate", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 activate", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast allowas-in" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast allowas-in number" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10",
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in",
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast attribute-unchanged" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability dynamic" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability orf" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list receive" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list receive", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list send" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list send", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list send", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast default-originate" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast default-originate route-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate route-map #10", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast disable-send-community" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast disable-send-community extended" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended", 
-       del => "router bgp #3 ; address-family ipv6 ; neighbor #5 send-community extended", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast disable-send-community standard" => {
-       set => "router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community standard", 
-       del => "router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast distribute-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast distribute-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 out", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast distribute-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast filter-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast filter-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 out", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast filter-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 in", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast maximum-prefix" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 maximum-prefix #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 maximum-prefix #9", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast nexthop-local" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 nexthop-local unchanged", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 nexthop-local unchanged", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast nexthop-self" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast prefix-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast prefix-list export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 out", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast prefix-list import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 in", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast remove-private-as" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast route-map" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast route-map export" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 out", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast route-map import" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 in", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 in", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast route-reflector-client" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-reflector-client", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-reflector-client", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast route-server-client" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 route-server-client", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration inbound" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 soft-reconfiguration inbound", 
-  },
-  "protocols bgp var peer-group var address-family ipv6-unicast unsuppress-map" => {
-       set => "router bgp #3 ; address-family ipv6 ; neighbor #5 unsuppress-map #9", 
-       del => "router bgp #3 ; address-family ipv6 ; no neighbor #5 unsuppress-map #9", 
-  },
-  "protocols bgp var peer-group var allowas-in" => {
-       set => "router bgp #3 ; neighbor #5 allowas-in", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in", 
-  },
-  "protocols bgp var peer-group var allowas-in number" => {
-       set => "router bgp #3 ; neighbor #5 allowas-in #8", 
-       del => "router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in", 
-  },
-  "protocols bgp var peer-group var attribute-unchanged" => {
-       set => "router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
-       del => "router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop", 
-  },
-  "protocols bgp var peer-group var capability" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var capability dynamic" => {
-       set => "router bgp #3 ; neighbor #5 capability dynamic", 
-       del => "router bgp #3 ; no neighbor #5 capability dynamic", 
-  },
-  "protocols bgp var peer-group var capability orf" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var capability orf prefix-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var capability orf prefix-list receive" => {
-       set => "router bgp #3 ; neighbor #5 capability orf prefix-list receive", 
-       del => "router bgp #3 ; no neighbor #5 capability orf prefix-list receive", 
-  },
-  "protocols bgp var peer-group var capability orf prefix-list send" => {
-       set => "router bgp #3 ; neighbor #5 capability orf prefix-list send", 
-       del => "router bgp #3 ; no neighbor #5 capability orf prefix-list send", 
-  },
-  "protocols bgp var peer-group var default-originate" => {
-       set => "router bgp #3 ; neighbor #5 default-originate", 
-       del => "router bgp #3 ; no neighbor #5 default-originate", 
-  },
-  "protocols bgp var peer-group var default-originate route-map" => {
-       set => "router bgp #3 ; neighbor #5 default-originate route-map #8", 
-       del => "router bgp #3 ; no neighbor #5 default-originate route-map #8", 
-  },
-  "protocols bgp var peer-group var disable-capability-negotiation" => {
-       set => "router bgp #3 ; neighbor #5 dont-capability-negotiate", 
-       del => "router bgp #3 ; no neighbor #5 dont-capability-negotiate", 
-  },
-  "protocols bgp var peer-group var disable-connected-check" => {
-       set => "router bgp #3 ; neighbor #5 disable-connected-check", 
-       del => "router bgp #3 ; no neighbor #5 disable-connected-check", 
-  },
-  "protocols bgp var peer-group var disable-send-community" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var disable-send-community extended" => {
-       set => "router bgp #3 ; no neighbor #5 send-community extended", 
-       del => "router bgp #3 ; neighbor #5 send-community extended", 
-  },
-  "protocols bgp var peer-group var disable-send-community standard" => {
-       set => "router bgp #3 ; no neighbor #5 send-community standard", 
-       del => "router bgp #3 ; neighbor #5 send-community standard", 
-  },
-  "protocols bgp var peer-group var distribute-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var distribute-list export" => {
-       set => "router bgp #3 ; neighbor #5 distribute-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 distribute-list #8 out", 
-  },
-  "protocols bgp var peer-group var distribute-list import" => {
-       set => "router bgp #3 ; neighbor #5 distribute-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 distribute-list #8 in", 
-  },
-  "protocols bgp var peer-group var ebgp-multihop" => {
-       set => "router bgp #3 ; neighbor #5 ebgp-multihop #7", 
-       del => "router bgp #3 ; no neighbor #5 ebgp-multihop #7", 
-  },
-  "protocols bgp var peer-group var filter-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var filter-list export" => {
-       set => "router bgp #3 ; neighbor #5 filter-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 filter-list #8 out", 
-  },
-  "protocols bgp var peer-group var filter-list import" => {
-       set => "router bgp #3 ; neighbor #5 filter-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 filter-list #8 in", 
-  },
-  "protocols bgp var peer-group var local-as" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var local-as var" => {
-       set => "router bgp #3 ; no neighbor #5 local-as ; neighbor #5 local-as #7", 
-       del => "router bgp #3 ; no neighbor #5 local-as #7", 
-  },
-  "protocols bgp var peer-group var local-as var no-prepend" => {
-       set => "router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7i no-prepend", 
-       del => "router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7", 
-  },
-  "protocols bgp var peer-group var maximum-prefix" => {
-       set => "router bgp #3 ; neighbor #5 maximum-prefix #7", 
-       del => "router bgp #3 ; no neighbor #5 maximum-prefix #7", 
-  },
-  "protocols bgp var peer-group var nexthop-self" => {
-       set => "router bgp #3 ; neighbor #5 next-hop-self", 
-       del => "router bgp #3 ; no neighbor #5 next-hop-self", 
-  },
-  "protocols bgp var peer-group var override-capability" => {
-       set => "router bgp #3 ; neighbor #5 override-capability", 
-       del => "router bgp #3 ; no neighbor #5 override-capability", 
-  },
-  "protocols bgp var peer-group var passive" => {
-       set => "router bgp #3 ; neighbor #5 passive", 
-       del => "router bgp #3 ; no neighbor #5 passive", 
-  },
-  "protocols bgp var peer-group var password" => {
-       set => "router bgp #3 ; neighbor #5 password #7", 
-       del => "router bgp #3 ; no neighbor #5 password #7", 
-  },
-  "protocols bgp var peer-group var port" => {
-       set => "router bgp #3 ; neighbor #5 port #7", 
-       del => "router bgp #3 ; no neighbor #5 port #7", 
-  },
-  "protocols bgp var peer-group var prefix-list" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var prefix-list export" => {
-       set => "router bgp #3 ; neighbor #5 prefix-list #8 out", 
-       del => "router bgp #3 ; no neighbor #5 prefix-list #8 out", 
-  },
-  "protocols bgp var peer-group var prefix-list import" => {
-       set => "router bgp #3 ; neighbor #5 prefix-list #8 in", 
-       del => "router bgp #3 ; no neighbor #5 prefix-list #8 in", 
-  },
-  "protocols bgp var peer-group var remote-as" => {
-       set => "router bgp #3 ; neighbor #5 peer-group ; neighbor #5 remote-as #7", 
-       del => "router bgp #3 ; no neighbor #5", 
-  },
-  "protocols bgp var peer-group var remove-private-as" => {
-       set => "router bgp #3 ; neighbor #5 remove-private-AS", 
-       del => "router bgp #3 ; no neighbor #5 remove-private-AS", 
-  },
-  "protocols bgp var peer-group var route-map" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var route-map export" => {
-       set => "router bgp #3 ; neighbor #5 route-map #8 out", 
-       del => "router bgp #3 ; no neighbor #5 route-map #8 out", 
-  },
-  "protocols bgp var peer-group var route-map import" => {
-       set => "router bgp #3 ; neighbor #5 route-map #8 in", 
-       del => "router bgp #3 ; no neighbor #5 route-map #8 in", 
-  },
-  "protocols bgp var peer-group var route-reflector-client" => {
-       set => "router bgp #3 ; neighbor #5 route-reflector-client", 
-       del => "router bgp #3 ; no neighbor #5 route-reflector-client", 
-  },
-  "protocols bgp var peer-group var route-server-client" => {
-       set => "router bgp #3 ; neighbor #5 route-server-client", 
-       del => "router bgp #3 ; no neighbor #5 route-server-client", 
-  },
-  "protocols bgp var peer-group var shutdown" => {
-       set => "router bgp #3 ; neighbor #5 shutdown", 
-       del => "router bgp #3 ; no neighbor #5 shutdown", 
-  },
-  "protocols bgp var peer-group var soft-reconfiguration" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var peer-group var soft-reconfiguration inbound" => {
-       set => "router bgp #3 ; neighbor #5 soft-reconfiguration inbound", 
-       del => "router bgp #3 ; no neighbor #5 soft-reconfiguration inbound", 
-  },
-  "protocols bgp var peer-group var timers" => {
-       set => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime', 
-       del => "router bgp #3 ; no neighbor #5", 
-  },
-  "protocols bgp var peer-group var timers connect" => {
-       set => "router bgp #3 ; neighbor #5 timers connect #8", 
-       del => "router bgp #3 ; no neighbor #5 timers connect #8", 
-  },
-  "protocols bgp var peer-group var unsuppress-map" => {
-       set => "router bgp #3 ; neighbor #5 unsuppress-map #7", 
-       del => "router bgp #3 ; no neighbor #5 unsuppress-map #7", 
-  },
-  "protocols bgp var peer-group var update-source" => {
-       set => "router bgp #3 ; neighbor #5 update-source #7", 
-       del => "router bgp #3 ; no neighbor #5 update-source #7", 
-  },
-  "protocols bgp var peer-group var weight" => {
-       set => "router bgp #3 ; neighbor #5 weight #7", 
-       del => "router bgp #3 ; no neighbor #5 weight #7", 
-  },
-  "protocols bgp var redistribute" => {
-       set => undef, 
-       del => undef,
-  },
-  "protocols bgp var redistribute connected" => {
-       set => "router bgp #3 ; redistribute connected", 
-       del => "router bgp #3 ; no redistribute connected", 
-  },
-  "protocols bgp var redistribute connected metric" => {
-       set => "router bgp #3 ; redistribute connected metric #7", 
-       del => "router bgp #3 ; no redistribute connected metric #7", 
-  },
-  "protocols bgp var redistribute connected route-map" => {
-       set => "router bgp #3 ; redistribute connected route-map #7", 
-       del => "router bgp #3 ; no redistribute connected route-map #7", 
-  },
-  "protocols bgp var redistribute kernel" => {
-       set => "router bgp #3 ; redistribute kernel", 
-       del => "router bgp #3 ; no redistribute kernel", 
-  },
-  "protocols bgp var redistribute kernel metric" => {
-       set => "router bgp #3 ; redistribute kernel metric #7", 
-       del => "router bgp #3 ; no redistribute kernel metric #7", 
-  },
-  "protocols bgp var redistribute kernel route-map" => {
-       set => "router bgp #3 ; redistribute kernel route-map #7", 
-       del => "router bgp #3 ; no redistribute kernel route-map #7", 
-  },
-  "protocols bgp var redistribute ospf" => {
-       set => "router bgp #3 ; redistribute ospf", 
-       del => "router bgp #3 ; no redistribute ospf", 
-  },
-  "protocols bgp var redistribute ospf metric" => {
-       set => "router bgp #3 ; redistribute ospf metric #7", 
-       del => "router bgp #3 ; no redistribute ospf metric #7", 
-  },
-  "protocols bgp var redistribute ospf route-map" => {
-       set => "router bgp #3 ; redistribute ospf route-map #7", 
-       del => "router bgp #3 ; no redistribute ospf route-map #7", 
-  },
-  "protocols bgp var redistribute rip" => {
-       set => "router bgp #3 ; redistribute rip", 
-       del => "router bgp #3 ; no redistribute rip", 
-  },
-  "protocols bgp var redistribute rip metric" => {
-       set => "router bgp #3 ; redistribute rip metric #7", 
-       del => "router bgp #3 ; no redistribute rip metric #7", 
-  },
-  "protocols bgp var redistribute rip route-map" => {
-       set => "router bgp #3 ; redistribute rip route-map #7", 
-       del => "router bgp #3 ; no redistribute rip route-map #7", 
-  },
-  "protocols bgp var redistribute static" => {
-       set => "router bgp #3 ; redistribute static", 
-       del => "router bgp #3 ; no redistribute static", 
-  },
-  "protocols bgp var redistribute static metric" => {
-       set => "router bgp #3 ; redistribute static metric #7", 
-       del => "router bgp #3 ; no redistribute static metric #7", 
-  },
-  "protocols bgp var redistribute static route-map" => {
-       set => "router bgp #3 ; redistribute static route-map #7", 
-       del => "router bgp #3 ; no redistribute static route-map #7", 
-  },
-  "protocols bgp var timers" => {
-       set => 'router bgp #3 ; timers bgp @keepalive @holdtime', 
-       del => "router bgp #3 ; no timers bgp", 
+  'protocols bgp var peer-group var' => {
+      set => 'router bgp #3 ; neighbor #5 peer-group',
+      del => 'router bgp #3 ; no neighbor #5 peer-group',
+      noerr => 'set',
+  },
+  'protocols bgp var peer-group var address-family' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 activate',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast allowas-in' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast allowas-in number' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in #10',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast attribute-unchanged' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability dynamic' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability orf' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list receive' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list receive',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list send' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list send',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability orf prefix-list send',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast default-originate' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast default-originate route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 default-originate route-map #10',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast disable-send-community' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast disable-send-community extended' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended',
+      del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community extended',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast disable-send-community standard' => {
+      set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community standard',
+      del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast distribute-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast distribute-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 out',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast distribute-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast filter-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast filter-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 out',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast filter-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 filter-list #10 in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast maximum-prefix' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 maximum-prefix #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 maximum-prefix #9',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast nexthop-local' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 nexthop-local unchanged',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 nexthop-local unchanged',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast nexthop-self' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast prefix-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast prefix-list export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 out',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast prefix-list import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 prefix-list #10 in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast remove-private-as' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast route-map' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast route-map export' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 out',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast route-map import' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 in',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-map #10 in',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast route-reflector-client' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-reflector-client',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-reflector-client',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast route-server-client' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-server-client',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration inbound' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 soft-reconfiguration inbound',
+  },
+  'protocols bgp var peer-group var address-family ipv6-unicast unsuppress-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 unsuppress-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 unsuppress-map #9',
+  },
+  'protocols bgp var peer-group var allowas-in' => {
+      set => 'router bgp #3 ; neighbor #5 allowas-in',
+      del => 'router bgp #3 ; no neighbor #5 allowas-in',
+  },
+  'protocols bgp var peer-group var allowas-in number' => {
+      set => 'router bgp #3 ; neighbor #5 allowas-in #8',
+      del => 'router bgp #3 ; no neighbor #5 allowas-in ; neighbor #5 allowas-in',
+  },
+  'protocols bgp var peer-group var attribute-unchanged' => {
+      set => 'router bgp #3 ; no neighbor #5 attribute-unchanged ; neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
+      del => 'router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
+  },
+  'protocols bgp var peer-group var capability' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var capability dynamic' => {
+      set => 'router bgp #3 ; neighbor #5 capability dynamic',
+      del => 'router bgp #3 ; no neighbor #5 capability dynamic',
+  },
+  'protocols bgp var peer-group var capability orf' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var capability orf prefix-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var capability orf prefix-list receive' => {
+      set => 'router bgp #3 ; neighbor #5 capability orf prefix-list receive',
+      del => 'router bgp #3 ; no neighbor #5 capability orf prefix-list receive',
+  },
+  'protocols bgp var peer-group var capability orf prefix-list send' => {
+      set => 'router bgp #3 ; neighbor #5 capability orf prefix-list send',
+      del => 'router bgp #3 ; no neighbor #5 capability orf prefix-list send',
+  },
+  'protocols bgp var peer-group var default-originate' => {
+      set => 'router bgp #3 ; neighbor #5 default-originate',
+      del => 'router bgp #3 ; no neighbor #5 default-originate',
+  },
+  'protocols bgp var peer-group var default-originate route-map' => {
+      set => 'router bgp #3 ; neighbor #5 default-originate route-map #8',
+      del => 'router bgp #3 ; no neighbor #5 default-originate route-map #8',
+  },
+  'protocols bgp var peer-group var disable-capability-negotiation' => {
+      set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
+      del => 'router bgp #3 ; no neighbor #5 dont-capability-negotiate',
+  },
+  'protocols bgp var peer-group var disable-connected-check' => {
+      set => 'router bgp #3 ; neighbor #5 disable-connected-check',
+      del => 'router bgp #3 ; no neighbor #5 disable-connected-check',
+  },
+  'protocols bgp var peer-group var disable-send-community' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var disable-send-community extended' => {
+      set => 'router bgp #3 ; no neighbor #5 send-community extended',
+      del => 'router bgp #3 ; neighbor #5 send-community extended',
+  },
+  'protocols bgp var peer-group var disable-send-community standard' => {
+      set => 'router bgp #3 ; no neighbor #5 send-community standard',
+      del => 'router bgp #3 ; neighbor #5 send-community standard',
+  },
+  'protocols bgp var peer-group var distribute-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var distribute-list export' => {
+      set => 'router bgp #3 ; neighbor #5 distribute-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 distribute-list #8 out',
+  },
+  'protocols bgp var peer-group var distribute-list import' => {
+      set => 'router bgp #3 ; neighbor #5 distribute-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 distribute-list #8 in',
+  },
+  'protocols bgp var peer-group var ebgp-multihop' => {
+      set => 'router bgp #3 ; neighbor #5 ebgp-multihop #7',
+      del => 'router bgp #3 ; no neighbor #5 ebgp-multihop #7',
+  },
+  'protocols bgp var peer-group var filter-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var filter-list export' => {
+      set => 'router bgp #3 ; neighbor #5 filter-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 filter-list #8 out',
+  },
+  'protocols bgp var peer-group var filter-list import' => {
+      set => 'router bgp #3 ; neighbor #5 filter-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 filter-list #8 in',
+  },
+  'protocols bgp var peer-group var local-as' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var local-as var' => {
+      set => 'router bgp #3 ; no neighbor #5 local-as ; neighbor #5 local-as #7',
+      del => 'router bgp #3 ; no neighbor #5 local-as #7',
+  },
+  'protocols bgp var peer-group var local-as var no-prepend' => {
+      set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7i no-prepend',
+      del => 'router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7',
+  },
+  'protocols bgp var peer-group var maximum-prefix' => {
+      set => 'router bgp #3 ; neighbor #5 maximum-prefix #7',
+      del => 'router bgp #3 ; no neighbor #5 maximum-prefix #7',
+  },
+  'protocols bgp var peer-group var nexthop-self' => {
+      set => 'router bgp #3 ; neighbor #5 next-hop-self',
+      del => 'router bgp #3 ; no neighbor #5 next-hop-self',
+  },
+  'protocols bgp var peer-group var override-capability' => {
+      set => 'router bgp #3 ; neighbor #5 override-capability',
+      del => 'router bgp #3 ; no neighbor #5 override-capability',
+  },
+  'protocols bgp var peer-group var passive' => {
+      set => 'router bgp #3 ; neighbor #5 passive',
+      del => 'router bgp #3 ; no neighbor #5 passive',
+  },
+  'protocols bgp var peer-group var password' => {
+      set => 'router bgp #3 ; neighbor #5 password #7',
+      del => 'router bgp #3 ; no neighbor #5 password #7',
+  },
+  'protocols bgp var peer-group var port' => {
+      set => 'router bgp #3 ; neighbor #5 port #7',
+      del => 'router bgp #3 ; no neighbor #5 port #7',
+  },
+  'protocols bgp var peer-group var prefix-list' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var prefix-list export' => {
+      set => 'router bgp #3 ; neighbor #5 prefix-list #8 out',
+      del => 'router bgp #3 ; no neighbor #5 prefix-list #8 out',
+  },
+  'protocols bgp var peer-group var prefix-list import' => {
+      set => 'router bgp #3 ; neighbor #5 prefix-list #8 in',
+      del => 'router bgp #3 ; no neighbor #5 prefix-list #8 in',
+  },
+  'protocols bgp var peer-group var remote-as' => {
+      set => 'router bgp #3 ; neighbor #5 peer-group ; neighbor #5 remote-as #7',
+      del => 'router bgp #3 ; no neighbor #5 remote-as #7',
+      noerr => 'set',
+  },
+  'protocols bgp var peer-group var remove-private-as' => {
+      set => 'router bgp #3 ; neighbor #5 remove-private-AS',
+      del => 'router bgp #3 ; no neighbor #5 remove-private-AS',
+  },
+  'protocols bgp var peer-group var route-map' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var route-map export' => {
+      set => 'router bgp #3 ; neighbor #5 route-map #8 out',
+      del => 'router bgp #3 ; no neighbor #5 route-map #8 out',
+  },
+  'protocols bgp var peer-group var route-map import' => {
+      set => 'router bgp #3 ; neighbor #5 route-map #8 in',
+      del => 'router bgp #3 ; no neighbor #5 route-map #8 in',
+  },
+  'protocols bgp var peer-group var route-reflector-client' => {
+      set => 'router bgp #3 ; neighbor #5 route-reflector-client',
+      del => 'router bgp #3 ; no neighbor #5 route-reflector-client',
+  },
+  'protocols bgp var peer-group var route-server-client' => {
+      set => 'router bgp #3 ; neighbor #5 route-server-client',
+      del => 'router bgp #3 ; no neighbor #5 route-server-client',
+  },
+  'protocols bgp var peer-group var shutdown' => {
+      set => 'router bgp #3 ; neighbor #5 shutdown',
+      del => 'router bgp #3 ; no neighbor #5 shutdown',
+  },
+  'protocols bgp var peer-group var soft-reconfiguration' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var peer-group var soft-reconfiguration inbound' => {
+      set => 'router bgp #3 ; neighbor #5 soft-reconfiguration inbound',
+      del => 'router bgp #3 ; no neighbor #5 soft-reconfiguration inbound',
+  },
+  'protocols bgp var peer-group var timers' => {
+      set => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime',
+      del => 'router bgp #3 ; no neighbor #5',
+  },
+  'protocols bgp var peer-group var timers connect' => {
+      set => 'router bgp #3 ; neighbor #5 timers connect #8',
+      del => 'router bgp #3 ; no neighbor #5 timers connect #8',
+  },
+  'protocols bgp var peer-group var unsuppress-map' => {
+      set => 'router bgp #3 ; neighbor #5 unsuppress-map #7',
+      del => 'router bgp #3 ; no neighbor #5 unsuppress-map #7',
+  },
+  'protocols bgp var peer-group var update-source' => {
+      set => 'router bgp #3 ; neighbor #5 update-source #7',
+      del => 'router bgp #3 ; no neighbor #5 update-source #7',
+  },
+  'protocols bgp var peer-group var weight' => {
+      set => 'router bgp #3 ; neighbor #5 weight #7',
+      del => 'router bgp #3 ; no neighbor #5 weight #7',
+  },
+  'protocols bgp var redistribute' => {
+      set => 'undef',
+      del => 'undef',
+  },
+  'protocols bgp var redistribute connected' => {
+      set => 'router bgp #3 ; redistribute connected',
+      del => 'router bgp #3 ; no redistribute connected',
+  },
+  'protocols bgp var redistribute connected metric' => {
+      set => 'router bgp #3 ; redistribute connected metric #7',
+      del => 'router bgp #3 ; no redistribute connected metric #7',
+  },
+  'protocols bgp var redistribute connected route-map' => {
+      set => 'router bgp #3 ; redistribute connected route-map #7',
+      del => 'router bgp #3 ; no redistribute connected route-map #7',
+  },
+  'protocols bgp var redistribute kernel' => {
+      set => 'router bgp #3 ; redistribute kernel',
+      del => 'router bgp #3 ; no redistribute kernel',
+  },
+  'protocols bgp var redistribute kernel metric' => {
+      set => 'router bgp #3 ; redistribute kernel metric #7',
+      del => 'router bgp #3 ; no redistribute kernel metric #7',
+  },
+  'protocols bgp var redistribute kernel route-map' => {
+      set => 'router bgp #3 ; redistribute kernel route-map #7',
+      del => 'router bgp #3 ; no redistribute kernel route-map #7',
+  },
+  'protocols bgp var redistribute ospf' => {
+      set => 'router bgp #3 ; redistribute ospf',
+      del => 'router bgp #3 ; no redistribute ospf',
+  },
+  'protocols bgp var redistribute ospf metric' => {
+      set => 'router bgp #3 ; redistribute ospf metric #7',
+      del => 'router bgp #3 ; no redistribute ospf metric #7',
+  },
+  'protocols bgp var redistribute ospf route-map' => {
+      set => 'router bgp #3 ; redistribute ospf route-map #7',
+      del => 'router bgp #3 ; no redistribute ospf route-map #7',
+  },
+  'protocols bgp var redistribute rip' => {
+      set => 'router bgp #3 ; redistribute rip',
+      del => 'router bgp #3 ; no redistribute rip',
+  },
+  'protocols bgp var redistribute rip metric' => {
+      set => 'router bgp #3 ; redistribute rip metric #7',
+      del => 'router bgp #3 ; no redistribute rip metric #7',
+  },
+  'protocols bgp var redistribute rip route-map' => {
+      set => 'router bgp #3 ; redistribute rip route-map #7',
+      del => 'router bgp #3 ; no redistribute rip route-map #7',
+  },
+  'protocols bgp var redistribute static' => {
+      set => 'router bgp #3 ; redistribute static',
+      del => 'router bgp #3 ; no redistribute static',
+  },
+  'protocols bgp var redistribute static metric' => {
+      set => 'router bgp #3 ; redistribute static metric #7',
+      del => 'router bgp #3 ; no redistribute static metric #7',
+  },
+  'protocols bgp var redistribute static route-map' => {
+      set => 'router bgp #3 ; redistribute static route-map #7',
+      del => 'router bgp #3 ; no redistribute static route-map #7',
+  },
+  'protocols bgp var timers' => {
+      set => 'router bgp #3 ; timers bgp @keepalive @holdtime',
+      del => 'router bgp #3 ; no timers bgp',
   },
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $checkas, $peername, $isneighbor, $checkpeergroups, $checksource );
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource );
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1078,7 +1080,6 @@ GetOptions(
     "neighbor=s"              => \$neighbor,
     "check-peergroup-name=s"  => \$peername,
     "check-neighbor-ip"       => \$isneighbor,
-    "check-as"                => \$checkas,
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
     "main"                    => \$main,
@@ -1088,7 +1089,6 @@ main()					if ($main);
 check_peergroup_name($peername)	  	if ($peername);
 check_neighbor_ip($neighbor)            if ($isneighbor);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
-check_neighbor_as( $neighbor, $as) 	if ($checkas);
 check_source($checksource)	        if ($checksource);
 
 exit 0;
@@ -1148,40 +1148,6 @@ sub check_for_peer_groups {
     }
 }
 
-# make sure nodes are either in a peer group or have
-# a remote AS assigned to them.
-sub check_neighbor_as {
-    my ($neighbor, $as) = @_;
-
-    die "neighbor not defined\n" unless $neighbor;
-    die "AS not defined\n" unless $as;
-
-    my $config = new Vyatta::Config;
-    $config->setLevel("protocols bgp $as neighbor $neighbor");
-    my $remoteas = $config->returnValue("remote-as");
-    my $ttlsecurity = $config->returnValue("ttl-security hops");
-
-    if ($remoteas) {
-	my $ebgp = $config->returnValue("ebgp-multihops");
-	die "protocols bgp $as neighbor $neighbor: cannot configure both ttl-security hops and ebgp-multihop\n"
-	    if (defined($ttlsecurity) && defined($ebgp));
-	return;
-    }
-
-    my $peergroup   = $config->returnValue("peer-group");
-    die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
-      unless $peergroup;
-
-    my $peergroupas = $config->returnValue(" .. .. peer-group $peergroup remote-as");
-    die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
-      unless $peergroupas;
-    
-    my $peerebgp = $config->returnValue(".. .. peer-group $peergroup ebgp-multihop");
-
-    die "protocols bgp $as neighbor $neighbor: cannot configure both ttl-security hops and ebgp-multihop (peer $peergroup)\n"
-	if (defined($ttlsecurity) && defined($peerebgp))
-}
-
 # check that changed neighbors have a remote-as or peer-group defined
 sub check_remote_as {
     my $config = new Vyatta::Config;
@@ -1227,6 +1193,7 @@ sub main {
    # initialize the Quagga Config object with data from Vyatta config tree
    my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
 
+   # debug routines
    #$qconfig->setDebugLevel('3');
    #$qconfig->_reInitialize();
 
@@ -1243,6 +1210,11 @@ sub main {
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
    # now finish off neighbor
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var') || die "exiting $?\n";
+   # now delete everything in peer-group except remote-as
+   @skip_array = ('remote-as');
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ', @skip_array) || die "exiting $?\n";
+   # now finish off peer-group
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ') || die "exiting $?\n";
    # now delete everything else in the tree
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
@@ -1271,4 +1243,3 @@ sub main {
    #720 protocols bgp var neighbhor
    #730 protocols bgp var
 }
-

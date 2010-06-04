@@ -3,9 +3,7 @@ type: txt
 help: Set a BGP peer-group 
 comp_help: 
   <name>	BGP peer-group name
-
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peergroup-name $VAR(@)"
-commit:expression: $VAR(./remote-as/) != ""; "protocols bgp $VAR(../@) peer-group $VAR(@): you must define a remote-as"
 delete:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peer-groups --peergroup $VAR(@) --as $VAR(../@)"

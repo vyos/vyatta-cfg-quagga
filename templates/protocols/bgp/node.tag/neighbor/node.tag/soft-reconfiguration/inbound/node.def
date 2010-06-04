@@ -1,2 +1,1 @@
 help: Set inbound soft reconfiguration for this neighbor [REQUIRED]
-                           --as $VAR(../../../@) --neighbor $VAR(../../@)"

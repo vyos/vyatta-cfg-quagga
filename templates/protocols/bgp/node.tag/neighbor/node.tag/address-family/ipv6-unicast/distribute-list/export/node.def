@@ -4,10 +4,9 @@ comp_help: possible completions:
   <1-65535>    access-list number
   <txt>        access-list6 name
 allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/access-list/* 
-                 /opt/vyatta/config/active/policy/access-list6/* )
+        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list;
+                  /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list6 )
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; \
 "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) export: access-list $VAR(@) doesn't exist"
 commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) distribute-list export: you can't set both a prefix-list and a distribute list"
-commit:expression: $VAR(../../../../peer-group/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@): you can't set distribute-list export for a neighbor in a peer-group"
