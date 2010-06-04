@@ -40,28 +40,28 @@ use Vyatta::Misc;
 
 my %qcom = (
   'protocols' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var' => {
       set => 'router bgp #3',
       del => 'no router bgp #3',
   },
   'protocols bgp var address-family' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var address-family ipv6-unicast' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var address-family ipv6-unicast aggregate-address' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var address-family ipv6-unicast aggregate-address var' => {
       set => 'router bgp #3 ; no ipv6 bgp aggregate-address #7 ; ipv6 bgp aggregate-address #7 ?summary-only',
@@ -72,8 +72,8 @@ my %qcom = (
       del => 'router bgp #3 ; no ipv6 bgp network #7 ; no ipv6 bgp network #7',
   },
   'protocols bgp var address-family ipv6-unicast redistribute' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected' => {
       set => 'router bgp #3 ; address-family ipv6 ; redistribute connected',
@@ -136,24 +136,24 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute static route-map #9',
   },
   'protocols bgp var aggregate-address' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var aggregate-address var' => {
       set => 'router bgp #3 ; no aggregate-address #5 ; aggregate-address #5 ?as-set ?summary-only',
       del => 'router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only',
   },
   'protocols bgp var neighbor' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var' => {
-      set => 'undef',
+      set => undef,
       del => 'router bgp #3 ; no neighbor #5',
   },
   'protocols bgp var neighbor var address-family' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
@@ -172,20 +172,20 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast capability' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast capability dynamic' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast capability orf' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast capability orf prefix-list receive' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive',
@@ -204,8 +204,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast disable-send-community' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast disable-send-community extended' => {
       set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended',
@@ -216,8 +216,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast distribute-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast distribute-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out',
@@ -228,8 +228,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast filter-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast filter-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out',
@@ -252,8 +252,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast prefix-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out',
@@ -268,8 +268,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast route-map' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast route-map export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out',
@@ -288,8 +288,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var address-family ipv6-unicast soft-reconfiguration inbound' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound',
@@ -316,20 +316,20 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
   },
   'protocols bgp var neighbor var capability' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var capability dynamic' => {
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
   'protocols bgp var neighbor var capability orf' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var capability orf prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var capability orf prefix-list receive' => {
       set => 'router bgp #3 ; neighbor #5 capability orf prefix-list receive',
@@ -356,8 +356,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 disable-connected-check',
   },
   'protocols bgp var neighbor var disable-send-community' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var disable-send-community extended' => {
       set => 'router bgp #3 ; no neighbor #5 send-community extended',
@@ -368,8 +368,8 @@ my %qcom = (
       del => 'router bgp #3 ; neighbor #5 send-community standard',
   },
   'protocols bgp var neighbor var distribute-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var distribute-list export' => {
       set => 'router bgp #3 ; neighbor #5 distribute-list #8 out',
@@ -384,8 +384,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 ebgp-multihop',
   },
   'protocols bgp var neighbor var filter-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var filter-list export' => {
       set => 'router bgp #3 ; neighbor #5 filter-list #8 out',
@@ -396,8 +396,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 filter-list #8 in',
   },
   'protocols bgp var neighbor var local-as' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var local-as var' => {
       set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7',
@@ -436,8 +436,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 port',
   },
   'protocols bgp var neighbor var prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var prefix-list export' => {
       set => 'router bgp #3 ; neighbor #5 prefix-list #8 out',
@@ -456,8 +456,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 remove-private-AS',
   },
   'protocols bgp var neighbor var route-map' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var route-map export' => {
       set => 'router bgp #3 ; neighbor #5 route-map #8 out',
@@ -480,8 +480,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 shutdown',
   },
   'protocols bgp var neighbor var soft-reconfiguration' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var soft-reconfiguration inbound' => {
       set => 'router bgp #3 ; neighbor #5 soft-reconfiguration inbound',
@@ -500,8 +500,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 timers connect',
   },
   'protocols bgp var neighbor var ttl-security' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var neighbor var ttl-security hops' => {
       set => 'router bgp #3 ; neighbor #5 ttl-security hops #8',
@@ -520,8 +520,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 weight',
   },
   'protocols bgp var network' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var network var' => {
       set => 'router bgp #3 ; network #5 ?backdoor',
@@ -532,20 +532,20 @@ my %qcom = (
       del => 'router bgp #3 ; no network #5 route-map #7',
   },
   'protocols bgp var parameters' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters always-compare-med' => {
       set => 'router bgp #3 ; bgp always-compare-med',
       del => 'router bgp #3 ; no bgp always-compare-med',
   },
   'protocols bgp var parameters bestpath' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters bestpath as-path' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters bestpath as-path confed' => {
       set => 'router bgp #3 ; bgp bestpath as-path confed',
@@ -560,8 +560,8 @@ my %qcom = (
       del => 'router bgp #3 ; no bgp bestpath compare-routerid',
   },
   'protocols bgp var parameters bestpath med' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters bestpath med confed' => {
       set => 'router bgp #3 ; bgp bestpath med confed',
@@ -576,8 +576,8 @@ my %qcom = (
       del => 'router bgp #3 ; no bgp cluster-id #6',
   },
   'protocols bgp var parameters confederation' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters confederation identifier' => {
       set => 'router bgp #3 ; bgp confederation identifier #7',
@@ -592,8 +592,8 @@ my %qcom = (
       del => 'router bgp #3 ; no bgp dampening',
   },
   'protocols bgp var parameters default' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters default local-pref' => {
       set => 'router bgp #3 ; bgp default local-preference #7',
@@ -616,8 +616,8 @@ my %qcom = (
       del => 'router bgp #3 ; no bgp enforce-first-as',
   },
   'protocols bgp var parameters graceful-restart' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var parameters graceful-restart stalepath-time' => {
       set => 'router bgp #3 ; bgp graceful-restart stalepath-time #7',
@@ -644,8 +644,8 @@ my %qcom = (
       del => 'router bgp #3 ; no bgp scan-time #6',
   },
   'protocols bgp var peer-group' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var' => {
       set => 'router bgp #3 ; neighbor #5 peer-group',
@@ -653,8 +653,8 @@ my %qcom = (
       noerr => 'set',
   },
   'protocols bgp var peer-group var address-family' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
@@ -673,20 +673,20 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 attribute-unchanged',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast capability' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast capability dynamic' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast capability orf' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast capability orf prefix-list receive' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability orf prefix-list receive',
@@ -705,8 +705,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 default-originate route-map #10',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast disable-send-community' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast disable-send-community extended' => {
       set => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 send-community extended',
@@ -717,8 +717,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; neighbor #5 send-community standard',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast distribute-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast distribute-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 distribute-list #10 out',
@@ -729,8 +729,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 distribute-list #10 in',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast filter-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast filter-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 filter-list #10 out',
@@ -753,8 +753,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast prefix-list export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 prefix-list #10 out',
@@ -769,8 +769,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast route-map' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast route-map export' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 route-map #10 out',
@@ -789,8 +789,8 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 route-server-client',
   },
   'protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var address-family ipv6-unicast soft-reconfiguration inbound' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 soft-reconfiguration inbound',
@@ -813,20 +813,20 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 attribute-unchanged ?as-path ?med ?next-hop',
   },
   'protocols bgp var peer-group var capability' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var capability dynamic' => {
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
   'protocols bgp var peer-group var capability orf' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var capability orf prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var capability orf prefix-list receive' => {
       set => 'router bgp #3 ; neighbor #5 capability orf prefix-list receive',
@@ -853,8 +853,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 disable-connected-check',
   },
   'protocols bgp var peer-group var disable-send-community' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var disable-send-community extended' => {
       set => 'router bgp #3 ; no neighbor #5 send-community extended',
@@ -865,8 +865,8 @@ my %qcom = (
       del => 'router bgp #3 ; neighbor #5 send-community standard',
   },
   'protocols bgp var peer-group var distribute-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var distribute-list export' => {
       set => 'router bgp #3 ; neighbor #5 distribute-list #8 out',
@@ -881,8 +881,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 ebgp-multihop #7',
   },
   'protocols bgp var peer-group var filter-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var filter-list export' => {
       set => 'router bgp #3 ; neighbor #5 filter-list #8 out',
@@ -893,8 +893,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 filter-list #8 in',
   },
   'protocols bgp var peer-group var local-as' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var local-as var' => {
       set => 'router bgp #3 ; no neighbor #5 local-as ; neighbor #5 local-as #7',
@@ -929,8 +929,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 port #7',
   },
   'protocols bgp var peer-group var prefix-list' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var prefix-list export' => {
       set => 'router bgp #3 ; neighbor #5 prefix-list #8 out',
@@ -950,8 +950,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 remove-private-AS',
   },
   'protocols bgp var peer-group var route-map' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var route-map export' => {
       set => 'router bgp #3 ; neighbor #5 route-map #8 out',
@@ -974,8 +974,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 shutdown',
   },
   'protocols bgp var peer-group var soft-reconfiguration' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var peer-group var soft-reconfiguration inbound' => {
       set => 'router bgp #3 ; neighbor #5 soft-reconfiguration inbound',
@@ -1002,8 +1002,8 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 weight #7',
   },
   'protocols bgp var redistribute' => {
-      set => 'undef',
-      del => 'undef',
+      set => undef,
+      del => undef,
   },
   'protocols bgp var redistribute connected' => {
       set => 'router bgp #3 ; redistribute connected',
