@@ -1134,7 +1134,7 @@ sub check_for_peer_groups {
 
     foreach my $node (@neighbors) {
         my $peergroup = $config->returnValue("$node peer-group");
-        if ( $peergroup eq $pg ) { push @peers, $node; }
+        if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
     }
 
     # if we found peers in the previous statements
