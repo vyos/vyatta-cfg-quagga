@@ -1070,7 +1070,7 @@ my %qcom = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $checkas, $peername, $isneighbor, $checkpeergroupas, $checkpeergroups, $checksource );
+my ( $main, $checkas, $peername, $isneighbor, $checkpeergroups, $checksource );
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1079,7 +1079,6 @@ GetOptions(
     "check-peergroup-name=s"  => \$peername,
     "check-neighbor-ip"       => \$isneighbor,
     "check-as"                => \$checkas,
-    "check-peergroup-as"      => \$checkpeergroupas,
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
     "main"                    => \$main,
@@ -1090,7 +1089,6 @@ check_peergroup_name($peername)	  	if ($peername);
 check_neighbor_ip($neighbor)            if ($isneighbor);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
 check_neighbor_as( $neighbor, $as) 	if ($checkas);
-check_peergroup_as( $neighbor, $as)     if ($checkpeergroupas);
 check_source($checksource)	        if ($checksource);
 
 exit 0;
@@ -1184,18 +1182,30 @@ sub check_neighbor_as {
 	if (defined($ttlsecurity) && defined($peerebgp))
 }
 
-# make sure peer-group has a remote-as
-sub check_peergroup_as {
-    my ($neighbor, $as) = @_;
-
-    die "neighbor not defined\n" unless $neighbor;
-    die "AS not defined\n" unless $as;
-
+# check that changed neighbors have a remote-as or peer-group defined
+sub check_remote_as {
     my $config = new Vyatta::Config;
-    $config->setLevel("protocols bgp $as peer-group $neighbor");
-    my $remoteas = $config->returnValue("remote-as");
-    return if defined $remoteas;
-    die "protocols bgp $as peer-group $neighbor: must define a remote-as\n";
+    $config->setLevel('protocols bgp');
+
+    my @asns = $config->listNodes();
+    foreach my $as (@asns) {
+      my @neighbors = $config->listNodes("$as neighbor");
+      foreach my $neighbor (@neighbors) {
+        if ($config->isChanged("$as neighbor $neighbor")) {
+          my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+          if ($remoteas) {
+            return;
+          }
+          my $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+          die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
+            unless $peergroup;
+  
+          my $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+          die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
+            unless $peergroupas;
+        }
+      }
+    }
 }
 
 # check that value is either an IPV4 address on system or an interface
@@ -1220,9 +1230,11 @@ sub main {
    #$qconfig->setDebugLevel('3');
    #$qconfig->_reInitialize();
 
+   # check that all changed neighbors have a proper remote-as or peer-group defined
+   check_remote_as();
+
    # deletes with priority
-   # TODO: need to put syntax check in remote-as
-   # delete everything in neighbhor except for the important nodes
+   # delete everything in neighbor except for the important nodes
    my @skip_array = ('remote-as', 'route-map', 'filter-list', 'prefix-list', 'distribute-list', 'unsuppress-map');
    # notice the extra space in the level string.  keeps the parent from being deleted.
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
@@ -1231,7 +1243,7 @@ sub main {
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
    # now finish off neighbor
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var') || die "exiting $?\n";
-   # now delete everything else
+   # now delete everything else in the tree
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
    # sets with priority
@@ -1239,6 +1251,7 @@ sub main {
    $qconfig->setConfigTree('protocols bgp var peer-group var remote-as') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var peer-group') || die "exiting $?\n";
    $qconfig->setConfigTree('protocols bgp var neighbor var remote-as') || die "exiting $?\n";
+   $qconfig->setConfigTree('protocols bgp var neighbor var peer-group') || die "exiting $?\n";
    $qconfig->setConfigTree('protocols bgp var neighbor var shutdown') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var route-map') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var filter-list') || die "exiting $?\n";
@@ -1248,6 +1261,7 @@ sub main {
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
+   # old priorities we are emulating with the above sets
    #705 protocols bgp var neighbhor shutdown
    #715 protocols bgp var neighbhor route-map
    #716 protocols bgp var neighbhor filter-list

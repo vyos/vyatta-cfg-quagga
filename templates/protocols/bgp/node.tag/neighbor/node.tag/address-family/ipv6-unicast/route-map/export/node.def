@@ -3,7 +3,6 @@ help: Set a route-map to filter outgoing route updates to this neighbor
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/route-map/* ) 
         echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) export: route-map $VAR(@) doesn't exist"
 comp_help: possible completions:
   <txt>    route-map name

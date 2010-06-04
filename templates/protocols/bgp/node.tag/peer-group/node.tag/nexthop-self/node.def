@@ -1,2 +1,1 @@
 help: Set nexthop for routes sent to this peer-group to be the local router
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"

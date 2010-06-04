@@ -1,2 +1,1 @@
 help: Set to not send extended community attributes to this peer-group
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"

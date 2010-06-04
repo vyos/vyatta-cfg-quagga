@@ -4,4 +4,3 @@ comp_help:
     <x.x.x.x>    Set IP address of route source
     <interface>  Set interface as route source
 commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-source $VAR(@)"
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

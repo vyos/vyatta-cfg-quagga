@@ -1,3 +1,2 @@
 help: Set inbound soft reconfiguration for this peer-group [REQUIRED]
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as \
                            --as $VAR(../../../@) --neighbor $VAR(../../@)"

@@ -9,7 +9,6 @@ allowed: local -a params
 comp_help: possible completions:
   <txt>    prefix-list name
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; \
 "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) address-family ipv6-unicast prefix-list import: prefix-list $VAR(@) doesn't exist"

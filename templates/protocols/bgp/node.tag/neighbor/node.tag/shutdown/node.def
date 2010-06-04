@@ -1,2 +1,1 @@
 help: Set to administratively shut down neighbor
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

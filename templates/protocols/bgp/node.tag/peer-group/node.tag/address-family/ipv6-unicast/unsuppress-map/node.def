@@ -5,5 +5,4 @@ comp_help: possible completions:
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/route-map/* )
         echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../../@) --neighbor $VAR(../../../@)"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../../@) peer-group $VAR(../../../@): route-map $VAR(@) doesn't exist"

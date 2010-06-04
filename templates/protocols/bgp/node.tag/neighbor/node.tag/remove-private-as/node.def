@@ -1,3 +1,2 @@
 help: Set to remove private AS numbers from AS path in outbound route updates
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../../@): you can't set remove-private-as for a neighbor in a peer-group"

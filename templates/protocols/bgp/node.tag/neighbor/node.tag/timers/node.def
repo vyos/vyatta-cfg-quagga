@@ -1,5 +1,4 @@
 help: Set neighbor timers
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 # TODO: fix this.  Can set connect &&|| (keepalive && holdtime)
 commit:expression: $VAR(./keepalive/) != ""; "protocols bgp $VAR(../../@) timers: you must set a keepalive interval"
 commit:expression: $VAR(./holdtime/) != ""; "protocols bgp $VAR(../../@) timers: you must set a holdtime interval"

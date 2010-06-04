@@ -3,4 +3,3 @@ help: Set the minimum interval for sending routing updates
 comp_help: possible completions:
   <0-600>    advertisement interval in seconds
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 600; "must be between 0 and 600"
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"

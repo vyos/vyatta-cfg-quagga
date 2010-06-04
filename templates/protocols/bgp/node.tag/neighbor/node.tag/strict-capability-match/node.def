@@ -1,3 +1,2 @@
 help: Enable strict capability negotiation 
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../@) --neighbor $VAR(../@)"
 commit:expression: $VAR(../override-capability/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) strict-capability-match: you can't set both strict-capability and override-capability"

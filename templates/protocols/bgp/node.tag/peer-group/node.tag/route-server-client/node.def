@@ -1,2 +1,1 @@
 help: Set peer-group as route server client
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
