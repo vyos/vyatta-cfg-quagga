@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.18.77) unstable; urgency=low
+
+  * add missing help strings per bug 5642
+  * clean up peer-group error and help messages
+  * optimization: move remote-as and peer-group check into transaction
+    to save on exec calls
+  * fix direct active dir access in node.defs
+  * clean up potential unitialized var reference
+  * fix stupid var def mistake
+
+ -- Robert Bays <rbays@roatan>  Fri, 04 Jun 2010 16:59:51 -0700
+
 vyatta-cfg-quagga (0.18.76) unstable; urgency=low
 
   * fix for bug 5653
