@@ -64,7 +64,7 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var address-family ipv6-unicast aggregate-address var' => {
-      set => 'router bgp #3 ; no ipv6 bgp aggregate-address #7 ; ipv6 bgp aggregate-address #7 ?summary-only',
+      set => 'router bgp #3 ; ipv6 bgp aggregate-address #7 ?summary-only',
       del => 'router bgp #3 ; no ipv6 bgp aggregate-address #7',
   },
   'protocols bgp var address-family ipv6-unicast network' => {
@@ -140,7 +140,7 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var aggregate-address var' => {
-      set => 'router bgp #3 ; no aggregate-address #5 ; aggregate-address #5 ?as-set ?summary-only',
+      set => 'router bgp #3 ; aggregate-address #5 ?as-set ?summary-only',
       del => 'router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only',
   },
   'protocols bgp var neighbor' => {
