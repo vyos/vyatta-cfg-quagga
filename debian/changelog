@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.78) unstable; urgency=low
+
+  * fix aggregate-address command
+
+ -- Robert Bays <rbays@roatan>  Mon, 07 Jun 2010 15:56:21 -0700
+
 vyatta-cfg-quagga (0.18.77) unstable; urgency=low
 
   * add missing help strings per bug 5642
