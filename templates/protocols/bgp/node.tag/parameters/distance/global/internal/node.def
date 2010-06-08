@@ -1,0 +1,5 @@
+type: u32
+help: Set an administrative distance for internal BGP routes
+syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"
+comp_help: possible completions:
+ <1-255>            Set administrative distance for internal BGP routes

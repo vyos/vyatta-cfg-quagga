@@ -611,6 +611,26 @@ my %qcom = (
       set => 'router bgp #3 ; no bgp network import-check',
       del => 'router bgp #3 ; bgp network import-check',
   },
+  'protocols bgp var parameters distance' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var parameters distance global' => {
+      set => 'router bgp #3 ; distance bgp @external @internal @local',
+      del => 'router bgp #3 ; no distance bgp',
+  },
+  'protocols bgp var parameters distance prefix' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var parameters distance prefix var' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var parameters distance prefix var distance' => {
+      set => 'router bgp #3 ; distance #9 #7 ',
+      del => 'router bgp #3 ; no distance #9 #7',
+  },
   'protocols bgp var parameters enforce-first-as' => {
       set => 'router bgp #3 ; bgp enforce-first-as',
       del => 'router bgp #3 ; no bgp enforce-first-as',

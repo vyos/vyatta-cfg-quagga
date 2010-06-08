@@ -1,0 +1,4 @@
+help: Set global administratives distances for BGP routes
+commit:expression: $VAR(./external/) != ""; "protocols bgp $VAR(../../../@) parameters distance global: you must set an external route distance"
+commit:expression: $VAR(./internal/) != ""; "protocols bgp $VAR(../../../@) parameters distance global: you must set an internal route distance"
+commit:expression: $VAR(./local/) != ""; "protocols bgp $VAR(../../../@) parameters distance global: you must set a local route distance"
