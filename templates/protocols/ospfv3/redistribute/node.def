@@ -1,10 +1,1 @@
-multi:
-type: txt
-help: Set route type to redistribute
-allowed: echo "static kernel connected ripng bgp"
-create:expression: "vtysh -c \"configure terminal\" \
-        -c \"router ospf6 \" \
-        -c \"redistribute $VAR(@) \"; "
-delete:expression: "vtysh -c \"configure terminal\" \
-        -c \"router ospf6 \" \
-        -c \"no redistribute $VAR(@) \"; "
+help: Set to redistribute information from another routing protocol
