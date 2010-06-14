@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.18.80) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Added route-map support in ospfv3-redistribute
+
+  [ Stig Thormodsrud ]
+  * Fix ospfv3 redistribute command.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 14 Jun 2010 15:35:36 -0700
+
 vyatta-cfg-quagga (0.18.79) unstable; urgency=low
 
   * fix for bug 874: allow setting administrative distance
