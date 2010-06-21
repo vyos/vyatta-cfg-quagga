@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.81) unstable; urgency=low
+
+  * fix for bug 5713
+
+ -- Robert Bays <rbays@roatan>  Mon, 21 Jun 2010 10:58:55 -0700
+
 vyatta-cfg-quagga (0.18.80) unstable; urgency=low
 
   [ Jon Andersson ]
