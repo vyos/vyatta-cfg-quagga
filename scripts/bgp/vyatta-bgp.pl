@@ -69,7 +69,7 @@ my %qcom = (
   },
   'protocols bgp var address-family ipv6-unicast network' => {
       set => 'router bgp #3 ; no ipv6 bgp network #7 ; ipv6 bgp network #7',
-      del => 'router bgp #3 ; no ipv6 bgp network #7 ; no ipv6 bgp network #7',
+      del => 'router bgp #3 ; no ipv6 bgp network #7',
   },
   'protocols bgp var address-family ipv6-unicast redistribute' => {
       set => undef,
@@ -529,7 +529,7 @@ my %qcom = (
   },
   'protocols bgp var network var route-map' => {
       set => 'router bgp #3 ; network #5 route-map #7',
-      del => 'router bgp #3 ; no network #5 route-map #7',
+      del => 'router bgp #3 ; no network #5 route-map #7 ; network #5',
   },
   'protocols bgp var parameters' => {
       set => undef,
