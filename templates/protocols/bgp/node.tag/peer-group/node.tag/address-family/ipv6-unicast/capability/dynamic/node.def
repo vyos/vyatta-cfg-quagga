@@ -1,2 +1,1 @@
-help: Set to advertise dynamic capability to this neighbor
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../../../../@) --neighbor $VAR(../../../../@)"
+help: Set to advertise dynamic capability to this peer-group

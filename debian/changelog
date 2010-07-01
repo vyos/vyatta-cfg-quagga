@@ -1,3 +1,67 @@
+vyatta-cfg-quagga (0.18.81) unstable; urgency=low
+
+  * fix for bug 5713
+
+ -- Robert Bays <rbays@roatan>  Mon, 21 Jun 2010 10:58:55 -0700
+
+vyatta-cfg-quagga (0.18.80) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Added route-map support in ospfv3-redistribute
+
+  [ Stig Thormodsrud ]
+  * Fix ospfv3 redistribute command.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 14 Jun 2010 15:35:36 -0700
+
+vyatta-cfg-quagga (0.18.79) unstable; urgency=low
+
+  * fix for bug 874: allow setting administrative distance
+
+ -- Robert Bays <rbays@roatan>  Tue, 08 Jun 2010 12:33:11 -0700
+
+vyatta-cfg-quagga (0.18.78) unstable; urgency=low
+
+  * fix aggregate-address command
+
+ -- Robert Bays <rbays@roatan>  Mon, 07 Jun 2010 15:56:21 -0700
+
+vyatta-cfg-quagga (0.18.77) unstable; urgency=low
+
+  * add missing help strings per bug 5642
+  * clean up peer-group error and help messages
+  * optimization: move remote-as and peer-group check into transaction
+    to save on exec calls
+  * fix direct active dir access in node.defs
+  * clean up potential unitialized var reference
+  * fix stupid var def mistake
+
+ -- Robert Bays <rbays@roatan>  Fri, 04 Jun 2010 16:59:51 -0700
+
+vyatta-cfg-quagga (0.18.76) unstable; urgency=low
+
+  * fix for bug 5653
+
+ -- Robert Bays <rbays@roatan>  Wed, 02 Jun 2010 17:15:41 -0700
+
+vyatta-cfg-quagga (0.18.75) unstable; urgency=low
+
+  * re-add the disable-send-comunity node to peer-groups
+
+ -- Robert Bays <rbays@roatan>  Tue, 25 May 2010 16:26:01 -0700
+
+vyatta-cfg-quagga (0.18.74) unstable; urgency=low
+
+  * silence the perl critic.
+  * change qcom struct to hash of hashes to make it easier for the
+    developer to read
+  * add functionality to skip nodes while in _setConfigTree
+  * add differential noerr.  now it supports one of set, del, or both.
+  * change the system call in _sendQuaggaCommand().  with the selective
+    noerr fixed,
+
+ -- Robert Bays <rbays@roatan>  Sun, 23 May 2010 01:00:39 -0700
+
 vyatta-cfg-quagga (0.18.73) unstable; urgency=low
 
   * Add support for TTL security hops

@@ -8,7 +8,7 @@ use Getopt::Long;
 my $VTYSH = '/usr/bin/vtysh';
 
 my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $peer );
-my ( $routemap, $deleteroutemap );
+my ( $routemap, $deleteroutemap, $listpolicy );
 
 GetOptions(
     "update-access-list=s"           => \$accesslist,
@@ -18,6 +18,7 @@ GetOptions(
     "check-peer-syntax=s"            => \$peer,
     "check-routemap-action=s"        => \$routemap,
     "check-delete-routemap-action=s" => \$deleteroutemap,
+    "list-policy=s"		     => \$listpolicy,
 ) or exit 1;
 
 update_access_list($accesslist)               if ($accesslist);
@@ -27,6 +28,7 @@ update_community_list($communitylist)         if ($communitylist);
 check_peer_syntax($peer)                      if ($peer);
 check_routemap_action($routemap)              if ($routemap);
 check_delete_routemap_action($deleteroutemap) if ($deleteroutemap);
+list_policy($listpolicy)	    	      if ($listpolicy);
 
 exit 0;
 
@@ -308,4 +310,15 @@ sub check_delete_routemap_action {
     my @nodes = $config->listNodes("$routemap");
 
     exit(@nodes) ? 1 : 0;
+}
+
+## list available policies
+sub list_policy {
+   my $policy = shift;
+   my $config = new Vyatta::Config;
+
+   $config->setLevel("policy $policy");
+   my @nodes = $config->listNodes();
+   foreach my $node (@nodes) { print "$node "; }
+   return;
 }

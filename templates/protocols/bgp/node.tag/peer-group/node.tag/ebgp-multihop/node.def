@@ -1,6 +1,6 @@
 type: u32
-help: Allow this EBGP neighbor to not be on a directly connected network
+help: Allow this EBGP peer-group to not be on a directly connected network
 comp_help: possible completions:
   <1-255>    number of hops 
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 255; "ebgp-multihop must be between 1 and 255"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --not-exists \"protocols bgp $VAR(../../@) neighbor $VAR(../@) ttl-security\" "; "protocols bgp $VAR(../../@) neighbor $VAR(../@) ebgp-multihop: you can't set both ebgp-multihop and ttl-security"

@@ -3,7 +3,10 @@ help: Set an access-list to filter incoming route updates from this neighbor
 comp_help: possible completions:
   <1-65535>    access-list number
   <txt>        access-list6 name
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-as --as $VAR(../../../@) --neighbor $VAR(../../@)"
+allowed: local -a params
+        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list;
+                  /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list6 )
+        echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";\
 "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) import: access-list $VAR(@) doesn't exist"
 commit:expression: $VAR(../../prefix-list/import/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) distribute-list import: you can't set both a prefix-list and a distribute list"

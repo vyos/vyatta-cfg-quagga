@@ -29,27 +29,23 @@ my $_DEBUG = 0;
 my %_vtysh;
 my %_vtyshdel;
 my $_qcomref = '';
-my $_qcomdelref = '';
 my $_vtyshexe = '/usr/bin/vtysh';
 
 ###  Public methods -
 # Create the class.  
 # input: $1 - level of the Vyatta config tree to start at
-#        $2 - hashref to Quagga add/change command templates
-#        $3 - hashref to Quagga delete command templates
+#        $2 - hash of hashes ref to Quagga set/delete command templates
 sub new {
   my $that = shift;
   my $class = ref ($that) || $that;
   my $self = {
     _level  => shift,
     _qcref  => shift,
-    _qcdref => shift,
   };
 
   $_qcomref = $self->{_qcref};
-  $_qcomdelref = $self->{_qcdref};
 
-  if (! _qtree($self->{_level}, 'delete')) { return 0; }
+  if (! _qtree($self->{_level}, 'del')) { return 0; }
   if (! _qtree($self->{_level}, 'set')) { return 0; }
 
   bless $self, $class;
@@ -74,24 +70,22 @@ sub _reInitialize {
 
   %_vtysh = ();
   %_vtyshdel = ();
-  _qtree($self->{_level}, 'delete');
+  _qtree($self->{_level}, 'del');
   _qtree($self->{_level}, 'set');
 }
 
 # populate an array reference with Quagga commands
 sub returnQuaggaCommands {
   my ($self, $arrayref) = @_; 
-  my $key;
-  my $string;
 
-  foreach $key (sort { $b cmp $a } keys %_vtyshdel) {
-    foreach $string (@{$_vtyshdel{$key}}) {
+  foreach my $key (sort { $b cmp $a } keys %_vtyshdel) {
+    foreach my $string (@{$_vtyshdel{$key}}) {
       push @{$arrayref}, "$string";
     }
   }
 
-  foreach $key (sort keys %_vtysh) {
-    foreach $string (@{$_vtysh{$key}}) {
+  foreach my $key (sort keys %_vtysh) {
+    foreach my $string (@{$_vtysh{$key}}) {
       push @{$arrayref}, "$string";
     }
   }
@@ -101,26 +95,26 @@ sub returnQuaggaCommands {
 
 # methods to send the commands to Quagga
 sub setConfigTree {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 0, 0)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 0, 0, @skip_list)) { return 1; }
   return 0;
 }
 
 sub setConfigTreeRecursive {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 0, 1)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 0, 1, @skip_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTree {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 1, 0)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 1, 0, @skip_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTreeRecursive {
-  my ($self, $level) = @_;
-  if (_setConfigTree($level, 1, 1)) { return 1; }
+  my ($self, $level, @skip_list) = @_;
+  if (_setConfigTree($level, 1, 1, @skip_list)) { return 1; }
   return 0;
 }
 
@@ -135,9 +129,11 @@ sub deleteConfigTreeRecursive {
 # input: $1 - level of the tree to start at
 #        $2 - delete bool
 #        $3 - recursive bool
+#        $4 - arrays of strings to skip 
 # output: none, return failure if needed
 sub _setConfigTree {
-  my ($level, $delete, $recurse) = @_;
+  my ($level, $delete, $recurse, @skip_list) = @_;
+  my $qcom = $_qcomref;
 
   if ((! defined $level)   ||
       (! defined $delete)  ||
@@ -154,20 +150,42 @@ sub _setConfigTree {
     $sortfunc = \&cmpb;
   }
 
-  if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\n"; }
+  if ($_DEBUG >= 3) { 
+    print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: "; 
+    foreach my $key (@skip_list) { print "$key "; }
+    print "\n";
+  }
 
-  my $key;
-  my @keys;
-  foreach $key (sort $sortfunc keys %$vtyshref) {
+  # This loop walks the list of commands and sends to quagga if appropriate
+  foreach my $key (sort $sortfunc keys %$vtyshref) {
     if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
 
+    # skip parameters in skip_list
+    my $found = 0;
+    if ((scalar @skip_list) > 0) {
+      foreach my $node (@skip_list) {
+        if ($key =~ /$node/) { 
+          $found = 1; 
+          if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $node in skip list\n"; }
+        }
+      }
+    }
+    if ($found) { next; }
+
+    # should we run the vtysh command with noerr?
+    my $noerr = '';
+    if ( (defined $qcom->{$key}->{'noerr'}) && (
+         ($qcom->{$key}->{'noerr'} eq "both") || 
+         (($qcom->{$key}->{'noerr'} eq "del") && ($delete)) ||
+         (($qcom->{$key}->{'noerr'} eq "set") && (!$delete)))) { $noerr = 1; }
+
+    # this conditional matches key to level exactly or if recurse, start of key to level
     if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
-      my ($index, $cmd);
-      $index = 0;
-      foreach $cmd (@{$vtyshref->{$key}}) {
+      my $index = 0;
+      foreach my $cmd (@{$vtyshref->{$key}}) {
         if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
 
-        if (! _sendQuaggaCommand("$cmd")) { return 0; }
+        if (! _sendQuaggaCommand("$cmd", "$noerr")) { return 0; }
         # remove this command so we don't hit it again in another Recurse call
         delete ${$vtyshref->{$key}}[$index];
         $index++;
@@ -184,30 +202,24 @@ sub cmpb { $b cmp $a }
 
 # properly format a Quagga command for vtysh and send to Quagga
 # input: $1 - qVarReplaced Quagga Command string
+#        $2 - boolean: should we use noerr?
 # output: none, return failure if needed
 sub _sendQuaggaCommand {
-  my ($command) = @_;
-  my $section;
-  my $args = "$_vtyshexe --noerr -c 'configure terminal' ";
+  my ($command, $noerr) = @_;
+  
+  my @arg_array = ("$_vtyshexe");
+  if ($noerr) { push (@arg_array, '--noerr'); }
+  if ($_DEBUG >= 2) { push (@arg_array, '-E'); }
+  push (@arg_array, '-c');
+  push (@arg_array, 'configure terminal');
 
   my @commands = split / ; /, $command;
-  foreach $section (@commands) {
-    $args .= "-c '$section' ";
+  foreach my $section (@commands) {
+    push (@arg_array, '-c');
+    push (@arg_array, "$section");
   }
   
-  if ($_DEBUG >= 2) { print "DEBUG: _sendQuaggaCommand - args prior to system call - $args\n"; }
-  # TODO: need to fix this system call.  split into command and args.
-  system("$args");
-  if ($? != 0) {
-    # TODO: note that DEBUG will never happen here with --noerr as an argument.
-    # need to fix --noerr.  Also probably need to code a way to conditionally use --noerr.
-    if ($_DEBUG) { 
-      print "DEBUG: _sendQuaggaCommand - vtysh failure $? - $args\n";
-      print "\n";
-    }
-    return 0;
-  }
-
+  system(@arg_array) == 0 or die "_sendQuaggaCommand: @arg_array failed: $?";
   return 1;
 }
 
@@ -227,10 +239,9 @@ sub _qVarReplace {
   my @qcommands = split /\s/, $qcommand;
 
   my $result = '';
-  my $token;
   # try to replace (#num, ?var) references foreach item in Quagga command template array
   # with their corresponding value in Vyatta command array at (#num) index
-  foreach $token (@qcommands) {
+  foreach my $token (@qcommands) {
     # is this a #var reference? if so translate and append to result
     if ($token =~ s/\#(\d+);*/$1/) {
       $token--;
@@ -270,14 +281,15 @@ sub _qVarReplace {
 }
 
 # For given Vyatta config tree string, find a corresponding Quagga command template 
-# string as defined in correctly referenced %qcom.  i.e. add or delete %qcom.
+# string as defined in %qcom
 # input: $1 - Vyatta config tree string
-#        $2 - Quagga command template hash 
+#        $2 - action (set|del)
+#        $3 - Quagga command template hash
 # output: %qcom hash key to corresponding Quagga command template string
 sub _qCommandFind {
   my $vyattaconfig = shift;
+  my $action = shift;
   my $qcom = shift;
-  my $token = '';
   my $command = '';
 
   my @nodes = split /\s+/, $vyattaconfig;
@@ -286,15 +298,15 @@ sub _qCommandFind {
   # check if there is a corresponding hash in %qcom.  if not,
   # do same check again replacing the end param with var to see
   # if this is a var replacement
-  foreach $token (@nodes) {
-    if    (exists $qcom->{$token})            { $command = $token; }
-    elsif (exists $qcom->{"$command $token"}) { $command = "$command $token"; }
-    elsif (exists $qcom->{"$command var"})    { $command = "$command var"; }
+  foreach my $token (@nodes) {
+    if    (exists $qcom->{$token}->{$action})            { $command = $token; }
+    elsif (exists $qcom->{"$command $token"}->{$action}) { $command = "$command $token"; }
+    elsif (exists $qcom->{"$command var"}->{$action})    { $command = "$command var"; }
     else { return undef; }
   }
 
   # return hash key if Quagga command template string is found
-  if (defined $qcom->{$command}) { return $command; }
+  if (defined $qcom->{$command}->{$action}) { return $command; }
   else { return undef; }
 }
 
@@ -308,6 +320,7 @@ sub _qtree {
   my @nodes;
   my ($qcom, $vtysh);
 
+  $qcom = $_qcomref;
   
   # It's ugly that I have to create a new Vyatta config object every time,
   # but something gets messed up on the stack if I don't.  not sure
@@ -317,15 +330,11 @@ sub _qtree {
 
   # setup references for set or delete action
   if ($action eq 'set') {
-    $qcom = $_qcomref;
     $vtysh = \%_vtysh;
-
     @nodes = $config->listNodes();
   }
   else {
-    $qcom = $_qcomdelref;
     $vtysh = \%_vtyshdel;
-
     @nodes = $config->listDeleted();
   }
 
@@ -333,16 +342,15 @@ sub _qtree {
 
   # traverse the Vyatta config tree and translate to Quagga commands where apropos
   if (@nodes > 0) {
-    my $node;
-    foreach $node (@nodes) {
+    foreach my $node (@nodes) {
       if ($_DEBUG >= 2) { print "DEBUG: _qtree - foreach node loop - node $node\n"; }
 
       # for set action, need to check that the node was actually changed.  Otherwise
       # we end up re-writing every node to Quagga every commit, which is bad. Mmm' ok?
-      if (($action eq 'delete') || ($config->isChanged("$node"))) {
+      if (($action eq 'del') || ($config->isChanged("$node"))) {
         # is there a Quagga command template?
         # TODO: need to add function reference support to qcom hash for complicated nodes
-        my $qcommand = _qCommandFind("$level $node", $qcom);
+        my $qcommand = _qCommandFind("$level $node", $action, $qcom);
 
         # if I found a Quagga command template, then replace any vars
         if ($qcommand) {
@@ -353,14 +361,14 @@ sub _qtree {
 
           # is this a leaf node?
           if ($val) {
-            my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand});
+            my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, $var;
             if ($_DEBUG) {
               print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
             }
           }
           else {
-            my $var = _qVarReplace("$level $node", $qcom->{$qcommand});
+            my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, $var;
             if ($_DEBUG) {
               print "DEBUG: _qtree node command: set $level $action $node \n\t\t\t\t$var\n";
@@ -369,7 +377,7 @@ sub _qtree {
         }
       }
       # recurse to next level in tree
-      _qtree("$level $node", 'delete');
+      _qtree("$level $node", 'del');
       _qtree("$level $node", 'set');
     }
   }

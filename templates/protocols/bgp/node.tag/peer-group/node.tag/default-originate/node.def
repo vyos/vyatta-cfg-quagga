@@ -1,3 +1,1 @@
-help: Set to send default route to this neighbor
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "protocold bgp $VAR(../../@) neighbor $VAR(../@): you can't set default-originate for a neighbor in a peer-group"
+help: Set to send default route to this peer-group

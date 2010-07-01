@@ -1,2 +1,1 @@
 help: Disable check to see if EBGP peer's address is a connected route
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"

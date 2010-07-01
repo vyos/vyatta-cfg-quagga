@@ -3,8 +3,6 @@ cfgdir = $(datadir)/vyatta-cfg/templates
 curverdir = $(sysconfdir)/config-migrate/current
 gentmpdir = generated-templates
 
-bin_SCRIPTS = scripts/vyatta-show-protocols
-
 sbin_SCRIPTS = scripts/bgp/vyatta-bgp.pl
 sbin_SCRIPTS += scripts/policy/vyatta-policy.pl
 sbin_SCRIPTS += scripts/vyatta_quagga_utils.pl

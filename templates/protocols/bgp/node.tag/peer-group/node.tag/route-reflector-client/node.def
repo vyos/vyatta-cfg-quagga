@@ -1,4 +1,2 @@
-help: Set neighbor as a route reflector client
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set route-reflector-client for a neighbor in a peer-group"
-commit:expression: $VAR(../../@) == $VAR(../remote-as/@); "protocols bgp $VAR(../../@) neighbor $VAR(../@) route-reflector-client: remote-as must equal local-as"
+help: Set peer-group as a route reflector client
+commit:expression: $VAR(../../@) == $VAR(../remote-as/@); "protocols bgp $VAR(../../@) peer-group $VAR(../@) route-reflector-client: remote-as must equal local-as"

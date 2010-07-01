@@ -1,0 +1,2 @@
+help: Set ttl security mechanism for this BGP peer
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --not-exists \"protocols bgp $VAR(../../@) neighbor $VAR(../@) ebgp-multihop\" "; "protocols bgp $VAR(../../@) neighbor $VAR(../@) ttl-security: you can't set both ebgp-multihop and ttl-security"

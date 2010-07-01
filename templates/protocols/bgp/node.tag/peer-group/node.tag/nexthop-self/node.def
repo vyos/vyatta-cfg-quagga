@@ -1,3 +1,1 @@
-help: Set nexthop for routes sent to this neighbor to be the local router
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peergroup-as --as $VAR(../../@) --neighbor $VAR(../@)"
-commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) next-hop-self: you can't set next-hop-self for a neighbor in a peer-group"
+help: Set nexthop for routes sent to this peer-group to be the local router
