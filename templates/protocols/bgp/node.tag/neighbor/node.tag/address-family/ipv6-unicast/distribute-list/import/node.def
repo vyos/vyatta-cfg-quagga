@@ -1,11 +1,9 @@
 type: txt
 help: Set an access-list to filter incoming route updates from this neighbor
 comp_help: possible completions:
-  <1-65535>    access-list number
   <txt>        access-list6 name
 allowed: local -a params
-        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list;
-                  /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list6 )
+        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list6 )
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";\
 "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) import: access-list $VAR(@) doesn't exist"
