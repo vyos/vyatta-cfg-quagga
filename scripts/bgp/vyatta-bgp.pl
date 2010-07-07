@@ -1175,23 +1175,73 @@ sub check_remote_as {
 
     my @asns = $config->listNodes();
     foreach my $as (@asns) {
+      # check remote-as if neighbors have been changed
       my @neighbors = $config->listNodes("$as neighbor");
       foreach my $neighbor (@neighbors) {
         if ($config->isChanged("$as neighbor $neighbor")) {
           my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+
+          my ($peergroup, $peergroupas);
+          if ($config->exists("$as neighbor $neighbor peer-group")) {
+            $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+            if ($config->exists("$as peer-group $peergroup remote-as")) {
+              $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+            }
+          }
+
           if ($remoteas) {
+            if ($peergroupas) {
+              die "protocols bgp $as neighbor $neighbor: remote-as should not be defined in both neighbor and peer-group\n"
+            }
             return;
           }
-          my $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+
           die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
             unless $peergroup;
-  
-          my $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+ 
           die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
             unless $peergroupas;
         }
       }
+ 
+      # check remote-as if peer-groups have been changed
+      my @peergroups = $config->listNodes("$as peer-group");
+      foreach my $peergroup (@peergroups) {
+        if ($config->isChanged("$as peer-group $peergroup")) {
+
+          # if we delete the remote-as in the pg, make sure all neighbors have a remote-as defined
+          if ($config->isDeleted("$as peer-group $peergroup remote-as")) {
+            my @neighbors = $config->listNodes("$as neighbor");
+            foreach my $neighbor (@neighbors) {
+              my $pgmembership = $config->returnValue("$as neighbor $neighbor peer-group");
+              if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
+                my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+                if (! defined $remoteas) {
+                  die "protocols bgp $as peer-group $neighbor: can't delete the remote-as in peer-group without setting remote-as in members\n"
+                }
+              }
+            }
+          }
+
+          # remote-as can not be defined in both pg and neighbor at the same time
+          if ($config->isChanged("$as peer-group $peergroup remote-as")) {
+            my $pgremoteas = $config->returnValue("$as peer-group $peergroup remote-as");
+            my @neighbors = $config->listNodes("$as neighbor");
+            foreach my $neighbor (@neighbors) {
+              my $pgmembership = $config->returnValue("$as neighbor $neighbor peer-group");
+              if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
+                my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+                if (defined $remoteas && defined $pgremoteas) {
+                  die "protocols bgp $as peer-group $neighbor: must not define remote-as in both neighbor and peer-group\n"
+                }
+              }
+            }
+          }
+
+        }
+      }  # end foreach my $peergroup
     }
+
 }
 
 # check that value is either an IPV4 address on system or an interface
