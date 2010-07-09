@@ -405,7 +405,7 @@ my %qcom = (
   },
   'protocols bgp var neighbor var local-as var no-prepend' => {
       set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend',
-      del => 'router bgp #3 ; no neighbor #5 local-as #7 no-prepend; neighbor #5 local-as #7',
+      del => 'router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7',
   },
   'protocols bgp var neighbor var maximum-prefix' => {
       set => 'router bgp #3 ; neighbor #5 maximum-prefix #7',
