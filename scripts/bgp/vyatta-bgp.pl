@@ -448,7 +448,7 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 prefix-list #8 in',
   },
   'protocols bgp var neighbor var remote-as' => {
-      set => 'router bgp #3 ; neighbor #5 remote-as #7',
+      set => 'router bgp #3 ; neighbor #5 remote-as #7 ; neighbor #5 activate',
       del => 'router bgp #3 ; no neighbor #5 remote-as #7',
   },
   'protocols bgp var neighbor var remove-private-as' => {
