@@ -1092,7 +1092,7 @@ my %qcom = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource );
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $checklocalas );
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1102,6 +1102,7 @@ GetOptions(
     "check-neighbor-ip"       => \$isneighbor,
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
+    "check-local-as"          => \$checklocalas,
     "main"                    => \$main,
 );
 
@@ -1110,6 +1111,7 @@ check_peergroup_name($peername)	  	if ($peername);
 check_neighbor_ip($neighbor)            if ($isneighbor);
 check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
 check_source($checksource)	        if ($checksource);
+check_local_as($neighbor, $as)          if ($checklocalas);
 
 exit 0;
 
@@ -1242,6 +1244,25 @@ sub check_remote_as {
       }  # end foreach my $peergroup
     }
 
+}
+
+# Verify that is local-as is used, the peer isn't in a confedration
+sub check_local_as {
+    my ($neighbor, $as) = @_;
+    my $config = new Vyatta::Config;
+
+    $config->setLevel("protocols bgp $as");
+    if ($config->exists('parameters confederation peers')) {
+      my @peers = $config->returnValues('parameters confederation peers');
+      my $remoteas = $config->returnValue("neighbor $neighbor remote-as");
+      foreach my $peeras (@peers) {
+        if ("$peeras" eq "$remoteas") {
+          print "local-as can't be set for neighbors in a peer group\n";
+          return 1;
+        }
+      }
+    }
+    return 0;
 }
 
 # check that value is either an IPV4 address on system or an interface
