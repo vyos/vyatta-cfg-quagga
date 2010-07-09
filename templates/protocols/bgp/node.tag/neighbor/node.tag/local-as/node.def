@@ -1,7 +1,9 @@
-tag:
+tag:1
 type: u32
 help: Set the local AS number [REQUIRED]
 comp_help: possible completions:
   <1-4294967294>    local AS number
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
 commit:expression: $VAR(@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set local-as the same as the router AS"
+commit:expression: $VAR(../remote-as/@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@): local-as can't be set on iBGP peers"
+commit:expression: $VAR(../remote-as/@) != $VAR(../../parameters/confederation/peers/@); "protocols bgp $VAR(../../@) neighbor $VAR(../@): local-as can't be set on a confederation peer"
