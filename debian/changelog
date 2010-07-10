@@ -1,3 +1,17 @@
+vyatta-cfg-quagga (0.18.82) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Use net_set to avoid using sudo
+  * No longer need sudo for arp
+
+  [ An-Cheng Huang ]
+  * remove leftover script as discussed
+
+  [ Stephen Hemminger ]
+  * Add ttl-security option to peer-group
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 17:46:08 -0700
+
 vyatta-cfg-quagga (0.18.81) unstable; urgency=low
 
   * fix for bug 5713
