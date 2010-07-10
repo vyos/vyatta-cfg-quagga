@@ -1,7 +1,8 @@
 type: u32
-help: Set ttl security mechanism for this BGP peer
+help: Set ttl security mechanism for this peer-group
 comp_help: possible completions:
   <1-254>   maximum number of hops that separate two peers
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 254 ; \
     "ttl-security must be between 1 and 254"
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --not-exists \"protocols bgp $VAR(../../@) neighbor $VAR(../@) ebgp-multihop\" "; "protocols bgp $VAR(../../@) neighbor $VAR(../@) ttl-security: you can't set both ebgp-multihop and ttl-security"
