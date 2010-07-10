@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.18.83) unstable; urgency=low
+
+  * Fix email address causing debian warnings
+  * Revert "Use net_set to avoid using sudo"
+  * Need full path to arp command
+  * Fix bogus ospf wireless vif nodes
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 18:14:26 -0700
+
 vyatta-cfg-quagga (0.18.82) unstable; urgency=low
 
   [ Stephen Hemminger ]
