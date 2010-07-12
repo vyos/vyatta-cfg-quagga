@@ -1,4 +1,4 @@
-tag:
+tag:1
 priority: 730
 type: u32
 help: Configure Border Gateway Protocol (BGP) parameters
