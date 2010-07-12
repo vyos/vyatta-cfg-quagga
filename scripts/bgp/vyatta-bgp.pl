@@ -942,7 +942,7 @@ my %qcom = (
   },
   'protocols bgp var peer-group var password' => {
       set => 'router bgp #3 ; neighbor #5 password #7',
-      del => 'router bgp #3 ; no neighbor #5 password #7',
+      del => 'router bgp #3 ; no neighbor #5 password',
   },
   'protocols bgp var peer-group var port' => {
       set => 'router bgp #3 ; neighbor #5 port #7',
