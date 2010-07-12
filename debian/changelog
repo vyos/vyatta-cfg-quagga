@@ -1,8 +1,31 @@
+vyatta-cfg-quagga (0.18.83) unstable; urgency=low
+
+  * Fix email address causing debian warnings
+  * Revert "Use net_set to avoid using sudo"
+  * Need full path to arp command
+  * Fix bogus ospf wireless vif nodes
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 18:14:26 -0700
+
+vyatta-cfg-quagga (0.18.82) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Use net_set to avoid using sudo
+  * No longer need sudo for arp
+
+  [ An-Cheng Huang ]
+  * remove leftover script as discussed
+
+  [ Stephen Hemminger ]
+  * Add ttl-security option to peer-group
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 17:46:08 -0700
+
 vyatta-cfg-quagga (0.18.81) unstable; urgency=low
 
   * fix for bug 5713
 
- -- Robert Bays <rbays@roatan>  Mon, 21 Jun 2010 10:58:55 -0700
+ -- Robert Bays <rbays@vyatta.com>  Mon, 21 Jun 2010 10:58:55 -0700
 
 vyatta-cfg-quagga (0.18.80) unstable; urgency=low
 
@@ -18,13 +41,13 @@ vyatta-cfg-quagga (0.18.79) unstable; urgency=low
 
   * fix for bug 874: allow setting administrative distance
 
- -- Robert Bays <rbays@roatan>  Tue, 08 Jun 2010 12:33:11 -0700
+ -- Robert Bays <rbays@vyatta.com>  Tue, 08 Jun 2010 12:33:11 -0700
 
 vyatta-cfg-quagga (0.18.78) unstable; urgency=low
 
   * fix aggregate-address command
 
- -- Robert Bays <rbays@roatan>  Mon, 07 Jun 2010 15:56:21 -0700
+ -- Robert Bays <rbays@vyatta.com>  Mon, 07 Jun 2010 15:56:21 -0700
 
 vyatta-cfg-quagga (0.18.77) unstable; urgency=low
 
@@ -36,19 +59,19 @@ vyatta-cfg-quagga (0.18.77) unstable; urgency=low
   * clean up potential unitialized var reference
   * fix stupid var def mistake
 
- -- Robert Bays <rbays@roatan>  Fri, 04 Jun 2010 16:59:51 -0700
+ -- Robert Bays <rbays@vyatta.com>  Fri, 04 Jun 2010 16:59:51 -0700
 
 vyatta-cfg-quagga (0.18.76) unstable; urgency=low
 
   * fix for bug 5653
 
- -- Robert Bays <rbays@roatan>  Wed, 02 Jun 2010 17:15:41 -0700
+ -- Robert Bays <rbays@vyatta.com>  Wed, 02 Jun 2010 17:15:41 -0700
 
 vyatta-cfg-quagga (0.18.75) unstable; urgency=low
 
   * re-add the disable-send-comunity node to peer-groups
 
- -- Robert Bays <rbays@roatan>  Tue, 25 May 2010 16:26:01 -0700
+ -- Robert Bays <rbays@vyatta.com>  Tue, 25 May 2010 16:26:01 -0700
 
 vyatta-cfg-quagga (0.18.74) unstable; urgency=low
 
@@ -60,7 +83,7 @@ vyatta-cfg-quagga (0.18.74) unstable; urgency=low
   * change the system call in _sendQuaggaCommand().  with the selective
     noerr fixed,
 
- -- Robert Bays <rbays@roatan>  Sun, 23 May 2010 01:00:39 -0700
+ -- Robert Bays <rbays@vyatta.com>  Sun, 23 May 2010 01:00:39 -0700
 
 vyatta-cfg-quagga (0.18.73) unstable; urgency=low
 

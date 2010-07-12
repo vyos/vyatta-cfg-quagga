@@ -35,9 +35,8 @@ comp_help: Possible completions:
 end:
 	ipaddr=$VAR(@)
 	hwaddr=$VAR(hwaddr/@)
-
-	sudo arp -d $ipaddr > /dev/null
+	/usr/sbin/arp -d $ipaddr > /dev/null
 	if [ -n "$hwaddr" ]; then
-	    sudo arp -s $ipaddr $hwaddr
+	    /usr/sbin/arp -s $ipaddr $hwaddr
 	fi
 	exit 0
