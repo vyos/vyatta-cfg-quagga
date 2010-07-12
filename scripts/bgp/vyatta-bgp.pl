@@ -1015,7 +1015,7 @@ my %qcom = (
   },
   'protocols bgp var peer-group var update-source' => {
       set => 'router bgp #3 ; neighbor #5 update-source #7',
-      del => 'router bgp #3 ; no neighbor #5 update-source #7',
+      del => 'router bgp #3 ; no neighbor #5 update-source',
   },
   'protocols bgp var peer-group var weight' => {
       set => 'router bgp #3 ; neighbor #5 weight #7',
