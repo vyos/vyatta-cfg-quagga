@@ -2,10 +2,8 @@ type: txt
 help: Set an access-list to filter incoming route updates from this peer-group
 comp_help: possible completions:
   <1-65535>    access-list number
-  <txt>        access-list6 name
 allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/access-list/*
-                 /opt/vyatta/config/active/policy/access-list6/* )
+        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list )
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";\
 "protocols bgp $VAR(../../../@) peer-group $VAR(../../@) import: access-list $VAR(@) doesn't exist"
