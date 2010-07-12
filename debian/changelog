@@ -1,3 +1,26 @@
+vyatta-cfg-quagga (0.18.84) unstable; urgency=low
+
+  * fix for bug 5780
+  * fix for bug 5778
+  * As part of bug 5780, clean up the param generation
+  * Temporary fix for bug 5777.  This isn't the right fix since this
+    will
+  * fixes for local-as and confederations
+  * more robust fix for local-as
+  * fix for bug 5767
+  * fix for bug 5828
+  * fix for bug 5827
+  * fix for bug 5827 in peer-group
+  * fix for bug 5810
+  * fix for bug 5826
+  * fix for bug 5832
+  * fix for bug 5825
+  * fix for bug 5824
+  * fic for bug 5813
+  * update error messages to include 6
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 14:41:57 -0700
+
 vyatta-cfg-quagga (0.18.83) unstable; urgency=low
 
   * Fix email address causing debian warnings
