@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.87) unstable; urgency=low
+
+  * further fix for bug 5810
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 17:49:48 -0700
+
 vyatta-cfg-quagga (0.18.86) unstable; urgency=low
 
   * fix ipv6 network statements
