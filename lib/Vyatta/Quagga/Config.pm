@@ -354,19 +354,44 @@ sub _qtree {
 
         # if I found a Quagga command template, then replace any vars
         if ($qcommand) {
-          # get the apropos config value so we can use it in the Quagga command template 
-          my $val = undef;
-          if ($action eq 'set') { $val = $config->returnValue($node); }
-          else { $val = $config->returnOrigValue($node); }
+          # get the apropos config value so we can use it in the Quagga command template
+          my @vals = undef;
 
-          # is this a leaf node?
-          if ($val) {
-            my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
-            push @{$vtysh->{"$qcommand"}}, $var;
-            if ($_DEBUG) {
-              print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
+          # This is either a set or delete on a single or multi: node
+          if ($action eq 'set') {
+            my $tmplhash = $config->parseTmplAll(join ' ', "$level $node");
+            if ($tmplhash->{'multi'}) {
+              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              @vals = $config->returnValues($node);
+            }
+            else {
+              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              $vals[0] = $config->returnValue($node);
             }
           }
+          else {
+            my $tmplhash = $config->parseTmplAll(join ' ', "$level $node");
+            if ($tmplhash->{'multi'}) {
+              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              @vals = $config->returnOrigValues($node);
+            }
+            else {
+              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              $vals[0] = $config->returnOrigValue($node);
+            }
+          }
+
+          # is this a leaf node?
+          if (defined $vals[0]) {
+            foreach my $val (@vals) {
+              my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
+              push @{$vtysh->{"$qcommand"}}, $var;
+              if ($_DEBUG) {
+                print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
+              }
+            }
+          }
+
           else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, $var;
