@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.86) unstable; urgency=low
+
+  * fix ipv6 network statements
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 17:40:37 -0700
+
 vyatta-cfg-quagga (0.18.85) unstable; urgency=low
 
   * fix for bug 5760: BGP configuration script does not handle "multi:"
