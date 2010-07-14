@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.91) unstable; urgency=low
+
+  * ttl-security should not be a typed node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 14 Jul 2010 16:39:32 -0700
+
 vyatta-cfg-quagga (0.18.90) unstable; urgency=low
 
   * fix for bug 5848
