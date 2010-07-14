@@ -1,4 +1,4 @@
-multi:
+tag:
 type: ipv6net
 help: Set a BGP IPv6 network
 comp_help: 

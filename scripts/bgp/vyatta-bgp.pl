@@ -64,12 +64,24 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var address-family ipv6-unicast aggregate-address var' => {
-      set => 'router bgp #3 ; ipv6 bgp aggregate-address #7 ?summary-only',
-      del => 'router bgp #3 ; no ipv6 bgp aggregate-address #7',
+      set => 'router bgp #3 ; address-family ipv6 ; aggregate-address #7 ?summary-only',
+      del => 'router bgp #3 ; address-family ipv6 ; no aggregate-address #7',
   },
   'protocols bgp var address-family ipv6-unicast network' => {
-      set => 'router bgp #3 ; ipv6 bgp network #7',
-      del => 'router bgp #3 ; no ipv6 bgp network #7',
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var address-family ipv6-unicast network var' => {
+      set => 'router bgp #3 ; address-family ipv6 ; network #7',
+      del => 'router bgp #3 ; address-family ipv6 ; no network #7',
+  },
+  'protocols bgp var address-family ipv6-unicast network var route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; network #7 route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no network #7 route-map #9',
+  },
+  'protocols bgp var address-family ipv6-unicast network var path-limit' => {
+      set => 'router bgp #3 ; address-family ipv6 ; network #7 pathlimit #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no network #7 pathlimit #9',
   },
   'protocols bgp var address-family ipv6-unicast redistribute' => {
       set => undef,
