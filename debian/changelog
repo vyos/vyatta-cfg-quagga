@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.88) unstable; urgency=low
+
+  * add commit check to verify remove-private-as is not set on iBGP
+    peers
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 13 Jul 2010 22:09:41 -0700
+
 vyatta-cfg-quagga (0.18.87) unstable; urgency=low
 
   * further fix for bug 5810
