@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.90) unstable; urgency=low
+
+  * fix for bug 5848
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 15:23:15 -0700
+
 vyatta-cfg-quagga (0.18.89) unstable; urgency=low
 
   * fix for bug 5841
