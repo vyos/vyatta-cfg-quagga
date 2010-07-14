@@ -1216,6 +1216,17 @@ sub check_for_peer_groups {
     }
 }
 
+
+# check that both ttl-security and ebgpmultihops aren't both defined
+sub check_ttl_conflict {
+    my ($config, $path) = @_;
+
+    my $ebgphops = $config->returnValue("$path ebgp-multihop");
+    my $ttlsecurity = $config->returnValue("$path ttl-security hops");
+	die "protocols bgp $path: can not define both ebgp-mulithop and ttl-security hops\n"
+	    if (defined($ebgphops) && defined($ttlsecurity));
+}
+
 # check that changed neighbors have a remote-as or peer-group defined
 sub check_remote_as {
     my $config = new Vyatta::Config;
@@ -1226,9 +1237,11 @@ sub check_remote_as {
       # check remote-as if neighbors have been changed
       my @neighbors = $config->listNodes("$as neighbor");
       foreach my $neighbor (@neighbors) {
-        if ($config->isChanged("$as neighbor $neighbor")) {
-          my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+	  next unless $config->isChanged("$as neighbor $neighbor");
 
+	  check_ttl_conflict($config, "$as neighbor $neighbor");
+
+          my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
           my ($peergroup, $peergroupas);
           if ($config->exists("$as neighbor $neighbor peer-group")) {
             $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
@@ -1249,13 +1262,15 @@ sub check_remote_as {
  
           die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
             unless $peergroupas;
-        }
+
       }
  
       # check remote-as if peer-groups have been changed
       my @peergroups = $config->listNodes("$as peer-group");
       foreach my $peergroup (@peergroups) {
-        if ($config->isChanged("$as peer-group $peergroup")) {
+	  next unless $config->isChanged("$as peer-group $peergroup");
+
+	  check_ttl_security($config, "$as peer-group $peergroup");
 
           # if we delete the remote-as in the pg, make sure all neighbors have a remote-as defined
           if ($config->isDeleted("$as peer-group $peergroup remote-as")) {
@@ -1284,10 +1299,11 @@ sub check_remote_as {
                 }
               }
             }
-          }
 
         }
+
       }  # end foreach my $peergroup
+
     }
 
 }
