@@ -219,7 +219,27 @@ sub _sendQuaggaCommand {
     push (@arg_array, "$section");
   }
   
-  system(@arg_array) == 0 or die "_sendQuaggaCommand: @arg_array failed: $?";
+  system(@arg_array) == 0 or _logger(\@arg_array, 1);
+
+  return 1;
+}
+
+# log error message to syslog, optionally die
+# input: $1 - reference to error message array
+#        $2 - die boolean
+sub _logger {
+  my $error_array = shift;
+  my $die = shift;
+  my @logger_cmd = ("/usr/bin/logger");
+
+  push (@logger_cmd, "-i");
+  push (@logger_cmd, "-t vyatta-cfg-quagga");
+  if ($_DEBUG) { push (@logger_cmd, "-s"); }
+  push (@logger_cmd, "@{$error_array} failed: $?");
+
+  system(@logger_cmd) == 0 or die "unable to log system error message.";
+
+  if ($die) { die "Error configuring routing subsystem.  See log for more detailed information\n"; }
   return 1;
 }
 
