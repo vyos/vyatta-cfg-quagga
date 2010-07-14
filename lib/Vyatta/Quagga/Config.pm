@@ -283,7 +283,7 @@ sub _qVarReplace {
       my $config = new Vyatta::Config;
       $config->setLevel($node);
       my $value = $config->returnValue($token);
-      if ($value) { $result = "$result $value"; }
+      if (defined $value) { $result = "$result $value"; }
     }
     # if not, just append string to result
     else {
