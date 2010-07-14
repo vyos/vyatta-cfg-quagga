@@ -1,4 +1,5 @@
 type: u32
+default: 180
 help: Set the BGP hold timer for this peer-group
 comp_help: \1  <1-65535>\thold timer in seconds
   0\t\tdisable hold timer

@@ -1,4 +1,5 @@
 type: u32
+default: 60
 help: Set the BGP keepalive interval for this neighbor
-comp_help: \1  <1-65535>\tkeepalive interval in seconds
+comp_help: \1  <1-65535>\tkeepalive interval in seconds (default 60)
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Keepalive interval must be between 1 and 65535"
