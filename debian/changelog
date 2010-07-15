@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.93) unstable; urgency=low
+
+  * update cfg-version file
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 17:57:13 -0700
+
 vyatta-cfg-quagga (0.18.92) unstable; urgency=low
 
   * update config version for config migration script
