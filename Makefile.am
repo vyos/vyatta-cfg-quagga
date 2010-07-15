@@ -17,7 +17,7 @@ share_perl5_DATA = lib/Vyatta/Quagga/Config.pm
 
 src_check_prefix_boundary = src/check_prefix_boundary.c
 
-curver_DATA = cfg-version/quagga@1
+curver_DATA = cfg-version/quagga@2
 
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 	cpio -0pd
