@@ -1,4 +1,4 @@
-help: Disable split horizon on specified interface
+help: Disable split horizon
 create: vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ipv6 ripng split-horizon"
 delete: vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ripng split-horizon"
 

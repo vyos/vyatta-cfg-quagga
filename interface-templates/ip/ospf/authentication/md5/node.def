@@ -1,4 +1,4 @@
-help: Set MD5 key id
+help: MD5 parameters
 
 create: vtysh -c "configure terminal" \
 	-c "interface $IFNAME" \

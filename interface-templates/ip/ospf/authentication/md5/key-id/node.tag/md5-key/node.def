@@ -1,11 +1,7 @@
 type: txt
-
-help: Set md5 key
-
+help: MD5 key
 syntax:expression: pattern $VAR(@) "^[^[:space:]]{1,16}$"; "MD5 key must be 16 characters or less"
-
-comp_help: possible completions:
- <text>             MD5 Key (16 characters or less)
+val_help: MD5 Key (16 characters or less)
 
 # If this node is created 
 create:

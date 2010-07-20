@@ -1,11 +1,11 @@
 type: u32
-help: Set interface cost
+help: Interface cost
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Must be between 1-65535"
+val_help: u32:1-65535; OSPF interface cost
+
 update:vtysh -c "configure terminal" \
 	-c "interface $IFNAME" \
 	-c "ip ospf cost $VAR(@)"
 delete:vtysh -c "configure terminal" \
 	-c "interface $IFNAME" \
 	-c "no ip ospf cost"
-comp_help: possible completions:
- <1-65535>          Set Cost
