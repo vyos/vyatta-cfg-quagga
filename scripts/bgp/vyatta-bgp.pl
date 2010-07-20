@@ -1257,8 +1257,6 @@ sub check_remote_as {
       foreach my $peergroup (@peergroups) {
 	  next unless $config->isChanged("$as peer-group $peergroup");
 
-	  check_ttl_security($config, "$as peer-group $peergroup");
-
           # if we delete the remote-as in the pg, make sure all neighbors have a remote-as defined
           if ($config->isDeleted("$as peer-group $peergroup remote-as")) {
             my @neighbors = $config->listNodes("$as neighbor");
