@@ -1,17 +1,7 @@
-#
-# Vyatta configuration template for protocols.static.arp
-#
-# Author: Bob Gilligan (gilligan@vyatta.com)
-#
-
 tag:
-
 type: ipv4
-
 help:  Set a static ARP translation
-
-comp_help: Possible completions:
-    <ipv4>\tIPv4 destination address
+val_help: IPv4 destination address
 
 #
 # All the work is done here in the "end:" tag.  There are four possible cases:

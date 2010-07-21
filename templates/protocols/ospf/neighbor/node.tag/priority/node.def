@@ -2,11 +2,12 @@ type: u32
 help: Set neighbor priority in seconds
 default: 0
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "Priority must be between 0-255"
+val_help: u32:0-255; Neighbor priority (default 0)
+
 update: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "neighbor $VAR(../@) priority $VAR(@)"; 
+
 delete: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "neighbor $VAR(../@) priority 0";
-comp_help: possible completions:
- <0-255>            Set neighbor priority (default 0)

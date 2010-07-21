@@ -1,6 +1,7 @@
 multi:
 type: txt
 help: Set interface to exclude when using 'passive-interface default'
+val_help:<interface>; Interface to exclude from 'passive-interface default'
 
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all 
 
@@ -19,6 +20,3 @@ create: if [ -z $VAR(@) ] ; then
 
 delete: vtysh -c "configure terminal" -c "router ospf" \
           -c "passive-interface $VAR(@)";
-
-comp_help: possible completions:
-  <interface>     Set an interface to exclude from 'passive-interface default'

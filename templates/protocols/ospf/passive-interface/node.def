@@ -1,10 +1,9 @@
 multi:
 type: txt
 help: Set to suppress routing updates on an interface
-
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all && echo default
-
-
+val_help:<interface>; Interface to be passive (i.e. suppress routing updates)
+val_help:default; Default to suppress routing updates on all interfaces
 
 create: sudo /opt/vyatta/sbin/vyatta_quagga_utils.pl \
            --check-ospf-passive="$VAR(@)"
@@ -39,7 +38,3 @@ delete: if [ -z $VAR(@) ]
                  -c "router ospf"        \
                  -c "no passive-interface $VAR(@)"
  	fi
-
-comp_help: possible completions:
-  <interface>     Set an interface to be passive (i.e. suppress routing updates)
-  default         Set default to suppress routing updates on all interfaces

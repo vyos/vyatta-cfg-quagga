@@ -1,8 +1,10 @@
 type: u32
 help: Set administrative distance
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "must be between 1 and 255"
+val_help: u32:1-255; Administrative distance
+
 update:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"distance $VAR(@) \" "
+
 delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
           -c \"no distance $VAR(@) \" "
-comp_help: Enter a distance valude between 1-255

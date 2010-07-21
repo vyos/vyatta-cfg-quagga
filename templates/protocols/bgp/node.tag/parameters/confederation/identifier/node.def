@@ -1,4 +1,4 @@
 type: u32
 help: Set confederation AS identifier [REQUIRED]
-comp_help: \1  <1-4294967294>\tconfederation AS id
+val_help: u32:1-4294967294; Confederation AS id
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "confederation AS id must be between 1 and 4294967294"

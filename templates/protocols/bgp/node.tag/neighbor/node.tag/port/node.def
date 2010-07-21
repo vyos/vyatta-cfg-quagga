@@ -1,5 +1,5 @@
 type: u32
 help: Set the neighbor's BGP port
-comp_help: \1  <1-65535>\tport number
+val_help: u32: 1-65535; Neighbor BGP port number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; \
        "port must be between 1 and 65535"

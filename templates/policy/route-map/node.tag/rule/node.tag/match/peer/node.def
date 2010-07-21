@@ -1,13 +1,16 @@
 type: txt
 help: Set peer address to match
-comp_help: \1  <x.x.x.x>\tpeer IP address
-  local\t\tstatic or redistributed routes
+val_help: ipv4; Peer IP address
+val_help: local: Static or redistributed routes
+
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-policy.pl --check-peer-syntax $VAR(@)"; "peer must be either an IP or local"
+
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "match peer $VAR(@)"
+
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no match peer " 
-

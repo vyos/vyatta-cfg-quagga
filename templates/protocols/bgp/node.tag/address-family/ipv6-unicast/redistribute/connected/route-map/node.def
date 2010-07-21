@@ -1,8 +1,9 @@
 type: txt
 help: Set a route map to filter redistributed routes
-comp_help: possible completions:
-  <txt>  route-map name
+val_help: Route map name
+
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../../../@) ipv6 redistribute connected: route-map $VAR(@) doesn't exist"

@@ -1,5 +1,6 @@
 type: txt
 help: Set an IPv6 access-list6 to match
+val_help: IPV6 access list name
 
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/access-list6/* )
@@ -18,6 +19,3 @@ update: vtysh -c "configure terminal" \
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../../../@) $VAR(../../../../action/@) $VAR(../../../../@)" \
          -c "no match ipv6 address $VAR(@) "
-
-comp_help: possible completions:
-  <txt>         name of an IPv6 access-list6

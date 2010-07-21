@@ -1,15 +1,18 @@
 type: u32
 help: Set an IP access-list to match
-comp_help: \1  <1-99>\tIP standard access list number
-  <100-199>\tIP extended access list number
-  <1300-1999>\tIP standard access list number (expanded range)
-  <2000-2699>\tIP extended access list number (expanded range)
+val_help: u32:1-99; IP standard access list number
+val_help: u32:100-199; IP extended access list number
+val_help: u32:1300-1999; IP standard access list number (expanded range)
+val_help: u32:2000-2699; IP extended access list number (expanded range)
+
 commit:expression: $VAR(../prefix-list/) == ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ip route-source access-list: you may only specify a prefix-list or access-list"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ip route-source access-list: access-list $VAR(@) does not exist"
 commit:expression: $VAR(../../../../action/) != ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@): you must specify an action"
+
 update: vtysh -c "configure terminal"  \
          -c "route-map $VAR(../../../../../@) $VAR(../../../../action/@) $VAR(../../../../@)" \
          -c "match ip route-source $VAR(@)"
+
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../../../@) $VAR(../../../../action/@) $VAR(../../../../@)" \
          -c "no match ip route-source $VAR(@)" 

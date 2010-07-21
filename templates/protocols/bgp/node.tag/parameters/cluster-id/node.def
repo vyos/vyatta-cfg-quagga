@@ -1,3 +1,2 @@
 type: ipv4
 help: Set the route-reflector cluster-id
-comp_help: \1  <x.x.x.x>\tcluster-id IP

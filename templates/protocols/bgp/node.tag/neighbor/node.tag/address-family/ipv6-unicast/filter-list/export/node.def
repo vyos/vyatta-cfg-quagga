@@ -1,7 +1,5 @@
 type: txt
 help: Set an as-path-list to filter outgoing route updates to this neighbor
-comp_help: possible completions:
-  <txt>     as-path-list name
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy as-path-list )
         echo -n ${params[@]##*/}

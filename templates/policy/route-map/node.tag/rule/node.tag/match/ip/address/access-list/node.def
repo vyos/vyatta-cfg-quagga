@@ -1,11 +1,9 @@
 type: u32
 help: Set an IP access-list to match
-
-comp_help: possible completions:
-  <1-99>       IP standard access list number
-  <100-199>    IP extended access list number
-  <1300-1999>  IP standard access list number (expanded range)
-  <2000-2699>  IP extended access list number (expanded range)
+val_help: u32:1-99; IP standard access list number
+val_help: u32:100-199; IP extended access list number
+val_help: u32:1300-1999; IP standard access list number (expanded range)
+val_help: u32:2000-2699; IP extended access list number (expanded range)
 
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/access-list/* )

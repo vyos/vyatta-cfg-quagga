@@ -1,5 +1,4 @@
 help: Set area type
-comp_help: possible completions:
- normal             Set normal area type
- nssa               Set not so stubby area type 
- stub               Set stub Area type 
+val_help: normal; Normal area type
+val_help: nssa; Not so stubby area type 
+val_help: stub; Stub Area type 

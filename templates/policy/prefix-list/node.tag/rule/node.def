@@ -1,10 +1,13 @@
 tag:
 type: u32
 help: Set a rule for this prefix-list
-comp_help: \1  <1-65535>\tprefix-list rule number
+val_help: u32:1-65535; Prefix-list rule number
+
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
+
 commit:expression: $VAR(./prefix/) != ""; "policy prefix-list $VAR(../@) rule $VAR(@): You must specify a prefix"
 commit:expression: $VAR(./action/) != ""; "policy prefix-list $VAR(../@) rule $VAR(@): You must specify an action"
+
 delete:  touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID ;
          len=`echo $VAR(@) | awk -F/ '{ print $2 }'` ; 
          if [ -n "$VAR(./ge/@)" ]; then 
@@ -15,6 +18,7 @@ delete:  touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID ;
          fi; 
          vtysh -c "configure terminal"  \
            -c "no ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " 
+
 end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; 
       if [ -n "$VAR(./ge/@)" ]; then 
         if [ $len -ge $VAR(./ge/@) ]; then 

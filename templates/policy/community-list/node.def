@@ -1,10 +1,13 @@
 tag:
 type: u32
 help: Set Border Gateway Protocol (BGP) community-list filter
+
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 500; " 
 community-list must be 
   <1-99>\tBGP community list (standard) 
   <100-500>\tBGP community list (expanded) "
-comp_help: \1  <1-99>\tBGP community list (standard)
-  <100-500>\tBGP community list (expanded)
+
+val_help: u32:1-99; BGP community list (standard)
+val_help: u32:100-500; BGP community list (expanded)
+
 end: /opt/vyatta/sbin/vyatta-policy.pl --update-community-list $VAR(@)

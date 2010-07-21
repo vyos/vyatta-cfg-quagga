@@ -1,5 +1,6 @@
 type: txt
 help: Set action to take on prefixes matching this rule [REQUIRED]
-comp_help: \1  permit\tpermit matching prefixes
-  deny\t\tdeny matching prefixes
+val_help: permit; Permit matching prefixes
+val_help: deny; Deny matching prefixes
+
 syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"

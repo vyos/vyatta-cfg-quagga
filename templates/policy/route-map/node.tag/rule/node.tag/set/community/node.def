@@ -1,11 +1,10 @@
 type: txt
 help: Set the Border Gateway Protocl (BGP) community attribute
-comp_help: \1  <AA:NN>\tcommunity in 4 octet AS:value format
-  local-AS\t\tadvertise communities in local AS only (NO_EXPORT_SUBCONFED)
-  no-advertise\tdon't advertise this route to any peer (NO_ADVERTISE)
-  no-export\t\tdon't advertise outside of this AS of confederation boundry (NO_EXPORT)
-  internet\t\tsymbolic Internet community 0
-  The above maybe prefixed by "additive "
+val_help: <AA:NN>; Community in 4 octet AS:value format
+val_help: local-AS; Advertise communities in local AS only (NO_EXPORT_SUBCONFED)
+val_help: no-advertise; Don't advertise this route to any peer (NO_ADVERTISE)
+val_help: no-export; Don't advertise outside of this AS of confederation boundry (NO_EXPORT)
+val_help: internet; Symbolic Internet community 0
 
 allowed:echo "none local-AS no-advertise no-export internet"
 

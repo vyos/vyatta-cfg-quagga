@@ -1,7 +1,5 @@
 type: txt
 help: Set an as-path-list to filter incoming route updates from this peer-group
-comp_help: possible completions:
-  <txt>     as-path-list name
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy as-path-list )
         echo -n ${params[@]##*/}

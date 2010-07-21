@@ -1,6 +1,7 @@
 type: u32
 default: 180
 help: Set the BGP hold timer for this peer-group
-comp_help: \1  <1-65535>\thold timer in seconds
-  0\t\tdisable hold timer
+val_help: u32:1-65535; Hold timer in seconds
+val_help: 0; Disable hold timer
+
 syntax:expression: $VAR(@) == 0 || ($VAR(@) >= 4 && $VAR(@) <= 65535); "Holdtime interval must be 0 or between 4 and 65535"

@@ -1,5 +1,4 @@
 type: u32
 help: Set an administrative distance for prefix
+val_help: u32:1-255; Administrative distance for external BGP routes
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"
-comp_help: possible completions:
- <1-255>            Set administrative distance for external BGP routes

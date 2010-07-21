@@ -1,6 +1,6 @@
 type: u32
 help: Set number of the maximum number of hops to the BGP peer
-comp_help: possible completions:
-  <1-254>    number of hops 
+val_help: u32:1-254; Number of hops
+
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 254; "ttl-security hops must be between 1 and 254"
 commit:expression: $VAR(../../ebgp-multihop/) == ""; "protocols bgp $VAR(../../../@) peer-group $VAR(../../@) ttl-security hops: you can't set both ebgp-multihop and ttl-security hops"

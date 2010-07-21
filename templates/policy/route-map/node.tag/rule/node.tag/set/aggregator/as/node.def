@@ -1,4 +1,5 @@
 type: u32
 help: Set the AS number of an aggregation
-comp_help: \1  <1-65535>\tBGP AS number
+val_help: u32:1-65535; BGP AS number
+
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "BGP AS number must be between 1 and 4294967294"

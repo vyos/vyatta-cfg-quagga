@@ -1,11 +1,13 @@
 type: u32
 help: Set OSPF administrative distance
+val_help: u32:1-255; Administrative distance"
+
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"
+
 update:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"distance $VAR(@) \"; "
+
 delete:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"no distance $VAR(@) \"; "
-comp_help: possible completions:
- <1-255>            Set administrative distance"

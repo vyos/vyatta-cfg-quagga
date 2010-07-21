@@ -1,6 +1,7 @@
 tag:
 type: u32
 help: Set a rule for this prefix-list6
+val_help: u32:1-65535; Prefix list rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
 
@@ -39,6 +40,3 @@ end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ;
           -c "ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
       fi;
       exit 0 ; 
-
-comp_help: possible completions:
-  <1-65535>    prefix-list rule number

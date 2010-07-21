@@ -1,6 +1,7 @@
 type: u32
 help: Set the summary-default cost of stub area
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Cost must be between 0-16777215"
+val_help: u32:0-16777215; Summary default cost of stub area
 
 create: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
@@ -14,6 +15,3 @@ update: vtysh -c "configure terminal" \
 delete: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "no area $VAR(../../../@) default-cost $VAR(@)";
-
-comp_help: possible completions:
- <0-16777215>       Set summary default cost of stub area

@@ -1,6 +1,7 @@
 type: txt
 help: Set regular expression to match against an AS path
-comp_help: \1  <aa:nn>\tas-path regular expression (ex: "50:1 6553:1201")
+val_help: <aa:nn>; AS path regular expression (ex: "50:1 6553:1201")
 # TODO: check regex syntax; \
 #       "invalid chars in regex syntax"
+
 commit:expression: $VAR(../action/@) != ""; "policy as-path-list $VAR(../../@) rule $VAR(../@): You must specify an action"

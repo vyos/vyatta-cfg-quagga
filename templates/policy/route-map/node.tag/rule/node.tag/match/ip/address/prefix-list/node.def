@@ -1,8 +1,6 @@
 type: txt
 help: Set an IP prefix-list to match
-
-comp_help: possible completions:
-  <txt>    prefix-list name
+val_help: Prefix list name
 
 allowed: local -a params
         params=( /opt/vyatta/config/active/policy/prefix-list/* )

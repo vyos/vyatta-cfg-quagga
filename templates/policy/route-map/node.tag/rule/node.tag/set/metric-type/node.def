@@ -1,12 +1,16 @@
 type: txt
 help: Set Open Shortest Path First (OSPF) external metric-type
-comp_help: \1  type-1\tOSPF external type 1 metric
-  type-2\tOSPF external type 2 metric
+val_help: type-1; OSPF external type 1 metric
+val_help: type-2; OSPF external type 2 metric
+
 syntax:expression: $VAR(@) in "type-1", "type-2"; "Must be (type-1, type-2)"
+
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "set metric-type $VAR(@)"
+
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no set metric-type " 

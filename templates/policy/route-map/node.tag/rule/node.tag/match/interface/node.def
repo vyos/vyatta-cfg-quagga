@@ -1,15 +1,18 @@
 type: txt
 help: Set the first hop interface of a route to match
-comp_help: \1  <txt>\t\tinterface name
+val_help: Interface name
+
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
 commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
           echo policy route-map $VAR(../../../@) rule $VAR(../../@) match interface: interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
+
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "match interface $VAR(@)" 
+
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no match interface $VAR(@)" 

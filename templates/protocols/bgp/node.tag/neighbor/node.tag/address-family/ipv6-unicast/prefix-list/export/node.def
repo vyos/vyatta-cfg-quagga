@@ -1,10 +1,10 @@
 type: txt
 help: Set a prefix-list to filter outgoing route updates to this neighbor
-comp_help: possible completions:
-  <txt>     prefix-list name
+
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list6 )
         echo -n ${params[@]##*/}
+
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; \
 "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) address-family ipv6-unicast prefix-list export: prefix-list6 $VAR(@) doesn't exist"
 commit:expression: $VAR(../../distribute-list/export/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) prefix-list6 export: you can't set both a prefix-list and a distribute list"

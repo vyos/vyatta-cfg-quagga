@@ -1,7 +1,6 @@
 tag:
 type: ipv4net
 help: Set a BGP network
-comp_help: \1  <x.x.x.x/x>\tnetwork
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
        "protocols bgp $VAR(../@) network $VAR(@): May specify route-map or backdoor but not both"

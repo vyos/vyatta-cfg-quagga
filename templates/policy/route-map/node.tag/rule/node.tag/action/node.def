@@ -1,8 +1,10 @@
 type: txt
 help: Set action to take on prefixes matching this rule [REQUIRED]
-comp_help: \1  permit\tpermit matching prefixes
-  deny\t\tdeny matching prefixes
+val_help: permit; Permit matching prefixes
+val_help: deny; Deny matching prefixes
+
 syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
+
 update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@) action";
         if [ $? -eq 0 ]; then
           vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
@@ -12,6 +14,7 @@ update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-
           echo -e "  \"delete route-map $VAR(../../@) rule $VAR(../@)\" and commit it. \\n";
           exit 1;
         fi;
+
 delete: /opt/vyatta/sbin/vyatta-policy.pl --check-delete-routemap-action "policy route-map $VAR(../../@) rule $VAR(../@)";
         if [ $? -eq 0 ]; then
           touch /tmp/route-map-$VAR(../../@)-rule-$VAR(../@)-action.$PPID ;

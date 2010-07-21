@@ -1,8 +1,6 @@
 tag:
 type: txt
 help: Set a BGP peer-group 
-comp_help: 
-  <name>	BGP peer-group name
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-peergroup-name $VAR(@)"
 delete:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \

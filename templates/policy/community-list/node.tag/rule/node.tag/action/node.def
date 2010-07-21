@@ -1,5 +1,6 @@
 type: txt
 help: Set action to take on communities matching this rule [REQUIRED]
-comp_help: \1  permit\tpermit matching communities
-  deny\t\tdeny matching communities
+val_help: permit; Permit matching communities
+val_help: deny; Deny matching communities
+
 syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"

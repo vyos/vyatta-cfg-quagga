@@ -1,7 +1,7 @@
 type: txt
 help: Set an access-list to filter incoming route updates from this peer-group
-comp_help: possible completions:
-  <1-65535>    access-list number
+val_help: u32:1-65535; Access list number
+
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list )
         echo -n ${params[@]##*/}

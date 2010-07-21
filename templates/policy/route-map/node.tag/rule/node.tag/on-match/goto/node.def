@@ -1,13 +1,17 @@
 type: u32
 help: Set rule number to goto on match
-comp_help: \1  <1-65535>\trule number
+val_help: u32:1-65535; Rule number
+
 syntax:expression: $VAR(../next/) == ""; "you may set only goto or next"
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "goto must be a rule number between 1 and 65535"
+
 commit:expression: $VAR(@) > $VAR(../../@); "policy route-map $VAR(../../../@) rule $VAR(../../@): you may only go forward in the route-map"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "on-match goto $VAR(@)" 
+
 delete: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
          -c "no on-match goto " 

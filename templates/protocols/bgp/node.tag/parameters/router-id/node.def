@@ -1,3 +1,2 @@
 type: ipv4
 help: Set BGP router id
-comp_help: \1  <x.x.x.x>\tBGP router-id IP

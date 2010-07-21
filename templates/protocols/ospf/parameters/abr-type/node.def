@@ -2,14 +2,16 @@ type: txt
 help: Set OSPF ABR type
 default: "cisco"
 syntax:expression: $VAR(@) in "cisco", "ibm", "shortcut", "standard"; "Must be (cisco, ibm, shortcut, standard)"
+val_help: cisco; Cisco ABR type (default)
+val_help: ibm; Ibm ABR type
+val_help: shortcut; Shortcut ABR type
+val_help: standard; Standard ABR type
+
 update: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "ospf abr-type $VAR(@)";
+
 delete: vtysh -c "configure terminal" \
           -c "router ospf"                                        \
           -c "ospf abr-type cisco"; 
-comp_help: possible completions:
-  cisco              Set cisco ABR type (default)
-  ibm                Set ibm ABR type
-  shortcut           Set shortcut ABR type
-  standard           Set standard ABR type
+

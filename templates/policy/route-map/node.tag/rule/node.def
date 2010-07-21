@@ -1,8 +1,10 @@
 tag:
 type: u32
 help: Set a rule for this route-map
-comp_help: \1  <1-65535>\troute-map rule number
+val_help: u32:1-65535; Route-map rule number
+
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
+
 delete: if [ -f /tmp/route-map-$VAR(../@)-rule-$VAR(@)-action.$PPID ]; then
              vtysh -c "configure terminal" -c "no route-map $VAR(../@) $VAR(./@/action/@) $VAR(@)";
              rm -f /tmp/route-map-$VAR(../@)-rule-$VAR(@)-action.$PPID;
