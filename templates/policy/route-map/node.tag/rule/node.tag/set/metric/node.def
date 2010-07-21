@@ -1,5 +1,5 @@
 type: txt
-help: Set destination routing protocol metric 
+help: Destination routing protocol metric
 val_help: <+/-metric>; Add or subtract metric
 val_help: u32:0-4294967295; Metric value
 

@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set interface to exclude when using 'passive-interface default'
+help: Interface to exclude when using 'passive-interface default'
 val_help:<interface>; Interface to exclude from 'passive-interface default'
 
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all 

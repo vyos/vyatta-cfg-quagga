@@ -1,5 +1,5 @@
 type: u32
-help: Set route tag to match
+help: Route tag to match
 val_help: u32:1-65535; Route tag
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "tag must be between 1 and 65535"

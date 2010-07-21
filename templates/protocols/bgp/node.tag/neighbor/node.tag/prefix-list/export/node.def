@@ -1,5 +1,5 @@
 type: txt
-help: Set a prefix-list to filter outgoing route updates to this neighbor
+help: Prefix-list to filter outgoing route updates to this neighbor
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list )
         echo -n ${params[@]##*/}

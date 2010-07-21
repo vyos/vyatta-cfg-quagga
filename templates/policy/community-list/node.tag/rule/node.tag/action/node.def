@@ -1,5 +1,5 @@
 type: txt
-help: Set action to take on communities matching this rule [REQUIRED]
+help: Action to take on communities matching this rule [REQUIRED]
 val_help: permit; Permit matching communities
 val_help: deny; Deny matching communities
 

@@ -1,5 +1,5 @@
 type: txt
-help: Set Open Shortest Path First (OSPF) external metric-type
+help: Open Shortest Path First (OSPF) external metric-type
 val_help: type-1; OSPF external type 1 metric
 val_help: type-2; OSPF external type 2 metric
 

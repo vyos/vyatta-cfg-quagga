@@ -1,4 +1,4 @@
-help: Set normal OSPF area
+help: Normal OSPF area
 syntax:expression: $VAR(../stub/) == "" ; "Must delete stub area type first"
 syntax:expression: $VAR(../nssa/) == "" ; "Must delete nssa area type first"
 create:expression: "                                                            \

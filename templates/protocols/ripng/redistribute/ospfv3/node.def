@@ -1,4 +1,4 @@
-help: Set to redistribute OSPFv3 routes
+help: Redistribute OSPFv3 routes
 
 delete: touch /tmp/rip-redist-ospf6.$PPID
 

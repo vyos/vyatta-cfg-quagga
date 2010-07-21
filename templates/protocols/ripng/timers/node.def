@@ -1,4 +1,4 @@
-help: Set RIPng timer values
+help: RIPng timer values
 
 delete: touch /tmp/ripng-timers.$PPID
 

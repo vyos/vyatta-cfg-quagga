@@ -1,5 +1,5 @@
 type: u32
-help: Set a BGP community-list to match
+help: BGP community-list to match
 val_help: u32:1-99; BGP community list (standard)
 val_help: u32:100-500; BGP community list (expanded)
 

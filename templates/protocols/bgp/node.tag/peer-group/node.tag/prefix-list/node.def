@@ -1,1 +1,1 @@
-help: Set a prefix-list to filter route updates to/from this peer-group
+help: Prefix-list to filter route updates to/from this peer-group

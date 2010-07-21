@@ -1,4 +1,4 @@
-help: Set OSPF SPF timers
+help: OSPF SPF timers
 delete: touch /tmp/ospf-timer.$PPID
 end: if [ -f "/tmp/ospf-timer.$PPID" ]; then
         vtysh -c "configure terminal" \

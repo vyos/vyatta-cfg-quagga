@@ -1,5 +1,5 @@
 type: txt
-help: Set an access-list to filter outgoing route updates to this neighbor
+help: Access-list to filter outgoing route updates to this neighbor
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list6 )
         echo -n ${params[@]##*/}

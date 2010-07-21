@@ -1,5 +1,5 @@
 type: ipv4
-help: Set nexthop IP address
+help: Nexthop IP address
 val_help: IP address
 
 # TODO: can also set to peer for BGP

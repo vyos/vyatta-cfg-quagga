@@ -1,1 +1,1 @@
-help: Set to accept a route that contains the local-AS in the as-path 
+help: Accept a route that contains the local-AS in the as-path

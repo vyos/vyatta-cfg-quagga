@@ -1,5 +1,5 @@
 type: u32
-help: Set tag value for routing protocol
+help: Tag value for routing protocol
 val_help: u32:1-65535; Tag value
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "tag must be between 1 and 65535"

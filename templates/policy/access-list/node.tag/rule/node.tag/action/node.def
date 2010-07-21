@@ -1,5 +1,5 @@
 type: txt
-help: Set action to take on networks matching this rule [REQUIRED]
+help: Action to take on networks matching this rule [REQUIRED]
 syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"
 val_help: permit; Permit matching networks
 val_help: deny; Deny matching networks

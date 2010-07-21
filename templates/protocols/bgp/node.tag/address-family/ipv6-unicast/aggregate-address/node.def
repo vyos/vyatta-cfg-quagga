@@ -1,5 +1,5 @@
 tag:
 type: ipv6net
-help: Set a BGP IPv6 aggregate network
+help: BGP IPv6 aggregate network
 val_help: IPv6 aggregate network
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"

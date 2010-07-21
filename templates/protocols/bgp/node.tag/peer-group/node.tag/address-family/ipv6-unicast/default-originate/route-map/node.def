@@ -1,5 +1,5 @@
 type: txt
-help: Set the route-map to specify criteria of the default
+help: Route-map to specify criteria of the default
 allowed: local -a params
         params=$(/opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map)
         echo -n ${params[@]##*/}

@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set interface name
+help: Interface name
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \

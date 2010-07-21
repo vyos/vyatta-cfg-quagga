@@ -1,2 +1,2 @@
-help: Set nexthop for routes sent to this neighbor to be the local router
+help: Nexthop for routes sent to this neighbor to be the local router
 commit:expression: $VAR(../../../peer-group/) == ""; "protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@): you can't set nexthop-self for a neighbor in a peer-group"

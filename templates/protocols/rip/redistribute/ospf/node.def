@@ -1,4 +1,4 @@
-help: Set to redistribute OSPF routes
+help: Redistribute OSPF routes
 delete:expression: "touch /tmp/rip-redist-ospf.$PPID" 
 end:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute ospf \"; \

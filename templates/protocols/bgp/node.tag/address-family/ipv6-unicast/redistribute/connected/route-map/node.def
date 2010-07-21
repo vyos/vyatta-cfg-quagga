@@ -1,5 +1,5 @@
 type: txt
-help: Set a route map to filter redistributed routes
+help: Route map to filter redistributed routes
 val_help: Route map name
 
 allowed: local -a params

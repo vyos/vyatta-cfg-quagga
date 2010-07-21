@@ -1,6 +1,6 @@
 multi:
 type: ipv6net
-help: Set RIPng network
+help: RIPng network
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 

@@ -1,5 +1,5 @@
 type: u32
-help: Set metric of redistributed routes
+help: Metric of redistributed routes
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777214; "Must be between 0-16777214"
 val_help: u32:0-16777214; Metric of redistributed routes
 

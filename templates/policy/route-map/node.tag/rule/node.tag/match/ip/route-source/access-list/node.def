@@ -1,5 +1,5 @@
 type: u32
-help: Set an IP access-list to match
+help: IP access-list to match
 val_help: u32:1-99; IP standard access list number
 val_help: u32:100-199; IP extended access list number
 val_help: u32:1300-1999; IP standard access list number (expanded range)

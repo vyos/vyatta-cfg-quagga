@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Set a rule for this as-path-list 
+help: Rule for this as-path-list
 val_help: u32:1-65535; AS path list rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"

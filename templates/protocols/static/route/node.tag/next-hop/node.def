@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help: Set the next-hop router [REQUIRED]
+help: Next-hop router [REQUIRED]
 end:
   if [[ -z "$VAR(./disable)" ]]
   then 

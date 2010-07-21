@@ -1,2 +1,2 @@
-help: Enable strict capability negotiation 
+help: Enable strict capability negotiation
 commit:expression: $VAR(../override-capability/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) strict-capability-match: you can't set both strict-capability and override-capability"

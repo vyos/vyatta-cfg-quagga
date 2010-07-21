@@ -1,4 +1,4 @@
 type: u32
-help: Set the minimum interval for sending routing updates
+help: Minimum interval for sending routing updates
 val_help: u32:0-600; Advertisement interval in seconds
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 600; "must be between 0 and 600"

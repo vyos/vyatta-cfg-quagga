@@ -1,3 +1,3 @@
 type: u32
-help: Set the default local preference (higher=more preferred)
+help: Default local preference (higher=more preferred)
 val_help: u32:0-4294967295; Local preference

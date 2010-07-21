@@ -1,4 +1,4 @@
-help: Set to redistribute connected routes
+help: Redistribute connected routes
 
 delete: touch /tmp/rip-redist-connected.$PPID
 

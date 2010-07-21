@@ -1,5 +1,5 @@
 type: u32
-help: Set Border Gateway Protocol (BGP) local preference attribute
+help: Border Gateway Protocol (BGP) local preference attribute
 val_help: Local preference value
 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"

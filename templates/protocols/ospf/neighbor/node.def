@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help: Set neighbor IP address
+help: Neighbor IP address
 create:expression: "vtysh -c \"configure terminal\" \
        -c \"router ospf\" \
        -c \"neighbor $VAR(@)\"; "

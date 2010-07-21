@@ -1,4 +1,4 @@
-help: Set to silently discard pkts when matched
+help: Silently discard pkts when matched
 
 end: if [ ${COMMIT_ACTION} = 'DELETE' ]; then
        vtysh -c "configure terminal" \

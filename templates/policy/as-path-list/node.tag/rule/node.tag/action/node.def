@@ -1,5 +1,5 @@
 type: txt
-help: Set action to take on AS paths matching this rule [REQUIRED]
+help: Action to take on AS paths matching this rule [REQUIRED]
 val_help: permit; Permit matching as-paths
 val_help: deny; Deny matching as-paths
 

@@ -1,4 +1,4 @@
-help: Set to redistribute kernel routes
+help: Redistribute kernel routes
 
 delete: touch /tmp/rip-redist-kernel.$PPID
 

@@ -1,6 +1,6 @@
 type: u32
 default: 120
-help: Set garbage collection timer
+help: Garbage collection timer
 val_help: u32:0-65535; Garbage colletion time (default 120)
 
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \

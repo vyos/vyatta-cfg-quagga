@@ -1,5 +1,5 @@
 type: txt
-help: Set the source IP of routing updates
+help: Source IP of routing updates
 val_help: ipv4;IP address of route source
 val_help: <interface>; Interface as route source
 

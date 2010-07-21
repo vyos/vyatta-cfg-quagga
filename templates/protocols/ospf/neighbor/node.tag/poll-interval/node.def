@@ -1,5 +1,5 @@
 type: u32
-help: Set dead neighbor polling interval
+help: Dead neighbor polling interval
 default: 60
 val_help: u32:1-65535; Seconds between dead neighbor polling interval (default 60)
 

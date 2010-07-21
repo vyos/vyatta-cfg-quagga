@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set filter for outgoing routing updates [REQUIRED]
+help: Filter for outgoing routing updates [REQUIRED]
 syntax:expression: $VAR(@) in "bgp", "connected", "kernel", "rip", "static"; "Must be (bgp, connected, kernel, rip, or static)"
 
 val_help: bgp                Filter bgp routes; 

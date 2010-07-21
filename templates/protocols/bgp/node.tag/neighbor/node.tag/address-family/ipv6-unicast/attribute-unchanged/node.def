@@ -1,2 +1,2 @@
-help: Set whether BGP attributes are sent unchanged 
+help: Send BGP attributes unchanged
 commit:expression: $VAR(../../../../peer-group/) == ""; "protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@): you can't set attribute-unchanged for a neighbor in a peer-group"

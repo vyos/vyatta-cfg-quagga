@@ -1,2 +1,2 @@
-help: Set to not send extended community attributes to this neighbor
+help: Disable sending extended community attributes to this neighbor
 commit:expression: $VAR(../../../../peer-group/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@): you can't set disable-send-community extended for a neighbor in a peer-group"

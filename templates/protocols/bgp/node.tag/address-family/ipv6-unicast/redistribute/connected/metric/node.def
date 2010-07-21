@@ -1,3 +1,3 @@
 type: u32
-help: Set the metric for redistributed routes
+help: Metric for redistributed routes
 val_help: Metric for redistributed routes

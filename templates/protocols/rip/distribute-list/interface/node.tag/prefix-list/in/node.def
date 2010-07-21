@@ -1,5 +1,5 @@
 type: txt
-help: Set prefix-list to apply to input packets
+help: Prefix-list to apply to input packets
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" ";"prefix-list $VAR(@) doesn't exist"
 update:expression: "vtysh -c \"configure terminal\" -c \"router rip\"  \
            -c \"distribute-list prefix $VAR(@) in $VAR(../../@) \" "

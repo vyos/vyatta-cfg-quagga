@@ -1,5 +1,5 @@
 type: u32
-help: Set to jump to a different rule in this route-map on a match
+help: Jump to a different rule in this route-map on a match
 val_help: u32:1-65535; Rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "continue must be between 1 and 65535"

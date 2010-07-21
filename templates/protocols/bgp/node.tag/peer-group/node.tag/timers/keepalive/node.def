@@ -1,5 +1,5 @@
 type: u32
 default: 60
-help: Set the BGP keepalive interval for this peer-group
+help: BGP keepalive interval for this peer-group
 val_help: u32:1-65535; Keepalive interval in seconds
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Keepalive interval must be between 1 and 65535"

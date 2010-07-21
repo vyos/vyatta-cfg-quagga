@@ -1,5 +1,5 @@
 type: u32
-help: Set Border Gateway Protocol (BGP) weight attribute 
+help: Border Gateway Protocol (BGP) weight attribute
 val_help: BGP weight
 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"

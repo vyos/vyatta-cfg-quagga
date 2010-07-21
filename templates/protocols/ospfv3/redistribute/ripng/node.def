@@ -1,4 +1,4 @@
-help: Set to redistribute RIPNG routes
+help: Redistribute RIPNG routes
 
 end: vtysh -c "configure terminal" \
        -c "router ospf6"                                       \

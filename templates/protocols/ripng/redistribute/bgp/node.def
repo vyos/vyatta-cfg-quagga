@@ -1,4 +1,4 @@
-help: Set to redistribute BGP routes
+help: Redistribute BGP routes
 
 delete: touch /tmp/rip-redist-bgp.$PPID
 

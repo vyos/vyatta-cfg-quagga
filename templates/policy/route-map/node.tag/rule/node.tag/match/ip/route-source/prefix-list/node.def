@@ -1,5 +1,5 @@
 type: txt
-help: Set an IP prefix-list to match
+help: IP prefix-list to match
 val_help: Prefix list name
 
 commit:expression: $VAR(../access-list/) == ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ip route-source prefix-list: you can only specify a prefix-list or access-list"

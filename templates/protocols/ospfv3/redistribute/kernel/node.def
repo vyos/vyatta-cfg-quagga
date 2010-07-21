@@ -1,4 +1,4 @@
-help: Set to redistribute kernel routes
+help: Redistribute kernel routes
 
 end: vtysh -c "configure terminal" \
        -c "router ospf6"                                       \

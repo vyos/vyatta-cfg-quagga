@@ -1,2 +1,2 @@
-help: Set capability to send the ORF
+help: Capability to send the ORF
 commit:expression: $VAR(../../../../../../peer-group/) == ""; "protocols bgp $VAR(../../../../../../../@) neighbor $VAR(../../../../../../@): you can't set capability orf prefix-list send for a neighbor in a peer-group"

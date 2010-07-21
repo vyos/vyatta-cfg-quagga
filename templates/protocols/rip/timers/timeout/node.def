@@ -1,6 +1,6 @@
 type: u32
 default: 180
-help: Set routing information timeout timer
+help: Routing information timeout timer
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 2147483647; \
        "Timeout timer must be between 5 and 2147483647"
 val_help: u32:5-2147483647; Routing information timeout timer (default 180)

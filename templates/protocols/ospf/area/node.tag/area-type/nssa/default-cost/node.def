@@ -1,5 +1,5 @@
 type: u32
-help: Set the summary-default cost of nssa area
+help: Summary-default cost of nssa area
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 16777215; "Cost must be between 0-16777215"
 val_help: u32:0-16777215; Summary default cost
 

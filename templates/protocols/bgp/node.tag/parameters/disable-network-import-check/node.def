@@ -1,1 +1,1 @@
-help: Set to disable IGP route check for network statements
+help: Disable IGP route check for network statements

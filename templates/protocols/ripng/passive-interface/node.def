@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set to suppress routing updates on an interface
+help: Suppress routing updates on an interface
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 syntax:expression: exec " \
      if [ -z \"`ip addr | grep $VAR(@) `\" ] && [ x$VAR(@) != xdefault ]; then \

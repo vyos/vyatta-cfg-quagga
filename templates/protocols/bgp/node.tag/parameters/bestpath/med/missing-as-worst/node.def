@@ -1,1 +1,1 @@
-help: Set to treat a route missing a MED as the least preferred one
+help: Treat missing route as a MED as the least preferred one

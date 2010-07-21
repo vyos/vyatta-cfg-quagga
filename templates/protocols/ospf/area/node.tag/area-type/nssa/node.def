@@ -1,4 +1,4 @@
-help: Set nssa OSPF area
+help: Nssa OSPF area
 syntax:expression: ! $VAR(../../@) in "0", "0.0.0.0"; "Backbone can't be NSSA"
 syntax:expression: $VAR(../normal/) == "" ; "Must delete normal area type first"
 syntax:expression: $VAR(../stub/) == "" ; "Must delete stub area type first"

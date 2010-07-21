@@ -1,6 +1,6 @@
 type: u32
 default: 30
-help: Set routing table update timer
+help: Routing table update timer
 val_help: u32:0-65535; Routing table update timer in seconds (default 30)
 
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \

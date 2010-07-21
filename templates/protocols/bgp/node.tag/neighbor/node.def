@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set a BGP neighbor 
+help: BGP neighbor
 val_help: ipv4; BGP neighbor IP address
 val_help: ipv6; BGP neighbor IPv6 address
 

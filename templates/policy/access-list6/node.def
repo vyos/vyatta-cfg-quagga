@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set IPv6 access-list filter 
+help: IPv6 access-list filter
 val_help: Name of IPv6 access-list
 
 syntax:expression: pattern $VAR(@) "^[[:graph:]]{1,64}$" ; \

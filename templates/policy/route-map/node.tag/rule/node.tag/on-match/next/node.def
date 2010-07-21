@@ -1,4 +1,4 @@
-help: Set next sequence number to goto on match
+help: Next sequence number to goto on match
 syntax:expression: $VAR(../goto/) == ""; "you may set only goto or next"
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
 update: vtysh -c "configure terminal" \

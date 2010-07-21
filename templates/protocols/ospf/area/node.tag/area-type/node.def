@@ -1,4 +1,4 @@
-help: Set area type
+help: Area type
 val_help: normal; Normal area type
 val_help: nssa; Not so stubby area type 
 val_help: stub; Stub Area type 

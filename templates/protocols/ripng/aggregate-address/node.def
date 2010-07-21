@@ -1,6 +1,6 @@
 multi:
 type: ipv6net
-help: Set aggregate RIPng route announcement
+help: Aggregate RIPng route announcement
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 

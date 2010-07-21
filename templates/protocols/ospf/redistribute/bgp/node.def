@@ -1,4 +1,4 @@
-help: Set to redistribute BGP routes
+help: Redistribute BGP routes
 delete:expression: "touch /tmp/ospf-redist-bgp.$PPID" 
 end: vtysh -c "configure terminal"      \
         -c "router ospf"                                             \

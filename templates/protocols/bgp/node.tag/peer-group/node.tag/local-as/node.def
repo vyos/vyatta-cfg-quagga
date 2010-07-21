@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Set the local AS number [REQUIRED]
+help: Local AS number [REQUIRED]
 val_help: u32: 1-4294967294; Local AS number
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
 commit:expression: $VAR(@) != $VAR(../../@); "protocols bgp $VAR(../../@) peer-group $VAR(../@): you can't set local-as the same as the router AS"

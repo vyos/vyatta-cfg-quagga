@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set to apply filtering to an interface
+help: Apply filtering to an interface
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 syntax:expression: exec "\
     if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \

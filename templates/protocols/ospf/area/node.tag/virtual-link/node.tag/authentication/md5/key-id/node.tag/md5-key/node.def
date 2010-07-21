@@ -1,5 +1,5 @@
 type: txt
-help: Set MD5 key
+help: MD5 key
 val_help: MD5 Key (16 characters or less)
 
 syntax:expression: exec "                              \

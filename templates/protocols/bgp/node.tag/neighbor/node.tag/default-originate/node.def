@@ -1,2 +1,2 @@
-help: Set to send default route to this neighbor
+help: Send default route to this neighbor
 commit:expression: $VAR(../peer-group/) == ""; "protocold bgp $VAR(../../@) neighbor $VAR(../@): you can't set default-originate for a neighbor in a peer-group"

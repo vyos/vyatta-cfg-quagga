@@ -1,5 +1,5 @@
 type: txt
-help: Set to call another route-map on match
+help: Call another route-map on match
 val_help: Route map name
 
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" "; "policy route-map $VAR(../../@) rule $VAR(../@) call: called route-map $VAR(@) doesn't exist" 

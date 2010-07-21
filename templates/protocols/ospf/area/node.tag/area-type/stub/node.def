@@ -1,4 +1,4 @@
-help: Set stub OSPF area
+help: Stub OSPF area
 
 syntax:expression: ! $VAR(../../@) in "0", "0.0.0.0"; "Backbone can't be stub"
 

@@ -1,5 +1,5 @@
 type: ipv6net
-help: Set a network/netmask to match (requires inverse-mask be defined)
+help: Network/netmask to match (requires inverse-mask be defined)
 val_help: IPv6 address and prefix length
 
 commit:expression: ($VAR(../any/) == ""); "policy access-list6 $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type.  (network|any)"

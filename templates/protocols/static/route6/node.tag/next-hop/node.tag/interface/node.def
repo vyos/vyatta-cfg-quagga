@@ -1,6 +1,6 @@
 type: txt
 
-help: Set the outgoing interface
+help: Outgoing interface
 
 # show all current interface
 # but syntax accepts any interface since it may exist later (ppp etc)

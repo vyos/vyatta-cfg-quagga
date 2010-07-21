@@ -1,5 +1,5 @@
 type: u32
-help: Set administrative distance for network
+help: Administrative distance for network
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "must be between 1 and 255"
 val_help: u32:1-255; Administrative distance
 

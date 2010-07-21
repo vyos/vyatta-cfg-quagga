@@ -1,5 +1,5 @@
 type: txt
-help: Set a BGP as-path-list to match
+help: BGP as-path-list to match
 val_help: AS path list name
 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"

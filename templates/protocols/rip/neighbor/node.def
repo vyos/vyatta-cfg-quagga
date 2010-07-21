@@ -1,6 +1,6 @@
 multi:
 type: ipv4
-help: Set a neighbor router
+help: Neighbor router
 create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"neighbor $VAR(@)\"; "
 delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \

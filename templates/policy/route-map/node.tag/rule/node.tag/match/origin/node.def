@@ -1,5 +1,5 @@
 type: txt
-help: Set Border Gateway Protocol (BGP) origin code to match
+help: Border Gateway Protocol (BGP) origin code to match
 val_help: egp; Exterior gateway protocol origin 
 val_help: igp; Interior gateway protocol origin
 val_help: incomplete; Incomplete origin 

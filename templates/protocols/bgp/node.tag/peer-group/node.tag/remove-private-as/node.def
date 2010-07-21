@@ -1,1 +1,1 @@
-help: Set to remove private AS numbers from AS path in outbound route updates
+help: Remove private AS numbers from AS path in outbound route updates

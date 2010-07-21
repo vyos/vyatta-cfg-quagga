@@ -1,5 +1,5 @@
 type: txt
-help: Set an IP prefix-list to match
+help: IP prefix-list to match
 val_help: Prefix list name
 
 allowed: local -a params

@@ -1,5 +1,5 @@
 type: txt
-help: Set an IPv6 prefix-list to match
+help: IPv6 prefix-list to match
 val_help: IPv6 prefix list name
 
 allowed: local -a params

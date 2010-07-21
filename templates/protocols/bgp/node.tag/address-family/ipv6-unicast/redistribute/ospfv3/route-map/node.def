@@ -1,5 +1,5 @@
 type: txt
-help: Set a route map to filter redistributed routes
+help: Route map to filter redistributed routes
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}

@@ -1,5 +1,5 @@
 type: u32
-help: Set number of the maximum number of hops to the BGP peer
+help: Number of the maximum number of hops to the BGP peer
 val_help: u32:1-254; Number of hops
 
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 254; "ttl-security hops must be between 1 and 254"

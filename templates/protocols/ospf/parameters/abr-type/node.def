@@ -1,5 +1,5 @@
 type: txt
-help: Set OSPF ABR type
+help: OSPF ABR type
 default: "cisco"
 syntax:expression: $VAR(@) in "cisco", "ibm", "shortcut", "standard"; "Must be (cisco, ibm, shortcut, standard)"
 val_help: cisco; Cisco ABR type (default)

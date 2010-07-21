@@ -1,7 +1,7 @@
 tag:1
 priority: 730
 type: u32
-help: Configure Border Gateway Protocol (BGP) parameters
+help: Border Gateway Protocol (BGP) parameters
 val_help: u32:1-4294967294; AS number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \

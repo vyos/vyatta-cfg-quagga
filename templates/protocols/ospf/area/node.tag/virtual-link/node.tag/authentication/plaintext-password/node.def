@@ -1,5 +1,5 @@
 type: txt
-help: Set plain text password
+help: Plain text password
 val_help: Plain text password (8 characters or less)
 
 syntax:expression: exec "                              \

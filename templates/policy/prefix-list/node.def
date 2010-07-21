@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set IP prefix-list filter
+help: IP prefix-list filter
 val_help: Prefix list name
 
 syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "prefix-list name must be alpha-numeric"

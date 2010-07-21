@@ -1,5 +1,5 @@
 type: txt
-help: Set an access-list to filter incoming route updates from this peer-group
+help: Access-list to filter incoming route updates from this peer-group
 val_help: u32:1-65535; Access list number
 
 allowed: local -a params

@@ -1,5 +1,5 @@
 type: txt
-help: Set regular expression to match against a community list
+help: Regular expression to match against a community list
 val_help: Community list regular expression
 
 syntax:expression: exec " \

@@ -1,5 +1,5 @@
 type: txt
-help: Set an IPv6 access-list6 to match
+help: IPv6 access-list6 to match
 val_help: IPv6 access list
 
 commit:expression: $VAR(../prefix-list/) == ""; "policy route-map $VAR(../../../../../@) rule $VAR(../../../../@) match ipv6 nexthop access-list: you may only specify a prefix-list or access-list"

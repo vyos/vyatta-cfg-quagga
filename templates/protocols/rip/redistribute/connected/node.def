@@ -1,4 +1,4 @@
-help: Set to redistribute connected routes
+help: Redistribute connected routes
 delete:expression: "touch /tmp/rip-redist-connected.$PPID" 
 end:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
         -c \"no redistribute connected \"; \

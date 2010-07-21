@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help:  Set a static ARP translation
+help: Static ARP translation
 val_help: IPv4 destination address
 
 #

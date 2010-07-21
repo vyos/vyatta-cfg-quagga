@@ -1,6 +1,6 @@
 multi:
 type: ipv6net
-help: Set RIPng static route
+help: RIPng static route
 
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 

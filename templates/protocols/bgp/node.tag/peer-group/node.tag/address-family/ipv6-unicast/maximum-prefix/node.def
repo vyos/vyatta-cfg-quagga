@@ -1,2 +1,2 @@
 type: u32
-help: Set the maximum number of prefixes to accept from this peer-group
+help: Maximum number of prefixes to accept from this peer-group

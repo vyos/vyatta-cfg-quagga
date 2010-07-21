@@ -1,5 +1,5 @@
 type: txt
-help: Set area's shortcut mode
+help: Area's shortcut mode
 allowed: echo "default disable enable"
 syntax:expression: $VAR(@) in "default", "disable", "enable"; "Must be (default, disable, enable)"
 val_help: default; Set default; 

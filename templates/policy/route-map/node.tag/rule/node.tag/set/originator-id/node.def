@@ -1,5 +1,5 @@
 type: ipv4
-help: Set Border Gateway Protocol (BGP) originator ID attribute
+help: Border Gateway Protocol (BGP) originator ID attribute
 val_help: Orignator IP address
 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"

@@ -1,5 +1,5 @@
 type: u32
-help: Set OSPF administrative distance
+help: OSPF administrative distance
 val_help: u32:1-255; Administrative distance"
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"

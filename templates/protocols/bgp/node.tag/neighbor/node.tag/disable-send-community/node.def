@@ -1,2 +1,2 @@
-help: Set to not send community attributes to this neighbor
+help: Disable sending community attributes to this neighbor
 commit:expression: ($VAR(./extended/) != "") || ($VAR(./standard/) != ""); "protocols bgp $VAR(../../@) neighbor $VAR(../@): you must specify the type of community"

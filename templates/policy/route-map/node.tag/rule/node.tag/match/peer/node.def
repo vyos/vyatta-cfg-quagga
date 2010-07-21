@@ -1,5 +1,5 @@
 type: txt
-help: Set peer address to match
+help: Peer address to match
 val_help: ipv4; Peer IP address
 val_help: local: Static or redistributed routes
 

@@ -1,5 +1,5 @@
 type: u32
-help: Set prefix length to match a netmask greater than or equal to it
+help: Prefix length to match a netmask greater than or equal to it
 val_help: u32:0-128; Netmask greater than length
 
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 128; "ge must be between 0 and 128"

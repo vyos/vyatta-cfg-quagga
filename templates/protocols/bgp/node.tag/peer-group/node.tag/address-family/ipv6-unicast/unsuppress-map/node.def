@@ -1,5 +1,5 @@
 type: txt
-help: Set a route-map to selectively unsuppress suppressed routes
+help: Route-map to selectively unsuppress suppressed routes
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}

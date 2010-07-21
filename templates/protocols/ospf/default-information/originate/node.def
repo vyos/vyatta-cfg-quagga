@@ -1,4 +1,4 @@
-help: Set to distribute a default route
+help: Distribute a default route
 delete: touch /tmp/ospf-default-info.$PPID
 end: if [ -f "/tmp/ospf-default-info.$PPID" ]; then
         vtysh -c "configure terminal" \

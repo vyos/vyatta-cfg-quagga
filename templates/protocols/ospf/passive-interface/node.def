@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set to suppress routing updates on an interface
+help: Suppress routing updates on an interface
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all && echo default
 val_help:<interface>; Interface to be passive (i.e. suppress routing updates)
 val_help:default; Default to suppress routing updates on all interfaces

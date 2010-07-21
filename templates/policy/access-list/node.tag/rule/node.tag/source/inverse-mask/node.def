@@ -1,5 +1,5 @@
 type: ipv4
-help: Set a network/netmask to match (requires network be defined)
+help: Network/netmask to match (requires network be defined)
 val_help: Inverse-mast to match
 
 commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type. (host|network|any)"

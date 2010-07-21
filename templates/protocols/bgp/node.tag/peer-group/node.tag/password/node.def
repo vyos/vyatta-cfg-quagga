@@ -1,5 +1,5 @@
 type: txt
-help: Set BGP MD5 password
+help: BGP MD5 password
 syntax:expression: exec "			      \
         if [ `echo -n '$VAR(@)' | wc -c` -gt 80 ]; then   \
           echo Password must be 80 characters or less;\

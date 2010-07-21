@@ -1,5 +1,5 @@
 type: txt
-help: Set the first hop interface of a route to match
+help: First hop interface of a route to match
 val_help: Interface name
 
 commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"

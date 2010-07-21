@@ -1,6 +1,6 @@
 multi:
 type: txt
-help: Set interface name
+help: Interface name
 commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
           echo interface $VAR(@) doesn\\'t exist on this system ; \

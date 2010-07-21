@@ -1,6 +1,6 @@
 tag:
 type: ipv4net
-help: Set to summarize routes matching prefix (border routers only)
+help: Summarize routes matching prefix (border routers only)
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
 delete: touch /tmp/ospf-range.$PPID

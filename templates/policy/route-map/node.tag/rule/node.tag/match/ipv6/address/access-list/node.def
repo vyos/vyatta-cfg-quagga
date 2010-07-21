@@ -1,5 +1,5 @@
 type: txt
-help: Set an IPv6 access-list6 to match
+help: IPv6 access-list6 to match
 val_help: IPV6 access list name
 
 allowed: local -a params

@@ -1,1 +1,1 @@
-help: Set nexthop for routes sent to this peer-group to be the local router
+help: Nexthop for routes sent to this peer-group to be the local router

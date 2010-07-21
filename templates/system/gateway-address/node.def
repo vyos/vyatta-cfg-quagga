@@ -1,6 +1,6 @@
 priority: 400
 type: ipv4
-help: Set default gateway
+help: Default gateway
 create: vtysh -c "configure terminal" -c "ip route 0.0.0.0/0 $VAR(@)"
 update: oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl \\$VAR\(/system/gateway-address/@\)`
 	if [ -n "$oldgw" ]; then

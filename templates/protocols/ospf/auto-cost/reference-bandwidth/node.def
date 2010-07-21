@@ -1,5 +1,5 @@
 type: u32
-help: Set to use reference bandwidth method to assign OSPF cost
+help: Reference bandwidth method to assign OSPF cost
 default: 100
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967; \
        "Must be between 1-4294967"

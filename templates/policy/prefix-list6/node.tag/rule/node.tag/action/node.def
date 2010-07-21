@@ -1,5 +1,5 @@
 type: txt
-help: Set action to take on prefixes matching this rule
+help: Action to take on prefixes matching this rule
 val_help: permit; Permit matching prefixes
 val_help: deny; Deny matching prefixes
 

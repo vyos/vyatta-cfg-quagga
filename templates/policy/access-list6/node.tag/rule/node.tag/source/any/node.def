@@ -1,4 +1,4 @@
-help: Set any IPv6 address to match
+help: Any IPv6 address to match
 
 commit:expression: ($VAR(../network/) == ""); "policy access-list6 $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type. (network|any)"
 

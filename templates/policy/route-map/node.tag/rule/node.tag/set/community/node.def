@@ -1,5 +1,5 @@
 type: txt
-help: Set the Border Gateway Protocl (BGP) community attribute
+help: Border Gateway Protocl (BGP) community attribute
 val_help: <AA:NN>; Community in 4 octet AS:value format
 val_help: local-AS; Advertise communities in local AS only (NO_EXPORT_SUBCONFED)
 val_help: no-advertise; Don't advertise this route to any peer (NO_ADVERTISE)

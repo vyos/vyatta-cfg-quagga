@@ -1,5 +1,5 @@
 type: txt
-help: Set a prefix-list to filter outgoing route updates to this peer-group
+help: Prefix-list to filter outgoing route updates to this peer-group
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list6 )
         echo -n ${params[@]##*/}

@@ -1,2 +1,2 @@
 type: ipv4
-help: Set the route-reflector cluster-id
+help: Route-reflector cluster-id

@@ -1,4 +1,4 @@
-help: Set OSPF administrative distance
+help: OSPF administrative distance
 delete:expression: "touch /tmp/ospf-distance.$PPID"
 end:expression: "\
       if [ -f \"/tmp/ospf-distance.$PPID\" ]; then                   \

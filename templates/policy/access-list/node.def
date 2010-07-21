@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Set IP access-list filter 
+help: IP access-list filter
 syntax:expression: ($VAR(@) >= 1 && $VAR(@) <= 199) || ($VAR(@) >= 1300 && $VAR(@) <= 2699); \
 "Access list number must be
   <1-99>\tIP standard access list

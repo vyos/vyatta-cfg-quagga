@@ -1,5 +1,5 @@
 type: txt
-help: Set prepend string for a Border Gateway Protocol (BGP) AS-path attribute
+help: Prepend string for a Border Gateway Protocol (BGP) AS-path attribute
 val_help: BGP AS path prepend string (ex: "456 64500 45001")
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-check-as-prepend.pl \"$VAR(@)\" "; "invalid AS path string"

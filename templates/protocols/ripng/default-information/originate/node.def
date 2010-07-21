@@ -1,4 +1,4 @@
-help: Set to distribute a default route
+help: Distribute a default route
 
 create: vtysh -c "configure terminal" \
           -c "router ripng"                                       \

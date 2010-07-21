@@ -1,4 +1,4 @@
 type: u32
-help: Set BGP route scanner interval
+help: BGP route scanner interval
 val_help: u32:5-60; Scan interval in seconds
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 60; "scan-time must be between 5 and 60 seconds"

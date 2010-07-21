@@ -1,4 +1,4 @@
-help: Set a BGP community-list to match
+help: BGP community-list to match
 delete: echo route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@) >>  /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID
 end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID ]; then
         routemap=`cat /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-community.$PPID`

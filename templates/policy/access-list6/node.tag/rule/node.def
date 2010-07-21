@@ -1,6 +1,6 @@
 tag:
 type: u32
-help: Set a rule for this access-list6
+help: Rule for this access-list6
 val_help: u32:1-65535;  Access-list6 rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; \

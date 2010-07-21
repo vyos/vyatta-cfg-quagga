@@ -1,6 +1,6 @@
 type: u32
 default: 180
-help: Set the BGP hold timer for this peer-group
+help: BGP hold timer for this peer-group
 val_help: u32:1-65535; Hold timer in seconds
 val_help: 0; Disable hold timer
 

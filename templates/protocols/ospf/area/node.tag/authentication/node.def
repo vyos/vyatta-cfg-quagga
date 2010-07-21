@@ -1,5 +1,5 @@
 type: txt
-help: Set OSPF area authentication type
+help: OSPF area authentication type
 allowed: echo "plaintext-password md5"
 syntax:expression: $VAR(@) in "plaintext-password", "md5"; \
        "Must be either plaintext-password or md5"

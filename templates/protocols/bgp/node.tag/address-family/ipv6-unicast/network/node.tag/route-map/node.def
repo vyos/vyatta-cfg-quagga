@@ -1,5 +1,5 @@
 type: txt
-help: Set a route-map to modify route attributes
+help: Route-map to modify route attributes
 val_help: Route map name
 
 allowed: local -a params

@@ -1,6 +1,6 @@
 tag:
 type: ipv4net
-help: Set source network
+help: Source network
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 commit:expression: $VAR(./distance/) != ""; "Must specify distance for network $VAR(@)"
 delete:expression: "touch /tmp/rip-dist.$PPID"

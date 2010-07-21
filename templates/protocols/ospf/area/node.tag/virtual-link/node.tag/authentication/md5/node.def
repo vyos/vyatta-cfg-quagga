@@ -1,4 +1,4 @@
-help: Set MD5 key id
+help: MD5 key id
 commit:expression: $VAR(../plaintext-password/) == "" ; "plaintext-password already set"
 
 create: vtysh -c "configure terminal"                              \

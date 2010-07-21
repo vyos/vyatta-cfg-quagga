@@ -1,6 +1,6 @@
 tag:
 type: ipv6net
-help: Set an interface-based IPv6 static route
+help: Interface based IPv6 static route
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
 
 commit:expression: $VAR(./next-hop-interface/) != "" ; \
