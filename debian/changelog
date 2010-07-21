@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.98) unstable; urgency=low
+
+  * Convert Quagga templates to use val_help:
+  * Remove verbs from help strings
+  * Add syntax validation on BGP access-list rule value
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 21 Jul 2010 12:29:52 -0700
+
 vyatta-cfg-quagga (0.18.97) unstable; urgency=low
 
   [ Stephen Hemminger ]
