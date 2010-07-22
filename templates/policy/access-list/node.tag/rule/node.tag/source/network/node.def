@@ -2,6 +2,6 @@ type: ipv4
 help: Network/netmask to match (requires inverse-mask be defined)
 val_help: Network to match
 
-commit:expression: ($VAR(../host/) == "") && ($VAR(../any/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type.  (host|network|any)"
-commit:expression: $VAR(../inverse-mask/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify an inverse-mask if you configure a network"
-commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify an action"
+commit:expression: ($VAR(../host/) == "") && ($VAR(../any/) == ""); "you may only define one filter type.  (host|network|any)"
+commit:expression: $VAR(../inverse-mask/) != ""; "you must specify an inverse-mask if you configure a network"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"

@@ -9,7 +9,7 @@ update: /opt/vyatta/sbin/vyatta-policy.pl --check-routemap-action "policy route-
         if [ $? -eq 0 ]; then
           vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(@) $VAR(../@)";
         else
-          echo    "policy route-map $VAR(../../@) rule $VAR(../@): You can not change the action.";
+          echo    "You can not change the action.";
           echo    "  To change the action you must first delete the rule ";
           echo -e "  \"delete route-map $VAR(../../@) rule $VAR(../@)\" and commit it. \\n";
           exit 1;
@@ -19,7 +19,7 @@ delete: /opt/vyatta/sbin/vyatta-policy.pl --check-delete-routemap-action "policy
         if [ $? -eq 0 ]; then
           touch /tmp/route-map-$VAR(../../@)-rule-$VAR(../@)-action.$PPID ;
         else
-          echo    "policy route-map $VAR(../../@) rule $VAR(../@): Action is a required parameter. ";
+          echo    "Action is a required parameter. ";
           echo -e "  To delete that node you must delete \"route-map $VAR(../../@) rule $VAR(../@)\". \\n";
           exit 1;
         fi;

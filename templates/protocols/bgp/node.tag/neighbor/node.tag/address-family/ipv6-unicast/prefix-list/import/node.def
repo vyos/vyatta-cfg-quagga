@@ -5,7 +5,6 @@ allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list6 )
         echo -n ${params[@]##*/}
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; \
-"protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) address-family ipv6-unicast prefix-list import: prefix-list6 $VAR(@) doesn't exist"
-commit:expression: $VAR(../../distribute-list/import/) == ""; "protocols bgp $VAR(../../../../../@) neighbor $VAR(../../../../@) address-family ipv6-unicast prefix-list6 import: you can't set both a prefix-list and a distribute list"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list6 $VAR(@)\" "; "prefix-list6 $VAR(@) doesn't exist"
+commit:expression: $VAR(../../distribute-list/import/) == ""; "you can't set both a prefix-list and a distribute list"
 

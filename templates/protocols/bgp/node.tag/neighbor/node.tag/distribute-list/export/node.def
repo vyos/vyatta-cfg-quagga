@@ -6,6 +6,5 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "Access list must be betwee
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy access-list )
         echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; \
-"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) export: access-list $VAR(@) doesn't exist"
-commit:expression: $VAR(../../prefix-list/export/) == ""; "protocols bgp $VAR(../../../@) neighbor $VAR(../../@) distribute-list export: you can't set both a prefix-list and a distribute list"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; "access-list $VAR(@) doesn't exist"
+commit:expression: $VAR(../../prefix-list/export/) == ""; "you can't set both a prefix-list and a distribute list"

@@ -2,10 +2,10 @@ type: txt
 help: First hop interface of a route to match
 val_help: Interface name
 
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
+commit:expression: $VAR(../../action/) != ""; "You must specify an action"
 commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
-          echo policy route-map $VAR(../../../@) rule $VAR(../../@) match interface: interface $VAR(@) doesn\\'t exist on this system ; \
+          echo interface $VAR(@) doesn\\'t exist on this system ; \
           exit 1 ; \
         fi ; "
 

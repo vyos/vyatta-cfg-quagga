@@ -3,8 +3,7 @@ help: Prepend string for a Border Gateway Protocol (BGP) AS-path attribute
 val_help: BGP AS path prepend string (ex: "456 64500 45001")
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-check-as-prepend.pl \"$VAR(@)\" "; "invalid AS path string"
-
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
            -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

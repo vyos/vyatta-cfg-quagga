@@ -1,3 +1,3 @@
 help: Any IP address to match
-commit:expression: ($VAR(../host/) == "") && ($VAR(../network/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you may only define one filter type. (host|network|any)"
-commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) source: you must specify an action"
+commit:expression: ($VAR(../host/) == "") && ($VAR(../network/) == ""); "you may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"

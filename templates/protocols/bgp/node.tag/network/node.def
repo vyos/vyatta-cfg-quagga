@@ -2,5 +2,4 @@ tag:
 type: ipv4net
 help: BGP network
 syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
-commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != "");
-       "protocols bgp $VAR(../@) network $VAR(@): May specify route-map or backdoor but not both"
+commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != ""); "you may specify route-map or backdoor but not both"

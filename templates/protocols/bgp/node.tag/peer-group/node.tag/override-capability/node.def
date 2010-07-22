@@ -1,2 +1,2 @@
 help: Ignore capability negotiation with specified peer-group
-commit:expression: $VAR(../strict-capability/) == ""; "protocols bgp $VAR(../../@) peer-group $VAR(../@) override-capability: you can't set both strict-capability and override-capability"
+commit:expression: $VAR(../strict-capability/) == ""; "you can't set both strict-capability and override-capability"

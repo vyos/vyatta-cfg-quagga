@@ -9,9 +9,7 @@ val_help: internet; Symbolic Internet community 0
 allowed:echo "none local-AS no-advertise no-export internet"
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-community $VAR(@)"
-
-commit:expression: $VAR(../../action/) != "" \
-    ; "policy route-map $VAR(../../../@) rule $VAR(../../@): You must specify an action"
+commit:expression: $VAR(../../action/) != "" ; "You must specify an action"
 
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

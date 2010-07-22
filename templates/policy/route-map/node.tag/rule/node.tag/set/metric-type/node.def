@@ -4,8 +4,7 @@ val_help: type-1; OSPF external type 1 metric
 val_help: type-2; OSPF external type 2 metric
 
 syntax:expression: $VAR(@) in "type-1", "type-2"; "Must be (type-1, type-2)"
-
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

@@ -3,4 +3,4 @@ help: Allow this EBGP peer-group to not be on a directly connected network
 val_help: u32:1-255; Number of hops
 
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 255; "ebgp-multihop must be between 1 and 255"
-commit:expression: $VAR(../ttl-security/hops/) == ""; "protocols bgp $VAR(../../@) peer-group $VAR(../@) ebgp-multihop: you can't set both ebgp-multihop and ttl-security hops"
+commit:expression: $VAR(../ttl-security/hops/) == ""; "you can't set both ebgp-multihop and ttl-security hops"

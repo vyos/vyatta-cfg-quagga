@@ -2,5 +2,5 @@ type: u32
 help: When to start suppressing a route [REQUIRED]
 val_help: u32:1-20000; Start-suppress-time
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 20000; "Start-suppress-time must be between 1 and 20000"
-commit:expression: $VAR(../re-use/) != ""; "protocols bgp $VAR(../../../@) parameters dampening max-suppress-time: you must set re-use"
-commit:expression: $VAR(../max-suppress-time/) != ""; "protocols bgp $VAR(../../../@) parameters dampening max-suppress-time: you must set max-suppress-time"
+commit:expression: $VAR(../re-use/) != ""; "you must set re-use"
+commit:expression: $VAR(../max-suppress-time/) != ""; "you must set max-suppress-time"

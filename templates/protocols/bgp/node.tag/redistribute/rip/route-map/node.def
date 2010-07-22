@@ -3,4 +3,4 @@ help: Route map to filter redistributed routes
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../@) redistribute rip: route-map $VAR(@) doesn't exist"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"

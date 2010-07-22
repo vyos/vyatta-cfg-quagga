@@ -4,9 +4,8 @@ val_help: u32:1-65535; Rule number
 
 syntax:expression: $VAR(../next/) == ""; "you may set only goto or next"
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "goto must be a rule number between 1 and 65535"
-
-commit:expression: $VAR(@) > $VAR(../../@); "policy route-map $VAR(../../../@) rule $VAR(../../@): you may only go forward in the route-map"
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+commit:expression: $VAR(@) > $VAR(../../@); "you may only go forward in the route-map"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

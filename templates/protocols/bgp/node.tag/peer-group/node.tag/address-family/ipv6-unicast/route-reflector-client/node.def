@@ -1,2 +1,2 @@
 help: Peer-group as a route reflector client
-commit:expression: $VAR(../../../../@) == $VAR(../../../remote-as/@); "protocols bgp $VAR(../../../../@) peer-group $VAR(../../../@) route-reflector-client: remote-as must equal local-as"
+commit:expression: $VAR(../../../../@) == $VAR(../../../remote-as/@); "remote-as must equal local-as"

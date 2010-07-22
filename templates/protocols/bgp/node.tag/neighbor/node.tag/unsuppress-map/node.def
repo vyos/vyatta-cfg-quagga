@@ -3,5 +3,5 @@ help: Route-map to selectively unsuppress suppressed routes
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}
-commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set unsuppress-map for a neighbor in a peer-group"
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../@) neighbor $VAR(../@): route-map $VAR(@) doesn't exist"
+commit:expression: $VAR(../peer-group/) == ""; "you can't set unsuppress-map for a neighbor in a peer-group"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"

@@ -2,8 +2,8 @@ type: txt
 help: Call another route-map on match
 val_help: Route map name
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" "; "policy route-map $VAR(../../@) rule $VAR(../@) call: called route-map $VAR(@) doesn't exist" 
-commit:expression: $VAR(../action/) != ""; "policy route-map $VAR(../../@) rule $VAR(../@): you must define an action"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" "; "called route-map $VAR(@) doesn't exist" 
+commit:expression: $VAR(../action/) != ""; "you must define an action"
 
 update: vtysh -c "configure terminal" -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \
            -c "call $VAR(@)" 

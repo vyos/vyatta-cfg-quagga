@@ -1,3 +1,3 @@
 help: Remove private AS numbers from AS path in outbound route updates
-commit:expression: $VAR(../peer-group/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set remove-private-as for a neighbor in a peer-group"
-commit:expression: $VAR(../remote-as/@) != $VAR(../../@); "protocols bgp $VAR(../../@) neighbor $VAR(../@): you can't set remove-private-as for an iBGP peer"
+commit:expression: $VAR(../peer-group/) == ""; "you can't set remove-private-as for a neighbor in a peer-group"
+commit:expression: $VAR(../remote-as/@) != $VAR(../../@); "you can't set remove-private-as for an iBGP peer"

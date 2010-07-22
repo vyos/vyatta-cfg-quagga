@@ -1,8 +1,6 @@
 type: ipv4
 help: Single host IP address to match
 val_help: Host address to match
-commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "\
-policy access-list $VAR(../../../@) rule $VAR(../../@) destination: access-list number must be <100-199> or <2000-2699> to set destination matches"
-commit:expression: ($VAR(../any/) == "") && ($VAR(../network/) == ""); "\
-policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you may only define one filter type. (host|network|any)"
-commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you must specify an action"
+commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "access-list number must be <100-199> or <2000-2699> to set destination matches"
+commit:expression: ($VAR(../any/) == "") && ($VAR(../network/) == ""); "you may only define one filter type. (host|network|any)" 
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"

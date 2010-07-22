@@ -1,3 +1,2 @@
 help: Exact match of the network prefixes
-
-commit:expression: ($VAR(../any/) == ""); "policy access-list6 $VAR(../../../@) rule $VAR(../../@) source: exact-match can only be used with a network filter "
+commit:expression: ($VAR(../any/) == ""); "exact-match can only be used with a network filter "

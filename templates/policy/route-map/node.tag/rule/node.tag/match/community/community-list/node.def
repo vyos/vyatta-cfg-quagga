@@ -3,4 +3,4 @@ help: BGP community-list to match
 val_help: u32:1-99; BGP community list (standard)
 val_help: u32:100-500; BGP community list (expanded)
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy community-list $VAR(@)\" "; "policy route-map $VAR(../../../../@) rule $VAR(../../../@) match community: community-list $VAR(@) doesn't exist"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy community-list $VAR(@)\" "; "community-list $VAR(@) doesn't exist"

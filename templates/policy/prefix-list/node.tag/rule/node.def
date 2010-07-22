@@ -5,8 +5,8 @@ val_help: u32:1-65535; Prefix-list rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
 
-commit:expression: $VAR(./prefix/) != ""; "policy prefix-list $VAR(../@) rule $VAR(@): You must specify a prefix"
-commit:expression: $VAR(./action/) != ""; "policy prefix-list $VAR(../@) rule $VAR(@): You must specify an action"
+commit:expression: $VAR(./prefix/) != ""; "You must specify a prefix"
+commit:expression: $VAR(./action/) != ""; "You must specify an action"
 
 delete:  touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID ;
          len=`echo $VAR(@) | awk -F/ '{ print $2 }'` ; 
@@ -22,14 +22,14 @@ delete:  touch /tmp/protocols-$VAR(../@)-$VAR(@).$PPID ;
 end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ; 
       if [ -n "$VAR(./ge/@)" ]; then 
         if [ $len -ge $VAR(./ge/@) ]; then 
-          echo "policy prefix-list $VAR(../@) rule $VAR(@): ge must be greater than prefix length";
+          echo "ge must be greater than prefix length";
           exit 1 ; 
         fi ; 
         cond="ge $VAR(./ge/@) ";
       fi;
       if [ -n "$VAR(./le/@)" ]; then 
         if [ $VAR(./le/@) -ne 32 ] && [ -n "$VAR(./ge/@)" ] && [ $VAR(./le/@) -le $VAR(./ge/@) ]; then 
-          echo "policy prefix-list $VAR(../@) rule $VAR(@): le must be greater than or equal to ge"; 
+          echo "le must be greater than or equal to ge"; 
           exit 1 ; 
         fi ; 
         cond="$cond le $VAR(./le/@) "; 

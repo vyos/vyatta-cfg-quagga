@@ -3,4 +3,4 @@ help: As-path-list to filter incoming route updates from this neighbor
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy as-path-list )
         echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"protocols bgp $VAR(../../../@) neighbor $VAR(../../@) filter-list import: as-path-list $VAR(@) doesn't exist"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" ";"as-path-list $VAR(@) doesn't exist"

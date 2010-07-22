@@ -5,7 +5,7 @@ val_help: u32:1-65535; Rule number
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "continue must be between 1 and 65535"
 
 commit:expression: $VAR(@) > $VAR(../@); "you may only continue forward in the route-map"
-commit:expression: $VAR(../action/) != ""; "policy route-map $VAR(../../@) rule $VAR(../@): you must define an action"
+commit:expression: $VAR(../action/) != ""; "you must define an action"
 
 update: vtysh -c "configure terminal" \
    	   -c "route-map $VAR(../../@) $VAR(../action/@) $VAR(../@)" \

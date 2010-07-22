@@ -1,2 +1,2 @@
 help: Neighbor as route server client
-commit:expression: $VAR(../../../peer-group/) == ""; "protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@): you can't set route-server-client for a neighbor in a peer-group"
+commit:expression: $VAR(../../../peer-group/) == ""; "you can't set route-server-client for a neighbor in a peer-group"

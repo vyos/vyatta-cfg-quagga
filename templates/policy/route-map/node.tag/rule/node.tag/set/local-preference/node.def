@@ -2,7 +2,7 @@ type: u32
 help: Border Gateway Protocol (BGP) local preference attribute
 val_help: Local preference value
 
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

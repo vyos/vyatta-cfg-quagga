@@ -1,2 +1,2 @@
 help: Disable sending community attributes to this peer-group
-commit:expression: ($VAR(./extended/) != "") || ($VAR(./standard/) != ""); "protocols bgp $VAR(../../../../@) peer-group $VAR(../../../@): you must specify the type of community"
+commit:expression: ($VAR(./extended/) != "") || ($VAR(./standard/) != ""); "you must specify the type of community"

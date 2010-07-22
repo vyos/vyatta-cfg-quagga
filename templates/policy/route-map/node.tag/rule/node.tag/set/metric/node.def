@@ -4,8 +4,7 @@ val_help: <+/-metric>; Add or subtract metric
 val_help: u32:0-4294967295; Metric value
 
 syntax:expression: exec "if [ -n \"$(echo $VAR(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "metric must be an integer with an optional +/- prepend"
-
-commit:expression: $VAR(../../action/) != ""; "policy route-map $VAR(../../../@) rule $VAR(../../@): you must specify an action"
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
          -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \

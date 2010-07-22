@@ -6,5 +6,5 @@ allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
         echo -n ${params[@]##*/}
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"protocols bgp $VAR(../../../../@) address-family ipv6-unicast network $VAR(../@) route-map: route-map $VAR(@) doesn't exist"
-commit:expression: $VAR(../path-limit/) == ""; "protocols bgp $VAR(../../../../@) address-family ipv6-unicast network $VAR(../@) route-map: you can't set route-map and path-limit for network"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"
+commit:expression: $VAR(../path-limit/) == ""; "you can't set route-map and path-limit for network"

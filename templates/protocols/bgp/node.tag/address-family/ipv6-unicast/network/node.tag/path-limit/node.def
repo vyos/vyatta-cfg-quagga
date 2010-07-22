@@ -2,5 +2,5 @@ type: u32
 help: AS-path hopcount limit
 val_help: u32:0-255; AS path hop count limit
 
-commit:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "protocols bgp $VAR(../../../../@) address-family ipv6-unicast network $VAR(../@) path-limit: path-limit must be between 0-255."
-commit:expression: $VAR(../route-map/) == ""; "protocols bgp $VAR(../../../../@) address-family ipv6-unicast network $VAR(../@) path-limit: you can't set path-limit and route-map for network"
+commit:expression: $VAR(@) >= 0 && $VAR(@) <= 255; "path-limit must be between 0-255."
+commit:expression: $VAR(../route-map/) == ""; "you can't set path-limit and route-map for network"

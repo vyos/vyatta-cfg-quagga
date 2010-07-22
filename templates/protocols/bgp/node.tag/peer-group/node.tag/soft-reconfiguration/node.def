@@ -1,2 +1,2 @@
 help: Soft reconfiguration for peer-group
-commit:expression: $VAR(./inbound/) != ""; "protocols bgp $VAR(../../@) peer-group $VAR(../@) soft-reconfiguration: you must specify the type of soft-reconfiguration"
+commit:expression: $VAR(./inbound/) != ""; "you must specify the type of soft-reconfiguration"

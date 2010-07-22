@@ -1,8 +1,7 @@
 type: ipv4
 help: Network/netmask to match (requires network be defined)
 val_help: Inverse-mask to match
-commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "\
-policy access-list $VAR(../../../@) rule $VAR(../../@) destination: access-list number must be <100-199> or <2000-2699> to set destination matches"
-commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you may only define one filter type. (host|network|any)"
-commit:expression: $VAR(../network/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you must specify a network if you configure an inverse mask."
-commit:expression: $VAR(../../action/) != ""; "policy access-list $VAR(../../../@) rule $VAR(../../@) destination: you must specify an action"
+commit:expression: ($VAR(../../../@) >= 100 && $VAR(../../../@) <= 199) || ($VAR(../../../@) >= 2000 && $VAR(../../../@) <= 2699); "access-list number must be <100-199> or <2000-2699> to set destination matches"
+commit:expression: ($VAR(../any/) == "") && ($VAR(../host/) == ""); "you may only define one filter type. (host|network|any)"
+commit:expression: $VAR(../network/) != ""; "you must specify a network if you configure an inverse mask."
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"

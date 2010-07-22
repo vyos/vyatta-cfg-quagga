@@ -1,2 +1,2 @@
 help: Ignore capability negotiation with specified neighbor
-commit:expression: $VAR(../strict-capability/) == ""; "protocols bgp $VAR(../../@) neighbor $VAR(../@) override-capability: you can't set both strict-capability and override-capability"
+commit:expression: $VAR(../strict-capability/) == ""; "you can't set both strict-capability and override-capability"
