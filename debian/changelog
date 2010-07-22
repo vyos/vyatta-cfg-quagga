@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.100) unstable; urgency=low
+
+  * fix for bug 5893
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 22 Jul 2010 15:18:44 -0700
+
 vyatta-cfg-quagga (0.18.99) unstable; urgency=low
 
   * remove explicit paths from commit error messages since that is
