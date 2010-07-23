@@ -1138,7 +1138,7 @@ my %qcom = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $checklocalas );
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isIBGPpeer, $checkforibgpasn);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1148,16 +1148,19 @@ GetOptions(
     "check-neighbor-ip"       => \$isneighbor,
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
-    "check-local-as"          => \$checklocalas,
+    "is-iBGP"		      => \$isIBGPpeer,
+    "check-for-iBGP-ASN=s"    => \$checkforibgpasn,
     "main"                    => \$main,
 );
 
-main()					if ($main);
-check_peergroup_name($peername)	  	if ($peername);
-check_neighbor_ip($neighbor)            if ($isneighbor);
-check_for_peer_groups( $pg, $as )	if ($checkpeergroups);
-check_source($checksource)	        if ($checksource);
-check_local_as($neighbor, $as)          if ($checklocalas);
+main()					    if ($main);
+check_peergroup_name($peername)	  	    if ($peername);
+check_neighbor_ip($neighbor)                if ($isneighbor);
+check_for_peer_groups( $pg, $as )	    if ($checkpeergroups);
+check_source($checksource)	            if ($checksource);
+check_for_iBGP_ASN($as, $checkforibgpasn)   if ($checkforibgpasn);
+is_IBGP_peer($neighbor, $as)          	    if ($isIBGPpeer);
+
 
 exit 0;
 
@@ -1293,23 +1296,67 @@ sub check_remote_as {
 
 }
 
-# Verify that is local-as is used, the peer isn't in a confedration
-sub check_local_as {
-    my ($neighbor, $as) = @_;
-    my $config = new Vyatta::Config;
+# check to see if this ASN will make a peer an iBGP peer
+sub check_for_iBGP_ASN {
+    my ($as, $testas) = @_;
+    if ("$as" eq "$testas") { exit 1 ; }
 
+    my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as");
-    if ($config->exists('parameters confederation peers')) {
-      my @peers = $config->returnValues('parameters confederation peers');
+
+    my @neighbors = $config->listNodes('neighbor');
+    foreach $neighbor (@neighbors) {
       my $remoteas = $config->returnValue("neighbor $neighbor remote-as");
-      foreach my $peeras (@peers) {
-        if ("$peeras" eq "$remoteas") {
-          print "local-as can't be set for neighbors in a peer group\n";
-          return 1;
-        }
+      if ("$testas" eq "$remoteas") {
+        exit 1;
       }
     }
-    return 0;
+    
+    return;
+}
+
+# is this peer an iBGP peer?
+sub is_IBGP_peer {
+    my ($neighbor, $as) = @_;
+    my $config = new Vyatta::Config;
+    my @ibgp_as;
+    my $neighbor_as;
+
+    $config->setLevel("protocols bgp $as");
+
+    # find my local ASN for this neighbor
+    # it's either explicitly defined or in the peer-group
+    if ($config->exists("neighbor $neighbor remote-as")) {
+      $neighbor_as = $config->returnValue("neighbor $neighbor remote-as");
+    }
+    elsif ($config->exists("neighbor $neighbor peer-group")) {
+      my $peergroup = $config->returnValue("neighbor $neighbor peer-group");
+      if ($config->exists("peer-group $peergroup remote-as")) {
+        my $peergroup = $config->returnValue("neighbor $neighbor peer-group");
+        $neighbor_as = $config->returnValue("peer-group $peergroup remote-as");
+      }
+    }
+    else {
+      print "Unable to determine primary ASN for neighbor $neighbor\n";
+      exit 1;
+    }
+
+    # now find my possible local ASNs.  Confederation ASNs are first.
+    if ($config->exists('parameters confederation peers')) {
+      @ibgp_as = $config->returnValues('parameters confederation peers');
+    }
+    
+    # push router local ASN on the stack
+    push @ibgp_as, $as;
+
+    # and compare neighbor local as to possible local ASNs
+    foreach my $localas (@ibgp_as) {
+      if ("$localas" eq "$neighbor_as") {
+        exit 1;
+      }
+    }
+
+    return;
 }
 
 # check that value is either an IPV4 address on system or an interface

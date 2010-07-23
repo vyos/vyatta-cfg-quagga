@@ -4,6 +4,4 @@ help: Local AS number [REQUIRED]
 val_help: u32:1-4294967294; Local AS number
 syntax:expression: $VAR(@) >=1 && $VAR(@) <= 4294967294; "local-as must be between 1 and 4294967294"
 commit:expression: $VAR(@) != $VAR(../../@); "you can't set local-as the same as the router AS"
-commit:expression: $VAR(../remote-as/@) != $VAR(../../@); "local-as can't be set on iBGP peers"
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-local-as --neighbor $VAR(../@) --as $VAR(../../@)"
-
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --is-iBGP --neighbor $VAR(../@) --as $VAR(../../@)"; "local-as can't be set on iBGP peers"
