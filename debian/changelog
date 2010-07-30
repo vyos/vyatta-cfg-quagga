@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.18.102) unstable; urgency=low
+
+  [ Robert Bays ]
+  * fix for bug 5892
+
+  [ An-Cheng Huang ]
+  * new API changes
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Fri, 30 Jul 2010 14:31:09 -0700
+
 vyatta-cfg-quagga (0.18.101) unstable; urgency=low
 
   * UNRELEASED
