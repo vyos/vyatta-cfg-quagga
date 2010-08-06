@@ -3,4 +3,4 @@ type: u32
 help: Peer ASs in the BGP confederation
 val_help: u32:1-4294967294; Peer AS number numbers (ex: "435 234")
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294; "confederation AS id must be between 1 and 4294967294"
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-for-iBGP-ASN $VAR(@) --as $VAR(../../../@)"; "can't set confederation ASN to $VAR(@).  Delete neighbors with remote-as $VAR(@) first."
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-for-iBGP-ASN $VAR(@) --as $VAR(../../../@)"; "Can't set confederation peers ASN to $VAR(@).  Delete any neighbors with remote-as $VAR(@) and/or change the local ASN first."

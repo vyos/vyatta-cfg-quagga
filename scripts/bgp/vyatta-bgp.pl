@@ -1304,7 +1304,8 @@ sub check_for_iBGP_ASN {
     my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $as");
 
-    my @neighbors = $config->listNodes('neighbor');
+    #my @neighbors = $config->listNodes('neighbor');
+    my @neighbors = $config->listOrigNodes('neighbor');
     foreach $neighbor (@neighbors) {
       my $remoteas = $config->returnValue("neighbor $neighbor remote-as");
       if ("$testas" eq "$remoteas") {
