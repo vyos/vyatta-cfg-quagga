@@ -118,18 +118,18 @@ my %qcom = (
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute ospfv3' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3',
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute ospfv3 metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3 metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 metric #9',
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6 metric #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6 metric #9',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute ospfv3 route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospfv3 route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospfv3 route-map #9',
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6 route-map #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6 route-map #9',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute ripng' => {
