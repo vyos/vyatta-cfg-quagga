@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.100+larkspur5) unstable; urgency=low
+
+  * fix for bug 5973
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 16:56:21 -0700
+
 vyatta-cfg-quagga (0.18.100+larkspur4) unstable; urgency=low
 
   * larkspur specific fix for 5971
