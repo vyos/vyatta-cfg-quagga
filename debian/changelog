@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.100+larkspur6) unstable; urgency=low
+
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 10 Aug 2010 15:55:22 -0700
+
 vyatta-cfg-quagga (0.18.100+larkspur5) unstable; urgency=low
 
   * fix for bug 5973
