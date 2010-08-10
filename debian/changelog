@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.18.103) unstable; urgency=low
+
+  [ Robert Bays ]
+  * fix for bug 5925
+  * fix for bug 5937
+  * fix for bug 5973
+
+  [ An-Cheng Huang ]
+  * cherry-pick larkspur fixes
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 10 Aug 2010 10:33:23 -0700
+
 vyatta-cfg-quagga (0.18.102) unstable; urgency=low
 
   [ Robert Bays ]
