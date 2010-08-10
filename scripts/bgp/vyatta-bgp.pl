@@ -1316,6 +1316,13 @@ sub check_remote_as {
                         $config->isChanged("$as neighbor $neighbor peer-group") ||
                         $config->isDeleted("$as neighbor $neighbor peer-group") );
 
+          if ($config->isDeleted("$as neighbor $neighbor remote-as")) {
+            my @neighbor_params = undef;
+            @neighbor_params = $config->listNodes("$as neighbor $neighbor");
+            die "[protocols bgp $as neighbor $neighbor]\n  must delete the neighbor first if changing the remote-as\n"
+              if (@neighbor_params);
+          }
+
           # First check that we have a remote-as defined in the neighbor or that
           # the neighbor is a member of a peer-group that has a remote-as defined
           my ($remoteas, $peergroup, $peergroupas);
@@ -1330,13 +1337,11 @@ sub check_remote_as {
           die "[protocols bgp $as neighbor $neighbor]\n  must define a remote-as or peer-group\n"
             unless ($peergroup || $remoteas);
 
-          if ($peergroup) {
-            die "[protocols bgp $as neighbor $neighbor]\n  remote-as should not be defined in both neighbor and peer-group\n"
-              if ($remoteas && $peergroupas);
-
-            die "[protocols bgp $as neighbor $neighbor]\n  must define a remote-as in neighbor or peer-group $peergroup\n"
-              unless ($peergroupas);
-          }
+          die "[protocols bgp $as neighbor $neighbor]\n  remote-as should not be defined in both neighbor and peer-group\n"
+            if ($remoteas && $peergroupas);
+     
+          die "[protocols bgp $as neighbor $neighbor]\n  must define a remote-as in neighbor or peer-group $peergroup\n"
+            if ( (! $remoteas) && (! $peergroupas) );
 
           # now check if changing remote-as type from/to i/eBGP
           my $error = bgp_type_change($neighbor, $as, "neighbor");
