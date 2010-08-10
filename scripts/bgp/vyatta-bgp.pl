@@ -1030,7 +1030,7 @@ my %qcom = (
   },
   'protocols bgp var peer-group var timers' => {
       set => 'router bgp #3 ; neighbor #5 timers @keepalive @holdtime',
-      del => 'router bgp #3 ; no neighbor #5',
+      del => 'router bgp #3 ; no neighbor #5 timers',
   },
   'protocols bgp var peer-group var timers connect' => {
       set => 'router bgp #3 ; neighbor #5 timers connect #8',
@@ -1138,7 +1138,7 @@ my %qcom = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isIBGPpeer, $confedibgpasn);
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isiBGPpeer, $wasiBGPpeer, $confedibgpasn);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1148,7 +1148,8 @@ GetOptions(
     "check-neighbor-ip"       => \$isneighbor,
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
-    "is-iBGP"		      => \$isIBGPpeer,
+    "is-iBGP"		      => \$isiBGPpeer,
+    "was-iBGP"                => \$wasiBGPpeer,
     "confed-iBGP-ASN-check=s" => \$confedibgpasn,
     "main"                    => \$main,
 );
@@ -1159,7 +1160,8 @@ check_neighbor_ip($neighbor)                if ($isneighbor);
 check_for_peer_groups( $pg, $as )	    if ($checkpeergroups);
 check_source($checksource)	            if ($checksource);
 confed_iBGP_ASN($as, $confedibgpasn)        if ($confedibgpasn);
-is_IBGP_peer($neighbor, $as)          	    if ($isIBGPpeer);
+is_iBGP_peer($neighbor, $as)          	    if ($isiBGPpeer);
+was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
 
 
 exit 0;
@@ -1219,46 +1221,56 @@ sub check_for_peer_groups {
     }
 }
 
+# function to verify changing remote-as from/to i/eBGP
+# there are two types of parameter checks we need to do.  The first should happen
+# when the affected parameter is created/changed. Those checks should happen in  
+# the syntax and commit statements in the node.defs for those specific params since
+# they can be updated individually. The params should be checked again if the remote-as
+# changes.
+# This funtion handles changes in the remote-as and/or peer-group 
+sub bgp_type_change {
+    my ($neighbor, $as, $ntype) =@_;
+    my $config = new Vyatta::Config;
+    $config->setLevel('protocols bgp');
+
+    if ( ("$ntype" ne "neighbor") && ("$ntype" ne "peer-group") ) {
+      return -1;
+    }
+
+    # check if changing from iBGP to eBGP
+    if ( (iBGP_peer(1, $neighbor, $as, $ntype)) && (! iBGP_peer(0, $neighbor, $as, $ntype)) ) {
+      if ($config->exists("$as $ntype $neighbor route-reflector-client")) {
+        return "can not set route-reflector-client and an eBGP remote-as at the same time\n";
+      }
+    }
+
+    # check if changing from eBGP to iBGP
+    if ( (! iBGP_peer(1, $neighbor, $as, $ntype)) && (iBGP_peer(0, $neighbor, $as, $ntype)) ) {
+      if ($config->exists("$as $ntype $neighbor ebgp-multihop")) {
+        return "can not set ebgp-multihop and an iBGP remote-as at the same time\n";
+      }
+      if ($config->exists("$as $ntype $neighbor ttl-security")) {
+        return "can not set ttl-security and an iBGP remote-as at the same time\n";
+      }
+      if ($config->exists("$as $ntype $neighbor local-as")) {
+        return "can not set local-as and an iBGP remote-as at the same time\n";
+      }
+    }
+}
+
 # check that changed neighbors have a remote-as or peer-group defined
+# and that all permutations of parameters and BGP type are correct
 sub check_remote_as {
     my $config = new Vyatta::Config;
     $config->setLevel('protocols bgp');
 
     my @asns = $config->listNodes();
     foreach my $as (@asns) {
-      # check remote-as if neighbors have been changed
-      my @neighbors = $config->listNodes("$as neighbor");
-      foreach my $neighbor (@neighbors) {
-	  next unless $config->isChanged("$as neighbor $neighbor");
-
-          my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
-          my ($peergroup, $peergroupas);
-          if ($config->exists("$as neighbor $neighbor peer-group")) {
-            $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
-            if ($config->exists("$as peer-group $peergroup remote-as")) {
-              $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
-            }
-          }
-
-          if ($remoteas) {
-            if ($peergroupas) {
-              die "protocols bgp $as neighbor $neighbor: remote-as should not be defined in both neighbor and peer-group\n"
-            }
-            return;
-          }
-
-          die "protocols bgp $as neighbor $neighbor: must define a remote-as or peer-group\n"
-            unless $peergroup;
- 
-          die "protocols bgp $as neighbor $neighbor: must define a remote-as in neighbor or peer-group $peergroup\n"
-            unless $peergroupas;
-
-      }
- 
       # check remote-as if peer-groups have been changed
       my @peergroups = $config->listNodes("$as peer-group");
       foreach my $peergroup (@peergroups) {
-	  next unless $config->isChanged("$as peer-group $peergroup");
+          next unless ( $config->isChanged("$as peer-group $peergroup remote-as") ||
+                        $config->isDeleted("$as peer-group $peergroup remote-as") );
 
           # if we delete the remote-as in the pg, make sure all neighbors have a remote-as defined
           if ($config->isDeleted("$as peer-group $peergroup remote-as")) {
@@ -1268,14 +1280,19 @@ sub check_remote_as {
               if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
                 if (! defined $remoteas) {
-                  die "protocols bgp $as peer-group $neighbor: can't delete the remote-as in peer-group without setting remote-as in members\n"
+                  die "[protocols bgp $as peer-group $neighbor]\n  can't delete the remote-as in peer-group without setting remote-as in member neighbors\n"
                 }
               }
             }
           }
 
-          # remote-as can not be defined in both pg and neighbor at the same time
+          # if remote-as has changed, check that the change is valid
           if ($config->isChanged("$as peer-group $peergroup remote-as")) {
+            # check asn type change
+            my $error = bgp_type_change($peergroup, $as, "peer-group");
+            if ($error) { die "[protocols bgp $as peer-group $peergroup]\n  $error\n"; }
+
+            # remote-as can not be defined in both pg and neighbor at the same time
             my $pgremoteas = $config->returnValue("$as peer-group $peergroup remote-as");
             my @neighbors = $config->listNodes("$as neighbor");
             foreach my $neighbor (@neighbors) {
@@ -1283,17 +1300,51 @@ sub check_remote_as {
               if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
                 if (defined $remoteas && defined $pgremoteas) {
-                  die "protocols bgp $as peer-group $neighbor: must not define remote-as in both neighbor and peer-group\n"
+                  die "[protocols bgp $as peer-group $neighbor]\n  must not define remote-as in both neighbor and peer-group\n"
                 }
               }
             }
+          }
 
-        }
+      } ## end foreach my $peergroup (@peergroups)
 
-      }  # end foreach my $peergroup
+      # check neighbor if remote-as or peer-group has been changed
+      my @neighbors = $config->listNodes("$as neighbor");
+      foreach my $neighbor (@neighbors) {
+	  next unless ( $config->isChanged("$as neighbor $neighbor remote-as")  ||
+                        $config->isDeleted("$as neighbor $neighbor remote-as")  ||
+                        $config->isChanged("$as neighbor $neighbor peer-group") ||
+                        $config->isDeleted("$as neighbor $neighbor peer-group") );
 
-    }
+          # First check that we have a remote-as defined in the neighbor or that
+          # the neighbor is a member of a peer-group that has a remote-as defined
+          my ($remoteas, $peergroup, $peergroupas);
+          $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+          if ($config->exists("$as neighbor $neighbor peer-group")) {
+            $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+            if ($config->exists("$as peer-group $peergroup remote-as")) {
+              $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+            }
+          }
 
+          die "[protocols bgp $as neighbor $neighbor]\n  must define a remote-as or peer-group\n"
+            unless ($peergroup || $remoteas);
+
+          if ($peergroup) {
+            die "[protocols bgp $as neighbor $neighbor]\n  remote-as should not be defined in both neighbor and peer-group\n"
+              if ($remoteas && $peergroupas);
+
+            die "[protocols bgp $as neighbor $neighbor]\n  must define a remote-as in neighbor or peer-group $peergroup\n"
+              unless ($peergroupas);
+          }
+
+          # now check if changing remote-as type from/to i/eBGP
+          my $error = bgp_type_change($neighbor, $as, "neighbor");
+          if ($error) { die "[protocols bgp $as neighbor $neighbor]\n  $error\n"; }
+
+      } ## end foreach my $neighbor (@neighbors)
+
+    } ## end foreach my $as (@asns)
 }
 
 # check to see if adding this ASN to confederations 
@@ -1317,35 +1368,60 @@ sub confed_iBGP_ASN {
     return;
 }
 
-# is this peer an iBGP peer?
-sub is_IBGP_peer {
+sub is_iBGP_peer {
     my ($neighbor, $as) = @_;
+
+    my $return = iBGP_peer(0, $neighbor, $as, "neighbor");
+    if ($return > 0) { exit 1; }
+    elsif ($return < 0) { print "Unable to determine original ASN for neighbhor $neighbor\n"; }
+    exit 0; 
+}
+
+sub was_iBGP_peer {
+    my ($neighbor, $as) = @_;
+
+    if (iBGP_peer(1, $neighbor, $as, "neighbor") >= 1) { exit 1; }
+    exit 0; 
+}
+    
+# is this peer an iBGP peer?
+sub iBGP_peer {
+    my ($orig, $neighbor, $as, $ntype) = @_;
     my $config = new Vyatta::Config;
     my @ibgp_as;
     my $neighbor_as;
 
     $config->setLevel("protocols bgp $as");
 
+    my $exists = sub { $config->exists(@_) };
+    my $returnValue = sub { $config->returnValue(@_) };
+    my $returnValues = sub { $config->returnValues(@_) };
+
+    if ($orig) {
+      $exists = sub { $config->existsOrig(@_) };
+      $returnValue = sub { $config->returnOrigValue(@_) };
+      $returnValues = sub { $config->returnOrigValues(@_) };
+    }
+
     # find my local ASN for this neighbor
     # it's either explicitly defined or in the peer-group
-    if ($config->exists("neighbor $neighbor remote-as")) {
-      $neighbor_as = $config->returnValue("neighbor $neighbor remote-as");
+    if ($exists->("$ntype $neighbor remote-as")) {
+      $neighbor_as = $returnValue->("$ntype $neighbor remote-as");
     }
-    elsif ($config->exists("neighbor $neighbor peer-group")) {
-      my $peergroup = $config->returnValue("neighbor $neighbor peer-group");
-      if ($config->exists("peer-group $peergroup remote-as")) {
-        my $peergroup = $config->returnValue("neighbor $neighbor peer-group");
-        $neighbor_as = $config->returnValue("peer-group $peergroup remote-as");
+    elsif ( ("$ntype" eq "neighbor") && ($exists->("neighbor $neighbor peer-group")) ) {
+      my $peergroup = $returnValue->("neighbor $neighbor peer-group");
+      if ($exists->("peer-group $peergroup remote-as")) {
+        my $peergroup = $returnValue->("neighbor $neighbor peer-group");
+        $neighbor_as = $returnValue->("peer-group $peergroup remote-as");
       }
     }
     else {
-      print "Unable to determine primary ASN for neighbor $neighbor\n";
-      exit 1;
+      return -1;
     }
 
     # now find my possible local ASNs.  Confederation ASNs are first.
-    if ($config->exists('parameters confederation peers')) {
-      @ibgp_as = $config->returnValues('parameters confederation peers');
+    if ($exists->('parameters confederation peers')) {
+      @ibgp_as = $returnValues->('parameters confederation peers');
     }
     
     # push router local ASN on the stack
@@ -1354,11 +1430,11 @@ sub is_IBGP_peer {
     # and compare neighbor local as to possible local ASNs
     foreach my $localas (@ibgp_as) {
       if ("$localas" eq "$neighbor_as") {
-        exit 1;
+        return 1;
       }
     }
 
-    return;
+    return 0;
 }
 
 # check that value is either an IPV4 address on system or an interface
@@ -1385,6 +1461,7 @@ sub main {
    #$qconfig->_reInitialize();
 
    # check that all changed neighbors have a proper remote-as or peer-group defined
+   # and that migrations to/from iBGP eBGP are valid
    check_remote_as();
 
    # deletes with priority
