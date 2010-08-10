@@ -1138,7 +1138,7 @@ my %qcom = (
 );
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isIBGPpeer, $checkforibgpasn);
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isIBGPpeer, $confedibgpasn);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1149,7 +1149,7 @@ GetOptions(
     "check-peer-groups"       => \$checkpeergroups,
     "check-source=s"	      => \$checksource,
     "is-iBGP"		      => \$isIBGPpeer,
-    "check-for-iBGP-ASN=s"    => \$checkforibgpasn,
+    "confed-iBGP-ASN-check=s" => \$confedibgpasn,
     "main"                    => \$main,
 );
 
@@ -1158,7 +1158,7 @@ check_peergroup_name($peername)	  	    if ($peername);
 check_neighbor_ip($neighbor)                if ($isneighbor);
 check_for_peer_groups( $pg, $as )	    if ($checkpeergroups);
 check_source($checksource)	            if ($checksource);
-check_for_iBGP_ASN($as, $checkforibgpasn)   if ($checkforibgpasn);
+confed_iBGP_ASN($as, $confedibgpasn)        if ($confedibgpasn);
 is_IBGP_peer($neighbor, $as)          	    if ($isIBGPpeer);
 
 
@@ -1296,8 +1296,9 @@ sub check_remote_as {
 
 }
 
-# check to see if this ASN will make a peer an iBGP peer
-sub check_for_iBGP_ASN {
+# check to see if adding this ASN to confederations 
+# will make a peer an iBGP peer
+sub confed_iBGP_ASN {
     my ($as, $testas) = @_;
     if ("$as" eq "$testas") { exit 1 ; }
 
