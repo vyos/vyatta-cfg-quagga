@@ -1,3 +1,17 @@
+vyatta-cfg-quagga (0.18.104) unstable; urgency=low
+
+  [ Robert Bays ]
+  * larkspur specific fix for 5971
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+  * fix for bug 6021
+  * fix for bug 4393
+
+  [ Stephen Hemminger ]
+  * Add missing step for peer group ttl-security
+
+ -- Stephen Hemminger <shemminger@lenny.localdomain>  Thu, 12 Aug 2010 08:23:51 -0700
+
 vyatta-cfg-quagga (0.18.103) unstable; urgency=low
 
   [ Robert Bays ]
