@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.100+larkspur8) unstable; urgency=low
+
+  * Add missing step for peer group ttl-security
+
+ -- Stephen Hemminger <shemminger@lenny.localdomain>  Thu, 12 Aug 2010 05:51:29 -0700
+
 vyatta-cfg-quagga (0.18.100+larkspur7) unstable; urgency=low
 
   * fix for bug 6021
