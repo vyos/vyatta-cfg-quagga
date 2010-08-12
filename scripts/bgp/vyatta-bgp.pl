@@ -1036,6 +1036,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 timers connect #8',
       del => 'router bgp #3 ; no neighbor #5 timers connect #8',
   },
+  'protocols bgp var peer-group var ttl-security' => {
+      set => undef,
+      del => undef,
+  },
   'protocols bgp var peer-group var ttl-security hops' => {
       set => 'router bgp #3 ; neighbor #5 ttl-security hops #8',
       del => 'router bgp #3 ; no neighbor #5 ttl-security hops #8',
