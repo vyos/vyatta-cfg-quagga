@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.100+larkspur10) unstable; urgency=low
+
+  * fix for bug 6034
+  * fix for bug 6049
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 12 Aug 2010 18:31:11 -0700
+
 vyatta-cfg-quagga (0.18.100+larkspur9) unstable; urgency=low
 
   * fix for bug 6041
