@@ -342,9 +342,8 @@ sub _qtree {
 
   $qcom = $_qcomref;
   
-  # It's ugly that I have to create a new Vyatta config object every time,
-  # but something gets messed up on the stack if I don't.  not sure
-  # what yet.  would love to reference a global config and just reset Level.
+  # Would love to reference a global config and just reset Levels,
+  # but Vyatta::Config isn't recursion safe.
   my $config = new Vyatta::Config;
   $config->setLevel($level);
 
@@ -356,7 +355,28 @@ sub _qtree {
   else {
     $vtysh = \%_vtyshdel;
     @nodes = $config->listDeleted();
-  }
+
+    # handle special case for multi-nodes values being deleted
+    # listDeleted() doesn't return the node as deleted if it is a multi
+    # unless all values are deleted.
+    # TODO: fix listDeleted() in Config.pm
+    # This is really, really fugly.
+    my @all_nodes = $config->listNodes();
+    foreach my $node (@all_nodes) {
+      my @array = split /\s+/, $level;
+      push @array, $node;
+      my ($multi, $text, $default) = $config->parseTmpl(\@array);
+      if ($multi) {
+        my @orig_values = $config->returnOrigValues("$node");
+        my @new_values = $config->returnValues("$node");
+        my %chash = $config->compareValueLists(\@orig_values, \@new_values);
+        if ($chash{'deleted'}) {                 
+          push @nodes, $node;
+        }
+      }
+    }
+
+  } ## end else {
 
   if ($_DEBUG) { print "DEBUG: _qtree - action: $action\tlevel: $level\n"; }
 
