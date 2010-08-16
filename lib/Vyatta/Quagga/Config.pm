@@ -370,7 +370,7 @@ sub _qtree {
         my @orig_values = $config->returnOrigValues("$node");
         my @new_values = $config->returnValues("$node");
         my %chash = $config->compareValueLists(\@orig_values, \@new_values);
-        if ($chash{'deleted'}) {                 
+        if (${$chash{'deleted'}}[0]) {                 
           push @nodes, $node;
         }
       }
