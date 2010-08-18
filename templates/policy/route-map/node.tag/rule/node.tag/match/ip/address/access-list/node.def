@@ -5,9 +5,7 @@ val_help: u32:100-199; IP extended access list number
 val_help: u32:1300-1999; IP standard access list number (expanded range)
 val_help: u32:2000-2699; IP extended access list number (expanded range)
 
-allowed: local -a params
-        params=( /opt/vyatta/config/active/policy/access-list/* )
-        echo -n ${params[@]##*/}
+allowed: cli-shell-api listActiveNodes policy access-list
 
 commit:expression: $VAR(../prefix-list/) == ""; "you may only specify a prefix-list or access-list"
 
