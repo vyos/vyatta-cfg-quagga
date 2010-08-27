@@ -22,3 +22,9 @@ Suggests: util-linux (>= 2.13-5),
  ntpdate
 Description: Vyatta configuration templates/scripts for Quagga
  Vyatta configuration templates and scripts for Quagga
+
+Package: vyatta-cfg-quagga-serial
+Architecture: all
+Depends:  vyatta-cfg-quagga
+Description: vyatta-cfg-quagga serial templates
+ Vyatta configuration templates for Quagga use on serial devices

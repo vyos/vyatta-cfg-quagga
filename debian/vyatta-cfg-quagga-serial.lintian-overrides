@@ -1,0 +1,2 @@
+vyatta-cfg-quagga-serial: file-in-unusual-dir
+vyatta-cfg-quagga-serial: dir-or-file-in-opt
