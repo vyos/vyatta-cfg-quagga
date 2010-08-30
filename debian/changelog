@@ -1,3 +1,40 @@
+vyatta-cfg-quagga (0.18.107) unstable; urgency=low
+
+  [ An-Cheng Huang ]
+  * 0.18.100+larkspur1
+
+  [ Robert Bays ]
+  * fix for bug 5892
+  * 0.18.100+larkspur2
+  * fix for bug 5925
+  * fix for bug 5937
+  * 0.18.100+larkspur3
+  * larkspur specific fix for 5971
+  * 0.18.100+larkspur4
+  * fix for bug 5973
+  * 0.18.100+larkspur5
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+  * 0.18.100+larkspur6
+  * fix for bug 6021
+  * fix for bug 4393
+  * 0.18.100+larkspur7
+
+  [ Stephen Hemminger ]
+  * Add missing step for peer group ttl-security
+  * 0.18.100+larkspur8
+
+  [ Robert Bays ]
+  * fix for bug 6041
+  * 0.18.100+larkspur9
+  * fix for bug 6034
+  * fix for bug 6049
+  * 0.18.100+larkspur10
+  * fix for bug 6054
+  * 0.18.100+larkspur11
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 30 Aug 2010 15:50:48 -0700
+
 vyatta-cfg-quagga (0.18.106) unstable; urgency=low
 
   * Split templates for serial device into separate package
