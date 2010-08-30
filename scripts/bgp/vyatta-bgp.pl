@@ -1243,7 +1243,8 @@ sub bgp_type_change {
 
     # check if changing from iBGP to eBGP
     if ( (iBGP_peer(1, $neighbor, $as, $ntype)) && (! iBGP_peer(0, $neighbor, $as, $ntype)) ) {
-      if ($config->exists("$as $ntype $neighbor route-reflector-client")) {
+      if ( $config->exists("$as $ntype $neighbor route-reflector-client") ||
+           $config->exists("$as $ntype $neighbor address-family ipv6-unicast route-reflector-client") ) {
         return "can not set route-reflector-client and an eBGP remote-as at the same time\n";
       }
     }

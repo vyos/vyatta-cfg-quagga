@@ -52,6 +52,76 @@ vyatta-cfg-quagga (0.18.101) unstable; urgency=low
 
  -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 22 Jul 2010 17:23:30 -0700
 
+vyatta-cfg-quagga (0.18.100+larkspur11) unstable; urgency=low
+
+  * fix for bug 6054
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 16 Aug 2010 11:50:05 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur10) unstable; urgency=low
+
+  * fix for bug 6034
+  * fix for bug 6049
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 12 Aug 2010 18:31:11 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur9) unstable; urgency=low
+
+  * fix for bug 6041
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 12 Aug 2010 10:58:10 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur8) unstable; urgency=low
+
+  * Add missing step for peer group ttl-security
+
+ -- Stephen Hemminger <shemminger@lenny.localdomain>  Thu, 12 Aug 2010 05:51:29 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur7) unstable; urgency=low
+
+  * fix for bug 6021
+  * fix for bug 4393
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 10 Aug 2010 17:47:04 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur6) unstable; urgency=low
+
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 10 Aug 2010 15:55:22 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur5) unstable; urgency=low
+
+  * fix for bug 5973
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 16:56:21 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur4) unstable; urgency=low
+
+  * larkspur specific fix for 5971
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 16:43:26 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur3) unstable; urgency=low
+
+  * fix for bug 5925
+  * fix for bug 5937
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 15:53:44 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur2) unstable; urgency=low
+
+  * fix for bug 5892
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 23 Jul 2010 13:08:15 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur1) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 22 Jul 2010 17:17:20 -0700
+
 vyatta-cfg-quagga (0.18.100) unstable; urgency=low
 
   * fix for bug 5893
