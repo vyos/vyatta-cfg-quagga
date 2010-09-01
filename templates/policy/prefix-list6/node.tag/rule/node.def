@@ -35,7 +35,7 @@ end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ;
         cond="$cond le $VAR(./le/@) "; 
       fi; 
 
-      if [ ${COMMIT_ACTION} = 'SET' ]; then
+      if [ ${COMMIT_ACTION} = 'SET' -o ${COMMIT_ACTION} = 'ACTIVE' ]; then
         vtysh -c "configure terminal" \
           -c "ipv6 prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
       fi;
