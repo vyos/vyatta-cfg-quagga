@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.110) unstable; urgency=low
+
+  * Bugfix 5545: Update quagga when any prefix-list6 rule element is
+    changed
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 31 Aug 2010 20:20:39 -0700
+
 vyatta-cfg-quagga (0.18.109) unstable; urgency=low
 
   * UNRELEASED
