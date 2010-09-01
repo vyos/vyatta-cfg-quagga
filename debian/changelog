@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.108) unstable; urgency=low
+
+  * add control Replaces for vyatta-cfg-quagga-serial
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 01 Sep 2010 11:32:35 -0700
+
 vyatta-cfg-quagga (0.18.107) unstable; urgency=low
 
   [ An-Cheng Huang ]
