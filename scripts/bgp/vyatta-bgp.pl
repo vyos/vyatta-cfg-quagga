@@ -88,78 +88,28 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected',
+      set => 'router bgp #3 ; address-family ipv6 ; no redistribute connected ; redistribute connected ?route-map ?metric', 
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected',
       noerr => 'set',
   },
-  'protocols bgp var address-family ipv6-unicast redistribute connected metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected metric #9',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute connected route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #9',
-      noerr => 'set',
-  },
   'protocols bgp var address-family ipv6-unicast redistribute kernel' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel',
+      set => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel ; redistribute kernel ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel',
       noerr => 'set',
   },
-  'protocols bgp var address-family ipv6-unicast redistribute kernel metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel metric #9',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute kernel route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute kernel route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute kernel route-map #9',
-      noerr => 'set',
-  },
   'protocols bgp var address-family ipv6-unicast redistribute ospfv3' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6',
+      set => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6 ; redistribute ospf6 ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6',
       noerr => 'set',
   },
-  'protocols bgp var address-family ipv6-unicast redistribute ospfv3 metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6 metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6 metric #9',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute ospfv3 route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ospf6 route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ospf6 route-map #9',
-      noerr => 'set',
-  },
   'protocols bgp var address-family ipv6-unicast redistribute ripng' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng',
+      set => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng ; redistribute ripng ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng',
       noerr => 'set',
   },
-  'protocols bgp var address-family ipv6-unicast redistribute ripng metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng metric #9',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute ripng route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute ripng route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute ripng route-map #9',
-      noerr => 'set',
-  },
   'protocols bgp var address-family ipv6-unicast redistribute static' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute static',
+      set => 'router bgp #3 ; address-family ipv6 ; no redistribute static ; redistribute static ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute static',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute static metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute static metric #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute static metric #9',
-      noerr => 'set',
-  },
-  'protocols bgp var address-family ipv6-unicast redistribute static route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute static route-map #9',
-      del => 'router bgp #3 ; address-family ipv6 ; no redistribute static route-map #9',
       noerr => 'set',
   },
   'protocols bgp var aggregate-address' => {
@@ -1061,78 +1011,28 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var redistribute connected' => {
-      set => 'router bgp #3 ; redistribute connected',
+      set => 'router bgp #3 ; no redistribute connected ; redistribute connected ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute connected',
       noerr => 'set',
   },
-  'protocols bgp var redistribute connected metric' => {
-      set => 'router bgp #3 ; redistribute connected metric #7',
-      del => 'router bgp #3 ; no redistribute connected metric #7',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute connected route-map' => {
-      set => 'router bgp #3 ; redistribute connected route-map #7',
-      del => 'router bgp #3 ; no redistribute connected route-map #7',
-      noerr => 'set',
-  },
   'protocols bgp var redistribute kernel' => {
-      set => 'router bgp #3 ; redistribute kernel',
+      set => 'router bgp #3 ; no redistribute kernel ; redistribute kernel ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute kernel',
       noerr => 'set',
   },
-  'protocols bgp var redistribute kernel metric' => {
-      set => 'router bgp #3 ; redistribute kernel metric #7',
-      del => 'router bgp #3 ; no redistribute kernel metric #7',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute kernel route-map' => {
-      set => 'router bgp #3 ; redistribute kernel route-map #7',
-      del => 'router bgp #3 ; no redistribute kernel route-map #7',
-      noerr => 'set',
-  },
   'protocols bgp var redistribute ospf' => {
-      set => 'router bgp #3 ; redistribute ospf',
+      set => 'router bgp #3 ; no redistribute ospf ; redistribute ospf ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute ospf',
       noerr => 'set',
   },
-  'protocols bgp var redistribute ospf metric' => {
-      set => 'router bgp #3 ; redistribute ospf metric #7',
-      del => 'router bgp #3 ; no redistribute ospf metric #7',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute ospf route-map' => {
-      set => 'router bgp #3 ; redistribute ospf route-map #7',
-      del => 'router bgp #3 ; no redistribute ospf route-map #7',
-      noerr => 'set',
-  },
   'protocols bgp var redistribute rip' => {
-      set => 'router bgp #3 ; redistribute rip',
+      set => 'router bgp #3 ; no redistribute rip ; redistribute rip ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute rip',
       noerr => 'set',
   },
-  'protocols bgp var redistribute rip metric' => {
-      set => 'router bgp #3 ; redistribute rip metric #7',
-      del => 'router bgp #3 ; no redistribute rip metric #7',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute rip route-map' => {
-      set => 'router bgp #3 ; redistribute rip route-map #7',
-      del => 'router bgp #3 ; no redistribute rip route-map #7',
-      noerr => 'set',
-  },
   'protocols bgp var redistribute static' => {
-      set => 'router bgp #3 ; redistribute static',
+      set => 'router bgp #3 ; no redistribute static ; redistribute static ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute static',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute static metric' => {
-      set => 'router bgp #3 ; redistribute static metric #7',
-      del => 'router bgp #3 ; no redistribute static metric #7',
-      noerr => 'set',
-  },
-  'protocols bgp var redistribute static route-map' => {
-      set => 'router bgp #3 ; redistribute static route-map #7',
-      del => 'router bgp #3 ; no redistribute static route-map #7',
       noerr => 'set',
   },
   'protocols bgp var timers' => {
