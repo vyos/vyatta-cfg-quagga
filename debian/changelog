@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.111) unstable; urgency=low
+
+  * fix for bug 6293
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 11 Oct 2010 16:24:59 -0700
+
 vyatta-cfg-quagga (0.18.110) unstable; urgency=low
 
   * Bugfix 5545: Update quagga when any prefix-list6 rule element is
