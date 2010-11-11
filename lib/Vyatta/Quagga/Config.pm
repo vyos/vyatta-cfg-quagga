@@ -399,7 +399,7 @@ sub _qtree {
 
           # This is either a set or delete on a single or multi: node
           if ($action eq 'set') {
-            my $tmplhash = $config->parseTmplAll($node);
+            my $tmplhash = $config->parseTmplAll(join ' ', "$level $node");
             if ($tmplhash->{'multi'}) {
               if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
               @vals = $config->returnValues($node);
@@ -410,7 +410,7 @@ sub _qtree {
             }
           }
           else {
-            my $tmplhash = $config->parseTmplAll($node);
+            my $tmplhash = $config->parseTmplAll(join ' ', "$level $node");
             if ($tmplhash->{'multi'}) {
               if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
               @vals = $config->returnOrigValues($node);
