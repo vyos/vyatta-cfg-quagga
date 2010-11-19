@@ -1,4 +1,7 @@
 #!/bin/bash
 
+mkdir -p /etc/commit
+ln -s /opt/vyatta/sbin/vyatta-asn-first-cleanup.pl /etc/commit/vyatta-asn-first-cleanup.pl 2>/dev/null
+
 exit 0
 

@@ -8,8 +8,7 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 		   "AS number must be between 1 and 4294967294"
 
 end: 
-
-if [ "$COMMIT_SIBLING_POSITION" = "FIRST" ] || \
-   [ "$COMMIT_SIBLING_POSITION" = "FIRSTLAST" ] ; then
+if [ ! -f "/tmp/protocols-bgp.$PPID" ]; then
+    touch /tmp/protocols-bgp.$PPID;
     /opt/vyatta/sbin/vyatta-bgp.pl --main
 fi;

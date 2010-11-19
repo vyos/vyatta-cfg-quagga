@@ -11,6 +11,7 @@ sbin_SCRIPTS += scripts/policy/vyatta-check-as-prepend.pl
 sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
+sbin_SCRIPTS += scripts/vyatta-asn-first-cleanup.pl
 
 sbin_PROGRAMS = src/check_prefix_boundary
 
