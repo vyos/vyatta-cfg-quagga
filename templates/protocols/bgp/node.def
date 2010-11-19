@@ -9,7 +9,6 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 
 end: 
 
-if [ "$COMMIT_SIBLING_POSITION" = "FIRST" ] || \
-   [ "$COMMIT_SIBLING_POSITION" = "FIRSTLAST" ] ; then
+if [ "$COMMIT_SIBLING_POSITION" != "LAST" ] ; then
     /opt/vyatta/sbin/vyatta-bgp.pl --main
 fi;
