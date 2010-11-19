@@ -1075,8 +1075,7 @@ sub check_neighbor_ip {
     my $neighbor = shift;
     my $local_ips;
 
-    $local_ips = `ip addr | grep inet`;
-    $local_ips =~ s/\s+inet(6*)\s(\S+)\/.+/$2 /g;
+    $local_ips = join( ' ', getIP() ); 
 
     if ($local_ips =~ /$neighbor/g) {
       die "Can't set neighbor address to local system IP.\n";
