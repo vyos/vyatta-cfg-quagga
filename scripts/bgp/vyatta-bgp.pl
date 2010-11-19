@@ -1070,11 +1070,18 @@ was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
 
 exit 0;
 
-# Make sure the peer IP is properly formatted
+# Make sure the peer IP isn't a local system IP
 sub check_neighbor_ip {
     my $neighbor = shift;
+    my $local_ips;
 
-    exit 1 if ! is_ip_v4_or_v6($neighbor);
+    $local_ips = `ip addr | grep inet`;
+    $local_ips =~ s/\s+inet(6*)\s(\S+)\/.+/$2 /g;
+
+    if ($local_ips =~ /$neighbor/g) {
+      die "Can't set neighbor address to local system IP.\n";
+    }
+    
     exit 0;
 }
 
@@ -1096,7 +1103,7 @@ sub check_peergroup_name {
 }
 
 # Make sure we aren't deleteing a peer-group that has
-# neighbors configured to us it
+# neighbors configured to it
 sub check_for_peer_groups {
     my $config = new Vyatta::Config;
     my $pg     = shift;
