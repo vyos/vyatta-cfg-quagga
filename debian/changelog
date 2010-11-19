@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.117) unstable; urgency=low
+
+  * Need to skip LAST node tag when configuring bgp node, but let all
+    others through.
+
+ -- Michael <mike@vyatta.com>  Fri, 19 Nov 2010 09:24:56 -0800
+
 vyatta-cfg-quagga (0.18.116) unstable; urgency=low
 
   * update to use getIP
