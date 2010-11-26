@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.118) unstable; urgency=low
+
+  * remove deprecated linda override
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 26 Nov 2010 11:09:20 -0800
+
 vyatta-cfg-quagga (0.18.117) unstable; urgency=low
 
   * Need to skip LAST node tag when configuring bgp node, but let all
