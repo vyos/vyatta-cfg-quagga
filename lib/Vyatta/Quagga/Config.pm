@@ -95,26 +95,26 @@ sub returnQuaggaCommands {
 
 # methods to send the commands to Quagga
 sub setConfigTree {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 0, 0, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 0, 0, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub setConfigTreeRecursive {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 0, 1, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 0, 1, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTree {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 1, 0, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 1, 0, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTreeRecursive {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 1, 1, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 1, 1, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
@@ -132,8 +132,14 @@ sub deleteConfigTreeRecursive {
 #        $4 - arrays of strings to skip 
 # output: none, return failure if needed
 sub _setConfigTree {
-  my ($level, $delete, $recurse, @skip_list) = @_;
+  my ($level, $delete, $recurse, $skip, $ordered) = @_;
   my $qcom = $_qcomref;
+  my @com_array = ();
+  my @skip_list = ();
+  my @ordered_list = ();
+
+  if (defined $skip) { @skip_list = @$skip; }
+  if (defined $ordered) { @ordered_list = @$ordered; }
 
   if ((! defined $level)   ||
       (! defined $delete)  ||
@@ -156,11 +162,11 @@ sub _setConfigTree {
     print "\n";
   }
 
-  # This loop walks the list of commands and sends to quagga if appropriate
-  foreach my $key (sort $sortfunc keys %$vtyshref) {
+  # This loop walks the arrays of quagga commands and builds list to send to quagga
+  foreach my $key (keys %$vtyshref) {
     if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
 
-    # skip parameters in skip_list
+    # skip parameters listed in skip_list
     my $found = 0;
     if ((scalar @skip_list) > 0) {
       foreach my $node (@skip_list) {
@@ -180,17 +186,40 @@ sub _setConfigTree {
          (($qcom->{$key}->{'noerr'} eq "set") && (!$delete)))) { $noerr = 1; }
 
     # this conditional matches key to level exactly or if recurse, start of key to level
-    if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
+    if ((($recurse) && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
       my $index = 0;
       foreach my $cmd (@{$vtyshref->{$key}}) {
         if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
-
-        if (! _sendQuaggaCommand("$cmd", "$noerr")) { return 0; }
+        
+        push @com_array, "$cmd  !!??  $noerr";
         # remove this command so we don't hit it again in another Recurse call
         delete ${$vtyshref->{$key}}[$index];
         $index++;
       }
     }
+  }
+
+  # Now let's sort based on ordered_list
+  my $index = 0;
+  while (scalar @ordered_list > 0) {
+    my $prio = shift @ordered_list;
+    my $str = sprintf "%5d", $index;
+    foreach my $line (@com_array) {
+      # add sorting order meta-data to list
+      $line =~ s/$prio/$str\:::$prio/;
+    }
+    $index++;
+  }
+
+  # and now send the commands to quagga
+  foreach my $line (sort $sortfunc @com_array) {
+    my ($command, $noerr);
+
+    # remove the ordered_list sorting meta-data
+    $line =~ s/\s+\d+:::/ /;
+    # split for our noeer info
+    ($command, $noerr) = split /  !!\?\?  /, $line;
+    if (! _sendQuaggaCommand("$command", "$noerr")) { return 0; }
   }
 
   return 1;

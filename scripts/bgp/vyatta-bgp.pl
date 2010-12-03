@@ -1380,46 +1380,17 @@ sub main {
    # and that migrations to/from iBGP eBGP are valid
    check_remote_as();
 
-   # deletes with priority
-   # delete everything in neighbor except for the important nodes
-   my @skip_array = ('remote-as', 'route-map', 'filter-list', 'prefix-list', 'distribute-list', 'unsuppress-map');
+   ## deletes with priority
+   # delete everything in neighbor, ordered nodes last 
+   my @ordered = ('remote-as', 'shutdown', 'route-map', 'prefix-list', 'filter-list', 'distribute-list', 'unsuppress-map');  
    # notice the extra space in the level string.  keeps the parent from being deleted.
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
-   # now delete everything in neighbor except remote-as
-   @skip_array = ('remote-as');
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', @skip_array) || die "exiting $?\n";
-   # now finish off neighbor
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var') || die "exiting $?\n";
-   # now delete everything in peer-group except remote-as
-   @skip_array = ('remote-as');
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ', @skip_array) || die "exiting $?\n";
-   # now finish off peer-group
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ') || die "exiting $?\n";
-   # now delete everything else in the tree
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ', undef, \@ordered) || die "exiting $?\n";
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
-   # sets with priority
+   ## sets with priority
    $qconfig->setConfigTreeRecursive('protocols bgp var parameters') || die "exiting $?\n";
-   $qconfig->setConfigTree('protocols bgp var peer-group var remote-as') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var peer-group') || die "exiting $?\n";
-   $qconfig->setConfigTree('protocols bgp var neighbor var remote-as') || die "exiting $?\n";
-   $qconfig->setConfigTree('protocols bgp var neighbor var peer-group') || die "exiting $?\n";
-   $qconfig->setConfigTree('protocols bgp var neighbor var shutdown') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var route-map') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var filter-list') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var prefix-list') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var distribute-list') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var unsuppress-map') || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor') || die "exiting $?\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp var peer-group', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var ', undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
-
-   # old priorities we are emulating with the above sets
-   #705 protocols bgp var neighbhor shutdown
-   #715 protocols bgp var neighbhor route-map
-   #716 protocols bgp var neighbhor filter-list
-   #717 protocols bgp var neighbhor prefix-list
-   #718 protocols bgp var neighbhor distribute-list
-   #719 protocols bgp var neighbhor unsuppress-map
-   #720 protocols bgp var neighbhor
-   #730 protocols bgp var
 }
