@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.119) unstable; urgency=low
+
+  * fix for bug 6481. change the tree walk order. add support for
+    predefined order walks.
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 02 Dec 2010 17:28:46 -0800
+
 vyatta-cfg-quagga (0.18.118) unstable; urgency=low
 
   * remove deprecated linda override
