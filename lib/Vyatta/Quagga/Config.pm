@@ -63,6 +63,10 @@ sub setDebugLevel {
   return 0;
 }
 
+sub returnDebugLevel {
+  return $_DEBUG;
+}
+
 # reinitialize the vtysh hashes for troublshooting tree
 # walk post object creation
 sub _reInitialize {
@@ -120,6 +124,14 @@ sub deleteConfigTreeRecursive {
 
 ### End Public methods -
 ### Private methods
+sub _pdebug {
+  my ($level, $msg) = @_;
+
+  if (! defined $level) { return 0; }
+  if ($_DEBUG >= $level) { print "DEBUG: $msg\n"; }
+  return 1;
+}
+
 # traverse the set/delete trees and send commands to quagga
 # set traverses from $level in tree top down.  
 # delete traverses from bottom up in tree to $level.
@@ -156,15 +168,11 @@ sub _setConfigTree {
     $sortfunc = \&cmpb;
   }
 
-  if ($_DEBUG >= 3) { 
-    print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: "; 
-    foreach my $key (@skip_list) { print "$key "; }
-    print "\n";
-  }
+  _pdebug(3, "_setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: @skip_list\tordered_list\t@ordered_list");
 
   # This loop walks the arrays of quagga commands and builds list to send to quagga
   foreach my $key (keys %$vtyshref) {
-    if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
+    _pdebug(3, "_setConfigTree - key $key");
 
     # skip parameters listed in skip_list
     my $found = 0;
@@ -172,7 +180,7 @@ sub _setConfigTree {
       foreach my $node (@skip_list) {
         if ($key =~ /$node/) { 
           $found = 1; 
-          if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $node in skip list\n"; }
+          _pdebug(3, "_setConfigTree - key $node in skip list"); 
         }
       }
     }
@@ -189,7 +197,7 @@ sub _setConfigTree {
     if ((($recurse) && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
       my $index = 0;
       foreach my $cmd (@{$vtyshref->{$key}}) {
-        if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
+        _pdebug(2, "_setConfigTree - key: $key \t cmd: $cmd");
         
         push @com_array, "$cmd  !!??  $noerr";
         # remove this command so we don't hit it again in another Recurse call
@@ -240,7 +248,7 @@ sub _sendQuaggaCommand {
   
   my @arg_array = ("$_vtyshexe");
   if ($noerr) { push (@arg_array, '--noerr'); }
-  if ($_DEBUG >= 2) { push (@arg_array, '-E'); }
+  if (returnDebugLevel() >= 2) { push (@arg_array, '-E'); }
   push (@arg_array, '-c');
   push (@arg_array, 'configure terminal');
 
@@ -265,7 +273,7 @@ sub _logger {
 
   push (@logger_cmd, "-i");
   push (@logger_cmd, "-t vyatta-cfg-quagga");
-  if ($_DEBUG) { push (@logger_cmd, "-s"); }
+  if (returnDebugLevel() > 0) { push (@logger_cmd, "-s"); }
   push (@logger_cmd, "@{$error_array} failed: $?");
 
   system(@logger_cmd) == 0 or die "unable to log system error message.";
@@ -282,10 +290,8 @@ sub _qVarReplace {
   my $node = shift;
   my $qcommand = shift;
 
-  if ($_DEBUG >= 2) {
-    print "DEBUG: _qVarReplace entry: node - $node\n";
-    print "DEBUG: _qVarReplace entry: qcommand - $qcommand\n";
-  }
+  _pdebug(2, "_qVarReplace entry: node - $node\n_qVarReplace entry: qcommand - $qcommand");
+
   my @nodes = split /\s/, $node;
   my @qcommands = split /\s/, $qcommand;
 
@@ -324,9 +330,7 @@ sub _qVarReplace {
 
   # remove leading space characters
   $result =~ s/^\s(.+)/$1/;
-  if ($_DEBUG >= 2) {
-    print "DEBUG: _qVarReplace exit: result - $result\n";
-  }
+  _pdebug(2, "_qVarReplace exit: result - $result");
 
   return $result;
 }
@@ -409,12 +413,12 @@ sub _qtree {
 
   } ## end else {
 
-  if ($_DEBUG) { print "DEBUG: _qtree - action: $action\tlevel: $level\n"; }
+  _pdebug(1, "_qtree - action: $action\tlevel: $level");
 
   # traverse the Vyatta config tree and translate to Quagga commands where apropos
   if (@nodes > 0) {
     foreach my $node (@nodes) {
-      if ($_DEBUG >= 2) { print "DEBUG: _qtree - foreach node loop - node $node\n"; }
+      _pdebug(2, "_qtree - foreach node loop - node $node");
 
       # for set action, need to check that the node was actually changed.  Otherwise
       # we end up re-writing every node to Quagga every commit, which is bad. Mmm' ok?
@@ -432,22 +436,22 @@ sub _qtree {
           if ($action eq 'set') {
             my $tmplhash = $config->parseTmplAll($node);
             if ($tmplhash->{'multi'}) {
-              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              _pdebug(2, "multi");
               @vals = $config->returnValues($node);
             }
             else {
-              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              _pdebug(2, "not a multi");
               $vals[0] = $config->returnValue($node);
             }
           }
           else {
             my $tmplhash = $config->parseTmplAll($node);
             if ($tmplhash->{'multi'}) {
-              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              _pdebug(2, "multi"); 
               @vals = $config->returnOrigValues($node);
             }
             else {
-              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              _pdebug(2, "not a multi");
               $vals[0] = $config->returnOrigValue($node);
             }
           }
@@ -457,18 +461,14 @@ sub _qtree {
             foreach my $val (@vals) {
               my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
               push @{$vtysh->{"$qcommand"}}, "$level $node $val  !!!???  $var";
-              if ($_DEBUG) {
-                print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
-              }
+              _pdebug(1, "_qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var");
             }
           }
 
           else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, "$level $node  !!!???  $var";
-            if ($_DEBUG) {
-              print "DEBUG: _qtree node command: set $level $action $node \n\t\t\t\t$var\n";
-            }
+            _pdebug(1, "_qtree node command: set $level $action $node \n\t\t\t\t$var");
           }
         }
       }
