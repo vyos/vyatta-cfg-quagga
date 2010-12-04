@@ -213,12 +213,14 @@ sub _setConfigTree {
 
   # and now send the commands to quagga
   foreach my $line (sort $sortfunc @com_array) {
-    my ($command, $noerr);
+    my ($order, $command, $noerr);
 
     # remove the ordered_list sorting meta-data
     $line =~ s/\s+\d+:::/ /;
+    # remove the sort order prepend
+    ($order, $command) = split /  !!!\?\?\?  /, $line;
     # split for our noeer info
-    ($command, $noerr) = split /  !!\?\?  /, $line;
+    ($command, $noerr) = split /  !!\?\?  /, $command;
     if (! _sendQuaggaCommand("$command", "$noerr")) { return 0; }
   }
 
@@ -454,7 +456,7 @@ sub _qtree {
           if (defined $vals[0]) {
             foreach my $val (@vals) {
               my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
-              push @{$vtysh->{"$qcommand"}}, $var;
+              push @{$vtysh->{"$qcommand"}}, "$level $node $val  !!!???  $var";
               if ($_DEBUG) {
                 print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
               }
@@ -463,7 +465,7 @@ sub _qtree {
 
           else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
-            push @{$vtysh->{"$qcommand"}}, $var;
+            push @{$vtysh->{"$qcommand"}}, "$level $node  !!!???  $var";
             if ($_DEBUG) {
               print "DEBUG: _qtree node command: set $level $action $node \n\t\t\t\t$var\n";
             }
