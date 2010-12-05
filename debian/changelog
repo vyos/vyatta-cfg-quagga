@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.121) unstable; urgency=low
+
+  * clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Sat, 04 Dec 2010 17:43:41 -0800
+
 vyatta-cfg-quagga (0.18.120) unstable; urgency=low
 
   * fix ordering for non-consistent commands
