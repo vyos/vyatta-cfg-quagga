@@ -82,7 +82,7 @@ sub _reInitialize {
 sub returnQuaggaCommands {
   my ($self, $arrayref) = @_; 
 
-  foreach my $key (sort { $b cmp $a } keys %_vtyshdel) {
+  foreach my $key (reverse sort keys %_vtyshdel) {
     foreach my $string (@{$_vtyshdel{$key}}) {
       push @{$arrayref}, "$string";
     }
@@ -141,7 +141,8 @@ sub _pdebug {
 # input: $1 - level of the tree to start at
 #        $2 - delete bool
 #        $3 - recursive bool
-#        $4 - arrays of strings to skip 
+#        $4 - array of strings to skip 
+#        $5 - array of strings to order the input to quagga
 # output: none, return failure if needed
 sub _setConfigTree {
   my ($level, $delete, $recurse, $skip, $ordered) = @_;
@@ -168,7 +169,7 @@ sub _setConfigTree {
     $sortfunc = \&cmpb;
   }
 
-  _pdebug(3, "_setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: @skip_list\tordered_list\t@ordered_list");
+  _pdebug(3, "_setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: @skip_list\tordered_list: @ordered_list");
 
   # This loop walks the arrays of quagga commands and builds list to send to quagga
   foreach my $key (keys %$vtyshref) {
@@ -199,7 +200,7 @@ sub _setConfigTree {
       foreach my $cmd (@{$vtyshref->{$key}}) {
         _pdebug(2, "_setConfigTree - key: $key \t cmd: $cmd");
         
-        push @com_array, "$cmd  !!??  $noerr";
+        push @com_array, "$cmd  \036  $noerr";
         # remove this command so we don't hit it again in another Recurse call
         delete ${$vtyshref->{$key}}[$index];
         $index++;
@@ -225,10 +226,8 @@ sub _setConfigTree {
 
     # remove the ordered_list sorting meta-data
     $line =~ s/\s+\d+:::/ /;
-    # remove the sort order prepend
-    ($order, $command) = split /  !!!\?\?\?  /, $line;
-    # split for our noeer info
-    ($command, $noerr) = split /  !!\?\?  /, $command;
+    # split our commands into individual components
+    ($order, $command, $noerr) = split /  \036  /, $line;
     if (! _sendQuaggaCommand("$command", "$noerr")) { return 0; }
   }
 
@@ -460,14 +459,14 @@ sub _qtree {
           if (defined $vals[0]) {
             foreach my $val (@vals) {
               my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
-              push @{$vtysh->{"$qcommand"}}, "$level $node $val  !!!???  $var";
+              push @{$vtysh->{"$qcommand"}}, "$level $node $val  \036  $var";
               _pdebug(1, "_qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var");
             }
           }
 
           else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
-            push @{$vtysh->{"$qcommand"}}, "$level $node  !!!???  $var";
+            push @{$vtysh->{"$qcommand"}}, "$level $node  \036  $var";
             _pdebug(1, "_qtree node command: set $level $action $node \n\t\t\t\t$var");
           }
         }
