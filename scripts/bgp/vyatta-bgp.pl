@@ -1073,13 +1073,9 @@ exit 0;
 # Make sure the peer IP isn't a local system IP
 sub check_neighbor_ip {
     my $neighbor = shift;
-    my $local_ips;
 
-    $local_ips = join( ' ', getIP() ); 
-
-    if ($local_ips =~ /$neighbor/g) {
-      die "Can't set neighbor address to local system IP.\n";
-    }
+    die "Can't set neighbor address to local system IP.\n"
+	if (is_local_address($neighbor));
     
     exit 0;
 }
