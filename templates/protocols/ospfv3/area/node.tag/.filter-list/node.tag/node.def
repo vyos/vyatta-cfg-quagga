@@ -1,6 +1,6 @@
 tag:
 type: txt
-help: Set direction of filter (in|out)
+help: Direction of filter (in|out)
 allowed: echo "in out"
 create:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf6 \" \
