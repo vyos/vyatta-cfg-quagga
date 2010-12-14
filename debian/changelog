@@ -1,3 +1,18 @@
+vyatta-cfg-quagga (0.18.100+larkspur14) unstable; urgency=low
+
+  [ Michael Larson ]
+  * better solution for mendocino--removes patch from larkspur.
+  * pkg-release picks up changes outside of current branch apparently...
+
+  [ Robert Bays ]
+  * fix for bug 6481. change the tree walk order. add support for
+    predefined order walks.
+  * fix ordering for non-consistent commands
+  * add debug function to clean up code
+  * clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 14 Dec 2010 11:21:37 -0800
+
 vyatta-cfg-quagga (0.18.100+larkspur13) unstable; urgency=low
 
   * fix for bug 6293
