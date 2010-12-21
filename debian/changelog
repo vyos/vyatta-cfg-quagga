@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.123) unstable; urgency=low
+
+  * Fix help text
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 21 Dec 2010 13:42:33 -0800
+
 vyatta-cfg-quagga (0.18.122) unstable; urgency=low
 
   * Fix check for local IP address
