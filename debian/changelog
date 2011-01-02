@@ -1,3 +1,72 @@
+vyatta-cfg-quagga (0.18.123+mendocino1) unstable; urgency=low
+
+  * new branch
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 28 Dec 2010 20:35:32 +0000
+
+vyatta-cfg-quagga (0.18.123) unstable; urgency=low
+
+  * Fix help text
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 21 Dec 2010 13:42:33 -0800
+
+vyatta-cfg-quagga (0.18.122) unstable; urgency=low
+
+  * Fix check for local IP address
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 06 Dec 2010 16:46:58 -0800
+
+vyatta-cfg-quagga (0.18.121) unstable; urgency=low
+
+  * clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Sat, 04 Dec 2010 17:43:41 -0800
+
+vyatta-cfg-quagga (0.18.120) unstable; urgency=low
+
+  * fix ordering for non-consistent commands
+  * add debug function to clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 03 Dec 2010 17:57:58 -0800
+
+vyatta-cfg-quagga (0.18.119) unstable; urgency=low
+
+  * fix for bug 6481. change the tree walk order. add support for
+    predefined order walks.
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 02 Dec 2010 17:28:46 -0800
+
+vyatta-cfg-quagga (0.18.118) unstable; urgency=low
+
+  * remove deprecated linda override
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 26 Nov 2010 11:09:20 -0800
+
+vyatta-cfg-quagga (0.18.117) unstable; urgency=low
+
+  * Need to skip LAST node tag when configuring bgp node, but let all
+    others through.
+
+ -- Michael <mike@vyatta.com>  Fri, 19 Nov 2010 09:24:56 -0800
+
+vyatta-cfg-quagga (0.18.116) unstable; urgency=low
+
+  * update to use getIP
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 19 Nov 2010 11:33:57 -0800
+
+vyatta-cfg-quagga (0.18.115) unstable; urgency=low
+
+  * fix bug 6430
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 18 Nov 2010 17:51:29 -0800
+
+vyatta-cfg-quagga (0.18.114) unstable; urgency=low
+
+  * fix for 6069
+
+ -- Michael Larson <mike@vyatta.com>  Thu, 18 Nov 2010 16:48:11 -0800
+
 vyatta-cfg-quagga (0.18.113) unstable; urgency=low
 
   * Revert "Looks like merge with larkspur missed this..."

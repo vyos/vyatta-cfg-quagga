@@ -63,6 +63,10 @@ sub setDebugLevel {
   return 0;
 }
 
+sub returnDebugLevel {
+  return $_DEBUG;
+}
+
 # reinitialize the vtysh hashes for troublshooting tree
 # walk post object creation
 sub _reInitialize {
@@ -78,7 +82,7 @@ sub _reInitialize {
 sub returnQuaggaCommands {
   my ($self, $arrayref) = @_; 
 
-  foreach my $key (sort { $b cmp $a } keys %_vtyshdel) {
+  foreach my $key (reverse sort keys %_vtyshdel) {
     foreach my $string (@{$_vtyshdel{$key}}) {
       push @{$arrayref}, "$string";
     }
@@ -95,31 +99,39 @@ sub returnQuaggaCommands {
 
 # methods to send the commands to Quagga
 sub setConfigTree {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 0, 0, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 0, 0, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub setConfigTreeRecursive {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 0, 1, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 0, 1, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTree {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 1, 0, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 1, 0, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 sub deleteConfigTreeRecursive {
-  my ($self, $level, @skip_list) = @_;
-  if (_setConfigTree($level, 1, 1, @skip_list)) { return 1; }
+  my ($self, $level, $skip_list, $ordered_list) = @_;
+  if (_setConfigTree($level, 1, 1, $skip_list, $ordered_list)) { return 1; }
   return 0;
 }
 
 ### End Public methods -
 ### Private methods
+sub _pdebug {
+  my ($level, $msg) = @_;
+
+  if (! defined $level) { return 0; }
+  if ($_DEBUG >= $level) { print "DEBUG: $msg\n"; }
+  return 1;
+}
+
 # traverse the set/delete trees and send commands to quagga
 # set traverses from $level in tree top down.  
 # delete traverses from bottom up in tree to $level.
@@ -129,11 +141,18 @@ sub deleteConfigTreeRecursive {
 # input: $1 - level of the tree to start at
 #        $2 - delete bool
 #        $3 - recursive bool
-#        $4 - arrays of strings to skip 
+#        $4 - array of strings to skip 
+#        $5 - array of strings to order the input to quagga
 # output: none, return failure if needed
 sub _setConfigTree {
-  my ($level, $delete, $recurse, @skip_list) = @_;
+  my ($level, $delete, $recurse, $skip, $ordered) = @_;
   my $qcom = $_qcomref;
+  my @com_array = ();
+  my @skip_list = ();
+  my @ordered_list = ();
+
+  if (defined $skip) { @skip_list = @$skip; }
+  if (defined $ordered) { @ordered_list = @$ordered; }
 
   if ((! defined $level)   ||
       (! defined $delete)  ||
@@ -150,23 +169,19 @@ sub _setConfigTree {
     $sortfunc = \&cmpb;
   }
 
-  if ($_DEBUG >= 3) { 
-    print "DEBUG: _setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: "; 
-    foreach my $key (@skip_list) { print "$key "; }
-    print "\n";
-  }
+  _pdebug(3, "_setConfigTree - enter - level: $level\tdelete: $delete\trecurse: $recurse\tskip: @skip_list\tordered_list: @ordered_list");
 
-  # This loop walks the list of commands and sends to quagga if appropriate
-  foreach my $key (sort $sortfunc keys %$vtyshref) {
-    if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $key\n"; }
+  # This loop walks the arrays of quagga commands and builds list to send to quagga
+  foreach my $key (keys %$vtyshref) {
+    _pdebug(3, "_setConfigTree - key $key");
 
-    # skip parameters in skip_list
+    # skip parameters listed in skip_list
     my $found = 0;
     if ((scalar @skip_list) > 0) {
       foreach my $node (@skip_list) {
         if ($key =~ /$node/) { 
           $found = 1; 
-          if ($_DEBUG >= 3) { print "DEBUG: _setConfigTree - key $node in skip list\n"; }
+          _pdebug(3, "_setConfigTree - key $node in skip list"); 
         }
       }
     }
@@ -180,17 +195,40 @@ sub _setConfigTree {
          (($qcom->{$key}->{'noerr'} eq "set") && (!$delete)))) { $noerr = 1; }
 
     # this conditional matches key to level exactly or if recurse, start of key to level
-    if ((($recurse)   && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
+    if ((($recurse) && ($key =~ /^$level/)) || ((! $recurse) && ($key =~ /^$level$/))) {
       my $index = 0;
       foreach my $cmd (@{$vtyshref->{$key}}) {
-        if ($_DEBUG >= 2) { print "DEBUG: _setConfigTree - key: $key \t cmd: $cmd\n"; }
-
-        if (! _sendQuaggaCommand("$cmd", "$noerr")) { return 0; }
+        _pdebug(2, "_setConfigTree - key: $key \t cmd: $cmd");
+        
+        push @com_array, "$cmd  \036  $noerr";
         # remove this command so we don't hit it again in another Recurse call
         delete ${$vtyshref->{$key}}[$index];
         $index++;
       }
     }
+  }
+
+  # Now let's sort based on ordered_list
+  my $index = 0;
+  while (scalar @ordered_list > 0) {
+    my $prio = shift @ordered_list;
+    my $str = sprintf "%5d", $index;
+    foreach my $line (@com_array) {
+      # add sorting order meta-data to list
+      $line =~ s/$prio/$str\:::$prio/;
+    }
+    $index++;
+  }
+
+  # and now send the commands to quagga
+  foreach my $line (sort $sortfunc @com_array) {
+    my ($order, $command, $noerr);
+
+    # remove the ordered_list sorting meta-data
+    $line =~ s/\s+\d+:::/ /;
+    # split our commands into individual components
+    ($order, $command, $noerr) = split /  \036  /, $line;
+    if (! _sendQuaggaCommand("$command", "$noerr")) { return 0; }
   }
 
   return 1;
@@ -209,7 +247,7 @@ sub _sendQuaggaCommand {
   
   my @arg_array = ("$_vtyshexe");
   if ($noerr) { push (@arg_array, '--noerr'); }
-  if ($_DEBUG >= 2) { push (@arg_array, '-E'); }
+  if (returnDebugLevel() >= 2) { push (@arg_array, '-E'); }
   push (@arg_array, '-c');
   push (@arg_array, 'configure terminal');
 
@@ -234,7 +272,7 @@ sub _logger {
 
   push (@logger_cmd, "-i");
   push (@logger_cmd, "-t vyatta-cfg-quagga");
-  if ($_DEBUG) { push (@logger_cmd, "-s"); }
+  if (returnDebugLevel() > 0) { push (@logger_cmd, "-s"); }
   push (@logger_cmd, "@{$error_array} failed: $?");
 
   system(@logger_cmd) == 0 or die "unable to log system error message.";
@@ -251,10 +289,8 @@ sub _qVarReplace {
   my $node = shift;
   my $qcommand = shift;
 
-  if ($_DEBUG >= 2) {
-    print "DEBUG: _qVarReplace entry: node - $node\n";
-    print "DEBUG: _qVarReplace entry: qcommand - $qcommand\n";
-  }
+  _pdebug(2, "_qVarReplace entry: node - $node\n_qVarReplace entry: qcommand - $qcommand");
+
   my @nodes = split /\s/, $node;
   my @qcommands = split /\s/, $qcommand;
 
@@ -293,9 +329,7 @@ sub _qVarReplace {
 
   # remove leading space characters
   $result =~ s/^\s(.+)/$1/;
-  if ($_DEBUG >= 2) {
-    print "DEBUG: _qVarReplace exit: result - $result\n";
-  }
+  _pdebug(2, "_qVarReplace exit: result - $result");
 
   return $result;
 }
@@ -378,12 +412,12 @@ sub _qtree {
 
   } ## end else {
 
-  if ($_DEBUG) { print "DEBUG: _qtree - action: $action\tlevel: $level\n"; }
+  _pdebug(1, "_qtree - action: $action\tlevel: $level");
 
   # traverse the Vyatta config tree and translate to Quagga commands where apropos
   if (@nodes > 0) {
     foreach my $node (@nodes) {
-      if ($_DEBUG >= 2) { print "DEBUG: _qtree - foreach node loop - node $node\n"; }
+      _pdebug(2, "_qtree - foreach node loop - node $node");
 
       # for set action, need to check that the node was actually changed.  Otherwise
       # we end up re-writing every node to Quagga every commit, which is bad. Mmm' ok?
@@ -401,22 +435,22 @@ sub _qtree {
           if ($action eq 'set') {
             my $tmplhash = $config->parseTmplAll($node);
             if ($tmplhash->{'multi'}) {
-              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              _pdebug(2, "multi");
               @vals = $config->returnValues($node);
             }
             else {
-              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              _pdebug(2, "not a multi");
               $vals[0] = $config->returnValue($node);
             }
           }
           else {
             my $tmplhash = $config->parseTmplAll($node);
             if ($tmplhash->{'multi'}) {
-              if ($_DEBUG > 2) { print "DEBUG: multi\n"; }
+              _pdebug(2, "multi"); 
               @vals = $config->returnOrigValues($node);
             }
             else {
-              if ($_DEBUG > 2) { print "DEBUG: not a multi\n"; }
+              _pdebug(2, "not a multi");
               $vals[0] = $config->returnOrigValue($node);
             }
           }
@@ -425,19 +459,15 @@ sub _qtree {
           if (defined $vals[0]) {
             foreach my $val (@vals) {
               my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
-              push @{$vtysh->{"$qcommand"}}, $var;
-              if ($_DEBUG) {
-                print "DEBUG: _qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var\n";
-              }
+              push @{$vtysh->{"$qcommand"}}, "$level $node $val  \036  $var";
+              _pdebug(1, "_qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var");
             }
           }
 
           else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
-            push @{$vtysh->{"$qcommand"}}, $var;
-            if ($_DEBUG) {
-              print "DEBUG: _qtree node command: set $level $action $node \n\t\t\t\t$var\n";
-            }
+            push @{$vtysh->{"$qcommand"}}, "$level $node  \036  $var";
+            _pdebug(1, "_qtree node command: set $level $action $node \n\t\t\t\t$var");
           }
         }
       }

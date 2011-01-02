@@ -1,4 +1,4 @@
 tag:
 type: txt
-help: Set direction of filter (in|out)
+help: Direction of filter (in|out)
 allowed: echo "in out"
