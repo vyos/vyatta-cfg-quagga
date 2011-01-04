@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.18.123+mendocino3) unstable; urgency=low
+
+  * ZRevert "Fix "no interface".  Need space before ';'"
+  * Revert "OSPFv3 templates replaced to correspond new backend"
+  * Revert "Modified automake rules to consider vyatta-ospfv3.pl"
+  * Revert "Added OSPFv3 CLI backend that uses Vyatta::Quagga::Config"
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 04 Jan 2011 14:10:01 -0800
+
 vyatta-cfg-quagga (0.18.123+mendocino2) unstable; urgency=low
 
   [ Daniil Baturin ]
