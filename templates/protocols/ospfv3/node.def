@@ -1,3 +1,4 @@
 priority: 640
 help: IPv6 Open Shortest Path First protocol (OSPFv3) parameters
-end: ${vyatta_sbindir}/vyatta-ospfv3.pl --main
+create: vtysh -c "configure terminal" -c "router ospf6"
+delete: vtysh -c "configure terminal" -c "no router ospf6"

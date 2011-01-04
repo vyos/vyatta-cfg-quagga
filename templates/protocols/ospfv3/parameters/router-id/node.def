@@ -1,2 +1,5 @@
 type: ipv4
 help: Router identifier
+update:expression: "vtysh -c \"configure terminal\" \
+           -c \"router ospf6\" \
+           -c \"router-id $VAR(@)\" "
