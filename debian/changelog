@@ -1,3 +1,20 @@
+vyatta-cfg-quagga (0.18.123+mendocino2) unstable; urgency=low
+
+  [ Daniil Baturin ]
+  * Added OSPFv3 CLI backend that uses Vyatta::Quagga::Config
+  * Modified automake rules to consider vyatta-ospfv3.pl
+  * OSPFv3 templates replaced to correspond new backend
+
+  [ Stig Thormodsrud ]
+  * Fix "no interface".  Need space before ';'
+
+  [ Daniil Baturin ]
+  * Fixed a typo in prefix-list6 completion
+
+  [ Stig Thormodsrud ]
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 04 Jan 2011 13:54:09 -0800
+
 vyatta-cfg-quagga (0.18.123+mendocino1) unstable; urgency=low
 
   * new branch
