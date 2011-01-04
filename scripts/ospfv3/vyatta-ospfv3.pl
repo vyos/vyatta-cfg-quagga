@@ -15,7 +15,7 @@
 # General Public License for more details.
 # 
 # This code was originally developed by Vyatta, Inc.
-# Portions created by Vyatta are Copyright (C) 2010 Vyatta, Inc.
+# Portions created by Vyatta are Copyright (C) 2006, 2007, 2008 Vyatta, Inc.
 # All Rights Reserved.
 # **** End License ****
 
@@ -72,7 +72,7 @@ my %quagga_commands = (
     del => 'router ospf6 ; no area #4 range #6 not-advertise'
   },
   'protocols ospfv3 area var interface' => {
-    set => 'router ospf6 ; no interface #6 area #4 ; interface #6 area #4',
+    set => 'router ospf6 ; no interface #6 area #4; interface #6 area #4',
     del => 'router ospf6 ; no interface #6 area #4',
     noerr => 'set'
   },
