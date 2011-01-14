@@ -1270,7 +1270,7 @@ sub confed_iBGP_ASN {
 
     #my @neighbors = $config->listNodes('neighbor');
     my @neighbors = $config->listOrigNodes('neighbor');
-    foreach $neighbor (@neighbors) {
+    foreach my $neighbor (@neighbors) {
       my $remoteas = $config->returnValue("neighbor $neighbor remote-as");
       if ("$testas" eq "$remoteas") {
         exit 1;
