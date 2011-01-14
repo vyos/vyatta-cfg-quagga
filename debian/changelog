@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.123+mendocino4) unstable; urgency=low
+
+  * fix for bug 6070
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 14 Jan 2011 14:36:44 -0800
+
 vyatta-cfg-quagga (0.18.123+mendocino3) unstable; urgency=low
 
   * ZRevert "Fix "no interface".  Need space before ';'"
