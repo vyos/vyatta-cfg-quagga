@@ -1,3 +1,17 @@
+vyatta-cfg-quagga (0.18.125) unstable; urgency=low
+
+  [ Daniil Baturin ]
+  * Fixed a typo in prefix-list6 completion
+
+  [ Robert Bays ]
+  * silence the perl critic
+
+  [ Mohit Mehta ]
+  * Parital fix for bug 6759 serial packages are incorrectly included in
+    virt ISO
+
+ -- Mohit Mehta <mohit@vyatta.com>  Wed, 02 Feb 2011 12:15:47 -0800
+
 vyatta-cfg-quagga (0.18.124) unstable; urgency=low
 
   * new branch
