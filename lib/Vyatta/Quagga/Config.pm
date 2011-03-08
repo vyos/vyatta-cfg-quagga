@@ -356,12 +356,12 @@ sub _qCommandFind {
     if    (exists $qcom->{$token}->{$action})            { $command = $token; }
     elsif (exists $qcom->{"$command $token"}->{$action}) { $command = "$command $token"; }
     elsif (exists $qcom->{"$command var"}->{$action})    { $command = "$command var"; }
-    else { return undef; }
+    else { return; }
   }
 
   # return hash key if Quagga command template string is found
   if (defined $qcom->{$command}->{$action}) { return $command; }
-  else { return undef; }
+  else { return; }
 }
 
 # translate the adds/changes in a Vyatta config tree into Quagga vtysh commands.
