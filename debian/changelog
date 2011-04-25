@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.126) unstable; urgency=low
+
+  * Fix perl critic warnings
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 25 Apr 2011 10:00:34 -0700
+
 vyatta-cfg-quagga (0.18.125) unstable; urgency=low
 
   [ Daniil Baturin ]
