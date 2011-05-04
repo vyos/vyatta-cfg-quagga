@@ -1,8 +1,2 @@
 type: ipv4
 help: Override the default router identifier
-update:expression: "vtysh -c \"configure terminal\" \
-           -c \"router ospf\" \
-           -c \"ospf router-id $VAR(@)\" "
-delete:expression: "vtysh -c \"configure terminal\" \
-           -c \"router ospf\" \
-           -c \"no ospf router-id \" "
