@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.127) unstable; urgency=low
+
+  * changes for new commit
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 10 May 2011 09:29:23 +0800
+
 vyatta-cfg-quagga (0.18.126) unstable; urgency=low
 
   * Fix perl critic warnings
