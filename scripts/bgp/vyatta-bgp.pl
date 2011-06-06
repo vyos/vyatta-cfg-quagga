@@ -1434,7 +1434,7 @@ sub main
    # my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
 
    # debug routines
-   $qconfig->setDebugLevel('3');
+   #$qconfig->setDebugLevel('3');
    #$qconfig->_reInitialize();
 
    # check that all changed neighbors have a proper remote-as or peer-group defined
