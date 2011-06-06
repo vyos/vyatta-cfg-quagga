@@ -122,6 +122,18 @@ sub deleteConfigTreeRecursive {
   return 0;
 }
 
+# Explicitly re-add an unchanged node to the list to be re-inserted into Quagga
+# Note that this method is not recursive!
+sub reInsertNode
+{
+	my ($self, $level) = @_;
+
+	_pdebug(1, "_reAddNode: level: $level");
+	if (! _qtree("$level", 'oneshot')) {
+		return 0;
+	}
+}
+
 ### End Public methods -
 ### Private methods
 sub _pdebug {
@@ -289,7 +301,8 @@ sub _qVarReplace {
   my $node = shift;
   my $qcommand = shift;
 
-  _pdebug(2, "_qVarReplace entry: node - $node\n_qVarReplace entry: qcommand - $qcommand");
+  _pdebug(2, "_qVarReplace entry: node - $node");
+  _pdebug(2, "_qVarReplace entry: qcommand - $qcommand");
 
   my @nodes = split /\s/, $node;
   my @qcommands = split /\s/, $qcommand;
@@ -367,34 +380,39 @@ sub _qCommandFind {
 # translate the adds/changes in a Vyatta config tree into Quagga vtysh commands.
 # recursively walks the tree.  
 # input:  $1 - the level of the Vyatta config tree to start at
-#         $2 - the action (set|delete)
+#			   ex: protocols bgp 1 neighbor 1.1.1.1 remote-as 10
+#         $2 - the action (set|delete|oneshot)
 # output: none - creates the %vtysh that contains the Quagga add commands
 sub _qtree {
   my ($level, $action) = @_;
   my @nodes;
-  my ($qcom, $vtysh);
-
-  $qcom = $_qcomref;
-  
-  # Would love to reference a global config and just reset Levels,
-  # but Vyatta::Config isn't recursion safe.
+  my $oneshot = 0;
+  my $qcom = $_qcomref;
+  my $vtysh = \%_vtysh;
   my $config = new Vyatta::Config;
   $config->setLevel($level);
-
-  # setup references for set or delete action
-  if ($action eq 'set') {
-    $vtysh = \%_vtysh;
+  
+  # setup data structures and references for various action types
+  if ($action eq 'oneshot') {
+	# split the last parameter out of the level string
+	$level =~ s/\s+/ /g;
+	my $index = rindex($level, " ");
+	my $node = substr($level, $index + 1);
+	$level = substr($level, 0, (-1 * length($node)));
+	chop $level;
+	$config->setLevel($level);
+	push @nodes, $node;
+	$action = 'set';
+	$oneshot = 1;
+  } elsif ($action eq 'set') {
     @nodes = $config->listNodes();
-  }
-  else {
+  } else {
     $vtysh = \%_vtyshdel;
     @nodes = $config->listDeleted();
 
     # handle special case for multi-nodes values being deleted
-    # listDeleted() doesn't return the node as deleted if it is a multi
-    # unless all values are deleted.
-    # TODO: fix listDeleted() in Config.pm
-    # This is really, really fugly.
+    # listDeleted() doesn't return the node as being deleted if 
+    # it is a multi unless all values are deleted.  This is suboptimal.
     my @all_nodes = $config->listNodes();
     foreach my $node (@all_nodes) {
       my @array = split /\s+/, $level;
@@ -409,7 +427,6 @@ sub _qtree {
         }
       }
     }
-
   } ## end else {
 
   _pdebug(1, "_qtree - action: $action\tlevel: $level");
@@ -420,8 +437,9 @@ sub _qtree {
       _pdebug(2, "_qtree - foreach node loop - node $node");
 
       # for set action, need to check that the node was actually changed.  Otherwise
-      # we end up re-writing every node to Quagga every commit, which is bad. Mmm' ok?
-      if (($action eq 'del') || ($config->isChanged("$node"))) {
+      # we end up re-writing every node to Quagga every commit.  For the other action
+      # types, just do it. 
+      if ($config->isChanged("$node") || ($action eq 'del') || $oneshot) {
         # is there a Quagga command template?
         # TODO: need to add function reference support to qcom hash for complicated nodes
         my $qcommand = _qCommandFind("$level $node", $action, $qcom);
@@ -460,20 +478,21 @@ sub _qtree {
             foreach my $val (@vals) {
               my $var = _qVarReplace("$level $node $val", $qcom->{$qcommand}->{$action});
               push @{$vtysh->{"$qcommand"}}, "$level $node $val  \036  $var";
-              _pdebug(1, "_qtree leaf node command: set $level $action $node $val \n\t\t\t\t\t$var");
+              _pdebug(1, "_qtree leaf node command: $action $level $node $val \n\t\t\t\t\t$var");
             }
-          }
-
-          else {
+          } else {
             my $var = _qVarReplace("$level $node", $qcom->{$qcommand}->{$action});
             push @{$vtysh->{"$qcommand"}}, "$level $node  \036  $var";
-            _pdebug(1, "_qtree node command: set $level $action $node \n\t\t\t\t$var");
+            _pdebug(1, "_qtree node command: $action $level $node \n\t\t\t\t$var");
           }
         }
       }
+      
       # recurse to next level in tree
-      _qtree("$level $node", 'del');
-      _qtree("$level $node", 'set');
+      if (! $oneshot) {
+      	_qtree("$level $node", 'del');
+      	_qtree("$level $node", 'set');
+ 	  }
     }
   }
 
