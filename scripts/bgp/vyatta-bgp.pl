@@ -228,6 +228,11 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
+  'protocols bgp var neighbor var address-family ipv6-unicast peer-group' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 peer-group #9',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 peer-group #9 ; neighbor #5 activate',
+      noerr => 'del',
+  },
   'protocols bgp var neighbor var address-family ipv6-unicast prefix-list' => {
       set => undef,
       del => undef,
@@ -1168,66 +1173,80 @@ sub bgp_type_change {
     }
 }
 
-# delete a neighbor from a peer-group
-sub neighborFromPeerGroup
+sub checkBannedPeerGroupParameters
 {
-	my ($level) = @_;
-
-	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability orf', 
-							'disable-connected-check', 'distribute-list import', 
-							'disable-capability-negotiation', 'ebgp-multihop', 'filter-list import', 
-							'maximum-prefix', 'override-capability', 'passive', 'password', 'port', 
-							'prefix-list import', 'route-map import', 'shutdown', 
-							'soft-reconfiguration inbound', 'strict-capability-match',
-							'update-source', 'weight');
-
-	my $config = new Vyatta::Config;
-    $config->setLevel("protocols bgp $level");
-    
-	# make sure to re-add the overwrite nodes if they exist.
-	foreach my $node (@overwritelist) {
-		if ($config->exists($node)) {
-			$qconfig->reInsertNode("protocols bgp $level $node");
-		}
+	my ($level, $protocol) = @_;
+	unless ($protocol == 4 || $protocol == 6) {
+		return -1;
 	}
-}
-
-# add a neighbor to a peer-group
-sub neighborToPeerGroup
-{
-	my ($level) = @_;
 	
 	my @bannedlist = ('advertisement-interval', 'attribute-unchanged', 'capability orf',
 						'default-originate', 'distribute-list export', 'filter-list export',
-						'local-as', 'nexthop-self', 'prefix-list export', 'remove-private-as',
+						'nexthop-self', 'prefix-list export', 'remove-private-as',
 						'route-map export', 'route-reflector-client', 'route-server-client',
 						'disable-send-community', 'timers', 'ttl-security', 'unsuppress-map');
-						
-	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability orf', 
-							'disable-connected-check', 'distribute-list import', 
-							'disable-capability-negotiation', 'ebgp-multihop', 'filter-list import', 
-							'maximum-prefix', 'override-capability', 'passive', 'password', 'port', 
-							'prefix-list import', 'route-map import', 'shutdown', 
-							'soft-reconfiguration inbound', 'strict-capability-match',
-							'update-source', 'weight');
+	
+	my @globalbannedlist = ('local-as');
+	
+	my $config = new Vyatta::Config;
+    $config->setLevel("protocols bgp $level");
+
+	foreach my $node (@globalbannedlist) {
+		if ($config->exists($node)) {
+			print "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
+			exit 1;
+		}
+	}
+	if ($protocol == 6) {
+		$config->setLevel("protocols bgp $level address-family ipv6-unicast");
+	}	
+	foreach my $node (@bannedlist) {
+		if ($config->exists($node)) {
+			print "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
+			exit 1;
+		}
+	}
+	return 1;
+}
+
+sub checkOverwritePeerGroupParameters
+{
+	my ($level, $protocol) = @_;
+	my $ret = 0;
+	
+	unless ($protocol == 4 || $protocol == 6) {
+		return -1;
+	}
+	
+	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 
+							'distribute-list import', 'filter-list import', 'maximum-prefix', 
+							'port', 'prefix-list import', 'route-map import', 
+							'soft-reconfiguration inbound', 'strict-capability-match');
+							
+	my @globaloverwritelist = ('disable-capability-negotiation', 'disable-connected-check',
+								'ebgp-multihop', 'override-capability', 'passive', 'password',
+								'shutdown', 'update-source', 'weight');
 
 	my $config = new Vyatta::Config;
     $config->setLevel("protocols bgp $level");
 
-	# first check that the neighbor doesn't contain anything in the bannedlist
-	foreach my $node (@bannedlist) {
+	foreach my $node (@globaloverwritelist) {
 		if ($config->exists($node)) {
-			print "[ protocols bgp $level ]\n  parameter $node is incompatible with neighbors in a peer-group\n";
-			exit 1;
+			$qconfig->reInsertNode("protocols bgp $level $node");
+			$ret++;
 		}
 	}
-	
-	# now make sure to re-add the overwrite nodes if they exist.
+	if ($protocol == 6) {
+		$level .= " address-family ipv6-unicast";
+		$config->setLevel("protocols bgp $level");
+	}
 	foreach my $node (@overwritelist) {
 		if ($config->exists($node)) {
 			$qconfig->reInsertNode("protocols bgp $level $node");
+			$ret++;
 		}
 	}
+	return $ret;
 }
 
 # check that changed neighbors have a remote-as or peer-group defined
@@ -1253,7 +1272,7 @@ sub check_neighbor_parameters
               if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
                 if (! defined $remoteas) {
-                  die "[protocols bgp $as peer-group $neighbor]\n  can't delete the remote-as in peer-group without setting remote-as in member neighbors\n"
+                  die "[ protocols bgp $as peer-group $neighbor ]\n  can't delete the remote-as in peer-group without setting remote-as in member neighbors\n"
                 }
               }
             }
@@ -1273,52 +1292,68 @@ sub check_neighbor_parameters
               if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
                 if (defined $remoteas && defined $pgremoteas) {
-                  die "[protocols bgp $as peer-group $neighbor]\n  must not define remote-as in both neighbor and peer-group\n"
+                  die "[ protocols bgp $as peer-group $neighbor ]\n  must not define remote-as in both neighbor and peer-group\n"
                 }
               }
             }
           }
-
       } ## end foreach my $peergroup (@peergroups)
 
       # check neighbor if remote-as or peer-group has been changed
       my @neighbors = $config->listNodes("$as neighbor");
       
       foreach my $neighbor (@neighbors) {
-      	next unless ($config->isChanged("$as neighbor $neighbor remote-as")  ||
-      					$config->isChanged("$as neighbor $neighbor peer-group") || 
-      					$config->isDeleted("$as neighbor $neighbor remote-as")  ||
-      					$config->isDeleted("$as neighbor $neighbor peer-group") );
+      	# check that remote-as exists
+      	if ($config->isChanged("$as neighbor $neighbor remote-as") ||
+      		$config->isDeleted("$as neighbor $neighbor remote-as")) {
+	        # remote-as checks: Make sure the neighbor has a remote-as defined locally or in the peer-group
+    	    my ($remoteas, $peergroup, $peergroupas);
+        	$remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+        	if ($config->exists("$as neighbor $neighbor peer-group")) {
+				$peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+            	if ($config->exists("$as peer-group $peergroup remote-as")) {
+					$peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+            	}
+        	}
 
-          # remote-as checks: Make sure the neighbor has a remote-as defined locally or in the peer-group
-          my ($remoteas, $peergroup, $peergroupas);
-          $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
-          if ($config->exists("$as neighbor $neighbor peer-group")) {
-			$peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
-            if ($config->exists("$as peer-group $peergroup remote-as")) {
-				$peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
-            }
-          }
+        	die "[ protocols bgp $as neighbor $neighbor ]\n  must set remote-as or peer-group with remote-as defined\n"
+				unless ($remoteas || $peergroupas);
 
-          die "[ protocols bgp $as neighbor $neighbor ]\n  must set remote-as or peer-group with remote-as defined\n"
-			unless ($remoteas || $peergroupas);
-
-          die "[ protocols bgp $as neighbor $neighbor ]\n  remote-as should not be defined in both neighbor and peer-group\n"
-            if ($remoteas && $peergroupas);
-          ## end remote-as checks
-
-          # If the peer-group has changed since the last commit, update overwritable nodes
-          # We do this because Quagga removes nodes silently while vyatta-cfg does not.  These
-          # functions actually make Vyatta implentation of peer-groups more consistent.
-          if ($config->isChanged("$as neighbor $neighbor peer-group")) {
-          	neighborToPeerGroup("$as neighbor $neighbor");
-          } elsif ($config->isDeleted("$as neighbor $neighbor peer-group")) {
-          	neighborFromPeerGroup("$as neighbor $neighbor");
-          }            
-
-          # Check if changing BGP peer type from/to i/eBGP
-          my $error = bgp_type_change($neighbor, $as, "neighbor");
-          if ($error) { die "[protocols bgp $as neighbor $neighbor]\n  $error\n"; }
+        	die "[ protocols bgp $as neighbor $neighbor ]\n  remote-as should not be defined in both neighbor and peer-group\n"
+            	if ($remoteas && $peergroupas);
+        } ## end remote-as checks
+        
+        # Check if changing BGP peer type from/to i/eBGP
+        my $error = bgp_type_change($neighbor, $as, "neighbor");
+        if ($error) { die "[ protocols bgp $as neighbor $neighbor ]\n  $error\n"; }
+        
+		# check IPv4 peer-group
+		if ($config->isChanged("$as neighbor $neighbor peer-group") ||
+			$config->isDeleted("$as neighbor $neighbor peer-group")) {
+			# If the peer-group has changed since the last commit, update overwritable nodes
+	        # We do this because Quagga removes nodes silently while vyatta-cfg does not.  These
+	        # functions actually make Vyatta implentation of peer-groups more consistent.
+	        if ($config->isChanged("$as neighbor $neighbor peer-group")) {
+          		checkBannedPeerGroupParameters("$as neighbor $neighbor", 4);
+          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
+          	} elsif ($config->isDeleted("$as neighbor $neighbor peer-group")) {
+          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
+          	}            
+		}
+		
+		# check IPv6 peer-group
+		if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group") ||
+			$config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+			# If the peer-group has changed since the last commit, update overwritable nodes
+	        # We do this because Quagga removes nodes silently while vyatta-cfg does not.  These
+	        # functions actually make Vyatta implentation of peer-groups more consistent.
+	        if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+          		checkBannedPeerGroupParameters("$as neighbor $neighbor", 6);
+          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
+          	} elsif ($config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
+          	} 
+		}
       } ## end foreach my $neighbor (@neighbors)
     } ## end foreach my $as (@asns)
 }
