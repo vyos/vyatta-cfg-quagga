@@ -1189,12 +1189,11 @@ sub checkBannedPeerGroupParameters
 	my @globalbannedlist = ('local-as');
 	
 	my $config = new Vyatta::Config;
-    $config->setLevel("protocols bgp $level");
+	$config->setLevel("protocols bgp $level");
 
 	foreach my $node (@globalbannedlist) {
 		if ($config->exists($node)) {
-			print "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
-			exit 1;
+			die "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
 		}
 	}
 	if ($protocol == 6) {
@@ -1202,8 +1201,7 @@ sub checkBannedPeerGroupParameters
 	}	
 	foreach my $node (@bannedlist) {
 		if ($config->exists($node)) {
-			print "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
-			exit 1;
+			die "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
 		}
 	}
 	return 1;
@@ -1228,7 +1226,7 @@ sub checkOverwritePeerGroupParameters
 								'shutdown', 'update-source', 'weight');
 
 	my $config = new Vyatta::Config;
-    $config->setLevel("protocols bgp $level");
+	$config->setLevel("protocols bgp $level");
 
 	foreach my $node (@globaloverwritelist) {
 		if ($config->exists($node)) {
@@ -1326,34 +1324,26 @@ sub check_neighbor_parameters
         # Check if changing BGP peer type from/to i/eBGP
         my $error = bgp_type_change($neighbor, $as, "neighbor");
         if ($error) { die "[ protocols bgp $as neighbor $neighbor ]\n  $error\n"; }
-        
+
+		# If the peer-group has changed since the last commit, update overwritable nodes
+	    # We do this because Quagga removes nodes silently while vyatta-cfg does not.
 		# check IPv4 peer-group
+		if ($config->exists("$as neighbor $neighbor peer-group")) {
+			checkBannedPeerGroupParameters("$as neighbor $neighbor", 4);
+		}
 		if ($config->isChanged("$as neighbor $neighbor peer-group") ||
 			$config->isDeleted("$as neighbor $neighbor peer-group")) {
-			# If the peer-group has changed since the last commit, update overwritable nodes
-	        # We do this because Quagga removes nodes silently while vyatta-cfg does not.  These
-	        # functions actually make Vyatta implentation of peer-groups more consistent.
-	        if ($config->isChanged("$as neighbor $neighbor peer-group")) {
-          		checkBannedPeerGroupParameters("$as neighbor $neighbor", 4);
-          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
-          	} elsif ($config->isDeleted("$as neighbor $neighbor peer-group")) {
-          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
-          	}            
+				checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
 		}
 		
 		# check IPv6 peer-group
-		if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group") ||
-			$config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
-			# If the peer-group has changed since the last commit, update overwritable nodes
-	        # We do this because Quagga removes nodes silently while vyatta-cfg does not.  These
-	        # functions actually make Vyatta implentation of peer-groups more consistent.
-	        if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
-          		checkBannedPeerGroupParameters("$as neighbor $neighbor", 6);
-          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
-          	} elsif ($config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
-          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
-          	} 
+		if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+			checkBannedPeerGroupParameters("$as neighbor $neighbor", 6);
 		}
+		if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group") || 
+          	$config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+          		checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
+        }
       } ## end foreach my $neighbor (@neighbors)
     } ## end foreach my $as (@asns)
 }
