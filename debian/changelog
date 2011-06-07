@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.134) unstable; urgency=low
+
+  * disallow banned parameters from a peer already in a peer-group
+  * remove peer-group checks from node.defs.  this functionality has
+    been moved into vyatta-bgp.pl.
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 07 Jun 2011 15:19:44 -0700
+
 vyatta-cfg-quagga (0.18.133) unstable; urgency=low
 
   * remove debug node
