@@ -1,2 +1,1 @@
 help: Capability to send the ORF
-commit:expression: $VAR(../../../../peer-group/) == ""; "You can't set capability orf send for neighbor $VAR(../../../../@) in peer-group $VAR(../../../../peer-group/@)"

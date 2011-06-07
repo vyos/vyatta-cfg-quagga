@@ -8,4 +8,3 @@ allowed: local -a params
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" "; "access-list $VAR(@) doesn't exist"
 commit:expression: $VAR(../../prefix-list/export/) == ""; "you can't set both a prefix-list and a distribute list"
-commit:expression: $VAR(../../peer-group/) == "";  "distribute-lists can't be set for members of a peer-group"

@@ -1,2 +1,1 @@
 help: Neighbor as route server client
-commit:expression: $VAR(../../../peer-group/) == ""; "you can't set route-server-client for a neighbor in a peer-group"

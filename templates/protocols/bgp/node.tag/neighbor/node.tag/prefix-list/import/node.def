@@ -4,5 +4,4 @@ allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy prefix-list )
         echo -n ${params[@]##*/}
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy prefix-list $VAR(@)\" "; "prefix-list $VAR(@) doesn't exist"
-commit:expression: $VAR(../../peer-group/) == "";  "prefix-lists can't be set for members of a peer-group"
 commit:expression: $VAR(../../distribute-list/import/) == ""; "you can't set both a prefix-list and a distribute list"

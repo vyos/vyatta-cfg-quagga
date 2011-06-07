@@ -1,2 +1,1 @@
 help: Disable sending standard community attributes to this neighbor
-commit:expression: $VAR(../../peer-group/) == ""; "you can't set disable-send-community for a neighbor in a peer-group"

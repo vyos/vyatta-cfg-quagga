@@ -1,2 +1,1 @@
 help: Send default route to this neighbor
-commit:expression: $VAR(../peer-group/) == ""; "you can't set default-originate for a neighbor in a peer-group"
