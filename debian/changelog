@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.136) unstable; urgency=low
+
+  * Bugfix 6816: Make previous bugfix more maintainable by moving check
+    to a script instead of defining it in multiple node.defs
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 16:45:11 -0500
+
 vyatta-cfg-quagga (0.18.135) unstable; urgency=low
 
   * Bugfix 6816: Verify that at least one next-hop exists if the parent
