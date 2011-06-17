@@ -9,18 +9,9 @@ end:
   then
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
-      # Check that there is still a next-hop or blackhole if the parent is not deleted
-      ARR=( $(cli-shell-api listNodes protocols static route6 $VAR(../@) next-hop) )
-      cli-shell-api exists protocols static route6 $VAR(../@) blackhole
-      RETVAL_BH=$?
-      cli-shell-api exists protocols static route6 $VAR(../@)
-      RETVAL_PARENT=$?
-      if [ ${#ARR} -eq 0 ] && [ $RETVAL_BH -eq 1 ] && [ $RETVAL_PARENT -eq 0 ]
-      then
-         echo "Must add either a next-hop or blackhole for route $VAR(../@)"
-         exit 1
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 address; then
+        exit 1;
       fi
-
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then

@@ -1,0 +1,35 @@
+#!/bin/bash
+if [ $# -ne 3 ]; then
+  echo 1>&2 Usage: $0 prefix family type
+  exit 127
+fi
+ROUTE=$1
+FAM=$2
+TYPE=$3
+SUFFIX=''
+if [[ ${FAM} = 'ipv6' ]]; then
+  SUFFIX='6'
+fi
+if [[ ${TYPE} = 'address' ]]; then
+  # Check that there is still a next-hop or blackhole if the parent is not deleted
+  ARR=( $(cli-shell-api listNodes protocols static route${SUFFIX} ${ROUTE} next-hop) )
+  cli-shell-api exists protocols static route${SUFFIX} ${ROUTE} blackhole
+  RETVAL_BH=$?
+  cli-shell-api exists protocols static route${SUFFIX} ${ROUTE} 
+  RETVAL_PARENT=$?
+  if [ ${#ARR} -eq 0 ] && [ $RETVAL_BH -eq 1 ] && [ $RETVAL_PARENT -eq 0 ]
+  then
+    echo "Must add either a next-hop or blackhole for route ${ROUTE}"
+    exit 1
+  fi
+elif [[ ${TYPE} = 'interface' ]];then
+  # Check that there is still a next-hop-interface if the parent is not deleted
+  ARR=( $(cli-shell-api listNodes protocols static interface-route${SUFFIX} ${ROUTE} next-hop-interface) )
+  cli-shell-api exists protocols static interface-route${SUFFIX} ${ROUTE}
+  RETVAL_PARENT=$?
+  if [ ${#ARR} -eq 0 ] && [ $RETVAL_PARENT -eq 0 ]
+  then
+    echo "Must add a next-hop-interface for route ${ROUTE}"
+    exit 1
+  fi
+fi

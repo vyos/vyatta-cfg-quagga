@@ -10,14 +10,8 @@ end:
   then
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
-      # Check that there is still a next-hop-interface if the parent is not deleted
-      ARR=( $(cli-shell-api listNodes protocols static interface-route6 $VAR(../@) next-hop-interface) )
-      cli-shell-api exists protocols static interface-route6 $VAR(../@)
-      RETVAL_PARENT=$?
-      if [ ${#ARR} -eq 0 ] && [ $RETVAL_PARENT -eq 0 ]
-      then
-         echo "Must add a next-hop-interface for route $VAR(../@)"
-         exit 1
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 interface; then
+        exit 1;
       fi
 
       vtysh -c "configure terminal" \
