@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.135) unstable; urgency=low
+
+  * Bugfix 6816: Verify that at least one next-hop exists if the parent
+    node for the route still exists
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 14:20:34 -0500
+
 vyatta-cfg-quagga (0.18.134) unstable; urgency=low
 
   * disallow banned parameters from a peer already in a peer-group
