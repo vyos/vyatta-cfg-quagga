@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.137) unstable; urgency=low
+
+  * Missed two nodes in the last commit
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 18:04:48 -0500
+
 vyatta-cfg-quagga (0.18.136) unstable; urgency=low
 
   * Bugfix 6816: Make previous bugfix more maintainable by moving check
