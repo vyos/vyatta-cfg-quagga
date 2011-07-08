@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.138) unstable; urgency=low
+
+  * new branch
+
+ -- Deepti Kulkarni <deepti@vyatta.com>  Thu, 07 Jul 2011 20:55:49 -0700
+
 vyatta-cfg-quagga (0.18.137) unstable; urgency=low
 
   * Missed two nodes in the last commit
