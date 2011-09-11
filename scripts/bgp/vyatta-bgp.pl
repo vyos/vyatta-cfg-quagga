@@ -88,8 +88,18 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected' => {
-      set => 'router bgp #3 ; address-family ipv6 ; no redistribute connected ; redistribute connected ?route-map ?metric', 
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected', 
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected',
+      noerr => 'set',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute connected metric' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected metric #9', 
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected metric #9',
+      noerr => 'set',
+  },
+  'protocols bgp var address-family ipv6-unicast redistribute connected route-map' => {
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9', 
+      del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #9',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute kernel' => {
@@ -1017,8 +1027,18 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var redistribute connected' => {
-      set => 'router bgp #3 ; no redistribute connected ; redistribute connected ?route-map ?metric',
+      set => 'router bgp #3 ; redistribute connected ?route-map ?metric',
       del => 'router bgp #3 ; no redistribute connected',
+      noerr => 'set',
+  },
+  'protocols bgp var redistribute connected metric' => {
+      set => 'router bgp #3 ; redistribute connected metric #7',
+      del => 'router bgp #3 ; no redistribute connected metric #7',
+      noerr => 'set',
+  },
+  'protocols bgp var redistribute connected route-map' => {
+      set => 'router bgp #3 ; redistribute connected route-map #7',
+      del => 'router bgp #3 ; no redistribute connected route-map #7',
       noerr => 'set',
   },
   'protocols bgp var redistribute kernel' => {
