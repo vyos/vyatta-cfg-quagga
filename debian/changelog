@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.140) unstable; urgency=low
+
+  * Bug 6030: bgp redistribution doesn't work well when it's set for
+    ipv4 and ipv6
+
+ -- Robert Bays <robert@vyatta.com>  Sun, 11 Sep 2011 16:32:32 -0700
+
 vyatta-cfg-quagga (0.18.139) unstable; urgency=low
 
   * Bugfix 7077: Add support for IPv6 nexthops in route maps
