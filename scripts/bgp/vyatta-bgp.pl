@@ -849,12 +849,14 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 capability orf prefix-list send',
       del => 'router bgp #3 ; no neighbor #5 capability orf prefix-list send',
   },
+  ## Note that the activate will need to be moved when we migrate to 
+  ## supporting a single IP version in a peering session.
   'protocols bgp var peer-group var default-originate' => {
-      set => 'router bgp #3 ; neighbor #5 default-originate',
+      set => 'router bgp #3 ; neighbor #5 activate ; neighbor #5 default-originate',
       del => 'router bgp #3 ; no neighbor #5 default-originate',
   },
   'protocols bgp var peer-group var default-originate route-map' => {
-      set => 'router bgp #3 ; neighbor #5 default-originate route-map #8',
+      set => 'router bgp #3 ; neighbor #5 activate ; neighbor #5 default-originate route-map #8',
       del => 'router bgp #3 ; no neighbor #5 default-originate route-map #8',
   },
   'protocols bgp var peer-group var disable-capability-negotiation' => {
