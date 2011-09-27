@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.141) unstable; urgency=low
+
+  * Bug 7522 -
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 27 Sep 2011 13:46:09 -0700
+
 vyatta-cfg-quagga (0.18.140) unstable; urgency=low
 
   * Bug 6030: bgp redistribution doesn't work well when it's set for
