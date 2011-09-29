@@ -1072,7 +1072,7 @@ my %qcom = (
 my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isiBGPpeer, $wasiBGPpeer, $confedibgpasn);
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1085,6 +1085,7 @@ GetOptions(
     "is-iBGP"		      => \$isiBGPpeer,
     "was-iBGP"                => \$wasiBGPpeer,
     "confed-iBGP-ASN-check=s" => \$confedibgpasn,
+    "list-peer-groups"        => \$listpeergroups,
     "main"                    => \$main,
 );
 
@@ -1096,9 +1097,19 @@ check_source($checksource)	            if ($checksource);
 confed_iBGP_ASN($as, $confedibgpasn)        if ($confedibgpasn);
 is_iBGP_peer($neighbor, $as)          	    if ($isiBGPpeer);
 was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
-
+list_peer_groups($as)                       if ($listpeergroups);
 
 exit 0;
+
+sub list_peer_groups {
+   my $as = shift;
+   my $config = new Vyatta::Config;
+
+   $config->setLevel("protocols bgp $as peer-group");
+   my @nodes = $config->listNodes();
+   foreach my $node (@nodes) { print "$node "; }
+   return;
+}
 
 # Make sure the peer IP isn't a local system IP
 sub check_neighbor_ip {
