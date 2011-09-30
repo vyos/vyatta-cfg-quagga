@@ -1,3 +1,14 @@
+vyatta-cfg-quagga (0.18.142) unstable; urgency=low
+
+  * bgpd: Bug 7530 - Peer-group commit fails with error when no remote-
+    as is defined
+  * bgp: Bug 6033 - There is no auto completion for "bgp <> neighbor <>
+    peer-group"
+  * bgp: Bug 7205 - peer-group maximum-prefix incorrectly takes
+    precedence
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 29 Sep 2011 19:51:14 -0700
+
 vyatta-cfg-quagga (0.18.141) unstable; urgency=low
 
   * Bug 7522 -
