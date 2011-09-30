@@ -1289,11 +1289,10 @@ sub check_neighbor_parameters
 
     my @asns = $config->listNodes();
     foreach my $as (@asns) {
-      # check remote-as if peer-groups have been changed
+      # check peer-groups if they have changed
       my @peergroups = $config->listNodes("$as peer-group");
       foreach my $peergroup (@peergroups) {
-          next unless ( $config->isChanged("$as peer-group $peergroup remote-as") ||
-                        $config->isDeleted("$as peer-group $peergroup remote-as") );
+          next unless ($config->isChanged("$as peer-group $peergroup"));
 
           # if we delete the remote-as in the pg, make sure all neighbors have a remote-as defined
           if ($config->isDeleted("$as peer-group $peergroup remote-as")) {
@@ -1309,23 +1308,30 @@ sub check_neighbor_parameters
             }
           }
 
-          # if remote-as has changed, check that the change is valid
-          if ($config->isChanged("$as peer-group $peergroup remote-as")) {
-            # check asn type change
-            my $error = bgp_type_change($peergroup, $as, "peer-group");
-            if ($error) { die "[protocols bgp $as peer-group $peergroup]\n  $error\n"; }
+          # check asn type change
+          my $error = bgp_type_change($peergroup, $as, "peer-group");
+          if ($error) { die "[ protocols bgp $as peer-group $peergroup ]\n  $error\n"; }
 
-            # remote-as can not be defined in both pg and neighbor at the same time
-            my $pgremoteas = $config->returnValue("$as peer-group $peergroup remote-as");
+          # remote-as can't be defined in both pg and neighbor at the same time
+          my $pgremoteas = $config->returnValue("$as peer-group $peergroup remote-as");
+          if ($pgremoteas) {
             my @neighbors = $config->listNodes("$as neighbor");
             foreach my $neighbor (@neighbors) {
               my $pgmembership = $config->returnValue("$as neighbor $neighbor peer-group");
-              if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
+              if ((defined $pgmembership) && ("$pgmembership" eq "$peergroup")) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
                 if (defined $remoteas && defined $pgremoteas) {
                   die "[ protocols bgp $as peer-group $neighbor ]\n  must not define remote-as in both neighbor and peer-group\n"
                 }
               }
+            }
+          }
+
+          # check if a peer-group overwrite parameter was changed and resubmit
+          my @neighbors = $config->listNodes("$as neighbor");
+          foreach my $neighbor (@neighbors) {
+            if ($config->returnValue("$as neighbor $neighbor peer-group") eq "$peergroup") {
+              checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
             }
           }
       } ## end foreach my $peergroup (@peergroups)
@@ -1336,7 +1342,6 @@ sub check_neighbor_parameters
       foreach my $neighbor (@neighbors) {
       	# check that remote-as exists
       	if ($config->isChanged("$as neighbor $neighbor remote-as") ||
-	    $config->isDeleted("$as neighbor $neighbor remote-as") ||
 	    ! $config->exists("$as neighbor $neighbor remote-as")) {
 	    # remote-as checks: Make sure the neighbor has a remote-as defined locally or in the peer-group
 	    my ($remoteas, $peergroup, $peergroupas);
@@ -1365,8 +1370,7 @@ sub check_neighbor_parameters
 	if ($config->exists("$as neighbor $neighbor peer-group")) {
 	    checkBannedPeerGroupParameters("$as neighbor $neighbor", 4);
 	}
-	if ($config->isChanged("$as neighbor $neighbor peer-group") ||
-	    $config->isDeleted("$as neighbor $neighbor peer-group")) {
+	if ($config->isChanged("$as neighbor $neighbor peer-group")) {
 	    checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
 	}
 		
@@ -1374,8 +1378,7 @@ sub check_neighbor_parameters
 	if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
 	    checkBannedPeerGroupParameters("$as neighbor $neighbor", 6);
 	}
-	if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group") || 
-	    $config->isDeleted("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
+	if ($config->isChanged("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
 	    checkOverwritePeerGroupParameters("$as neighbor $neighbor", 6);
         }
       } ## end foreach my $neighbor (@neighbors)
