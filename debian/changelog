@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.143) unstable; urgency=low
+
+  * Add support for vif on pseudo-ethernet
+  * Add dependency on version of vyatta-cfg-system
+
+ -- Stephen Hemminger <shemminger@vyatta.com>  Thu, 03 Nov 2011 14:30:25 -0700
+
 vyatta-cfg-quagga (0.18.142) unstable; urgency=low
 
   * bgpd: Bug 7530 - Peer-group commit fails with error when no remote-
