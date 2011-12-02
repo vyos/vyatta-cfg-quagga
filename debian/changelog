@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.144) unstable; urgency=low
+
+  * Add vrrp interface parameter
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 02 Dec 2011 11:19:14 -0800
+
 vyatta-cfg-quagga (0.18.143) unstable; urgency=low
 
   * Add support for vif on pseudo-ethernet
