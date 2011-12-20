@@ -1069,8 +1069,6 @@ my %qcom = (
   },
 );
 
-my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
-
 my ( $pg, $as, $neighbor );
 my ( $main, $peername, $isneighbor, $checkpeergroups, $checksource, $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups);
 
@@ -1242,7 +1240,7 @@ sub checkBannedPeerGroupParameters
 
 sub checkOverwritePeerGroupParameters
 {
-	my ($level, $protocol) = @_;
+	my ($qconfig_ref, $level, $protocol) = @_;
 	my $ret = 0;
 	
 	unless ($protocol == 4 || $protocol == 6) {
@@ -1263,7 +1261,7 @@ sub checkOverwritePeerGroupParameters
 
 	foreach my $node (@globaloverwritelist) {
 		if ($config->exists($node)) {
-			$qconfig->reInsertNode("protocols bgp $level $node");
+			$$qconfig_ref->reInsertNode("protocols bgp $level $node");
 			$ret++;
 		}
 	}
@@ -1273,7 +1271,7 @@ sub checkOverwritePeerGroupParameters
 	}
 	foreach my $node (@overwritelist) {
 		if ($config->exists($node)) {
-			$qconfig->reInsertNode("protocols bgp $level $node");
+			$$qconfig_ref->reInsertNode("protocols bgp $level $node");
 			$ret++;
 		}
 	}
@@ -1284,6 +1282,7 @@ sub checkOverwritePeerGroupParameters
 # and that all permutations of parameters and BGP type are correct
 sub check_neighbor_parameters 
 {
+		my $qconfig_ref = shift;
     my $config = new Vyatta::Config;
     $config->setLevel('protocols bgp');
 
@@ -1330,8 +1329,9 @@ sub check_neighbor_parameters
           # check if a peer-group overwrite parameter was changed and resubmit
           my @neighbors = $config->listNodes("$as neighbor");
           foreach my $neighbor (@neighbors) {
-            if ($config->returnValue("$as neighbor $neighbor peer-group") eq "$peergroup") {
-              checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
+						my $pg = $config->returnValue("$as neighbor $neighbor peer-group");
+            if (defined $pg && ($pg eq "$peergroup")) {
+              checkOverwritePeerGroupParameters($qconfig_ref, "$as neighbor $neighbor", 4);
             }
           }
       } ## end foreach my $peergroup (@peergroups)
@@ -1371,7 +1371,7 @@ sub check_neighbor_parameters
 	    checkBannedPeerGroupParameters("$as neighbor $neighbor", 4);
 	}
 	if ($config->isChanged("$as neighbor $neighbor peer-group")) {
-	    checkOverwritePeerGroupParameters("$as neighbor $neighbor", 4);
+	    checkOverwritePeerGroupParameters($qconfig_ref, "$as neighbor $neighbor", 4);
 	}
 		
 	# check IPv6 peer-group
@@ -1496,7 +1496,7 @@ sub check_source {
 sub main 
 {
    # initialize the Quagga Config object with data from Vyatta config tree
-   # my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
+   my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
 
    # debug routines
    #$qconfig->setDebugLevel('3');
@@ -1504,7 +1504,7 @@ sub main
 
    # check that all changed neighbors have a proper remote-as or peer-group defined
    # and that migrations to/from iBGP eBGP are valid
-   check_neighbor_parameters();
+   check_neighbor_parameters(\$qconfig);
 
    ## deletes with priority
    # delete everything in neighbor, ordered nodes last 
