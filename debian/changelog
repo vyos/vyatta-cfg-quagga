@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.146) unstable; urgency=low
+
+  * Bug 7582: Errors on generating allowed values under an edit level
+    for protocols bgp <> neighbor <> peer-group
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 19 Dec 2011 17:11:11 -0800
+
 vyatta-cfg-quagga (0.18.145) unstable; urgency=low
 
   * Bug 7665: BGP ridiculous load time
