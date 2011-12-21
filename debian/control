@@ -30,3 +30,9 @@ Depends:  vyatta-cfg-quagga, vyatta-serial
 Replaces:  vyatta-cfg-quagga
 Description: vyatta-cfg-quagga serial templates
  Vyatta configuration templates for Quagga use on serial devices
+
+Package: vyatta-cfg-quagga-dataplane
+Architecture: all
+Depends:  vyatta-cfg-quagga, vyatta-cfg-dataplane
+Description: vyatta-cfg-quagga dataplane templates
+ Vyatta configuration templates for Quagga use on dataplane devices

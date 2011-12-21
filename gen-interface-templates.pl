@@ -60,6 +60,9 @@ my %interface_hash = (
     'serial/node.tag/cisco-hdlc/vif/node.tag'  => '$VAR(../../@).$VAR(@)',
     'serial/node.tag/frame-relay/vif/node.tag' => '$VAR(../../@).$VAR(@)',
     'serial/node.tag/ppp/vif/node.tag'         => '$VAR(../../@).$VAR(@)',
+
+    'dataplane/node.tag'                      => '$VAR(@)',
+    'dataplane/node.tag/vif/node.tag'         => '$VAR(../@).$VAR(@)',
 );
 
 sub gen_template {
