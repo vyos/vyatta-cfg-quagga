@@ -24,19 +24,34 @@
 #
 # Author: Mohit Mehta
 # Date: June 2008
-# Description: Script to check if any one of the 'static route' is equivalent to the 'system gateway-address'
-#              if yes, then don't remove route from routing table unless both are unset
+# Description: Script to check if any one of the 'static route' is
+#              equivalent to the 'system gateway-address' if yes, then
+#              don't remove route from routing table unless both are
+#              unset
 # **** End License ****
 
 use strict;
 use warnings;
 use lib "/opt/vyatta/share/perl5/";
 
-use NetAddr::IP;
 use Vyatta::Config;
 
-if ( ( $#ARGV == 1 ) && ( $ARGV[0] eq '0.0.0.0/0' ) ) {
+sub findStaticDefaultRoute {
+    my ( $cfg ) = @_;
+    if ($cfg->exists('protocols static')) {
+        my @routes = $cfg->listNodes("protocols static route");
+        if (@routes > 0) {
+            foreach my $route (@routes) {
+                if ($route eq '0.0.0.0/0') {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
 
+if ( ( $#ARGV == 1 ) && ( $ARGV[0] eq '0.0.0.0/0' ) ) {
     # check when deleting static-route
     my $vcCHECK_GATEWAY = new Vyatta::Config();
     $vcCHECK_GATEWAY->setLevel('system');
@@ -46,23 +61,31 @@ if ( ( $#ARGV == 1 ) && ( $ARGV[0] eq '0.0.0.0/0' ) ) {
             exit 1;
         }
     }
-
-}
-elsif ( $#ARGV == 0 ) {
-
-    # check when deleting gateway-address
-    my $vcCHECK_STATIC_ROUTE = new Vyatta::Config();
-    $vcCHECK_STATIC_ROUTE->setLevel('protocols static');
-    if ( $vcCHECK_STATIC_ROUTE->exists('.') ) {
-        my @routes = $vcCHECK_STATIC_ROUTE->listNodes("route");
-        if ( @routes > 0 ) {
-            foreach my $route (@routes) {
-                if ( $route eq '0.0.0.0/0' ) {
-                    my @next_hops =
-                      $vcCHECK_STATIC_ROUTE->listNodes("route $route next-hop");
-                    foreach my $next_hop (@next_hops) {
-                        if ( $next_hop eq $ARGV[0] ) {
-                            exit 1;
+} elsif ( $#ARGV == 0 ) {
+    if ($ARGV[0] eq 'warn') {
+        my $config = new Vyatta::Config();
+        my $haveGatewayAddress = $config->exists("system gateway-address");
+        my $haveStaticDefaultRoute = findStaticDefaultRoute($config);
+        if ($haveGatewayAddress && $haveStaticDefaultRoute) {
+            print "Warning:\n";
+            print "Both a 'system gateway-address' and a protocols static default route\n";
+            print "(0.0.0.0/0) are configured. This configuration is not recommended.\n";
+        }
+    } else {
+        # check when deleting gateway-address
+        my $vcCHECK_STATIC_ROUTE = new Vyatta::Config();
+        $vcCHECK_STATIC_ROUTE->setLevel('protocols static');
+        if ( $vcCHECK_STATIC_ROUTE->exists('.') ) {
+            my @routes = $vcCHECK_STATIC_ROUTE->listNodes("route");
+            if ( @routes > 0 ) {
+                foreach my $route (@routes) {
+                    if ( $route eq '0.0.0.0/0' ) {
+                        my @next_hops =
+                            $vcCHECK_STATIC_ROUTE->listNodes("route $route next-hop");
+                        foreach my $next_hop (@next_hops) {
+                            if ( $next_hop eq $ARGV[0] ) {
+                                exit 1;
+                            }
                         }
                     }
                 }
@@ -70,5 +93,4 @@ elsif ( $#ARGV == 0 ) {
         }
     }
 }
-
 exit 0;

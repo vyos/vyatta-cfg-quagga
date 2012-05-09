@@ -31,3 +31,7 @@ end:
                    -c "no ip route $VAR(../@) $VAR(@)"
     fi
   fi
+  if [[ "$VAR(../@)" = "0.0.0.0/0" ]]
+  then
+    ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl warn
+  fi

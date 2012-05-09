@@ -11,3 +11,4 @@ update: oldgw=`/opt/vyatta/sbin/vyatta-cli-expand-var.pl \\$VAR\(/system/gateway
 delete: if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl "$VAR(@)"
 	then vtysh -c "configure terminal" -c "no ip route 0.0.0.0/0 $VAR(@)"
 	fi
+end: ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl warn
