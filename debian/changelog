@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.152) unstable; urgency=low
+
+  * Warn user if both gateway-address and static default route are set
+  * 0.18.151
+
+ -- James Davidson <james.davidson@vyatta.com>  Wed, 16 May 2012 10:06:58 -0700
+
 vyatta-cfg-quagga (0.18.151) unstable; urgency=low
 
   * Warn user if both gateway-address and static default route are set
