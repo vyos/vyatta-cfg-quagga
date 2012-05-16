@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.151) unstable; urgency=low
+
+  * Warn user if both gateway-address and static default route are set
+
+ -- James Davidson <james.davidson@vyatta.com>  Wed, 16 May 2012 10:05:43 -0700
+
 vyatta-cfg-quagga (0.18.150) unstable; urgency=low
 
   * No need to genererate vrrp interface templates anymore
