@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.150) unstable; urgency=low
+
+  * No need to genererate vrrp interface templates anymore
+
+ -- John Southworth <john.southworth@vyatta.com>  Tue, 15 May 2012 20:42:28 -0700
+
 vyatta-cfg-quagga (0.18.149) unstable; urgency=low
 
   * new branch
