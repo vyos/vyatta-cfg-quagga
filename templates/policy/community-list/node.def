@@ -1,4 +1,5 @@
 tag:
+priority: 470
 type: u32
 help: Border Gateway Protocol (BGP) community-list filter
 

@@ -1,4 +1,5 @@
 tag:
+priority: 470
 type: txt
 help: IP route-map
 val_help: Route map name
