@@ -1,4 +1,5 @@
 tag:
+priority: 470
 type: u32
 help: IP access-list filter
 syntax:expression: ($VAR(@) >= 1 && $VAR(@) <= 199) || ($VAR(@) >= 1300 && $VAR(@) <= 2699); \
