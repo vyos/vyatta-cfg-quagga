@@ -1,0 +1,38 @@
+tag:
+type: ipv4
+help: Next-hop router [REQUIRED]
+end:
+  if [[ -n "$VAR(../../../table/@)" ]]
+  then
+    table="table $VAR(../../../table/@)"
+  fi
+  if [[ -z "$VAR(./disable)" ]]
+  then
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+    then
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 address; then
+        exit 1;
+      fi
+      if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+          "$VAR(../@)" "$VAR(@)"
+      then
+        vtysh -c "configure terminal" \
+                     -c "no ip route $VAR(../@) $VAR(@) $table"
+      fi
+    else
+      if [[ -n "$VAR(./distance/@)" ]]
+      then
+                    dist="$VAR(./distance/@)"
+      fi
+            vtysh -c "configure terminal" \
+                   -c "ip route $VAR(../@) $VAR(@) $table $dist";
+    fi
+  else
+    if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+        "$VAR(../@)" "$VAR(@)"
+    then
+      vtysh -c "configure terminal" \
+                   -c "no ip route $VAR(../@) $VAR(@) $table"
+    fi
+  fi
+
