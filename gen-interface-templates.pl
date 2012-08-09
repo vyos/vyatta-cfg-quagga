@@ -41,6 +41,7 @@ my %interface_hash = (
     'bonding/node.tag'                              => '$VAR(@)',
     'bonding/node.tag/vif/node.tag'                 => '$VAR(../@).$VAR(@)',
     'tunnel/node.tag'                               => '$VAR(@)',
+    'vti/node.tag'                                  => '$VAR(@)',
     'bridge/node.tag'                               => '$VAR(@)',
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
@@ -59,8 +60,14 @@ my %interface_hash = (
     'dataplane/node.tag/vif/node.tag'         => '$VAR(../@).$VAR(@)',
 );
 
+# Hash table to check if the priority needs to set @ root
+# of the node.def which is generated.
+my %interface_prio = (
+    'vti/node.tag'                              => '901',
+);
+
 sub gen_template {
-    my ( $inpath, $outpath, $ifname ) = @_;
+    my ( $inpath, $outpath, $ifname, $gen_prio, $prio, $depth ) = @_;
 
     print $outpath, "\n" if ($debug);
     opendir my $d, $inpath
@@ -80,7 +87,7 @@ sub gen_template {
               or mkdir($out)
               or die "Can't create $out: $!";
 
-            gen_template( $in, $out, $subif );
+            gen_template( $in, $out, $subif, $gen_prio, $prio, $depth+1);
             next;
         }
 
@@ -88,6 +95,10 @@ sub gen_template {
         open my $inf,  '<', $in  or die "Can't open $in: $!";
         open my $outf, '>', $out or die "Can't open $out: $!";
 
+        # For the top node.tag create the priority tag.
+        if ($name eq 'node.def' && $gen_prio == 1 && $depth <= 1) {
+            print $outf "priority: $prio\n";
+        }
         while ( my $line = <$inf> ) {
             $line =~ s#\$IFNAME#$ifname#;
             print $outf $line;
@@ -120,5 +131,13 @@ foreach my $if_tree ( keys %interface_hash ) {
       or mkdir_p($outpath)
       or die "Can't create $outpath:$!";
 
-    gen_template( $inpath, $outpath, $interface_hash{$if_tree} );
+    my $gen_prio = 0;
+    my $prio = 0;
+    $gen_prio = 1  if (exists $interface_prio{ $if_tree });
+    if ($gen_prio == 1) {
+        $prio = $interface_prio{ $if_tree };
+    }
+
+    gen_template( $inpath, $outpath, $interface_hash{$if_tree},
+                 $gen_prio, $prio, 0 );
 }
