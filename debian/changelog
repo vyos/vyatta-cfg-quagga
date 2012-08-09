@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.153) unstable; urgency=low
+
+  * Bugfix 8217: VTI: add routing cfg commands under interfaces vti
+
+ -- Saurabh Mohan <saurabh@vyatta.com>  Thu, 09 Aug 2012 13:27:17 -0700
+
 vyatta-cfg-quagga (0.18.152) unstable; urgency=low
 
   * Warn user if both gateway-address and static default route are set
