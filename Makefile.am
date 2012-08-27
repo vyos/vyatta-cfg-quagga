@@ -5,6 +5,7 @@ gentmpdir = generated-templates
 
 sbin_SCRIPTS = scripts/bgp/vyatta-bgp.pl
 sbin_SCRIPTS += scripts/policy/vyatta-policy.pl
+sbin_SCRIPTS += scripts/ospfv3/vyatta-ospfv3.pl
 sbin_SCRIPTS += scripts/vyatta_quagga_utils.pl
 sbin_SCRIPTS += scripts/policy/vyatta-check-as-prepend.pl
 sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
