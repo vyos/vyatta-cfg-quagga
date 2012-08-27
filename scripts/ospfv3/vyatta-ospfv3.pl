@@ -131,11 +131,14 @@ sub main {
   # Create a Vyatta Quagga Config object initialized by commands mapping
   my $quagga_config = new Vyatta::Quagga::Config('protocols', \%quagga_commands);
   #$quagga_config->setDebugLevel('3');
+  my @order = ('range', 'export-list', 'import-list', 'interface');
+  $quagga_config->deleteConfigTreeRecursive('protocols ospfv3 area var ', undef, \@order) || die "exiting $?\n";
+  $quagga_config->deleteConfigTreeRecursive('protocols ospfv3 parameters ') || die "exiting $?\n";
+  $quagga_config->deleteConfigTreeRecursive('protocols ospfv3 redistribute ') || die "exiting $?\n";
 
-  $quagga_config->deleteConfigTreeRecursive('protocols ospfv3') || die "exiting $?\n";
-
-  $quagga_config->setConfigTreeRecursive('protocols ospfv3 parameters') || die "exiting $?\n";  # Priority 630
-  $quagga_config->setConfigTreeRecursive('protocols ospfv3') || die "exiting $?\n";    # Priority 640
+  $quagga_config->setConfigTreeRecursive('protocols ospfv3 parameters ') || die "exiting $?\n";  # Priority 630
+  $quagga_config->setConfigTreeRecursive('protocols ospfv3 redistribute ') || die "exiting $?\n";  # Priority 630
+  $quagga_config->setConfigTreeRecursive('protocols ospfv3 area var ') || die "exiting $?\n";    # Priority 640
 }
 
 # Quagga ospf6d doesn't accept numeric area id, but requires dotted decimal. Bug 4172.
