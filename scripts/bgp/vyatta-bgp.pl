@@ -130,6 +130,18 @@ my %qcom = (
       set => 'router bgp #3 ; aggregate-address #5 ?as-set ?summary-only',
       del => 'router bgp #3 ; no aggregate-address #5 ?as-set ?summary-only',
   },
+  'protocols bgp var maximum-paths' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var maximum-paths ebgp' => {
+      set => 'router bgp #3 ; maximum-paths #6',
+      del => 'router bgp #3 ; no maximum-paths #6',
+  },
+  'protocols bgp var maximum-paths ibgp' => {
+      set => 'router bgp #3 ; maximum-paths ibgp #6',
+      del => 'router bgp #3 ; no maximum-paths ibgp #6',
+  },
   'protocols bgp var neighbor' => {
       set => undef,
       del => undef,
