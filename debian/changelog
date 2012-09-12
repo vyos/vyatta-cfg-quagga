@@ -1,3 +1,16 @@
+vyatta-cfg-quagga (0.18.155) unstable; urgency=low
+
+  * reserve tables for future use
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 05 Sep 2012 15:34:37 -0700
+
+vyatta-cfg-quagga (0.18.154) unstable; urgency=low
+
+  * initial checkin for pbr functionality
+  * move policy priority tag to each policy type
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 05 Sep 2012 14:25:48 -0700
+
 vyatta-cfg-quagga (0.18.153) unstable; urgency=low
 
   * Bugfix 8217: VTI: add routing cfg commands under interfaces vti

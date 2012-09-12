@@ -1,4 +1,5 @@
 tag:
+priority: 470
 type: txt
 help: IP prefix-list filter
 val_help: Prefix list name

@@ -1,4 +1,5 @@
 tag:
+priority: 470
 type: txt
 help: Border Gateway Protocol (BGP) autonomous system path filter
 val_help: AS path list name
