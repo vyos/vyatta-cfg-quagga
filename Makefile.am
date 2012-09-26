@@ -12,11 +12,12 @@ sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
 sbin_SCRIPTS += scripts/vyatta-next-hop-check
 
-sbin_PROGRAMS = src/check_prefix_boundary
+sbin_PROGRAMS := check_prefix_boundary check_next_hop
 
 share_perl5_DATA = lib/Vyatta/Quagga/Config.pm
 
-src_check_prefix_boundary = src/check_prefix_boundary.c
+check_prefix_boundary_SOURCES := src/check_prefix_boundary.c src/check_ucast_static.c
+check_next_hop_SOURCES := src/check_next_hop.c src/check_ucast_static.c
 
 curver_DATA = cfg-version/quagga@2
 
