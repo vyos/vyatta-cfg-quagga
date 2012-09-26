@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.157) unstable; urgency=low
+
+  * - Added Multicast and Broadcast checks for route and next hop for
+    static route command.
+
+ -- bharat <bharat@Build64-bharat.vyatta.com>  Wed, 26 Sep 2012 15:30:27 -0700
+
 vyatta-cfg-quagga (0.18.156) unstable; urgency=low
 
   * Config commands for bGP multipaths.
