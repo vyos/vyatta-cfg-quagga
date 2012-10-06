@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.18.159) unstable; urgency=low
+
+  [ Bharat ]
+  * Bug 8345: Reverting changes which were committed against bug 8345.
+    We are seeing issues when we are upgrading to pacifica from
+
+  [ bharat ]
+
+ -- bharat <bharat@git.vyatta.com>  Thu, 04 Oct 2012 11:23:55 -0700
+
 vyatta-cfg-quagga (0.18.158) unstable; urgency=low
 
   * Forced release

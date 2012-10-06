@@ -1,7 +1,6 @@
 tag:
 type: ipv4
 help: Next-hop router [REQUIRED]
-syntax:expression: exec "${vyatta_sbindir}/check_next_hop -4 $VAR(@)"
 end:
   if [[ -z "$VAR(./disable)" ]]
   then 

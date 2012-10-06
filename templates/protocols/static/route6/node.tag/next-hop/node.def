@@ -4,8 +4,6 @@ type: ipv6
 
 help: Next-hop IPv6 router [REQUIRED]
 
-syntax:expression: exec "${vyatta_sbindir}/check_next_hop -6 $VAR(@)"
-
 end:
   if [[ -z "$VAR(./disable)" ]]
   then
