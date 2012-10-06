@@ -1,3 +1,18 @@
+vyatta-cfg-quagga (0.18.160) unstable; urgency=low
+
+  [ Bharat ]
+  * Bug 8345: Reverting changes which were committed against bug 8345.
+    We are seeing issues when we are upgrading to pacifica from
+
+  [ bharat ]
+  * 0.18.159
+
+  [ susheela ]
+  * BGP neighbor local-as functionality: verified that works as intended
+    and 7791 fixed.
+
+ -- susheela <susheela.vaidya@vyatta.com>  Sat, 06 Oct 2012 15:29:20 -0700
+
 vyatta-cfg-quagga (0.18.159) unstable; urgency=low
 
   [ Bharat ]
