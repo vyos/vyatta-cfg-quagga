@@ -68,8 +68,8 @@ if ( ( $#ARGV == 1 ) && ( $ARGV[0] eq '0.0.0.0/0' ) ) {
         my $haveStaticDefaultRoute = findStaticDefaultRoute($config);
         if ($haveGatewayAddress && $haveStaticDefaultRoute) {
             print "Warning:\n";
-            print "Both a 'system gateway-address' and a protocols static default route\n";
-            print "(0.0.0.0/0) are configured. This configuration is not recommended.\n";
+            print "Both 'system gateway-address' and 'protocols static route 0.0.0.0/0'\n";
+            print "are configured. This configuration is not recommended.\n";
         }
     } else {
         # check when deleting gateway-address
