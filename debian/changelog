@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.161+daisy3) unstable; urgency=low
+
+  * Bugfix 8501: fix ordering problems in IPv6 peer-groups
+
+ -- John Southworth <john.southworth@vyatta.com>  Thu, 13 Dec 2012 09:37:16 -0800
+
 vyatta-cfg-quagga (0.18.161+daisy2) unstable; urgency=low
 
   * Bugfix 7428: Update warning message text.
