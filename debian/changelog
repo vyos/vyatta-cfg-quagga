@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.18.161+daisy4) unstable; urgency=low
+
+  * Initial commit for supporting ACL config for multicast for SE
+    version.
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Fri, 14 Dec 2012 13:20:25 -0800
+
 vyatta-cfg-quagga (0.18.161+daisy3) unstable; urgency=low
 
   * Bugfix 8501: fix ordering problems in IPv6 peer-groups
