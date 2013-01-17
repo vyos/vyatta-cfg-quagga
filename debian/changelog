@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.161+daisy5) unstable; urgency=low
+
+  * Fixing 8607
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Thu, 17 Jan 2013 10:32:54 -0800
+
 vyatta-cfg-quagga (0.18.161+daisy4) unstable; urgency=low
 
   * Initial commit for supporting ACL config for multicast for SE
