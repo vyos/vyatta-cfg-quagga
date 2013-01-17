@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ ! -d /opt/vyatta/sbin/policy ];then
+   mkdir -p /opt/vyatta/sbin/policy
+fi
+
+if [ -f /usr/bin/vtysh ] && [ ! -f /opt/vyatta/sbin/policy/vtysh ]; then
+   ln -s /usr/bin/vtysh /opt/vyatta/sbin/policy/vtysh
+fi
