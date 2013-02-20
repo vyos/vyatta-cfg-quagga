@@ -9,6 +9,10 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+SUBPKGS= vyatta-cfg-quagga \
+	vyatta-cfg-quagga-serial \
+	vyatta-cfg-quagga-wireless \
+	vyatta-cfg-quagga-extra
 
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
@@ -71,7 +75,7 @@ install: build
 
 	$(MAKE) DESTDIR=$(PKGDIR) install
 
-	for p in vyatta-cfg-quagga vyatta-cfg-quagga-serial vyatta-cfg-quagga-wireless; do \
+	for p in $(SUBPKGS); do \
 	  install -D --mode=0644 debian/$$p.lintian-overrides \
 		debian/$$p/usr/share/lintian/overrides/$$p; \
 	done

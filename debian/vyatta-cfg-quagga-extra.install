@@ -1,0 +1,2 @@
+opt/vyatta/share/vyatta-cfg/templates/interfaces/pseudo-ethernet
+opt/vyatta/share/vyatta-cfg/templates/interfaces/bonding

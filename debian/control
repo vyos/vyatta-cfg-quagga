@@ -27,16 +27,20 @@ Description: Vyatta configuration templates/scripts for Quagga
 Package: vyatta-cfg-quagga-serial
 Architecture: all
 Depends:  vyatta-cfg-quagga, vyatta-serial
-Replaces:  vyatta-cfg-quagga
 Description: vyatta-cfg-quagga serial templates
  Vyatta configuration templates for Quagga use on serial devices
 
 Package: vyatta-cfg-quagga-wireless
 Architecture: all
 Depends:  vyatta-cfg-quagga, vyatta-wireless
-Replaces:  vyatta-cfg-quagga
 Description: vyatta-cfg-quagga wireless templates
  Vyatta configuration templates for Quagga use on wireless devices
+
+Package: vyatta-cfg-quagga-extra
+Architecture: all
+Depends:  vyatta-cfg-quagga
+Description: vyatta-cfg-quagga extra templates
+ Vyatta configuration templates for Quagga use on additional pseudo-devices
 
 Package: vyatta-cfg-quagga-dataplane
 Architecture: all
