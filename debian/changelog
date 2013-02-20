@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.164) unstable; urgency=low
+
+  * split wireless devices to separate package
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 19 Feb 2013 19:31:28 -0800
+
 vyatta-cfg-quagga (0.18.163) unstable; urgency=low
 
   * Bugfix 8501: fix ordering problems in IPv6 peer-groups
