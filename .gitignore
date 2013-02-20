@@ -15,6 +15,7 @@ debian/tmp
 debian/vyatta-cfg-quagga
 debian/vyatta-cfg-quagga-serial
 debian/vyatta-cfg-quagga-dataplane
+debian/vyatta-cfg-quagga-wireless
 debian/*.debhelper.log
 debian/*.substvars
 INSTALL

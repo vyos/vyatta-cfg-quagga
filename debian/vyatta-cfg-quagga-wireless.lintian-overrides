@@ -1,0 +1,2 @@
+vyatta-cfg-quagga-wireless: file-in-unusual-dir
+vyatta-cfg-quagga-wireless: dir-or-file-in-opt
