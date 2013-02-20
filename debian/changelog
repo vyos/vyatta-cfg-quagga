@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.165) unstable; urgency=low
+
+  * split bonding and pseudo-ethernet to another sub-package
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 20 Feb 2013 15:32:20 -0800
+
 vyatta-cfg-quagga (0.18.164) unstable; urgency=low
 
   * split wireless devices to separate package
