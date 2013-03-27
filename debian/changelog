@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.161+daisy6) unstable; urgency=low
+
+  * Fixing 7975: provide MTU ignore for OSPFv3
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Wed, 27 Mar 2013 10:13:42 -0700
+
 vyatta-cfg-quagga (0.18.161+daisy5) unstable; urgency=low
 
   * Fixing 8607
