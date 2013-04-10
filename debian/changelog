@@ -1,3 +1,29 @@
+vyatta-cfg-quagga (0.18.168) unstable; urgency=low
+
+  [ James Davidson ]
+  * Bugfix 7428: Update warning message text.
+  * 0.18.162
+
+  [ John Southworth ]
+  * Bugfix 8501: fix ordering problems in IPv6 peer-groups
+  * 0.18.163
+
+  [ Stephen Hemminger ]
+  * split wireless devices to separate package
+  * 0.18.164
+  * split bonding and pseudo-ethernet to another sub-package
+  * 0.18.165
+
+  [ Sven-Thorsten Dietrich ]
+  * 0.18.166
+  * Daisy merge
+  * 0.18.167
+
+  [ John Southworth ]
+  * fix dataplane package dependency
+
+ -- John Southworth <john.southworth@vyatta.com>  Wed, 10 Apr 2013 15:50:40 -0700
+
 vyatta-cfg-quagga (0.18.167) unstable; urgency=low
 
   * Daisy merge
