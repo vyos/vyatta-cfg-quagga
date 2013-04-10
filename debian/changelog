@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.167) unstable; urgency=low
+
+  * Daisy merge
+
+ -- Sven-Thorsten Dietrich <sven@vyatta.com>  Wed, 10 Apr 2013 13:55:46 -0700
+
 vyatta-cfg-quagga (0.18.166) unstable; urgency=low
 
   [ James Davidson ]
