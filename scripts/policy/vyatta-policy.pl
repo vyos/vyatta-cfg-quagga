@@ -6,6 +6,7 @@ use Vyatta::Misc;
 use Getopt::Long;
 
 my $VTYSH = '/usr/bin/vtysh';
+my $ACL_CONSUMERS_DIR = "/opt/vyatta/sbin/policy";
 
 my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $peer );
 my ( $routemap, $deleteroutemap, $listpolicy );
@@ -151,6 +152,20 @@ sub is_access_list6 {
     return ( $count > 0 );
 }
 
+sub notify_all_acl_consumers {
+    my $args_string = shift;
+    opendir (DIR, $ACL_CONSUMERS_DIR) or die "Could not open directory: $!";
+    while (my $file = readdir DIR) {
+      next if (-d "$ACL_CONSUMERS_DIR/$file");
+      my $target = "$ACL_CONSUMERS_DIR/$file";
+      if (-l "$ACL_CONSUMERS_DIR/$file") {
+         my $target = readlink "$ACL_CONSUMERS_DIR/$file";
+      } 
+      system ("sudo $target $args_string");
+    }
+    closedir (DIR);
+}
+
 sub update_access_list {
     my $list   = shift;
     my $config = new Vyatta::Config;
@@ -158,7 +173,7 @@ sub update_access_list {
 
     # remove the old rule if it already exists
     if ( is_access_list($list) ) {
-        system("$VTYSH -c \"configure terminal\" -c \"no access-list $list\" ");
+        notify_all_acl_consumers ("-c \"configure terminal\" -c \"no access-list $list\" ");
     }
 
     $config->setLevel("policy access-list $list rule");
@@ -222,10 +237,7 @@ sub update_access_list {
                 }
             }
         }
-
-        system(
-"$VTYSH -c \"configure terminal\" -c \"access-list $list $action $ip $src $srcmsk $dst $dstmsk\" "
-        );
+        notify_all_acl_consumers ("-c \"configure terminal\" -c \"access-list $list $action $ip $src $srcmsk $dst $dstmsk\" ");
     }
 
     exit 0;
@@ -238,7 +250,7 @@ sub update_access_list6 {
 
     # remove the old rule if it already exists
     if ( is_access_list6($list) ) {
-        system("$VTYSH -c \"conf t\" -c \"no ipv6 access-list $list\" ");
+        notify_all_acl_consumers ("-c \"conf t\" -c \"no ipv6 access-list $list\" "); 
     }
 
     $config->setLevel("policy access-list6 $list rule");
@@ -269,10 +281,7 @@ sub update_access_list6 {
                 exit 1;
             }
         }
-
-        system(
-"$VTYSH -c \"configure terminal\" -c \"ipv6 access-list $list $action $src $exact\" "
-        );
+        notify_all_acl_consumers ("-c \"configure terminal\" -c \"ipv6 access-list $list $action $src $exact\" ");
     }
 
     exit 0;

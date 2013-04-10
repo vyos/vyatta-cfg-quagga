@@ -22,6 +22,42 @@ vyatta-cfg-quagga (0.18.162) unstable; urgency=low
 
  -- James Davidson <james.davidson@vyatta.com>  Sat, 24 Nov 2012 11:41:33 -0800
 
+vyatta-cfg-quagga (0.18.161+daisy6) unstable; urgency=low
+
+  * Fixing 7975: provide MTU ignore for OSPFv3
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Wed, 27 Mar 2013 10:13:42 -0700
+
+vyatta-cfg-quagga (0.18.161+daisy5) unstable; urgency=low
+
+  * Fixing 8607
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Thu, 17 Jan 2013 10:32:54 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy4) unstable; urgency=low
+
+  * Initial commit for supporting ACL config for multicast for SE
+    version.
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Fri, 14 Dec 2012 13:20:25 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy3) unstable; urgency=low
+
+  * Bugfix 8501: fix ordering problems in IPv6 peer-groups
+
+ -- John Southworth <john.southworth@vyatta.com>  Thu, 13 Dec 2012 09:37:16 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy2) unstable; urgency=low
+
+  * Bugfix 7428: Update warning message text.
+
+ -- James Davidson <james.davidson@vyatta.com>  Sat, 24 Nov 2012 11:25:58 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy1) unstable; urgency=low
+
+  * create daisy branch
+
+ -- John Southworth <john.southworth@vyatta.com>  Sat, 13 Oct 2012 13:30:41 -0700
 vyatta-cfg-quagga (0.18.161) unstable; urgency=low
 
   * new branch
