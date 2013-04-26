@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.170) unstable; urgency=low
+
+  * wireless are in vyatta-cfg-wireless not extra
+
+ -- Stephen Hemminger <shemming@brocade.com>  Fri, 26 Apr 2013 13:26:10 -0700
+
 vyatta-cfg-quagga (0.18.169) unstable; urgency=low
 
   * packaging: move pppoe to extra package
