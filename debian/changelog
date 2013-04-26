@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.169) unstable; urgency=low
+
+  * packaging: move pppoe to extra package
+
+ -- Stephen Hemminger <shemming@brocade.com>  Fri, 26 Apr 2013 12:54:26 -0700
+
 vyatta-cfg-quagga (0.18.168) unstable; urgency=low
 
   [ James Davidson ]
