@@ -1,0 +1,11 @@
+type:  txt
+
+help: Rule action [REQUIRED]
+
+syntax:expression: $VAR(@) in "allow", "deny";
+                   "action must be allow or deny"
+
+allowed: echo "deny allow"
+
+val_help: deny     ; Rule action to deny
+val_help: allow    ; Rule action to allow
