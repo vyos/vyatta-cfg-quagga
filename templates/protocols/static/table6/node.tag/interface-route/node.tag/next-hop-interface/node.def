@@ -1,0 +1,34 @@
+tag:
+type: txt
+help: Next-hop interface [REQUIRED]
+# show all current interface
+# but syntax accepts any interface since it may exist later (ppp etc)
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
+
+
+end:
+  if [[ -n "$VAR(../../../table/@)" ]]
+  then
+    table="table $VAR(../../../table/@)"
+  fi
+  if [[ -z "$VAR(./disable)" ]]
+  then
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+    then
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 interface; then
+        exit 1;
+      fi
+      vtysh -c "configure terminal" \
+                   -c "no ip route $VAR(../@) $VAR(@) $table"
+    else
+      if [[ -n "$VAR(./distance/@)" ]]
+      then
+        dist="$VAR(./distance/@)"
+      fi
+      vtysh -c "configure terminal" \
+                   -c "ip route $VAR(../@) $VAR(@) $table $dist";
+    fi
+  else
+      vtysh -c "configure terminal" \
+                   -c "no ip route $VAR(../@) $VAR(@) $table"
+  fi

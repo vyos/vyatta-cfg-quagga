@@ -1,0 +1,46 @@
+tag:
+type: ipv6
+help: Next-hop router [REQUIRED]
+end:
+  if [[ -n "$VAR(../../../table6/@)" ]]
+  then
+    table="table $VAR(../../../table6/@)"
+  fi
+  if [[ -z "$VAR(./disable)" ]]
+  then
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+    then
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 address; then
+        exit 1;
+      fi
+      if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+          "$VAR(../@)" "$VAR(@)"
+      then
+echo 111
+        vtysh -c "configure terminal" \
+                     -c "no ip -6 route $VAR(../@) $VAR(@) $table"
+      fi
+    else
+      if [[ -n "$VAR(./distance/@)" ]]
+      then
+                    #dist="$VAR(./distance/@)"
+                    dist="metric $VAR(./distance/@)"
+      fi
+echo 111
+            echo vtysh -c "configure terminal"  -c "ip -6 route  add $VAR(../@) via $VAR(@) $table $dist";
+echo 222
+            #vtysh -c "configure terminal" \
+                   #-c "ip -6 route $VAR(../@) $VAR(@) $table $dist";
+           echo ip -6 route  add $VAR(../@)  via $VAR(@) $table $dist;
+           ip -6 route  add $VAR(../@)  via $VAR(@) $table $dist;
+    fi
+  else
+    if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+        "$VAR(../@)" "$VAR(@)"
+    then
+echo 333
+      vtysh -c "configure terminal" \
+                   -c "no ip -6 route $VAR(../@) $VAR(@) $table"
+    fi
+  fi
+
