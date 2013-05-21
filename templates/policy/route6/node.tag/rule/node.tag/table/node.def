@@ -1,0 +1,5 @@
+type: u32
+help: V6 Policy Based Routing Table id
+syntax:expression: $VAR(@) > 0 &&  $VAR(@) <201 ; "table id must be greater than 0 and less than or equeal to 200"
+val_help: u32:1-200; 
+

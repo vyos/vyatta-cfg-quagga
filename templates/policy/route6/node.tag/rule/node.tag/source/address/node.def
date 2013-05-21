@@ -1,0 +1,8 @@
+type: txt
+help: Source IP address, subnet, or range
+val_help: ipv6; IP address to match
+val_help: ipv6net; Subnet to match
+val_help: ipv6range; IP range to match
+val_help: !ipv6; Match everything except the specified address
+val_help: !ipv6net; Match everything except the specified subnet
+val_help: !ipv6range; Match everything except the specified range

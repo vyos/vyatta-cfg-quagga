@@ -1,0 +1,9 @@
+type: txt
+
+help: Protocol to match (tcp, udp or icmp)
+
+
+# Provide some help for command completion.  Doesn't return negated
+# values or protocol numbers
+allowed:
+        echo -n "tcp udp icmp"
