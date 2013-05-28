@@ -16,31 +16,19 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then
-echo 111
         vtysh -c "configure terminal" \
-                     -c "no ip -6 route $VAR(../@) $VAR(@) $table"
+                     -c "no ipv6  route $VAR(../@) $VAR(@) $table"
       fi
-    else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
-                    #dist="$VAR(./distance/@)"
-                    dist="metric $VAR(./distance/@)"
-      fi
-echo 111
-            echo vtysh -c "configure terminal"  -c "ip -6 route  add $VAR(../@) via $VAR(@) $table $dist";
-echo 222
-            #vtysh -c "configure terminal" \
-                   #-c "ip -6 route $VAR(../@) $VAR(@) $table $dist";
-           echo ip -6 route  add $VAR(../@)  via $VAR(@) $table $dist;
-           ip -6 route  add $VAR(../@)  via $VAR(@) $table $dist;
+      #echo vtysh -c "configure terminal"  -c "ipv6  route  $VAR(../@) $VAR(@) $table";
+      vtysh -c "configure terminal" \
+                   -c "ipv6  route $VAR(../@) $VAR(@) $table";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
         "$VAR(../@)" "$VAR(@)"
     then
-echo 333
       vtysh -c "configure terminal" \
-                   -c "no ip -6 route $VAR(../@) $VAR(@) $table"
+                   -c "no ipv6  route $VAR(../@) $VAR(@) $table"
     fi
   fi
 
