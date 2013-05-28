@@ -1,5 +1,0 @@
-tag:
-type: txt
-help: pbr route-map (group made of rules) name
-
-delete:   /opt/vyatta/sbin/vyatta-dp-pbr.pl --cmd=delete-group --group=$VAR(@)
