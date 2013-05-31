@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.171) unstable; urgency=low
+
+  * Remove redundant 'system gateway-address'
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 31 May 2013 15:48:18 -0700
+
 vyatta-cfg-quagga (0.18.170) unstable; urgency=low
 
   * wireless are in vyatta-cfg-wireless not extra
