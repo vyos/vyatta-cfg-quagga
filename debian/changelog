@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.161+daisy7) unstable; urgency=low
+
+  * allow optional dependency on vyatta-unicast
+
+ -- Robert Bays <robert@vyatta.com>  Sat, 01 Jun 2013 16:46:49 -0700
+
 vyatta-cfg-quagga (0.18.161+daisy6) unstable; urgency=low
 
   * Fixing 7975: provide MTU ignore for OSPFv3
