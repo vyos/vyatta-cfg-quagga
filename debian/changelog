@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.18.172) unstable; urgency=low
+
+  * remove deleted node from install
+
+ -- John Southworth <john.southworth@vyatta.com>  Sat, 01 Jun 2013 20:04:39 -0700
+
 vyatta-cfg-quagga (0.18.171) unstable; urgency=low
 
   * Remove redundant 'system gateway-address'
