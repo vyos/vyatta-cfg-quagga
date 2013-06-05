@@ -1,6 +1,7 @@
 tag:
 type: ipv6
-help: Next-hop router [REQUIRED]
+help: Next-hop IPv6 router [REQUIRED]
+
 end:
   if [[ -n "$VAR(../../../table6/@)" ]]
   then
@@ -8,27 +9,18 @@ end:
   fi
   if [[ -z "$VAR(./disable)" ]]
   then
+    # delete only for child and not the parent
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 address; then
         exit 1;
       fi
-      if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
-          "$VAR(../@)" "$VAR(@)"
-      then
-        vtysh -c "configure terminal" \
-                     -c "no ipv6  route $VAR(../@) $VAR(@) $table"
-      fi
-      #echo vtysh -c "configure terminal"  -c "ipv6  route  $VAR(../@) $VAR(@) $table";
-      vtysh -c "configure terminal" \
-                   -c "ipv6  route $VAR(../@) $VAR(@) $table";
-    fi
-  else
-    if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
-        "$VAR(../@)" "$VAR(@)"
-    then
+
       vtysh -c "configure terminal" \
                    -c "no ipv6  route $VAR(../@) $VAR(@) $table"
+    else
+      vtysh -c "configure terminal" \
+                   -c " ipv6  route $VAR(../@) $VAR(@) $table"
     fi
   fi
 
