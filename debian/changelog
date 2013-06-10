@@ -1,3 +1,11 @@
+vyatta-cfg-quagga (0.18.161+daisy8) unstable; urgency=low
+
+  * make quagga link-detect command conditional on zebra
+  * fix bug 8968
+  * fix bug 8988
+
+ -- Robert Bays <robert@vyatta.com>  Sun, 09 Jun 2013 21:36:47 -0700
+
 vyatta-cfg-quagga (0.18.161+daisy7) unstable; urgency=low
 
   * allow optional dependency on vyatta-unicast
