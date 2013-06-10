@@ -119,8 +119,8 @@ int main(int argc, char **argv)
 			default:
 				usage();
 			}
-            continue;
-        }
+			continue;
+		}
 
 		get_prefix_1(&dst, arg, family);
 		get_netmask(&msk, &dst);
