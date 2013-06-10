@@ -1082,11 +1082,7 @@ my %qcom = (
 );
 
 if ( ! -e "/usr/sbin/zebra" ) {
-  %qcom = (
-    'protocols bgp var neighbor var remote-as' => {
-      set => 'router bgp #3 ; neighbor #5 remote-as #7',
-    },
-  );
+  $qcom{'protocols bgp var neighbor var remote-as'}{'set'} = 'router bgp #3 ; neighbor #5 remote-as #7';
 }
 
 my ( $pg, $as, $neighbor );
