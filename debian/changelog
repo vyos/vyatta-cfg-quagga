@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.19.0+hydrogen2) unstable; urgency=low
+
+  * Bug #58: Fix quagga command syntax so IPv4 peer-groups work again
+
+ -- Daniil Baturin <daniil@baturin.org>  Mon, 04 Nov 2013 17:27:03 +0100
+
+vyatta-cfg-quagga (0.19.0+hydrogen1) unstable; urgency=low
+
+  * Fix branch name
+
+ -- Daniil Baturin <daniil@baturin.org>  Mon, 04 Nov 2013 00:00:00 +0100
+
 vyatta-cfg-quagga (0.18.161+daisy9) unstable; urgency=low
 
   * updated fix for bug 8968
