@@ -673,7 +673,7 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var peer-group var' => {
-      set => 'router bgp #3 ; neighbor #5 peer-group activate',
+      set => 'router bgp #3 ; neighbor #5 peer-group',
       del => 'router bgp #3 ; no neighbor #5 peer-group',
       noerr => 'set',
   },
