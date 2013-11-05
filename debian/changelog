@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.0+hydrogen3) unstable; urgency=low
+
+  * Update maintainer address, remove some vyatta occurences
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 05 Nov 2013 01:17:38 +0100
+
 vyatta-cfg-quagga (0.19.0+hydrogen2) unstable; urgency=low
 
   * Bug #58: Fix quagga command syntax so IPv4 peer-groups work again
