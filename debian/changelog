@@ -1,8 +1,11 @@
-vyatta-cfg-quagga (0.19.0+hydrogen3) unstable; urgency=low
+vyatta-cfg-quagga (0.19.0+hydrogen4) unstable; urgency=low
 
-  * Update maintainer address, remove some vyatta occurences
+  [ dmbaturin ]
+  * New branch
 
- -- Daniil Baturin <daniil@baturin.org>  Tue, 05 Nov 2013 01:17:38 +0100
+  [  ]
+
+ --  <dmbaturin@squeeze32devel.het.net>  Thu, 23 Jan 2014 08:04:28 +0100
 
 vyatta-cfg-quagga (0.19.0+hydrogen2) unstable; urgency=low
 
