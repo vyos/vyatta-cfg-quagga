@@ -1,11 +1,8 @@
-vyatta-cfg-quagga (0.19.0+hydrogen4) unstable; urgency=low
+vyatta-cfg-quagga (0.19.0+vyos1+helium1) unstable; urgency=low
 
-  [ dmbaturin ]
   * New branch
 
-  [  ]
-
- --  <dmbaturin@squeeze32devel.het.net>  Thu, 23 Jan 2014 08:04:28 +0100
+ -- Daniil Baturin <daniil@baturin.org>  Thu, 23 Jan 2014 08:05:39 +0100
 
 vyatta-cfg-quagga (0.19.0+hydrogen2) unstable; urgency=low
 
