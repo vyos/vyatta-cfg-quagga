@@ -2,4 +2,4 @@ tag:
 type: u32
 help: Rule for this access-list
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
-val_help: u32:1-65535>; Access-list rule number
+val_help: u32:1-65535; Access-list rule number
