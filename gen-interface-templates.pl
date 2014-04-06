@@ -47,6 +47,7 @@ my %interface_hash = (
     'wirelessmodem/node.tag'                        => '$VAR(@)',
     'multilink/node.tag/vif/node.tag'               => '$VAR(../@)',
     'dummy/node.tag'                                => '$VAR(@)',
+    'l2tpv3/node.tag'                               => '$VAR(@)',
 
     'adsl/node.tag/pvc/node.tag/bridged-ethernet' => '$VAR(../../@)',
     'adsl/node.tag/pvc/node.tag/classical-ipoa'   => '$VAR(../../@)',
