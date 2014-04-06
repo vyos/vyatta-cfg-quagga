@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium3) unstable; urgency=low
+
+  [ Simon Vigneux ]
+  * Tiny typo in tab completion.
+
+  [ Daniil Baturin ]
+  * Bug #159: add dummy interfaces to interface template generator.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 06 Apr 2014 12:21:31 +0200
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium2) unstable; urgency=low
 
   [ Patrick van Staveren ]
