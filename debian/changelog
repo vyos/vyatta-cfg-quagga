@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium4) unstable; urgency=low
+
+  * Add l2tpv3 interfaces to template generator.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 06 Apr 2014 14:01:59 +0200
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium3) unstable; urgency=low
 
   [ Simon Vigneux ]
