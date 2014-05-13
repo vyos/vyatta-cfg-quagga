@@ -1,6 +1,8 @@
 multi:
 type: txt
-help: Suppress routing updates on an interface
+comp_help:default       Suppress routing updates on all interfaces by default\n\
+ethx            Suppress routing updates on ethx\n\
+lo              Suppress routing updates on lo\n
 syntax:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ] && [ x$VAR(@) != xdefault ]; then \
           echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
@@ -18,4 +20,5 @@ delete: if [ x$VAR(x) == xdefault ]
          else vtysh -c "configure terminal" -c "router rip" \
             -c "no passive-interface $VAR(@)"
          fi
-allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
+allowed: echo "default" && ${vyatta_sbindir}/vyatta-interfaces.pl --show all
+
