@@ -1,6 +1,7 @@
 type: txt
 help: BGP as-path-list to match
 val_help: AS path list name
+allowed: cli-shell-api listActiveNodes policy as-path-list
 
 commit:expression: $VAR(../../action/) != ""; "You must specify an action"
 commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy as-path-list $VAR(@)\" "; "match as-path: AS path list $VAR(@) doesn't exist"
