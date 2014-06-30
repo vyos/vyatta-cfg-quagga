@@ -1,3 +1,17 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium6) unstable; urgency=low
+
+  [ Kim Hagen ]
+  * Bug #186 - RIP passive-interface "default" missing from config
+    template
+  * Add QinQ for ethernet interfaces to template generator.
+  * Add QinQ for bonding and pseudo-ethernet interfaces to template
+    generator.
+
+  [ Daniil Baturin ]
+  * Bug #102: add completion for as-path-list in route-map rule.
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 01 Jul 2014 01:29:16 +0200
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium5) unstable; urgency=low
 
   [ Stig Thormodsrud ]
