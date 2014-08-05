@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium7) unstable; urgency=low
+
+  [ Kim Hagen ]
+  * Set separate virtual interface for QinQ.
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 05 Aug 2014 16:29:53 +0000
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium6) unstable; urgency=low
 
   [ Kim Hagen ]
