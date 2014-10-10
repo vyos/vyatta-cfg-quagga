@@ -1,8 +1,7 @@
 # rp_filter
 # default value - 0
-# conf/all/rp_filter and conf/[interface]/rp_filter both must be set to
-# a value greater than 0 to do source validation on the interface
-
+# The max value from conf/{all,interface}/rp_filter is used
+# when doing source validation on the {interface}.
 
 type: txt
 
@@ -15,20 +14,27 @@ val_help: disable; No source validation
 syntax:expression: $VAR(@) in "strict", "loose", "disable"; "source-validation must be set to 'loose', 'strict' or 'disable'"
 
 update:
+        read all < /proc/sys/net/ipv4/conf/all/rp_filter
         if [ x$VAR(@) == xstrict ]; then
-           sudo sh -c "echo 1 > \
-              /proc/sys/net/ipv4/conf/all/rp_filter"
-           sudo sh -c "echo 1 > \
-              /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+           new=1
         elif [ x$VAR(@) == xloose ]; then
-           sudo sh -c "echo 2 > \
-              /proc/sys/net/ipv4/conf/all/rp_filter"
-           sudo sh -c "echo 2 > \
-              /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+           new=2
         else
-           sudo sh -c "echo 0 > \
-               /proc/sys/net/ipv4/conf/all/rp_filter"
-	fi
+           new=0
+        fi
+
+        if [ "$all" -gt "$new" ]; then
+           echo "Warning: global source-validation overrides per interface"
+           global="disable"
+           if [ "$all" -eq 1 ]; then
+              global=strict
+           elif [ "$all" -eq 2 ]; then
+              global=loose
+           fi
+           echo "Global value is $global"
+        fi
+        sudo sh -c "echo $new > \
+               /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
 
 delete:
 	sudo sh -c "echo 0 > /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
