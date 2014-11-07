@@ -1,0 +1,13 @@
+type: txt
+help: Remove ASN(s) from a Border Gateway Protocol (BGP) AS-path attribute
+val_help: BGP AS path exclude string (ex: "456 64500 45001")
+
+commit:expression: $VAR(../../action/) != ""; "you must specify an action"
+
+update: vtysh -c "configure terminal" \
+           -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+           -c "set as-path exclude $VAR(@)" 
+
+delete: vtysh -c "configure terminal" \
+           -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
+           -c "no set as-path exclude "
