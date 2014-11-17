@@ -1,0 +1,41 @@
+tag:
+
+type: ipv6
+
+help: Next-hop IPv6 router [REQUIRED]
+
+end:
+  if [[ -n "$VAR(../../../table/@)" ]]
+  then
+    table="table $VAR(../../../table/@)"
+  fi
+  if [[ -z "$VAR(./disable)" ]]
+  then
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+    then
+      if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 address; then
+        exit 1;
+      fi
+      if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+          "$VAR(../@)" "$VAR(@)"
+      then
+        vtysh -c "configure terminal" \
+                     -c "no ipv6 route $VAR(../@) $VAR(@) $table"
+      fi
+    else
+      if [[ -n "$VAR(./distance/@)" ]]
+      then
+        DIST="$VAR(./distance/@)"
+      fi
+
+      vtysh -c "configure terminal" \
+                   -c "ipv6 route $VAR(../@) $VAR(@) $table $DIST";
+    fi
+  else
+    if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+        "$VAR(../@)" "$VAR(@)"
+    then
+      vtysh -c "configure terminal" \
+                   -c "no ipv6 route $VAR(../@) $VAR(@) $table"
+    fi
+  fi
