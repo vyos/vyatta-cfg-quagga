@@ -1,3 +1,15 @@
+vyatta-cfg-quagga (0.19.1+vyos2+lithium3) unstable; urgency=low
+
+  [ Kevin Blackham ]
+  * Bug #384: Add route-map support for 'as-path exclude'
+
+  [ William Steve Applegate ]
+  * Add kludge to setup IPv6 routes for policy routing.
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 21 Nov 2014 18:55:12 +0100
+
 vyatta-cfg-quagga (0.19.1+vyos2+lithium2) unstable; urgency=low
 
   [ Ryan Riske ]
