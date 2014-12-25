@@ -1,7 +1,7 @@
 Source: vyatta-cfg-quagga
 Section: contrib/net
 Priority: extra
-Maintainer: Vyatta Package Maintainers <maintainers@vyos.net>
+Maintainer: VyOS Package Maintainers <maintainers@vyos.net>
 Build-Depends: debhelper (>= 5), autotools-dev
 Standards-Version: 3.7.2
 
@@ -21,18 +21,18 @@ Suggests: util-linux (>= 2.13-5),
  ethtool,
  ncurses-bin (>= 5.5-5),
  ntpdate
-Description: Vyatta configuration templates/scripts for Quagga
- Vyatta configuration templates and scripts for Quagga
+Description: VyOS configuration templates/scripts for Quagga
+ VyOS configuration templates and scripts for Quagga
 
 Package: vyatta-cfg-quagga-serial
 Architecture: all
 Depends:  vyatta-cfg-quagga, vyatta-serial
 Replaces:  vyatta-cfg-quagga
-Description: vyatta-cfg-quagga serial templates
- Vyatta configuration templates for Quagga use on serial devices
+Description: VyOS Quagga serial templates
+ VyOS configuration templates for Quagga use on serial devices
 
 Package: vyatta-cfg-quagga-dataplane
 Architecture: all
 Depends:  vyatta-cfg-quagga, vyatta-cfg-dataplane
-Description: vyatta-cfg-quagga dataplane templates
- Vyatta configuration templates for Quagga use on dataplane devices
+Description: VyOS Quagga dataplane templates
+ VyOS configuration templates for Quagga use on dataplane devices
