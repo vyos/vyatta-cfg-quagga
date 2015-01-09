@@ -1,6 +1,6 @@
 tag:
 type: ipv4
-help: Next-hop router [REQUIRED]
+help: Next-hop router
 end:
   if [[ -n "$VAR(../../../table/@)" ]]
   then

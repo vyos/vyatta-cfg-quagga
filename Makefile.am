@@ -1,5 +1,6 @@
 share_perl5dir = /opt/vyatta/share/perl5/Vyatta/Quagga
 cfgdir = $(datadir)/vyatta-cfg/templates
+bin_sudo_usersdir = $(bindir)/sudo-users
 curverdir = $(sysconfdir)/config-migrate/current
 gentmpdir = generated-templates
 
@@ -11,6 +12,9 @@ sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
 sbin_SCRIPTS += scripts/vyatta-next-hop-check
+sbin_SCRIPTS += scripts/vyatta-update-static-route.pl
+
+bin_sudo_users_SCRIPTS += scripts/vyatta-static-dhcp.pl
 
 sbin_PROGRAMS = src/check_prefix_boundary
 

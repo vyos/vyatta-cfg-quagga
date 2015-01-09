@@ -1,0 +1,23 @@
+type: txt
+help: DHCP interface that supplies the next-hop IP address for this static route
+allowed:
+        local -a array ;
+        array=( /var/lib/dhcp3/eth* /var/lib/dhcp3/br* /var/lib/dhcp3/bond* ) ;
+        echo  -n ${array[@]##*/}
+create:
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+	    vtysh -c "configure terminal" \
+              -c "ip route $VAR(../@) $RIP"
+update:
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+	    vtysh -c "configure terminal" \
+              -c "ip route $VAR(../@) $RIP"
+delete:
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=delete
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "no ip route $VAR(../@) $RIP"
+        fi

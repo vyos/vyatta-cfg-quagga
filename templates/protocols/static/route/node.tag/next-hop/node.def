@@ -1,17 +1,17 @@
 tag:
 type: ipv4
-help: Next-hop router [REQUIRED]
+help: Next-hop router
 end:
   if [[ -z "$VAR(./disable)" ]]
-  then 
+  then
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
-    then 
+    then
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 address; then
         exit 1;
       fi
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
-      then 
+      then
         vtysh -c "configure terminal" \
                      -c "no ip route $VAR(../@) $VAR(@)"
       fi
