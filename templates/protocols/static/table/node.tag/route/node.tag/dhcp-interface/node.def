@@ -5,22 +5,45 @@ allowed:
         array=( /var/lib/dhcp3/eth* /var/lib/dhcp3/br* /var/lib/dhcp3/bond* ) ;
         echo  -n ${array[@]##*/}
 create:
-        [ -n "$VAR(../../../table/@)" ] && table="table $VAR(../../../table/@)"
-        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=$VAR(../../@) --option=create
-        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        ifc="$VAR(@)"
+        route="$VAR(../@)"
+        table="$VAR(../../@)"
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$ifc --route=$route --table=$table --option=create
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=router)
 	    vtysh -c "configure terminal" \
-              -c "ip route $VAR(../@) $RIP $table"
+              -c "ip route $route $RIP table $table"
+        if [ "$route" == "0.0.0.0/0" ]; then
+            LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
+            MARK=$(dc 0x7fffffff $table + p)
+            sudo /sbin/iptables -t mangle -A OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
+        fi
 update:
-        [ -n "$VAR(../../../table/@)" ] && table="table $VAR(../../../table/@)"
-        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=$VAR(../../@) --option=create
-        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        ifc="$VAR(@)"
+        route="$VAR(../@)"
+        table="$VAR(../../@)"
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$ifc --route=$route --table=$table --option=create
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=router)
 	    vtysh -c "configure terminal" \
-              -c "ip route $VAR(../@) $RIP $table"
+              -c "ip route $route $RIP table $table"
+        if [ "$route" == "0.0.0.0/0" ]; then
+            LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
+            MARK=$(dc 0x7fffffff $table + p)
+            sudo /sbin/iptables -t mangle -A OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
+        fi
 delete:
-        [ -n "$VAR(../../../table/@)" ] && table="table $VAR(../../../table/@)"
-        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=$VAR(../../@) --option=delete
-        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        ifc="$VAR(@)"
+        route="$VAR(../@)"
+        table="$VAR(../../@)"
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$ifc --route=$route --table=$table --option=delete
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=router)
         if [ "$RIP" != "127.0.0.1" ]; then
 	        vtysh -c "configure terminal" \
-                  -c "no ip route $VAR(../@) $RIP $table"
+                  -c "no ip route $route $RIP table $table"
+        fi
+        if [ "$route" == "0.0.0.0/0" ]; then
+            LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
+            if [ "$LIP" != "127.0.0.1" ]; then
+                MARK=$(dc 0x7fffffff $table + p)
+                sudo /sbin/iptables -t mangle -D OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
+            fi
         fi

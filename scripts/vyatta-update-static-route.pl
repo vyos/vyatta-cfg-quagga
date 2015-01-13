@@ -17,7 +17,7 @@ my $dhcp_hook = '';
 if ($option eq 'create') {
     $dhcp_hook =<<EOS;
 #!/bin/sh
-/opt/vyatta/bin/sudo-users/vyatta-static-dhcp.pl --interface=\"\$interface\" --dhcp=\"$iface\" --route=\"$route\" --table=\"$table\" --new_routers=\"\$new_routers\" --old_routers=\"\$old_routers\" --reason=\"\$reason\"
+/opt/vyatta/bin/sudo-users/vyatta-static-dhcp.pl --interface=\"\$interface\" --dhcp=\"$iface\" --route=\"$route\" --table=\"$table\" --new_ip=\"\$new_ip_address\" --old_ip=\"\$old_ip_address\" --new_routers=\"\$new_routers\" --old_routers=\"\$old_routers\" --reason=\"\$reason\"
 EOS
 }
 
