@@ -1,3 +1,10 @@
+vyatta-cfg-quagga (0.19.1+vyos2+lithium6) unstable; urgency=low
+
+  [ Alex Harpin ]
+  * vyatta-cfg-quagga: remove unused / old configuration nodes
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sun, 25 Jan 2015 10:14:25 +0000
+ 
 vyatta-cfg-quagga (0.19.1+vyos2+lithium5) unstable; urgency=low
 
   * Update maintainer address
