@@ -1,4 +1,5 @@
 opt/vyatta/sbin
+opt/vyatta/bin
 opt/vyatta/etc
 opt/vyatta/share/perl5
 opt/vyatta/share/vyatta-cfg/templates/policy
