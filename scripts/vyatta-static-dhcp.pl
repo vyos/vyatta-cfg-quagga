@@ -27,7 +27,7 @@ if ($orouters ne $nrouters) {
     system("vtysh -c 'configure terminal' -c 'ip route $route $nrouters $tab' ");
 }
 if (($oip ne $nip) && ($table ne "main") && ($route eq "0.0.0.0/0")) {
-    my $mark = 0x7ffffff + $table;
+    my $mark = 0x7fffffff + $table;
     system("sudo /sbin/iptables -t mangle -D OUTPUT -s $oip/32 -j MARK --set-mark $mark");
     system("sudo /sbin/iptables -t mangle -A OUTPUT -s $nip/32 -j MARK --set-mark $mark");
 }
