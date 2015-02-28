@@ -14,7 +14,7 @@ GetOptions("interface=s"    => \$iface,
            "reason=s"       => \$reason);
 
 # check if an update is needed
-exit(0) if (($iface ne $dhcp) || (($oip eq $nip) && ($orouters eq $nrouters)) || ($reason ne "BOUND"));
+exit(0) if (($iface ne $dhcp) || (($oip eq $nip) && ($orouters eq $nrouters)));
 logger("DHCP address on $iface updated to $nip,$nrouters from $oip,$orouters: Updating static route $route in table $table.");
 my $tab;
 if ($table eq "main") {
@@ -28,8 +28,13 @@ if ($orouters ne $nrouters) {
 }
 if (($oip ne $nip) && ($table ne "main") && ($route eq "0.0.0.0/0")) {
     my $mark = 0x7fffffff + $table;
-    system("sudo /sbin/iptables -t mangle -D OUTPUT -s $oip/32 -j MARK --set-mark $mark");
-    system("sudo /sbin/iptables -t mangle -A OUTPUT -s $nip/32 -j MARK --set-mark $mark");
+    if ($oip ne "") {
+        system("sudo /sbin/iptables -t mangle -D OUTPUT -s $oip/32 -j MARK --set-mark $mark");
+    }
+    if ($nip ne "") {
+        system("sudo /sbin/iptables -t mangle -D OUTPUT -s $nip/32 -j MARK --set-mark $mark");
+        system("sudo /sbin/iptables -t mangle -A OUTPUT -s $nip/32 -j MARK --set-mark $mark");
+    }
 }
 
 sub logger {
