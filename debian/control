@@ -23,16 +23,3 @@ Suggests: util-linux (>= 2.13-5),
  ntpdate
 Description: VyOS configuration templates/scripts for Quagga
  VyOS configuration templates and scripts for Quagga
-
-Package: vyatta-cfg-quagga-serial
-Architecture: all
-Depends:  vyatta-cfg-quagga, vyatta-serial
-Replaces:  vyatta-cfg-quagga
-Description: VyOS Quagga serial templates
- VyOS configuration templates for Quagga use on serial devices
-
-Package: vyatta-cfg-quagga-dataplane
-Architecture: all
-Depends:  vyatta-cfg-quagga, vyatta-cfg-dataplane
-Description: VyOS Quagga dataplane templates
- VyOS configuration templates for Quagga use on dataplane devices
