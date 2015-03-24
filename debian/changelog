@@ -1,3 +1,24 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium9) unstable; urgency=low
+
+  [ Ryan Riske ]
+  * Bug 147: source-validation sysctl behavior changed in newer kernels
+
+  [ Daniil Baturin ]
+  * Bug #521: save quagga daemon configs to /opt/vyatta/etc/quagga at
+    commit time.
+  * Bug #528: use corrent command for removing IPv6 address-family from
+    a neighbor.
+
+  [ Alex Harpin ]
+  * Update maintainer address
+  * vyatta-cfg-quagga: remove unused / old configuration nodes
+
+  [ Daniil Baturin ]
+  * Bug #529: don't build packages for serial and dataplane interfaces.
+  * Remove reference to vyatta-unicast.
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 24 Mar 2015 22:39:00 +0100
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium8) unstable; urgency=low
 
   * Add VXLAN to interface template generator.
