@@ -156,7 +156,7 @@ my %qcom = (
   },
   'protocols bgp var neighbor var address-family ipv6-unicast' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
-      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 activate',
   },
   'protocols bgp var neighbor var address-family ipv6-unicast allowas-in' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 allowas-in',
