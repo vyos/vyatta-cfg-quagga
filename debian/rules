@@ -71,10 +71,8 @@ install: build
 
 	$(MAKE) DESTDIR=$(PKGDIR) install
 
-	for p in vyatta-cfg-quagga vyatta-cfg-quagga-serial; do \
-	  install -D --mode=0644 debian/$$p.lintian-overrides \
-		debian/$$p/usr/share/lintian/overrides/$$p; \
-	done
+	install -D --mode=0644 debian/vyatta-cfg-quagga.lintian-overrides \
+		debian/vyatta-cfg-quagga/usr/share/lintian/overrides/vyatta-cfg-quagga
 
 # Build architecture-independent files here.
 binary-indep: build install
