@@ -7,3 +7,9 @@ fi
 if [ -f /usr/bin/vtysh ] && [ ! -f /opt/vyatta/sbin/policy/vtysh ]; then
    ln -s /usr/bin/vtysh /opt/vyatta/sbin/policy/vtysh
 fi
+
+# Create a directory for autosaved quagga configs
+AUTOSAVE_DIR=/opt/vyatta/etc/quagga
+mkdir -p $AUTOSAVE_DIR
+chown root:vyattacfg $AUTOSAVE_DIR
+chmod 770 $AUTOSAVE_DIR

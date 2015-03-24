@@ -2,3 +2,9 @@ priority: 650
 help: Routing Information Protocol (RIP) parameters
 create: vtysh -c "configure terminal" -c "router rip"
 delete: vtysh -c "configure terminal" -c "no router rip"
+end:
+  if [ "$COMMIT_ACTION" != "DELETE" ]; then
+    vtysh -d ripd -c 'sh run' > /opt/vyatta/etc/quagga/ripd.conf
+  else
+    rm -f /opt/vyatta/etc/quagga/ripd.conf
+  fi
