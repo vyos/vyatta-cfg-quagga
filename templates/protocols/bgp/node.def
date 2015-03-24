@@ -9,4 +9,7 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 
 end: if [ -z "$VAR(.)" ] || [ "$COMMIT_ACTION" != DELETE ]; then
        /opt/vyatta/sbin/vyatta-bgp.pl --main
+       vtysh -d bgpd -c 'sh run' > /opt/vyatta/etc/quagga/bgpd.conf
+     else
+       rm -f /opt/vyatta/etc/quagga/bgpd.conf
      fi
