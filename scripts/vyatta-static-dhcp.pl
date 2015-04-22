@@ -24,14 +24,19 @@ else {
     $tab = "table $table";
 }
 if ($orouters ne $nrouters) {
-    system("vtysh -c 'configure terminal' -c 'ip route $route $nrouters $tab' ");
+    if ($orouters ne "") {
+        system("vtysh -c 'configure terminal' -c 'no ip route $route $orouters $tab' ");
+    }
+    if (($nrouters ne "") && ($nrouters ne "127.0.0.1")) {
+        system("vtysh -c 'configure terminal' -c 'ip route $route $nrouters $tab' ");
+    }
 }
 if (($oip ne $nip) && ($table ne "main") && ($route eq "0.0.0.0/0")) {
     my $mark = 0x7fffffff + $table;
     if ($oip ne "") {
         system("sudo /sbin/iptables -t mangle -D OUTPUT -s $oip/32 -j MARK --set-mark $mark");
     }
-    if ($nip ne "") {
+    if (($nip ne "") && ($nip ne "127.0.0.1")) {
         system("sudo /sbin/iptables -t mangle -D OUTPUT -s $nip/32 -j MARK --set-mark $mark");
         system("sudo /sbin/iptables -t mangle -A OUTPUT -s $nip/32 -j MARK --set-mark $mark");
     }
