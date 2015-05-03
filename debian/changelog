@@ -1,3 +1,26 @@
+vyatta-cfg-quagga (0.19.1+vyos2+lithium8) unstable; urgency=low
+
+  [ Carl Byington ]
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * allow dhcp-interface for the next-hop on static routes
+  * remove old routes when dhcp gateway changes, avoid routing thru
+    127.0.0.1
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 03 May 2015 19:19:14 +0200
+
 vyatta-cfg-quagga (0.19.1+vyos2+lithium7) unstable; urgency=low
 
   * Bug #521: save quagga daemon configs to /opt/vyatta/etc/quagga at
