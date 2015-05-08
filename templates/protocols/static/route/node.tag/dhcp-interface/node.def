@@ -7,13 +7,17 @@ allowed:
 create:
         sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
         RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
-	    vtysh -c "configure terminal" \
-              -c "ip route $VAR(../@) $RIP"
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "ip route $VAR(../@) $RIP"
+        fi
 update:
         sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
         RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
-	    vtysh -c "configure terminal" \
-              -c "ip route $VAR(../@) $RIP"
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "ip route $VAR(../@) $RIP"
+        fi
 delete:
         sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=delete
         RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
