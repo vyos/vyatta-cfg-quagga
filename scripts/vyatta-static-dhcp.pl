@@ -38,7 +38,7 @@ if (($oip ne $nip) && ($table ne "main") && ($route eq "0.0.0.0/0")) {
     }
     if (($nip ne "") && ($nip ne "127.0.0.1")) {
         system("sudo /sbin/iptables -t mangle -D OUTPUT -s $nip/32 -j MARK --set-mark $mark");
-        system("sudo /sbin/iptables -t mangle -A OUTPUT -s $nip/32 -j MARK --set-mark $mark");
+        system("sudo /sbin/iptables -t mangle -I OUTPUT -s $nip/32 -j MARK --set-mark $mark");
     }
 }
 
