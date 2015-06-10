@@ -14,6 +14,10 @@ GetOptions("interface=s"    => \$iface,
            "reason=s"       => \$reason);
 
 # check if an update is needed
+if (($reason eq "BOUND") || ($reason eq "REBOOT")) {
+    $oip      = "";
+    $orouters = "";
+}
 exit(0) if (($iface ne $dhcp) || (($oip eq $nip) && ($orouters eq $nrouters)));
 logger("DHCP address on $iface updated to $nip,$nrouters from $oip,$orouters: Updating static route $route in table $table.");
 my $tab;
