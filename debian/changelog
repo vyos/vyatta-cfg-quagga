@@ -1,18 +1,12 @@
+vyatta-cfg-quagga (0.19.1+vyos2+lithium9) unstable; urgency=low
+
+  * Tidy up changelog
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sat, 13 Jun 2015 10:22:19 +0100
+ 
 vyatta-cfg-quagga (0.19.1+vyos2+lithium8) unstable; urgency=low
 
   [ Carl Byington ]
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
-  * allow dhcp-interface for the next-hop on static routes
   * allow dhcp-interface for the next-hop on static routes
   * remove old routes when dhcp gateway changes, avoid routing thru
     127.0.0.1
