@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current1) unstable; urgency=medium
+
+  [ Thomas Jepp ]
+  * Add missing build dependencies.
+
+  [ Kim Hagen ]
+
+ -- Kim Hagen <kim.sidney@gmail.com>  Sun, 24 Jan 2016 15:03:04 -0500
+
 vyatta-cfg-quagga (0.19.1+vyos2+lithium12) unstable; urgency=low
 
   [ Carl Byington ]
