@@ -13,7 +13,7 @@ GetOptions("interface=s"    => \$iface,
            );
 my $hash = `echo $iface $route $table | md5sum | cut -c1-10`;
 chomp $hash;
-my $FILE_DHCP_HOOK = "/etc/dhcp3/dhclient-exit-hooks.d/static-route-$hash";
+my $FILE_DHCP_HOOK = "/etc/dhcp/dhclient-exit-hooks.d/static-route-$hash";
 my $dhcp_hook = '';
 if ($option eq 'create') {
     $dhcp_hook =<<EOS;
