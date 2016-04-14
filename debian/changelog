@@ -1,3 +1,12 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current2) unstable; urgency=low
+
+  [ Mihail Vasilev ]
+  * Added ospf option to filter incoming prefixes.
+
+  [ Mihail Vasilev ]
+
+ -- Mihail Vasilev <mick@corp.linkintel.ru>  Wed, 14 Apr 2016 08:54:00 -0300
+
 vyatta-cfg-quagga (0.19.1+vyos2+current1) unstable; urgency=medium
 
   [ Thomas Jepp ]
