@@ -1,0 +1,6 @@
+type: txt
+help: Action to take on routes matching this rule [REQUIRED]
+val_help: permit; Permit matching routes
+val_help: deny; Deny matching routes
+
+syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"

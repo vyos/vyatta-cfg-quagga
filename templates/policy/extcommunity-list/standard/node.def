@@ -1,0 +1,8 @@
+tag:
+priority: 485
+type: txt
+help: Border Gateway Protocol (BGP) extended community-list filter
+
+syntax:expression: pattern $VAR(@) "^[a-zA-Z0-9]+$" ; "Should be alphanumeric name"
+
+end: /opt/vyatta/sbin/vyatta-policy.pl --update-community-list standard $VAR(@)
