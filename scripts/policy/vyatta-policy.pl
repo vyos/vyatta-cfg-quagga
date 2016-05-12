@@ -86,7 +86,6 @@ sub update_ext_community_list {
     # remove the old rule
     if ( is_extcommunity_list($name) ) {
         $cmdline.= " -c \"no ip extcommunity-list $name\" ";
-        );
     };
 
     $config->setLevel("policy route extcommunity-list $variant $name ");
