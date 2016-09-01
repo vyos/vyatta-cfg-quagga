@@ -1,3 +1,4 @@
+priority: 481
 type: txt
 help: Filter routes installed in local route map
 allowed: local -a params

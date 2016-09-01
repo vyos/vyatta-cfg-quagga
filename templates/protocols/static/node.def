@@ -1,4 +1,4 @@
-priority: 450
+priority: 480
 help: static route parameters
 end:
   if [ "$COMMIT_ACTION" != "DELETE" ]; then
