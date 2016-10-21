@@ -8,7 +8,7 @@ use Getopt::Long;
 my $VTYSH = '/usr/bin/vtysh';
 my $ACL_CONSUMERS_DIR = "/opt/vyatta/sbin/policy";
 
-my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $peer );
+my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $extcommunitylist, $peer );
 my ( $routemap, $deleteroutemap, $listpolicy );
 
 GetOptions(
@@ -16,6 +16,7 @@ GetOptions(
     "update-access-list6=s"          => \$accesslist6,
     "update-aspath-list=s"           => \$aspathlist,
     "update-community-list=s"        => \$communitylist,
+    "update-extcommunity-list=s"     => \$extcommunitylist,
     "check-peer-syntax=s"            => \$peer,
     "check-routemap-action=s"        => \$routemap,
     "check-delete-routemap-action=s" => \$deleteroutemap,
@@ -26,6 +27,7 @@ update_access_list($accesslist)               if ($accesslist);
 update_access_list6($accesslist6)             if ($accesslist6);
 update_as_path($aspathlist)                   if ($aspathlist);
 update_community_list($communitylist)         if ($communitylist);
+update_ext_community_list($extcommunitylist)         if ($extcommunitylist);
 check_peer_syntax($peer)                      if ($peer);
 check_routemap_action($routemap)              if ($routemap);
 check_delete_routemap_action($deleteroutemap) if ($deleteroutemap);
@@ -55,6 +57,71 @@ sub is_community_list {
         return 0;
     }
 }
+
+sub is_extcommunity_list {
+    my $list = shift;
+
+    my $count = `$VTYSH -c \"show ip extcommunity-list $list\" | grep -c $list`;
+    if ( $count > 0 ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+
+sub update_ext_community_list {
+    my $variant= shift;
+    my $name    = shift;
+    my $config = new Vyatta::Config;
+    my @rules  = ();
+
+    if($variant !~ /^standard|expanded$/ ) { 
+       die 
+"set policy route extcommunity-list [ standard | expanded ] list-name rule rule-num action { deny | permit } 
+                                   ^^^^^^^^^^^^^^^^^^^^^^^\n";
+    };
+    my  $cmdline="$VTYSH -c \"configure terminal\" ";
+    # remove the old rule
+    if ( is_extcommunity_list($name) ) {
+        $cmdline.= " -c \"no ip extcommunity-list $name\" ";
+    };
+
+    $config->setLevel("policy route extcommunity-list $variant $name ");
+    @rules = $config->listNodes();
+    foreach my $rule ( sort numerically @rules ) {
+
+        # set the action
+        my $action = $config->returnValue("$rule action");
+        die
+          "policy route extcommunity-list $variant $name rule $rule: You must specify an action\n"
+          unless $action;
+
+        # grab the regex
+        my $regex = $config->returnValue("$rule regex");
+        die "policy route extcommunity-list $variant $name rule $rule: You must specify a regex\n"
+          unless $regex;
+        if($variant eq 'standard') {
+           unless (($regex =~ /(.*):(.*)/) and (isIpAddress($1)or($1=~/^\d+$/) ) and ($2=~/^\d+$/)) {
+              die "for standard extcommunity-list regex should be either:
+
+AS:VAL
+
+    This is a format to define AS based Extended Community value. AS part is 2 octets Global Administrator subfield in Extended Community value. VAL part is 4 octets Local Administrator subfield. 7675:100 represents AS 7675 policy value 100. 
+
+IP-Address:VAL
+
+    This is a format to define IP address based Extended Community value. IP-Address part is 4 octets Global Administrator subfield. VAL part is 2 octets Local Administrator subfield. 10.0.0.1:100 represents IP 10.0.0.1 policy value 100.
+";
+ 
+           };
+        };
+        $cmdline.="-c \"ip extcommunity-list $name $action $regex\" ";
+    };
+    exit system($cmdline);
+}
+
 
 sub update_community_list {
     my $num    = shift;
