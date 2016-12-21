@@ -1,3 +1,13 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current4) unstable; urgency=low
+
+  [ Daniil Baturin ]
+  * Fix protocols static route template
+
+  [ Sylvain Munaut ]
+  * Route-maps for static routes
+
+ -- Daniil Baturin <daniil@baturin.org>  Wed, 21 Dec 2016 19:57:51 +0100
+
 vyatta-cfg-quagga (0.19.1+vyos2+current3) unstable; urgency=low
 
   [ Mihail Vasilev ]
