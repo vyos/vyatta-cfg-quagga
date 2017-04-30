@@ -37,7 +37,9 @@ end:  len=`echo $VAR(./prefix/@) | awk -F/ '{ print $2 }'` ;
       if [ -f "/tmp/protocols-$VAR(../@)-$VAR(@).$PPID" ]; then 
         rm -f "protocols-$VAR(../@)-$VAR(@).$PPID" ; 
       else 
-        vtysh -c "configure terminal" \
-          -c "ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; 
+        if ! vtysh -c "configure terminal" \
+          -c "ip prefix-list $VAR(../@) seq $VAR(@) $VAR(./action/@) $VAR(./prefix/@) $cond " ; then
+          exit 1 ;
+        fi;
       fi ; 
       exit 0 ; 
