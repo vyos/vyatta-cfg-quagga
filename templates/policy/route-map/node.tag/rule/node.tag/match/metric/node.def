@@ -1,6 +1,6 @@
 type: u32
 help: Metric of route to match
-val_help: u32:1-65535; Rrute metric
+val_help: u32:1-65535; Route metric
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "metric must be between 1 and 65535"
 commit:expression: $VAR(../../action/) != ""; "you must specify an action"
