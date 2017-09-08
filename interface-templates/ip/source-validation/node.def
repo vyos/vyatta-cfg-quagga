@@ -3,8 +3,8 @@
 # The max value from conf/{all,interface}/rp_filter is used
 # when doing source validation on the {interface}.
 
-priority: 500
 type: txt
+
 help: Policy for source validation by reversed path, as specified in RFC3704
 
 val_help: strict; Enable Strict Reverse Path Forwarding as defined in RFC3704
@@ -33,8 +33,12 @@ update:
            fi
            echo "Global value is $global"
         fi
-        sudo sh -c "echo $new > \
-               /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+        if [ -d /sys/class/net/$VAR(../@) ] ; then
+                sudo sh -c "echo $new > \
+                       /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+        fi
 
 delete:
-	sudo sh -c "echo 0 > /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+        if [ -d /sys/class/net/$VAR(../@) ] ; then
+                sudo sh -c "echo 0 > /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
+        fi
