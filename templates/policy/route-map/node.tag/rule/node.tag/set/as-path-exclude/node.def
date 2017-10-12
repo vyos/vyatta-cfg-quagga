@@ -3,6 +3,7 @@ help: Exclude string for a Border Gateway Protocol (BGP) AS-path attribute
 val_help: BGP AS path exclude string (ex: "456 64500 45001")
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-check-as-prepend.pl \"$VAR(@)\" "; "invalid AS path string"
+
 commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
