@@ -1558,10 +1558,10 @@ sub check_source {
     if ($ip) {
 	my $found = grep { my $a = new NetAddr::IP::Lite($_);
 			   $a->addr() eq $ip->addr() } Vyatta::Misc::getIP();
-	die "IP address $ip does not exist on this system\n" if ($found == 0);
+	print("Warning: IP address $ip does not exist on this system\n") if ($found == 0);
     } else {
 	my $found = grep { $_ eq $src } Vyatta::Misc::getInterfaces();
-	die "Interface $src does not exist on the system\n" if ($found == 0);
+	print("Warning: Interface $src does not exist on the system\n") if ($found == 0);
     }
 }
 
