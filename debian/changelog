@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.0+vyos1+helium11) unstable; urgency=low
+
+  * Force release
+
+ -- Daniil Baturin <daniil@baturin.org>  Thu, 12 Oct 2017 07:23:12 +0200
+
 vyatta-cfg-quagga (0.19.0+vyos1+helium10) unstable; urgency=low
 
   [ Davide Gianino ]
@@ -31,7 +37,7 @@ vyatta-cfg-quagga (0.19.0+vyos1+helium9) unstable; urgency=low
   * Bug #529: don't build packages for serial and dataplane interfaces.
   * Remove reference to vyatta-unicast.
 
- -- Daniil Baturin <daniil@baturin.org> Tue, 24 Mar 2015 22:39:00 +0100
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 24 Mar 2015 22:39:00 +0100
 
 vyatta-cfg-quagga (0.19.0+vyos1+helium8) unstable; urgency=low
 
