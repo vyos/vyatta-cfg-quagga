@@ -1,5 +1,0 @@
-type: txt
-help: Extended community regexp. 
-val_help: Extended community list regular expression
-
-commit:expression: $VAR(../action/@) != ""; "You must specify an action"
