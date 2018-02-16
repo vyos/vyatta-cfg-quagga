@@ -67,6 +67,18 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; aggregate-address #7 ?summary-only',
       del => 'router bgp #3 ; address-family ipv6 ; no aggregate-address #7',
   },
+  'protocols bgp var address-family ipv6-unicast maximum-paths' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var address-family ipv6-unicast maximum-paths ebgp' => {
+      set => 'router bgp #3 ; address-family ipv6 ; max-paths ebgp #8',
+      del => 'router bgp #3 ; address-family ipv6 ; no max-paths ebgp #8',
+  },
+  'protocols bgp var address-family ipv6-unicast maximum-paths ibgp' => {
+      set => 'router bgp #3 ; address-family ipv6 ; max-paths ibgp #8',
+      del => 'router bgp #3 ; address-family ipv6 ; no max-paths ibgp #8',
+  },
   'protocols bgp var address-family ipv6-unicast network' => {
       set => undef,
       del => undef,
