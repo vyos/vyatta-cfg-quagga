@@ -4,7 +4,6 @@ opt/vyatta/etc
 opt/vyatta/share/perl5
 opt/vyatta/share/vyatta-cfg/templates/policy
 opt/vyatta/share/vyatta-cfg/templates/protocols
-opt/vyatta/share/vyatta-cfg/templates/system/gateway-address
 opt/vyatta/share/vyatta-cfg/templates/interfaces/bonding
 opt/vyatta/share/vyatta-cfg/templates/interfaces/bridge
 opt/vyatta/share/vyatta-cfg/templates/interfaces/ethernet
