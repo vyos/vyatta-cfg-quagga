@@ -1,2 +1,2 @@
-help: Neighbor as a route reflector client
+help: Neighbor as a IPv4-route reflector client
 commit:expression: $VAR(../../@) == $VAR(../remote-as/@); "remote-as must equal local-as"
