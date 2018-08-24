@@ -1,2 +1,2 @@
-help: Remove private AS numbers from AS path in outbound route updates
+help: Remove private AS numbers from AS path in outbound IPv4-route updates
 commit:expression: $VAR(../remote-as/@) != $VAR(../../@); "you can't set remove-private-as for an iBGP peer"

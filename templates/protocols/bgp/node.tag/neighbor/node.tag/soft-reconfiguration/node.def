@@ -1,2 +1,2 @@
-help: Soft reconfiguration for neighbor
+help: Soft reconfiguration for neighbor (IPv4)
 commit:expression: $VAR(./inbound/) != ""; "you must specify the type of soft-reconfiguration"
