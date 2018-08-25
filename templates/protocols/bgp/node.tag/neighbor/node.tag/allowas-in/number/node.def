@@ -1,4 +1,4 @@
 type: u32
-help: Number of occurrences of AS number
+help: Number of occurrences of AS number (IPv4)
 val_help: u32:1-10; Number of times AS is allowed in path
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 10; "allowas-in number must be between 1 and 10"

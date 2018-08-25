@@ -1,5 +1,5 @@
 type: txt
-help: As-path-list to filter incoming route updates from this neighbor
+help: As-path-list to filter incoming IPv4-route updates from this neighbor
 allowed: local -a params
         params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy as-path-list )
         echo -n ${params[@]##*/}
