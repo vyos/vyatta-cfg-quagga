@@ -11,12 +11,12 @@ end:
       fi
 
       vtysh -c "configure terminal" \
-                    -c "no ip route $VAR(../@) null0 $table";
+                    -c "no ip route $VAR(../@) Null0 $table";
      else
        if [ -n "$VAR(./distance/@)" ]; then
          dist="$VAR(./distance/@)";
        fi;
 
        vtysh -c "configure terminal" \
-                    -c "ip route $VAR(../@) null0 $table $dist";
+                    -c "ip route $VAR(../@) Null0 $table $dist";
      fi;

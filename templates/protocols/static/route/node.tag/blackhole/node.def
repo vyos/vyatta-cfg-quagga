@@ -6,11 +6,11 @@ end: if [ ${COMMIT_ACTION} = 'DELETE' ]; then
       fi
 
       vtysh -c "configure terminal" \
-                    -c "no ip route $VAR(../@) null0";
+                    -c "no ip route $VAR(../@) Null0";
      else
        if [ -n "$VAR(./distance/@)" ]; then
 	 DIST="$VAR(./distance/@)";
        fi;
        vtysh -c "configure terminal" \
-                    -c "ip route $VAR(../@) null0 $DIST";
+                    -c "ip route $VAR(../@) Null0 $DIST";
      fi;
