@@ -1,0 +1,2 @@
+help: Peer-group as a route reflector client
+commit:expression: $VAR(../../../../@) == $VAR(../../../remote-as/@); "remote-as must equal local-as"
