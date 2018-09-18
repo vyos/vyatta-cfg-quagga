@@ -1,7 +1,7 @@
 help: OSPFv3 administrative distance
 delete:expression: "touch /tmp/ospfv3-distance.$PPID"
 end:expression: "\
-      if [ -f \"/tmp/ospf-distance.$PPID\" ]; then                   \
+      if [ -f \"/tmp/ospfv3-distance.$PPID\" ]; then                   \
          vtysh -c \"configure terminal\" \
            -c \"router ospf6\"                                        \
            -c \"no distance ospf6\";                                  \
