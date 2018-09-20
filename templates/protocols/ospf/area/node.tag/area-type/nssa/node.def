@@ -20,8 +20,9 @@ end: if [ -f "/tmp/ospf-area-nssa.$PPID" ]; then
 	${vyatta_sbindir}/vyatta-check-typeless-node.pl           \
           "protocols ospf area $VAR(../../@) area-type nssa no-summary";
         if [ $? -eq 0 ] ; then
-           PARM="$PARM no-summary";  
+           PARM2="no-summary";
         fi;
         vtysh -c "configure terminal" \
-          -c "router ospf" -c "area $VAR(../../@) nssa $PARM";
+          -c "router ospf" -c "area $VAR(../../@) nssa $PARM2" -c "area $VAR(../../@) nssa $PARM"; \
      fi;
+
