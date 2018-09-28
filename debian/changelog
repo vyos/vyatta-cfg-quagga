@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (1.2.0-1) stable; urgency=medium
+
+  * New branch.
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 28 Sep 2018 21:43:09 +0200
+
 vyatta-cfg-quagga (0.19.1+vyos2+current5) unstable; urgency=medium
 
   * Move IPv4-specific BGP options to "address-family ipv4-unicast" subtrees.
