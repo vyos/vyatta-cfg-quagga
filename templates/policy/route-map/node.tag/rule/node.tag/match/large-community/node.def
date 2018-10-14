@@ -1,0 +1,22 @@
+help: Match BGP large communities
+delete: echo route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@) >>  /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-large-community.$PPID
+end:  if [ -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-large-community.$PPID ]; then
+        routemap=`cat /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-large-community.$PPID`
+        rm -f /tmp/delete-policy-route-map-$VAR(../../../@)-$VAR(../../@)-match-large-community.$PPID;
+        vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match large-community";
+        exit 0;
+      else
+        if [ -z "$VAR(./large-community-list/@)" ]; then
+          echo route-map $VAR(../../../@) rule $VAR(../../@) match large-community: you must configure a community-list;
+          exit 1 ;
+        fi ;
+        if [ -z "$VAR(../../action/@)" ]; then
+          echo route-map $VAR(../../../@) rule $VAR(../../@): you must configure an action;
+          exit 1 ;
+        fi ;
+        routemap='route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)';
+
+        vtysh --noerror -c "configure terminal" -c "$routemap " -c "no match large-community";
+        vtysh -c "configure terminal" -c "$routemap " -c "match large-community $VAR(./large-community-list/@)";
+      fi
+

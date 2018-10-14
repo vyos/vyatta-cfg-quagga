@@ -1,0 +1,4 @@
+tag:
+priority: 470
+type: txt
+help: Border Gateway Protocol (BGP) large-community-list filter
