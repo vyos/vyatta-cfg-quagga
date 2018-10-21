@@ -1,7 +1,0 @@
-type: txt
-help: Extended community value. Should be either AS:VAL or IP-Address:VAL
-val_help: Community list regular expression
-
-syntax:expression: pattern $VAR(@) "^([0-9]*)|([0-9]{1-3}\.[0-9]{1-3}\.[0-9]{1-3}\.[0-9]{1-3}):[0-9]*$"
-
-commit:expression: $VAR(../action/@) != ""; "You must specify an action"

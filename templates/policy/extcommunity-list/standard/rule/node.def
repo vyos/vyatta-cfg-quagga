@@ -1,6 +1,0 @@
-tag:
-type: u32
-help: create a rule for this BGP extended community list
-val_help: u32:1-65535; Extended community-list rule number
-
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
