@@ -82,11 +82,16 @@ sub update_ext_community_list {
 "set policy route extcommunity-list [ standard | expanded ] list-name rule rule-num action { deny | permit } 
                                    ^^^^^^^^^^^^^^^^^^^^^^^\n";
     };
-    my  $cmdline="$VTYSH -c \"configure terminal\" ";
+
     # remove the old rule
-    if ( is_extcommunity_list($name) ) {
-        $cmdline.= " -c \"no ip extcommunity-list $name\" ";
-    };
+    if ( is_extcommunity_list($num) ) {
+        my $clist = `$VTYSH -c \"show ip extcommunity-list $num\" | grep -v \"access list $num\"`;
+        my @oldrules = split(/\n/, $clist);
+        foreach my $oldrule (@oldrules) {
+            print "$oldrule\n";
+            system("$VTYSH -c \"conf t\" -c \"no ip extcommunity-list $num $oldrule\"");
+        }
+    } 
 
     $config->setLevel("policy route extcommunity-list $variant $name ");
     @rules = $config->listNodes();
@@ -130,10 +135,13 @@ sub update_community_list {
 
     # remove the old rule
     if ( is_community_list($num) ) {
-        system(
-            "$VTYSH -c \"configure terminal\" -c \"no ip community-list $num\" "
-        );
-    }
+        my $clist = `$VTYSH -c \"show ip community-list $num\" | grep -v \"access list $num\"`;
+        my @oldrules = split(/\n/, $clist);
+        foreach my $oldrule (@oldrules) {
+            print "$oldrule\n";
+            system("$VTYSH -c \"conf t\" -c \"no ip community-list $num $oldrule\"");
+        }
+    } 
 
     $config->setLevel("policy community-list $num rule");
     @rules = $config->listNodes();
