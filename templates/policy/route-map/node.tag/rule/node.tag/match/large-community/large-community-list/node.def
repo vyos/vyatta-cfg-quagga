@@ -1,0 +1,5 @@
+type: txt
+help: BGP large-community-list to match
+allowed: cli-shell-api listNodes policy large-community-list
+
+commit:expression: exec "cli-shell-api exists policy large-community-list $VAR(./@)"; "Large community list $VAR(./@) does not exist"

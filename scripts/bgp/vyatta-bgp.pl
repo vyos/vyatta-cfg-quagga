@@ -1596,7 +1596,18 @@ sub main
 
    ## deletes with priority
    # delete everything in neighbor, ordered nodes last 
-   my @ordered = ('remote-as', 'peer-group', 'shutdown', 'route-map', 'prefix-list', 'filter-list', 'distribute-list', 'unsuppress-map');  
+   my @ordered = ('remote-as', 'peer-group', 'shutdown',
+                  'address-family ipv4-unicast route-map',
+                  'address-family ipv4-unicast prefix-list',
+                  'address-family ipv4-unicast filter-list',
+                  'address-family ipv4-unicast distribute-list',
+                  'address-family ipv4-unicast unsuppress-map',
+                  'address-family ipv6-unicast route-map',
+                  'address-family ipv6-unicast prefix-list',
+                  'address-family ipv6-unicast filter-list',
+                  'address-family ipv6-unicast distribute-list',
+                  'address-family ipv6-unicast unsuppress-map');
+
    # notice the extra space in the level string.  keeps the parent from being deleted.
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', undef, \@ordered) || die "exiting $?\n";
    $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ', undef, \@ordered) || die "exiting $?\n";

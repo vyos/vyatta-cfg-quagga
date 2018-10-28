@@ -2,6 +2,8 @@ type: ipv6
 help: Nexthop IPv6 local address
 val_help: IPv6 address
 
+syntax:expression: exec "ipaddrcheck --is-ipv6-link-local $VAR(@) || echo $VAR(@) is not a valid IPv6 link-local adddress"
+
 # TODO: can also set to peer for BGP
 commit:expression: $VAR(../../../action/) != ""; "you must specify an action"
 

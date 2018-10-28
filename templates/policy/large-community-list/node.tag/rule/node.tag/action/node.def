@@ -1,0 +1,5 @@
+type: txt
+help: Action to take on communities matching this rule [REQUIRED]
+val_help: permit; Permit matching communities
+val_help: deny; Deny matching communities
+syntax:expression: $VAR(@) in "permit", "deny"; "action must be permit or deny"

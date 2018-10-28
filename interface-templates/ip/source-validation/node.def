@@ -1,3 +1,4 @@
+priority: 610
 # rp_filter
 # default value - 0
 # The max value from conf/{all,interface}/rp_filter is used
