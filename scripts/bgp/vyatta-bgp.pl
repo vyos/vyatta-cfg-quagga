@@ -990,7 +990,7 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 route-map #10 out',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 route-map #10 out',
   },
-  'protocols bgp var peer-group var route-map import' => {
+  'protocols bgp var peer-group var address-family ipv4-unicast route-map import' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 route-map #10 in',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 route-map #10 in',
   },
