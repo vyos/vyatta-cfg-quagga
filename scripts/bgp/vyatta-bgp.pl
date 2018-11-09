@@ -482,6 +482,14 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 route-server-client',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 route-server-client',
   },
+  'protocols bgp var neighbor var address-family ipv4-unicast soft-reconfiguration' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var neighbor var address-family ipv4-unicast soft-reconfiguration inbound' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 soft-reconfiguration inbound',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 soft-reconfiguration inbound',
+  },
   'protocols bgp var neighbor var remote-as' => {
       set => 'router bgp #3 ; neighbor #5 remote-as #7 ; neighbor #5 activate',
       del => 'router bgp #3 ; no neighbor #5 remote-as #7',
@@ -546,14 +554,6 @@ my %qcom = (
   'protocols bgp var neighbor var shutdown' => {
       set => 'router bgp #3 ; neighbor #5 shutdown',
       del => 'router bgp #3 ; no neighbor #5 shutdown',
-  },
-  'protocols bgp var neighbor var soft-reconfiguration' => {
-      set => undef,
-      del => undef,
-  },
-  'protocols bgp var neighbor var soft-reconfiguration inbound' => {
-      set => 'router bgp #3 ; neighbor #5 soft-reconfiguration inbound',
-      del => 'router bgp #3 ; no neighbor #5 soft-reconfiguration inbound',
   },
   'protocols bgp var neighbor var strict-capability-match' => {
       set => 'router bgp #3 ; neighbor #5 strict-capability-match',
