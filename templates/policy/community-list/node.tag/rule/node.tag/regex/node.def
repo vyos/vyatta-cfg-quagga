@@ -1,13 +1,5 @@
 type: txt
 help: Regular expression to match against a community list
-val_help: Community list regular expression
-
-syntax:expression: exec " \
-if [ $VAR(../../@) -ge 1 ] && [ $VAR(../../@) -le 99 ]; then \
-  if [ -n \"`echo $VAR(@) | sed 's/[0-9]*:[0-9]*//g' | sed -e 's/internet//g' -e 's/local-AS//g' -e 's/no-advertise//g' -e 's/no-export//g'`\" ]; then \
-    echo regex $VAR(@) is invalid for a standard community list; \
-    exit 1 ; \
-  fi ; \
-fi ; "
+val_help: Community list regular expression or one of: internet, local-AS, no-advertise, no-export
 
 commit:expression: $VAR(../action/@) != ""; "You must specify an action"

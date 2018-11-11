@@ -49,6 +49,7 @@ sub check_peer_syntax {
 sub is_community_list {
     my $list = shift;
 
+    # Migration to the new syntax blocked by FRR #3308
     my $count = `$VTYSH -c \"show ip community-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
@@ -61,7 +62,7 @@ sub is_community_list {
 sub is_extcommunity_list {
     my $list = shift;
 
-    my $count = `$VTYSH -c \"show ip extcommunity-list $list\" | grep -c $list`;
+    my $count = `$VTYSH -c \"show bgp extcommunity-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -78,10 +79,10 @@ sub update_ext_community_list {
 
     # remove the old rules
     if ( is_extcommunity_list($name) ) {
-        my $clist = `$VTYSH -c \"show ip extcommunity-list $name\" | grep -v \"expanded list $name\"`;
+        my $clist = `$VTYSH -c \"show bgp extcommunity-list $name\" | grep -v \"expanded list $name\"`;
         my @oldrules = split(/\n/, $clist);
         foreach my $oldrule (@oldrules) {
-            system("$VTYSH -c \"conf t\" -c \"no ip extcommunity-list expanded $name $oldrule\"");
+            system("$VTYSH -c \"conf t\" -c \"no bgp extcommunity-list expanded $name $oldrule\"");
         }
     }
 
@@ -102,7 +103,7 @@ sub update_ext_community_list {
         if (!($regex =~ /(.*):(.*)/) and (isIpAddress($1)or($1=~/^\d+$/) ) and ($2=~/^\d+$/)) {
               die "extcommunity-list $name rule $rule: Malformed extcommunity-list regex";
         }
-        system("$VTYSH -c \"conf t\" -c \"ip extcommunity-list expanded $name $action $regex\"");
+        system("$VTYSH -c \"conf t\" -c \"bgp extcommunity-list expanded $name $action $regex\"");
     }
 
     exit(0);
@@ -119,7 +120,7 @@ sub update_community_list {
         my $clist = `$VTYSH -c \"show ip community-list $num\" | grep -v \"access list $num\"`;
         my @oldrules = split(/\n/, $clist);
         foreach my $oldrule (@oldrules) {
-            system("$VTYSH -c \"conf t\" -c \"no ip community-list $num $oldrule\"");
+            system("$VTYSH -c \"conf t\" -c \"no bgp community-list expanded $num $oldrule\"");
         }
     } 
 
@@ -140,7 +141,7 @@ sub update_community_list {
           unless $regex;
 
         system(
-"$VTYSH -c \"configure terminal\" -c \"ip community-list $num $action $regex\" "
+"$VTYSH -c \"configure terminal\" -c \"bgp community-list expanded $num $action $regex\" "
         );
     }
 
@@ -151,7 +152,7 @@ sub is_as_path_list {
     my $list = shift;
 
     my $count =
-      `$VTYSH -c \"show ip as-path-access-list $list\" | grep -c $list`;
+      `$VTYSH -c \"show bgp as-path-access-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -168,7 +169,7 @@ sub update_as_path {
     # remove the old rule
     if ( is_as_path_list($word) ) {
         system(
-"$VTYSH -c \"configure terminal\" -c \"no ip as-path access-list $word\" "
+"$VTYSH -c \"configure terminal\" -c \"no bgp as-path access-list $word\" "
         );
     }
 
@@ -188,7 +189,7 @@ sub update_as_path {
           unless $regex;
 
         system(
-"$VTYSH -c \"configure terminal\" -c \"ip as-path access-list $word $action $regex\" "
+"$VTYSH -c \"configure terminal\" -c \"bgp as-path access-list $word $action $regex\" "
         );
     }
 
