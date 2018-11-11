@@ -446,11 +446,11 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 next-hop-self',
   },
-  'protocols bgp var neighbor var prefix-list' => {
+  'protocols bgp var neighbor var address-family ipv4-unicast prefix-list' => {
       set => undef,
       del => undef,
   },
-  'protocols bgp var neighbor address-family ipv4-unicast var prefix-list export' => {
+  'protocols bgp var neighbor var address-family ipv4-unicast prefix-list export' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 prefix-list #10 out',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 prefix-list #10 out',
   },
