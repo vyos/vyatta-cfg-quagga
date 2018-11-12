@@ -10,4 +10,4 @@ update: vtysh -c "configure terminal" \
 
 delete: vtysh -c "configure terminal" \
            -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
-           -c "no set as-path exclude "
+           -c "no set as-path exclude $VAR(@)"
