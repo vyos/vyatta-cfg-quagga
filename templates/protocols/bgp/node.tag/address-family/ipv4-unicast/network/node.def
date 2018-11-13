@@ -1,5 +1,5 @@
 tag:
 type: ipv4net
 help: BGP network
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 commit:expression: !($VAR(./backdoor/) != "" && $VAR(./route-map/) != ""); "you may specify route-map or backdoor but not both"

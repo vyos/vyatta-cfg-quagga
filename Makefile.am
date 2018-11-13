@@ -16,8 +16,6 @@ sbin_SCRIPTS += scripts/vyatta-update-static-route.pl
 
 bin_sudo_users_SCRIPTS = scripts/vyatta-static-dhcp.pl
 
-sbin_PROGRAMS = src/check_prefix_boundary
-
 share_perl5_DATA = lib/Vyatta/Quagga/Config.pm
 
 src_check_prefix_boundary = src/check_prefix_boundary.c

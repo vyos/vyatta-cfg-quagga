@@ -2,7 +2,7 @@ multi:
 type: ipv6net
 help: Aggregate RIPng route announcement
 
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv6-net $VAR(@)"
 
 create: vtysh -c "configure terminal" \
           -c "router ripng"                                       \

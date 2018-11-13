@@ -1,7 +1,7 @@
 tag:
 type: ipv4net
 help: Source network
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 commit:expression: $VAR(./distance/) != ""; "Must specify distance for network $VAR(@)"
 delete:expression: "touch /tmp/rip-dist.$PPID"
 end:expression: "if [ -n \"$VAR(./access-list/@)\" ]; then \
