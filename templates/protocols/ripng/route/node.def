@@ -2,7 +2,7 @@ multi:
 type: ipv6net
 help: RIPng static route
 
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 
 create: vtysh -c "configure terminal" \
           -c "router ripng"                                       \

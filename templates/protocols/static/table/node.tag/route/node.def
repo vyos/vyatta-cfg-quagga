@@ -1,7 +1,7 @@
 tag:
 type: ipv4net
 help: Static route
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 
 commit:expression: $VAR(./next-hop/) != "" || $VAR(./blackhole/) != "" || $VAR(./dhcp-interface/) != ""; \
                    "Must add either a next-hop or blackhole or dhcp-interface for route $VAR(@)"

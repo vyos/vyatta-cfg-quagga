@@ -1,7 +1,7 @@
 multi:
 type: ipv4net
 help: RIP static route
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
          -c \"route $VAR(@)\" "
 delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \

@@ -1,5 +1,5 @@
 tag:
 type: ipv4net
 help: Administrative distance for a specific BGP prefix
-syntax:expression: exec "${vyatta_sbindir}/check_prefix_boundary $VAR(@)"
+syntax:expression: exec "ipaddrcheck --verbose --is-any-net $VAR(@)"
 commit:expression: $VAR(./distance/) != ""; "you must set a route distance for this prefix"
