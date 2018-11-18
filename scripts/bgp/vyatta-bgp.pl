@@ -494,6 +494,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 remote-as #7 ; neighbor #5 activate',
       del => 'router bgp #3 ; no neighbor #5 remote-as #7',
   },
+  'protocols bgp var neighbor var interface' => {
+      set => 'router bgp #3 ; neighbor #5 interface #7',
+      del => 'router bgp #3 ; no neighbor #5 interface #7',
+  },
   'protocols bgp var neighbor var disable-capability-negotiation' => {
       set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
       del => 'router bgp #3 ; no neighbor #5 dont-capability-negotiate',
