@@ -117,11 +117,7 @@ sub update_community_list {
 
     # remove the old rule
     if ( is_community_list($num) ) {
-        my $clist = `$VTYSH -c \"show ip community-list $num\" | grep -v \"access list $num\"`;
-        my @oldrules = split(/\n/, $clist);
-        foreach my $oldrule (@oldrules) {
-            system("$VTYSH -c \"conf t\" -c \"no bgp community-list expanded $num $oldrule\"");
-        }
+        system("$VTYSH -c \"conf t\" -c \"no bgp community-list expanded $num\"");
     } 
 
     $config->setLevel("policy community-list $num rule");
