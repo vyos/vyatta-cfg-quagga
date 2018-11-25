@@ -6,7 +6,7 @@ use Vyatta::Misc;
 use NetAddr::IP;
 use Getopt::Long;
 
-my ( $prefix, $exists, $not_exists, $area, $community, $passive );
+my ( $prefix, $exists, $not_exists, $area, $area6, $community, $passive );
 
 # Allowed well-know community values (see set commuinity)
 my %communities = (
@@ -23,6 +23,7 @@ GetOptions(
     "not-exists=s"           => \$not_exists,
     "exists=s"               => \$exists,
     "check-ospf-area=s"      => \$area,
+    "check-ospfv3-area=s"    => \$area6,
     "check-community"        => \$community,
     "check-ospf-passive=s"   => \$passive,
 );
@@ -31,6 +32,7 @@ check_community(@ARGV)	      if ($community);
 check_prefix_boundry($prefix) if ($prefix);
 check_not_exists($not_exists) if ($not_exists);
 check_exists($exists)         if ($exists);
+check_ospfv3_area($area6)     if ($area6);
 check_ospf_area($area)        if ($area);
 check_ospf_passive($passive)  if ($passive);
 
@@ -86,6 +88,19 @@ sub check_ospf_area {
     }
 
     die "Invalid OSPF area: $area\n";
+}
+
+sub check_ospfv3_area {
+    my $area = shift;
+
+    if ( $area =~ m/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/ ) {
+        foreach my $octet ( $1, $2, $3, $4 ) {
+            if ( ( $octet < 0 ) || ( $octet > 255 ) ) { exit 1; }
+        }
+        exit 0;
+    }
+
+    die "Invalid OSPF area: $area. Only dotted decimal notation is allowed.\n";
 }
 
 sub check_community {
