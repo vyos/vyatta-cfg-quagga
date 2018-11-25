@@ -170,7 +170,7 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute kernel',
       noerr => 'set',
   },
-  'protocols bgp var address-family ipv4-unicast  redistribute ospf' => {
+  'protocols bgp var address-family ipv4-unicast redistribute ospf' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute ospf ; redistribute ospf ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute ospf',
       noerr => 'set',
