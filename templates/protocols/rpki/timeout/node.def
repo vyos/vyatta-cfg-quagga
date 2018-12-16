@@ -1,0 +1,6 @@
+type: u32
+help: RPKI cache reply timeout
+
+create: vtysh -c 'conf t' -c 'rpki' -c 'rpki timeout $VAR(@)'
+update: vtysh -c 'conf t' -c 'rpki' -c 'rpki timeout $VAR(@)'
+delete: vtysh -c 'conf t' -c 'rpki' -c 'no rpki timeout'

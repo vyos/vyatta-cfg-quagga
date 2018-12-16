@@ -1,0 +1,4 @@
+type: txt
+help: RPKI SSH public key file path
+
+syntax:expression: exec "test -f $VAR(@)"; "Must be an existing file path"

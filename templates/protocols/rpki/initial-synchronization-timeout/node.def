@@ -1,0 +1,7 @@
+type: u32
+help: Initial RPKI cache synchronization timeout
+
+create: vtysh -c 'conf t' -c 'rpki' -c 'rpki initial-synchronisation-timeout $VAR(@)'
+update: vtysh -c 'conf t' -c 'rpki' -c 'rpki initial-synchronisation-timeout $VAR(@)'
+delete: vtysh -c 'conf t' -c 'rpki' -c 'no rpki initial-synchronisation-timeout'
+
