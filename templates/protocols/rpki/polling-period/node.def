@@ -1,0 +1,7 @@
+type: u32
+help: RPKI cache polling period
+val_help: u32:1-1300; Polling period
+
+create: vtysh -c 'conf t' -c 'rpki' -c 'rpki polling_period $VAR(@)'
+update: vtysh -c 'conf t' -c 'rpki' -c 'rpki polling_period $VAR(@)'
+delete: vtysh -c 'conf t' -c 'rpki' -c 'no rpki polling_period'
