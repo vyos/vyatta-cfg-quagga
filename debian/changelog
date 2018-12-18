@@ -1,8 +1,8 @@
-vyatta-cfg-quagga (1.2.0-1) stable; urgency=medium
+vyatta-cfg-quagga (0.19.1+vyos2+current6) unstable; urgency=low
 
-  * New branch.
+  * bugfix: T1102 - Disabling rp_filter don't work
 
- -- Daniil Baturin <daniil@baturin.org>  Fri, 28 Sep 2018 21:43:09 +0200
+ -- hagbard <vyosdev@derith.de>  Tue, 18 Dec 2018 11:13:06 -0800
 
 vyatta-cfg-quagga (0.19.1+vyos2+current5) unstable; urgency=medium
 
