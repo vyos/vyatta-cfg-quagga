@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current6) unstable; urgency=low
+
+  * bugfix: T1102 - Disabling rp_filter don't work
+
+ -- hagbard <vyosdev@derith.de>  Tue, 18 Dec 2018 11:13:06 -0800
+
 vyatta-cfg-quagga (0.19.1+vyos2+current5) unstable; urgency=medium
 
   * Move IPv4-specific BGP options to "address-family ipv4-unicast" subtrees.
