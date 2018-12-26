@@ -1,15 +1,18 @@
 help: Border Gateway Protocol (BGP) communities matching a community-list
 delete: touch /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-comm-list.$PPID
-end: if [ -z "$VAR(./comm-list/)" ]; then 
-        echo You must configure a comm-list ; 
-        exit 1 ; 
-      fi ; 
+end:
       vtysh --noerror -c "configure terminal" \
         -c "route-map $VAR(../../../@) $VAR(../../action/@) $VAR(../../@)" \
         -c "no set comm-list " ; 
       if [ -f "/tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-comm-list.$PPID" ]; then 
         rm -rf /tmp/policy-route-map-$VAR(../../../@)-$VAR(../../action/@)-$VAR(../../@)-set-comm-list.$PPID; 
       else 
+        if [ -z "$VAR(./comm-list/)" ]; then
+          echo You must configure a comm-list ;
+          exit 1 ;
+        fi ;
+
+
         # uncomment this when 2525 is fixed and comment out the subsequent call
         #if [ -n "$VAR(./delete/)" ]; then 
         #  cond="delete" ; 
