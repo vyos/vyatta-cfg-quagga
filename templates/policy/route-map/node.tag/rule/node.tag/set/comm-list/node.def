@@ -12,6 +12,10 @@ end:
           exit 1 ;
         fi ;
 
+        if [ -z "$VAR(./delete/)" ]; then
+          echo "set comm-list requires the delete option now" ;
+          exit 1 ;
+        fi ;
 
         # uncomment this when 2525 is fixed and comment out the subsequent call
         #if [ -n "$VAR(./delete/)" ]; then 
