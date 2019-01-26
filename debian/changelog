@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (1.2.0-1) unstable; urgency=medium
+
+  * New release
+
+ -- Daniil Baturin <daniil@baturin.org>  Sat, 26 Jan 2019 23:20:02 +0100
+
 vyatta-cfg-quagga (0.19.1+vyos2+current6) unstable; urgency=low
 
   * bugfix: T1102 - Disabling rp_filter don't work
