@@ -534,6 +534,10 @@ my %qcom = (
       set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend',
       del => 'router bgp #3 ; no neighbor #5 local-as #7 no-prepend ; neighbor #5 local-as #7',
   },
+  'protocols bgp var neighbor var local-as var no-prepend replace-as' => {
+      set => 'router bgp #3 ; no neighbor #5 local-as #7 ; neighbor #5 local-as #7 no-prepend replace-as',
+      del => 'router bgp #3 ; neighbor #5 local-as #7 no-prepend',
+  },
   'protocols bgp var neighbor var override-capability' => {
       set => 'router bgp #3 ; neighbor #5 override-capability',
       del => 'router bgp #3 ; no neighbor #5 override-capability',
