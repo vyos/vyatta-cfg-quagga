@@ -18,10 +18,14 @@ end:
     else
       if [[ -n "$VAR(./distance/@)" ]]
       then
-	 	    DIST="$VAR(./distance/@)"
+        DIST="$VAR(./distance/@)"
       fi
-	    vtysh -c "configure terminal" \
-                   -c "ip route $VAR(../@) $VAR(@) $DIST";
+      if [[ -n "$VAR(./next-hop-interface/@)" ]]
+      then
+                    NHINT="$VAR(./next-hop-interface/@)"
+      fi
+      vtysh -c "configure terminal" \
+                   -c "ip route $VAR(../@) $VAR(@) $NHINT $DIST";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
