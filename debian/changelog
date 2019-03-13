@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current8) unstable; urgency=low
+
+  * T1267 - Add interface name for static routes
+
+ -- hagbard <vyosdev@derith.de>  Wed, 13 Mar 2019 15:28:34 -0700
+
 vyatta-cfg-quagga (0.19.1+vyos2+current7) unstable; urgency=low
 
   * T1288 - 'set protocols static ar' python implementation
