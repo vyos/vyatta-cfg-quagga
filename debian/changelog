@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (0.19.1+vyos2+current9) unstable; urgency=low
+
+  * T1267 - route deletion with next-hop-interface fixed
+
+ -- hagbard <vyosdev@derith.de>  Wed, 20 Mar 2019 11:36:41 -0700
+
 vyatta-cfg-quagga (0.19.1+vyos2+current8) unstable; urgency=low
 
   * T1267 - Add interface name for static routes
