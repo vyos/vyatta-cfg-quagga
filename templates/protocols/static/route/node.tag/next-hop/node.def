@@ -4,6 +4,13 @@ help: Next-hop router
 end:
   if [[ -z "$VAR(./disable)" ]]
   then
+    ### remove the old entry from frr first on an update
+    if [ ${COMMIT_ACTION} = 'ACTIVE' ]
+      then
+        OLD_IF=`cli-shell-api returnEffectiveValue protocols static route $VAR(../@) next-hop $VAR(@) next-hop-interface`
+        vtysh -c "configure terminal" \
+              -c "no ip route $VAR(../@) $VAR(@) $OLD_IF $VAR(./distance/@)";
+    fi
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 address; then
@@ -16,16 +23,8 @@ end:
                      -c "no ip route $VAR(../@) $VAR(@)"
       fi
     else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
-        DIST="$VAR(./distance/@)"
-      fi
-      if [[ -n "$VAR(./next-hop-interface/@)" ]]
-      then
-                    NHINT="$VAR(./next-hop-interface/@)"
-      fi
       vtysh -c "configure terminal" \
-                   -c "ip route $VAR(../@) $VAR(@) $NHINT $DIST";
+                   -c "ip route $VAR(../@) $VAR(@) $VAR(./next-hop-interface/@) $VAR(./distance/@)";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
