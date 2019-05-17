@@ -209,6 +209,10 @@ my %qcom = (
       set => undef,
       del => undef,
   },
+  'protocols bgp var neighbor var address-family ipv4-unicast weight' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 weight #9',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 weight #9',
+  },
   'protocols bgp var neighbor var address-family ipv6-unicast' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 activate',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 activate',
