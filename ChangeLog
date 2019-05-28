@@ -1,1 +1,2190 @@
-debian/changelog
+vyatta-cfg-quagga (0.19.1+vyos2+current9) unstable; urgency=low
+
+  * T1267 - route deletion with next-hop-interface fixed
+
+ -- hagbard <vyosdev@derith.de>  Wed, 20 Mar 2019 11:36:41 -0700
+
+vyatta-cfg-quagga (0.19.1+vyos2+current8) unstable; urgency=low
+
+  * T1267 - Add interface name for static routes
+
+ -- hagbard <vyosdev@derith.de>  Wed, 13 Mar 2019 15:28:34 -0700
+
+vyatta-cfg-quagga (0.19.1+vyos2+current7) unstable; urgency=low
+
+  * T1288 - 'set protocols static ar' python implementation
+
+ -- hagbard <vyosdev@derith.de>  Mon, 11 Mar 2019 13:17:14 -0700
+
+vyatta-cfg-quagga (0.19.1+vyos2+current6) unstable; urgency=low
+
+  * bugfix: T1102 - Disabling rp_filter don't work
+
+ -- hagbard <vyosdev@derith.de>  Tue, 18 Dec 2018 11:13:06 -0800
+
+vyatta-cfg-quagga (0.19.1+vyos2+current5) unstable; urgency=medium
+
+  * Move IPv4-specific BGP options to "address-family ipv4-unicast" subtrees.
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 18 Sep 2018 23:15:19 +0200
+
+vyatta-cfg-quagga (0.19.1+vyos2+current4) unstable; urgency=low
+
+  [ Daniil Baturin ]
+  * Fix protocols static route template
+
+  [ Sylvain Munaut ]
+  * Route-maps for static routes
+
+ -- Daniil Baturin <daniil@baturin.org>  Wed, 21 Dec 2016 19:57:51 +0100
+
+vyatta-cfg-quagga (0.19.1+vyos2+current3) unstable; urgency=low
+
+  [ Mihail Vasilev ]
+  * Added bgp extended community support.
+
+  [ Mihail Vasilev ]
+
+ -- Mihail Vasilev <mick@corp.linkintel.ru>  Tue, 10 Apr 2016 11:51:00 -0300
+
+vyatta-cfg-quagga (0.19.1+vyos2+current2) unstable; urgency=low
+
+  [ Mihail Vasilev ]
+  * Added ospf option to filter incoming prefixes.
+
+  [ Mihail Vasilev ]
+
+ -- Mihail Vasilev <mick@corp.linkintel.ru>  Wed, 14 Apr 2016 08:54:00 -0300
+
+vyatta-cfg-quagga (0.19.1+vyos2+current1) unstable; urgency=medium
+
+  [ Thomas Jepp ]
+  * Add missing build dependencies.
+
+  [ Kim Hagen ]
+
+ -- Kim Hagen <kim.sidney@gmail.com>  Sun, 24 Jan 2016 15:03:04 -0500
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium12) unstable; urgency=low
+
+  [ Carl Byington ]
+  * avoid routing thru 127.0.0.1
+  * allow dhcp-interface for the next-hop on static routes
+  * dhcp bound/reboot must ignore old values
+  
+  [ Alex Harpin ]
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Mon, 09 Nov 2015 21:41:29 +0000
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium11) unstable; urgency=low
+
+  [ Alex Harpin ]
+  * vyatta-cfg-quagga: set source-validation node priority after interface
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sun, 11 Oct 2015 10:57:14 +0100
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium10) unstable; urgency=low
+
+  * vyatta-cfg-quagga: update dh_gencontrol with new development build flag
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Tue, 16 Jun 2015 19:28:44 +0100
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium9) unstable; urgency=low
+
+  * Tidy up changelog
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sat, 13 Jun 2015 10:22:19 +0100
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium8) unstable; urgency=low
+
+  [ Carl Byington ]
+  * allow dhcp-interface for the next-hop on static routes
+  * remove old routes when dhcp gateway changes, avoid routing thru
+    127.0.0.1
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 03 May 2015 19:19:14 +0200
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium7) unstable; urgency=low
+
+  * Bug #521: save quagga daemon configs to /opt/vyatta/etc/quagga at
+    commit time.
+  * Bug #528: use corrent command for removing IPv6 address-family from
+    a neighbor.
+  * Bug #529: don't build packages for serial and dataplane interfaces.
+  * Remove reference to vyatta-unicast.
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 24 Mar 2015 21:03:45 +0100
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium6) unstable; urgency=low
+
+  [ Alex Harpin ]
+  * vyatta-cfg-quagga: remove unused / old configuration nodes
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sun, 25 Jan 2015 10:14:25 +0000
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium5) unstable; urgency=low
+
+  * Update maintainer address
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Thu, 25 Dec 2014 14:45:17 +0000
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium4) unstable; urgency=low
+
+  * Force release
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Mon, 15 Dec 2014 07:38:38 +0000
+ 
+vyatta-cfg-quagga (0.19.1+vyos2+lithium3) unstable; urgency=low
+
+  [ Kevin Blackham ]
+  * Bug #384: Add route-map support for 'as-path exclude'
+
+  [ William Steve Applegate ]
+  * Add kludge to setup IPv6 routes for policy routing.
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 21 Nov 2014 18:55:12 +0100
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium2) unstable; urgency=low
+
+  [ Ryan Riske ]
+  * Bug 147: source-validation sysctl behavior changed in newer kernels
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <dmbaturin@squeeze32devel.multi.eu>  Fri, 07 Nov 2014 02:10:19 +0100
+
+vyatta-cfg-quagga (0.19.1+vyos2+lithium1) unstable; urgency=low
+
+  * New branch
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 07 Nov 2014 02:08:04 +0100
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium8) unstable; urgency=low
+
+  * Add VXLAN to interface template generator.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sat, 20 Sep 2014 09:51:17 +0200
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium7) unstable; urgency=low
+
+  [ Kim Hagen ]
+  * Set separate virtual interface for QinQ.
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 05 Aug 2014 16:29:53 +0000
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium6) unstable; urgency=low
+
+  [ Kim Hagen ]
+  * Bug #186 - RIP passive-interface "default" missing from config
+    template
+  * Add QinQ for ethernet interfaces to template generator.
+  * Add QinQ for bonding and pseudo-ethernet interfaces to template
+    generator.
+
+  [ Daniil Baturin ]
+  * Bug #102: add completion for as-path-list in route-map rule.
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 01 Jul 2014 01:29:16 +0200
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium5) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add per interface source-validation
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 06 Apr 2014 16:17:19 +0200
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium4) unstable; urgency=low
+
+  * Add l2tpv3 interfaces to template generator.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 06 Apr 2014 14:01:59 +0200
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium3) unstable; urgency=low
+
+  [ Simon Vigneux ]
+  * Tiny typo in tab completion.
+
+  [ Daniil Baturin ]
+  * Bug #159: add dummy interfaces to interface template generator.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 06 Apr 2014 12:21:31 +0200
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium2) unstable; urgency=low
+
+  [ Patrick van Staveren ]
+  * Clean up extra quote in quagga "ospf distance global"
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Thu, 23 Jan 2014 08:12:21 +0100
+
+vyatta-cfg-quagga (0.19.0+vyos1+helium1) unstable; urgency=low
+
+  * New branch
+
+ -- Daniil Baturin <daniil@baturin.org>  Thu, 23 Jan 2014 08:05:39 +0100
+
+vyatta-cfg-quagga (0.19.0+hydrogen2) unstable; urgency=low
+
+  * Bug #58: Fix quagga command syntax so IPv4 peer-groups work again
+
+ -- Daniil Baturin <daniil@baturin.org>  Mon, 04 Nov 2013 17:27:03 +0100
+
+vyatta-cfg-quagga (0.19.0+hydrogen1) unstable; urgency=low
+
+  * Fix branch name
+
+ -- Daniil Baturin <daniil@baturin.org>  Mon, 04 Nov 2013 00:00:00 +0100
+
+vyatta-cfg-quagga (0.18.161+daisy9) unstable; urgency=low
+
+  * updated fix for bug 8968
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 10 Jun 2013 12:50:07 -0700
+
+vyatta-cfg-quagga (0.18.161+daisy8) unstable; urgency=low
+
+  * make quagga link-detect command conditional on zebra
+  * fix bug 8968
+  * fix bug 8988
+
+ -- Robert Bays <robert@vyatta.com>  Sun, 09 Jun 2013 21:36:47 -0700
+
+vyatta-cfg-quagga (0.18.161+daisy7) unstable; urgency=low
+
+  * allow optional dependency on vyatta-unicast
+
+ -- Robert Bays <robert@vyatta.com>  Sat, 01 Jun 2013 16:46:49 -0700
+
+vyatta-cfg-quagga (0.18.161+daisy6) unstable; urgency=low
+
+  * Fixing 7975: provide MTU ignore for OSPFv3
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Wed, 27 Mar 2013 10:13:42 -0700
+
+vyatta-cfg-quagga (0.18.161+daisy5) unstable; urgency=low
+
+  * Fixing 8607
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Thu, 17 Jan 2013 10:32:54 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy4) unstable; urgency=low
+
+  * Initial commit for supporting ACL config for multicast for SE
+    version.
+
+ -- Gaurav Sinha <gaurav.sinha@vyatta.com>  Fri, 14 Dec 2012 13:20:25 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy3) unstable; urgency=low
+
+  * Bugfix 8501: fix ordering problems in IPv6 peer-groups
+
+ -- John Southworth <john.southworth@vyatta.com>  Thu, 13 Dec 2012 09:37:16 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy2) unstable; urgency=low
+
+  * Bugfix 7428: Update warning message text.
+
+ -- James Davidson <james.davidson@vyatta.com>  Sat, 24 Nov 2012 11:25:58 -0800
+
+vyatta-cfg-quagga (0.18.161+daisy1) unstable; urgency=low
+
+  * create daisy branch
+
+ -- John Southworth <john.southworth@vyatta.com>  Sat, 13 Oct 2012 13:30:41 -0700
+
+vyatta-cfg-quagga (0.18.161) unstable; urgency=low
+
+  * new branch
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 12 Oct 2012 19:46:55 -0700
+
+vyatta-cfg-quagga (0.18.160) unstable; urgency=low
+
+  [ Bharat ]
+  * Bug 8345: Reverting changes which were committed against bug 8345.
+    We are seeing issues when we are upgrading to pacifica from
+
+  [ bharat ]
+  * 0.18.159
+
+  [ susheela ]
+  * BGP neighbor local-as functionality: verified that works as intended
+    and 7791 fixed.
+
+ -- susheela <susheela.vaidya@vyatta.com>  Sat, 06 Oct 2012 15:29:20 -0700
+
+vyatta-cfg-quagga (0.18.159) unstable; urgency=low
+
+  [ Bharat ]
+  * Bug 8345: Reverting changes which were committed against bug 8345.
+    We are seeing issues when we are upgrading to pacifica from
+
+  [ bharat ]
+
+ -- bharat <bharat@git.vyatta.com>  Thu, 04 Oct 2012 11:23:55 -0700
+
+vyatta-cfg-quagga (0.18.158) unstable; urgency=low
+
+  * Forced release
+
+ -- Bharat <bharat.bandaru@vyatta.com>  Wed, 26 Sep 2012 15:56:12 -0700
+
+vyatta-cfg-quagga (0.18.157) unstable; urgency=low
+
+  * - Added Multicast and Broadcast checks for route and next hop for
+    static route command.
+
+ -- bharat <bharat@Build64-bharat.vyatta.com>  Wed, 26 Sep 2012 15:30:27 -0700
+
+vyatta-cfg-quagga (0.18.156) unstable; urgency=low
+
+  * Config commands for bGP multipaths.
+
+ -- susheela <susheela.vaidya@vyatta.com>  Wed, 12 Sep 2012 13:52:48 -0700
+
+vyatta-cfg-quagga (0.18.155) unstable; urgency=low
+
+  * reserve tables for future use
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 05 Sep 2012 15:34:37 -0700
+
+vyatta-cfg-quagga (0.18.154) unstable; urgency=low
+
+  * initial checkin for pbr functionality
+  * move policy priority tag to each policy type
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 05 Sep 2012 14:25:48 -0700
+
+vyatta-cfg-quagga (0.18.153) unstable; urgency=low
+
+  * Bugfix 8217: VTI: add routing cfg commands under interfaces vti
+
+ -- Saurabh Mohan <saurabh@vyatta.com>  Thu, 09 Aug 2012 13:27:17 -0700
+
+vyatta-cfg-quagga (0.18.152) unstable; urgency=low
+
+  * Warn user if both gateway-address and static default route are set
+  * 0.18.151
+
+ -- James Davidson <james.davidson@vyatta.com>  Wed, 16 May 2012 10:06:58 -0700
+
+vyatta-cfg-quagga (0.18.151) unstable; urgency=low
+
+  * Warn user if both gateway-address and static default route are set
+
+ -- James Davidson <james.davidson@vyatta.com>  Wed, 16 May 2012 10:05:43 -0700
+
+vyatta-cfg-quagga (0.18.150) unstable; urgency=low
+
+  * No need to genererate vrrp interface templates anymore
+
+ -- John Southworth <john.southworth@vyatta.com>  Tue, 15 May 2012 20:42:28 -0700
+
+vyatta-cfg-quagga (0.18.149) unstable; urgency=low
+
+  * new branch
+
+ -- Deepti Kulkarni <deepti@vyatta.com>  Sat, 03 Mar 2012 02:25:36 -0800
+
+vyatta-cfg-quagga (0.18.148) unstable; urgency=low
+
+  * Add support for future dataplane
+
+ -- Stephen Hemminger <shemminger@vyatta.com>  Wed, 21 Dec 2011 11:13:12 -0800
+
+vyatta-cfg-quagga (0.18.147) unstable; urgency=low
+
+  * Bug 7582: Errors on generating allowed values under an edit level
+    for protocols bgp <> neighbor <> peer-group
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 19 Dec 2011 17:18:53 -0800
+
+vyatta-cfg-quagga (0.18.146) unstable; urgency=low
+
+  * Bug 7582: Errors on generating allowed values under an edit level
+    for protocols bgp <> neighbor <> peer-group
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 19 Dec 2011 17:11:11 -0800
+
+vyatta-cfg-quagga (0.18.145) unstable; urgency=low
+
+  * Bug 7665: BGP ridiculous load time
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 19 Dec 2011 16:53:42 -0800
+
+vyatta-cfg-quagga (0.18.144) unstable; urgency=low
+
+  * Add vrrp interface parameter
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 02 Dec 2011 11:19:14 -0800
+
+vyatta-cfg-quagga (0.18.143) unstable; urgency=low
+
+  * Add support for vif on pseudo-ethernet
+  * Add dependency on version of vyatta-cfg-system
+
+ -- Stephen Hemminger <shemminger@vyatta.com>  Thu, 03 Nov 2011 14:30:25 -0700
+
+vyatta-cfg-quagga (0.18.142) unstable; urgency=low
+
+  * bgpd: Bug 7530 - Peer-group commit fails with error when no remote-
+    as is defined
+  * bgp: Bug 6033 - There is no auto completion for "bgp <> neighbor <>
+    peer-group"
+  * bgp: Bug 7205 - peer-group maximum-prefix incorrectly takes
+    precedence
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 29 Sep 2011 19:51:14 -0700
+
+vyatta-cfg-quagga (0.18.141) unstable; urgency=low
+
+  * Bug 7522 -
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 27 Sep 2011 13:46:09 -0700
+
+vyatta-cfg-quagga (0.18.140) unstable; urgency=low
+
+  * Bug 6030: bgp redistribution doesn't work well when it's set for
+    ipv4 and ipv6
+
+ -- Robert Bays <robert@vyatta.com>  Sun, 11 Sep 2011 16:32:32 -0700
+
+vyatta-cfg-quagga (0.18.139) unstable; urgency=low
+
+  * Bugfix 7077: Add support for IPv6 nexthops in route maps
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Thu, 11 Aug 2011 18:17:12 -0700
+
+vyatta-cfg-quagga (0.18.138) unstable; urgency=low
+
+  * new branch
+
+ -- Deepti Kulkarni <deepti@vyatta.com>  Thu, 07 Jul 2011 20:55:49 -0700
+
+vyatta-cfg-quagga (0.18.137) unstable; urgency=low
+
+  * Missed two nodes in the last commit
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 18:04:48 -0500
+
+vyatta-cfg-quagga (0.18.136) unstable; urgency=low
+
+  * Bugfix 6816: Make previous bugfix more maintainable by moving check
+    to a script instead of defining it in multiple node.defs
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 16:45:11 -0500
+
+vyatta-cfg-quagga (0.18.135) unstable; urgency=low
+
+  * Bugfix 6816: Verify that at least one next-hop exists if the parent
+    node for the route still exists
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 17 Jun 2011 14:20:34 -0500
+
+vyatta-cfg-quagga (0.18.134) unstable; urgency=low
+
+  * disallow banned parameters from a peer already in a peer-group
+  * remove peer-group checks from node.defs.  this functionality has
+    been moved into vyatta-bgp.pl.
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 07 Jun 2011 15:19:44 -0700
+
+vyatta-cfg-quagga (0.18.133) unstable; urgency=low
+
+  * remove debug node
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 06 Jun 2011 22:31:49 -0700
+
+vyatta-cfg-quagga (0.18.132) unstable; urgency=low
+
+  * Bug 7121 - IPv6 peer-groups not working
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 06 Jun 2011 22:23:10 -0700
+
+vyatta-cfg-quagga (0.18.131) unstable; urgency=low
+
+  * Bug 6841: a neighbor becomes inactivated in the routing engine after
+    its peer-group is removed
+  * remove debug statement from bgp script.
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 06 Jun 2011 14:01:06 -0700
+
+vyatta-cfg-quagga (0.18.130) unstable; urgency=low
+
+  * Bug 6841: a neighbor becomes inactivated in the routing engine after
+    its peer-group is removed
+  * remove debug statement from bgp script.
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 06 Jun 2011 14:00:22 -0700
+
+vyatta-cfg-quagga (0.18.129) unstable; urgency=low
+
+  * Bug 6841: a neighbor becomes inactivated in the routing engine after
+    its peer-group is removed
+  * remove debug statement from bgp script.
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 06 Jun 2011 13:57:37 -0700
+
+vyatta-cfg-quagga (0.18.128) unstable; urgency=low
+
+  * alternative fix for bug 6069
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 25 May 2011 15:00:44 -0700
+
+vyatta-cfg-quagga (0.18.127) unstable; urgency=low
+
+  * changes for new commit
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 10 May 2011 09:29:23 +0800
+
+vyatta-cfg-quagga (0.18.126) unstable; urgency=low
+
+  * Fix perl critic warnings
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 25 Apr 2011 10:00:34 -0700
+
+vyatta-cfg-quagga (0.18.125) unstable; urgency=low
+
+  [ Daniil Baturin ]
+  * Fixed a typo in prefix-list6 completion
+
+  [ Robert Bays ]
+  * silence the perl critic
+
+  [ Mohit Mehta ]
+  * Parital fix for bug 6759 serial packages are incorrectly included in
+    virt ISO
+
+ -- Mohit Mehta <mohit@vyatta.com>  Wed, 02 Feb 2011 12:15:47 -0800
+
+vyatta-cfg-quagga (0.18.124) unstable; urgency=low
+
+  * new branch
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 28 Dec 2010 13:47:38 -0800
+
+vyatta-cfg-quagga (0.18.123) unstable; urgency=low
+
+  * Fix help text
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 21 Dec 2010 13:42:33 -0800
+
+vyatta-cfg-quagga (0.18.122) unstable; urgency=low
+
+  * Fix check for local IP address
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 06 Dec 2010 16:46:58 -0800
+
+vyatta-cfg-quagga (0.18.121) unstable; urgency=low
+
+  * clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Sat, 04 Dec 2010 17:43:41 -0800
+
+vyatta-cfg-quagga (0.18.120) unstable; urgency=low
+
+  * fix ordering for non-consistent commands
+  * add debug function to clean up code
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 03 Dec 2010 17:57:58 -0800
+
+vyatta-cfg-quagga (0.18.119) unstable; urgency=low
+
+  * fix for bug 6481. change the tree walk order. add support for
+    predefined order walks.
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 02 Dec 2010 17:28:46 -0800
+
+vyatta-cfg-quagga (0.18.118) unstable; urgency=low
+
+  * remove deprecated linda override
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 26 Nov 2010 11:09:20 -0800
+
+vyatta-cfg-quagga (0.18.117) unstable; urgency=low
+
+  * Need to skip LAST node tag when configuring bgp node, but let all
+    others through.
+
+ -- Michael <mike@vyatta.com>  Fri, 19 Nov 2010 09:24:56 -0800
+
+vyatta-cfg-quagga (0.18.116) unstable; urgency=low
+
+  * update to use getIP
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 19 Nov 2010 11:33:57 -0800
+
+vyatta-cfg-quagga (0.18.115) unstable; urgency=low
+
+  * fix bug 6430
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 18 Nov 2010 17:51:29 -0800
+
+vyatta-cfg-quagga (0.18.114) unstable; urgency=low
+
+  * fix for 6069
+
+ -- Michael Larson <mike@vyatta.com>  Thu, 18 Nov 2010 16:48:11 -0800
+
+vyatta-cfg-quagga (0.18.113) unstable; urgency=low
+
+  * Revert "Looks like merge with larkspur missed this..."
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 12 Nov 2010 12:17:50 -0800
+
+vyatta-cfg-quagga (0.18.112) unstable; urgency=low
+
+  * Looks like merge with larkspur missed this...
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 10 Nov 2010 18:15:15 -0800
+
+vyatta-cfg-quagga (0.18.111) unstable; urgency=low
+
+  * fix for bug 6293
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 11 Oct 2010 16:24:59 -0700
+
+vyatta-cfg-quagga (0.18.110) unstable; urgency=low
+
+  * Bugfix 5545: Update quagga when any prefix-list6 rule element is
+    changed
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 31 Aug 2010 20:20:39 -0700
+
+vyatta-cfg-quagga (0.18.109) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 02 Sep 2010 18:28:30 -0700
+
+vyatta-cfg-quagga (0.18.108) unstable; urgency=low
+
+  * add control Replaces for vyatta-cfg-quagga-serial
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 01 Sep 2010 11:32:35 -0700
+
+vyatta-cfg-quagga (0.18.107) unstable; urgency=low
+
+  [ An-Cheng Huang ]
+  * 0.18.100+larkspur1
+
+  [ Robert Bays ]
+  * fix for bug 5892
+  * 0.18.100+larkspur2
+  * fix for bug 5925
+  * fix for bug 5937
+  * 0.18.100+larkspur3
+  * larkspur specific fix for 5971
+  * 0.18.100+larkspur4
+  * fix for bug 5973
+  * 0.18.100+larkspur5
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+  * 0.18.100+larkspur6
+  * fix for bug 6021
+  * fix for bug 4393
+  * 0.18.100+larkspur7
+
+  [ Stephen Hemminger ]
+  * Add missing step for peer group ttl-security
+  * 0.18.100+larkspur8
+
+  [ Robert Bays ]
+  * fix for bug 6041
+  * 0.18.100+larkspur9
+  * fix for bug 6034
+  * fix for bug 6049
+  * 0.18.100+larkspur10
+  * fix for bug 6054
+  * 0.18.100+larkspur11
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 30 Aug 2010 15:50:48 -0700
+
+vyatta-cfg-quagga (0.18.106) unstable; urgency=low
+
+  * Split templates for serial device into separate package
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 27 Aug 2010 10:21:52 -0700
+
+vyatta-cfg-quagga (0.18.105) unstable; urgency=low
+
+  * remove low-level config dir usage
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 17 Aug 2010 18:24:32 -0700
+
+vyatta-cfg-quagga (0.18.104) unstable; urgency=low
+
+  [ Robert Bays ]
+  * larkspur specific fix for 5971
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+  * fix for bug 6021
+  * fix for bug 4393
+
+  [ Stephen Hemminger ]
+  * Add missing step for peer group ttl-security
+
+ -- Stephen Hemminger <shemminger@lenny.localdomain>  Thu, 12 Aug 2010 08:23:51 -0700
+
+vyatta-cfg-quagga (0.18.103) unstable; urgency=low
+
+  [ Robert Bays ]
+  * fix for bug 5925
+  * fix for bug 5937
+  * fix for bug 5973
+
+  [ An-Cheng Huang ]
+  * cherry-pick larkspur fixes
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 10 Aug 2010 10:33:23 -0700
+
+vyatta-cfg-quagga (0.18.102) unstable; urgency=low
+
+  [ Robert Bays ]
+  * fix for bug 5892
+
+  [ An-Cheng Huang ]
+  * new API changes
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Fri, 30 Jul 2010 14:31:09 -0700
+
+vyatta-cfg-quagga (0.18.101) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 22 Jul 2010 17:23:30 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur11) unstable; urgency=low
+
+  * fix for bug 6054
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 16 Aug 2010 11:50:05 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur10) unstable; urgency=low
+
+  * fix for bug 6034
+  * fix for bug 6049
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 12 Aug 2010 18:31:11 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur9) unstable; urgency=low
+
+  * fix for bug 6041
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 12 Aug 2010 10:58:10 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur8) unstable; urgency=low
+
+  * Add missing step for peer group ttl-security
+
+ -- Stephen Hemminger <shemminger@lenny.localdomain>  Thu, 12 Aug 2010 05:51:29 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur7) unstable; urgency=low
+
+  * fix for bug 6021
+  * fix for bug 4393
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 10 Aug 2010 17:47:04 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur6) unstable; urgency=low
+
+  * rename function to be more descriptive of the actual use
+  * fix for bug 5939
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 10 Aug 2010 15:55:22 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur5) unstable; urgency=low
+
+  * fix for bug 5973
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 16:56:21 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur4) unstable; urgency=low
+
+  * larkspur specific fix for 5971
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 16:43:26 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur3) unstable; urgency=low
+
+  * fix for bug 5925
+  * fix for bug 5937
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 06 Aug 2010 15:53:44 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur2) unstable; urgency=low
+
+  * fix for bug 5892
+
+ -- Robert Bays <robert@vyatta.com>  Fri, 23 Jul 2010 13:08:15 -0700
+
+vyatta-cfg-quagga (0.18.100+larkspur1) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 22 Jul 2010 17:17:20 -0700
+
+vyatta-cfg-quagga (0.18.100) unstable; urgency=low
+
+  * fix for bug 5893
+
+ -- Robert Bays <robert@vyatta.com>  Thu, 22 Jul 2010 15:18:44 -0700
+
+vyatta-cfg-quagga (0.18.99) unstable; urgency=low
+
+  * remove explicit paths from commit error messages since that is
+    handled by CLI now
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 21 Jul 2010 17:41:11 -0700
+
+vyatta-cfg-quagga (0.18.98) unstable; urgency=low
+
+  * Convert Quagga templates to use val_help:
+  * Remove verbs from help strings
+  * Add syntax validation on BGP access-list rule value
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 21 Jul 2010 12:29:52 -0700
+
+vyatta-cfg-quagga (0.18.97) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Convert interface templates to use val_help:
+
+  [ Robert Bays ]
+  * fix for bug 5876.  ttl-security check moved to templates.
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 20 Jul 2010 15:19:26 -0700
+
+vyatta-cfg-quagga (0.18.96) unstable; urgency=low
+
+  * update ttl-security for peer-group as well
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 23:41:45 -0700
+
+vyatta-cfg-quagga (0.18.95) unstable; urgency=low
+
+  * move conditional checks for ttl-security back into the node.def
+    files to keep them from being checked on every commit
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 22:18:41 -0700
+
+vyatta-cfg-quagga (0.18.94) unstable; urgency=low
+
+  * fix for bug 5855
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 18:04:44 -0700
+
+vyatta-cfg-quagga (0.18.93) unstable; urgency=low
+
+  * update cfg-version file
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 17:57:13 -0700
+
+vyatta-cfg-quagga (0.18.92) unstable; urgency=low
+
+  * update config version for config migration script
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 17:42:37 -0700
+
+vyatta-cfg-quagga (0.18.91) unstable; urgency=low
+
+  * ttl-security should not be a typed node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 14 Jul 2010 16:39:32 -0700
+
+vyatta-cfg-quagga (0.18.90) unstable; urgency=low
+
+  * fix for bug 5848
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 15:23:15 -0700
+
+vyatta-cfg-quagga (0.18.89) unstable; urgency=low
+
+  * fix for bug 5841
+  * fix for bug 5836
+  * fix for bug 5801
+  * fix for bug 5811
+
+ -- Robert Bays <robert@vyatta.com>  Wed, 14 Jul 2010 14:54:38 -0700
+
+vyatta-cfg-quagga (0.18.88) unstable; urgency=low
+
+  * add commit check to verify remove-private-as is not set on iBGP
+    peers
+
+ -- Robert Bays <robert@vyatta.com>  Tue, 13 Jul 2010 22:09:41 -0700
+
+vyatta-cfg-quagga (0.18.87) unstable; urgency=low
+
+  * further fix for bug 5810
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 17:49:48 -0700
+
+vyatta-cfg-quagga (0.18.86) unstable; urgency=low
+
+  * fix ipv6 network statements
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 17:40:37 -0700
+
+vyatta-cfg-quagga (0.18.85) unstable; urgency=low
+
+  * fix for bug 5760: BGP configuration script does not handle "multi:"
+    node values correctly
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 17:24:19 -0700
+
+vyatta-cfg-quagga (0.18.84) unstable; urgency=low
+
+  * fix for bug 5780
+  * fix for bug 5778
+  * As part of bug 5780, clean up the param generation
+  * Temporary fix for bug 5777.  This isn't the right fix since this
+    will
+  * fixes for local-as and confederations
+  * more robust fix for local-as
+  * fix for bug 5767
+  * fix for bug 5828
+  * fix for bug 5827
+  * fix for bug 5827 in peer-group
+  * fix for bug 5810
+  * fix for bug 5826
+  * fix for bug 5832
+  * fix for bug 5825
+  * fix for bug 5824
+  * fic for bug 5813
+  * update error messages to include 6
+
+ -- Robert Bays <robert@vyatta.com>  Mon, 12 Jul 2010 14:41:57 -0700
+
+vyatta-cfg-quagga (0.18.83) unstable; urgency=low
+
+  * Fix email address causing debian warnings
+  * Revert "Use net_set to avoid using sudo"
+  * Need full path to arp command
+  * Fix bogus ospf wireless vif nodes
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 18:14:26 -0700
+
+vyatta-cfg-quagga (0.18.82) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Use net_set to avoid using sudo
+  * No longer need sudo for arp
+
+  [ An-Cheng Huang ]
+  * remove leftover script as discussed
+
+  [ Stephen Hemminger ]
+  * Add ttl-security option to peer-group
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 09 Jul 2010 17:46:08 -0700
+
+vyatta-cfg-quagga (0.18.81) unstable; urgency=low
+
+  * fix for bug 5713
+
+ -- Robert Bays <rbays@vyatta.com>  Mon, 21 Jun 2010 10:58:55 -0700
+
+vyatta-cfg-quagga (0.18.80) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Added route-map support in ospfv3-redistribute
+
+  [ Stig Thormodsrud ]
+  * Fix ospfv3 redistribute command.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 14 Jun 2010 15:35:36 -0700
+
+vyatta-cfg-quagga (0.18.79) unstable; urgency=low
+
+  * fix for bug 874: allow setting administrative distance
+
+ -- Robert Bays <rbays@vyatta.com>  Tue, 08 Jun 2010 12:33:11 -0700
+
+vyatta-cfg-quagga (0.18.78) unstable; urgency=low
+
+  * fix aggregate-address command
+
+ -- Robert Bays <rbays@vyatta.com>  Mon, 07 Jun 2010 15:56:21 -0700
+
+vyatta-cfg-quagga (0.18.77) unstable; urgency=low
+
+  * add missing help strings per bug 5642
+  * clean up peer-group error and help messages
+  * optimization: move remote-as and peer-group check into transaction
+    to save on exec calls
+  * fix direct active dir access in node.defs
+  * clean up potential unitialized var reference
+  * fix stupid var def mistake
+
+ -- Robert Bays <rbays@vyatta.com>  Fri, 04 Jun 2010 16:59:51 -0700
+
+vyatta-cfg-quagga (0.18.76) unstable; urgency=low
+
+  * fix for bug 5653
+
+ -- Robert Bays <rbays@vyatta.com>  Wed, 02 Jun 2010 17:15:41 -0700
+
+vyatta-cfg-quagga (0.18.75) unstable; urgency=low
+
+  * re-add the disable-send-comunity node to peer-groups
+
+ -- Robert Bays <rbays@vyatta.com>  Tue, 25 May 2010 16:26:01 -0700
+
+vyatta-cfg-quagga (0.18.74) unstable; urgency=low
+
+  * silence the perl critic.
+  * change qcom struct to hash of hashes to make it easier for the
+    developer to read
+  * add functionality to skip nodes while in _setConfigTree
+  * add differential noerr.  now it supports one of set, del, or both.
+  * change the system call in _sendQuaggaCommand().  with the selective
+    noerr fixed,
+
+ -- Robert Bays <rbays@vyatta.com>  Sun, 23 May 2010 01:00:39 -0700
+
+vyatta-cfg-quagga (0.18.73) unstable; urgency=low
+
+  * Add support for TTL security hops
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 17 May 2010 18:02:47 -0700
+
+vyatta-cfg-quagga (0.18.72) unstable; urgency=low
+
+  * Bugfix 5584: Fix prefix-list parameters under peer-group.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Thu, 06 May 2010 16:27:31 -0700
+
+vyatta-cfg-quagga (0.18.71) unstable; urgency=low
+
+  * Activate neighbor for IPv6 when address-family parameters are set
+    for it.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Thu, 06 May 2010 15:28:55 -0700
+
+vyatta-cfg-quagga (0.18.70) unstable; urgency=low
+
+  * Bugfix 5584: Fix completion and checking for prefix-list parameters
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 05 May 2010 17:56:22 -0700
+
+vyatta-cfg-quagga (0.18.69) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Fix typo in help text
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 26 Apr 2010 14:17:52 -0700
+
+vyatta-cfg-quagga (0.18.68) unstable; urgency=low
+
+  [ Robert Bays ]
+  * initial update to migrate bgp to transaction library
+  * initial update to bgp with new ipv6 and peer-group nodes
+  * update for peer-group support and general cleanup.  Still need at
+    least one more pass before release.
+  * more ipv6 and peer-group updates
+
+  [ Stig Thormodsrud ]
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 08 Apr 2010 10:45:08 -0700
+
+vyatta-cfg-quagga (0.18.67) unstable; urgency=low
+
+  * Fix warnings found by check_tmpl.
+  * Fix 4161: Bad config handling of "protocols ospf passive-interface"
+  * Revert "Fix warnings found by check_tmpl."
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sat, 20 Mar 2010 13:11:01 -0700
+
+vyatta-cfg-quagga (0.18.66) unstable; urgency=low
+
+  * Bugfix 5458: Include interface name, if present, when deleting IPv6
+    routes.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 17 Mar 2010 11:00:43 -0700
+
+vyatta-cfg-quagga (0.18.65) unstable; urgency=low
+
+  * Fix trailing whitespace errors
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 15 Mar 2010 10:11:03 -0700
+
+vyatta-cfg-quagga (0.18.64) unstable; urgency=low
+
+  * Force dependency on more recent quagga
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 08 Mar 2010 16:48:59 -0800
+
+vyatta-cfg-quagga (0.18.63) unstable; urgency=low
+
+  * Allow multiple values in 'set community'
+  * Get rid of vyatta-vtysh
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 08 Mar 2010 16:33:45 -0800
+
+vyatta-cfg-quagga (0.18.62) unstable; urgency=low
+
+  * BGP IPv6 peer route-map fails on boot-up.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 18 Feb 2010 20:51:35 -0800
+
+vyatta-cfg-quagga (0.18.61) unstable; urgency=low
+
+  * Fixes to support IPv6 BGP peer.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Thu, 18 Feb 2010 18:41:02 -0800
+
+vyatta-cfg-quagga (0.18.60) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 17 Feb 2010 16:13:24 -0800
+
+vyatta-cfg-quagga (0.18.59) unstable; urgency=low
+
+  * Fix 5345: committing filter-list for bgp ipv6 neigbor failed
+  * Fix 5347: committing unsuppress-map for bgp ipv6 neigbor failed
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 17 Feb 2010 12:27:13 -0800
+
+vyatta-cfg-quagga (0.18.58) unstable; urgency=low
+
+  * Fix 5344: committing prefix-list6 as bgp ipv6 neighbor prefix-list
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 17 Feb 2010 11:24:21 -0800
+
+vyatta-cfg-quagga (0.18.57) unstable; urgency=low
+
+  * Fix 4161: Bad config handling of "procotols ospf passive-interface".
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 12 Feb 2010 16:09:58 -0800
+
+vyatta-cfg-quagga (0.18.56) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add IPv6 policy access-list.
+  * 0.18.55
+  * Fix 5235: Not possible to run OSPFv3 on multiple interfaces
+
+  [ Stephen Hemminger ]
+  * Fix set community additive
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 25 Jan 2010 16:30:20 -0800
+
+vyatta-cfg-quagga (0.18.55) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * Allow none as argument to set community
+
+  [ Stig Thormodsrud ]
+  * Add IPv6 policy access-list.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 18 Jan 2010 16:23:54 -0800
+
+vyatta-cfg-quagga (0.18.54) unstable; urgency=low
+
+  * Bugfix 5221: Allow outgoing interface to be specified for IPv6
+    static route.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 15 Jan 2010 14:38:59 -0800
+
+vyatta-cfg-quagga (0.18.53) unstable; urgency=low
+
+  * Add VIF support for wireless
+  * Check arguement to policy route-map COMMUNITY rule N set community
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 14 Jan 2010 15:06:53 -0800
+
+vyatta-cfg-quagga (0.18.52) unstable; urgency=low
+
+  * Fix 5113: bgp default-originate commit fails for IPv6
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 04 Dec 2009 14:37:13 -0800
+
+vyatta-cfg-quagga (0.18.51) unstable; urgency=low
+
+  * added required keyword to help text.
+
+ -- Michael Larson <slioch@slioch.vyatta.com>  Mon, 30 Nov 2009 15:53:06 -0800
+
+vyatta-cfg-quagga (0.18.50) unstable; urgency=low
+
+  * added required keyword to help text.
+
+ -- Michael Larson <slioch@slioch.vyatta.com>  Mon, 30 Nov 2009 15:43:58 -0800
+
+vyatta-cfg-quagga (0.18.49) unstable; urgency=low
+
+  * modify priorities (see bug 5114) for kenwood
+
+ -- Michael Larson <slioch@slioch.vyatta.com>  Mon, 16 Nov 2009 15:10:27 -0800
+
+vyatta-cfg-quagga (0.18.48) unstable; urgency=low
+
+  * dependency update
+
+ -- Michael Larson <slioch@slioch.vyatta.com>  Fri, 13 Nov 2009 14:00:11 -0800
+
+vyatta-cfg-quagga (0.18.47) unstable; urgency=low
+
+  [ David S. Madole ]
+  * arp command for statics needs to be run under sudo
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sat, 07 Nov 2009 11:15:13 -0800
+
+vyatta-cfg-quagga (0.18.46) unstable; urgency=low
+
+  * corresponding fix for bug 5037 in kenwood
+
+ -- slioch <slioch@eng-140.vyatta.com>  Wed, 04 Nov 2009 16:27:15 -0800
+
+vyatta-cfg-quagga (0.18.45) unstable; urgency=low
+
+  * Fix call the vyatta-cli-expand-var.pl.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 02 Nov 2009 18:32:52 -0800
+
+vyatta-cfg-quagga (0.18.44) unstable; urgency=low
+
+  * Fix 5028: BGP password containing special characters not correctly
+    passed to quagga
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 02 Nov 2009 12:26:56 -0800
+
+vyatta-cfg-quagga (0.18.43) unstable; urgency=low
+
+  * Partial fix for 4984: Configuring an IP of a local interface as a
+    bgp neighbor results in an out of sync condition between the vyatta
+    config and the bgpd config
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 30 Oct 2009 19:49:59 -0700
+
+vyatta-cfg-quagga (0.18.42) unstable; urgency=low
+
+  * Fix 5060: error adding bgp policy to ipv6 peer.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 30 Oct 2009 17:18:50 -0700
+
+vyatta-cfg-quagga (0.18.41) unstable; urgency=low
+
+  * First pass of IPv6 policy.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 30 Oct 2009 12:20:12 -0700
+
+vyatta-cfg-quagga (0.18.40) unstable; urgency=low
+
+  * modify bgp priorities to schedule as last protocol for quagga.
+
+ -- slioch <slioch@eng-140.vyatta.com>  Tue, 27 Oct 2009 15:23:52 -0700
+
+vyatta-cfg-quagga (0.18.39) unstable; urgency=low
+
+  * Fix 5036: Unable to configure more than one interface per area in
+    OSPFv3
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 27 Oct 2009 08:58:02 -0700
+
+vyatta-cfg-quagga (0.18.38) unstable; urgency=low
+
+  * move priority after tag nodes.
+
+ -- slioch <slioch@eng-140.vyatta.com>  Wed, 21 Oct 2009 09:16:28 -0700
+
+vyatta-cfg-quagga (0.18.37) unstable; urgency=low
+
+  * pushed priority to node.def's
+
+ -- slioch <slioch@eng-140.vyatta.com>  Tue, 20 Oct 2009 16:15:44 -0700
+
+vyatta-cfg-quagga (0.18.36) unstable; urgency=low
+
+  * Fix 5015: Route maps terms that contain reference to VIF interfaces
+    fail to load on boot
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 16 Oct 2009 14:37:02 -0700
+
+vyatta-cfg-quagga (0.18.35) unstable; urgency=low
+
+  * add .merge-branch-exclude
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 14 Oct 2009 13:17:06 -0700
+
+vyatta-cfg-quagga (0.18.34) unstable; urgency=low
+
+  * Fix setup of protocols on boot
+  * Convert update: on mulitnodes to create:
+  * remove pseudo-ethernet vif
+  * Allow starting multiple daemons at once
+  * Start all routing daemons when/if policy defined
+  * Remove dynamic start of routing daemons
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 13 Oct 2009 16:43:02 -0700
+
+vyatta-cfg-quagga (0.18.33) unstable; urgency=low
+
+  * Generate templates for wirless devices
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 20 Aug 2009 13:44:07 -0700
+
+vyatta-cfg-quagga (0.18.32) unstable; urgency=low
+
+  [ Jon Andersson ]
+  * Reset to default value when deleted
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 14 Aug 2009 12:40:19 -0700
+
+vyatta-cfg-quagga (0.18.31) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Fix 4769: bgp neighbor update-source fails on boot
+
+  [ Mohit Mehta ]
+  * add support for disabling ipv6 and ipv6 static routes in config
+
+ -- Mohit Mehta <mohit.mehta@vyatta.com>  Wed, 12 Aug 2009 17:42:14 -0700
+
+vyatta-cfg-quagga (0.18.30) unstable; urgency=low
+
+  * Bugfix 4708: Change update action in non-leaf valueless node to
+    create
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 15 Jul 2009 11:52:16 -0700
+
+vyatta-cfg-quagga (0.18.29) unstable; urgency=low
+
+  * Bugfix 4708:  Use "create" field instead of "update" for non-leaf
+    multi-nodes.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Mon, 13 Jul 2009 16:23:20 -0700
+
+vyatta-cfg-quagga (0.18.28) unstable; urgency=low
+
+  * Bugfix 4716: Need to perform different actions on "update" and
+    "create".
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Thu, 09 Jul 2009 18:31:05 -0700
+
+vyatta-cfg-quagga (0.18.27) unstable; urgency=low
+
+  * Abort transaction on delete of neighbor in peer group
+  * Convert template to new syntax
+  * Fix setup of protocols on boot
+  * Convert update: on mulitnodes to create:
+  * Add pseudo-ethernet
+  * Replace update tag on multi-nodes
+  * Use create to get remote-as to go first
+  * Allow status operations as non-root user
+  * Start bgpd earlier in process
+  * Use bgpd default import-check flag
+  * Fix OSPFv3 filter list node
+  * Remove bogus templates
+  * Remove hidden templates
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 09 Jul 2009 16:50:32 -0700
+
+vyatta-cfg-quagga (0.18.26) unstable; urgency=low
+
+  * Bugfix 4546:  Re-structure to avoid nested "end" field.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 07 Jul 2009 16:33:31 -0700
+
+vyatta-cfg-quagga (0.18.25) unstable; urgency=low
+
+  * Hide filter-list node until bug 4498 is fixed.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 10 Jun 2009 15:13:57 -0700
+
+vyatta-cfg-quagga (0.18.24) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Fri, 29 May 2009 18:35:23 -0700
+
+vyatta-cfg-quagga (0.18.23) unstable; urgency=low
+
+  * Convert template to new syntax
+  * Allow passive-interface definition for any device
+  * Manage OSPFv3 interface cost
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 28 May 2009 11:21:09 -0700
+
+vyatta-cfg-quagga (0.18.22) unstable; urgency=low
+
+  * Don't use --name option
+  * Start BGP at start of policy transaction
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 26 May 2009 10:30:30 -0700
+
+vyatta-cfg-quagga (0.18.21) unstable; urgency=low
+
+  * Start daemon at begining
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 22 May 2009 10:50:05 -0700
+
+vyatta-cfg-quagga (0.18.20) unstable; urgency=low
+
+  * Allow interface as BGP source
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 21 May 2009 16:59:14 -0700
+
+vyatta-cfg-quagga (0.18.19) unstable; urgency=low
+
+  * Syntax error in gateway-address template
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 13 May 2009 16:20:09 -0700
+
+vyatta-cfg-quagga (0.18.18) unstable; urgency=low
+
+  * Remove watchquagga stuff
+  * Handle multiple requests to start same daemon
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 08 May 2009 11:00:48 -0700
+
+vyatta-cfg-quagga (0.18.17) unstable; urgency=low
+
+  * ignore emacs temporary
+  * Convert template to non-expression create/update/delete
+  * Setting community policy needs to start BGP
+  * Redefine quagga-manager check as start
+  * Get rid of update action
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 07 May 2009 11:59:07 -0700
+
+vyatta-cfg-quagga (0.18.16) unstable; urgency=low
+
+  * Revert "Bugfix 4275: Don't allow user to configure link-detect on
+    PPP interfaces."
+  * Don't autogenerate disable-link-detect
+  * No longer need to special case loopback
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 20 Apr 2009 09:22:32 -0700
+
+vyatta-cfg-quagga (0.18.15) unstable; urgency=low
+
+  * Bugfix 4275: Don't allow user to configure link-detect on PPP
+    interfaces.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 17 Apr 2009 15:03:28 -0700
+
+vyatta-cfg-quagga (0.18.14) unstable; urgency=low
+
+  * Move "commit" check out of invalid node.tag/node.def.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sun, 05 Apr 2009 13:13:00 -0700
+
+vyatta-cfg-quagga (0.18.13) unstable; urgency=low
+
+  * Handle ipv6 daemons
+  * Don't stop daemon if OSPF/RIP still has parameters
+  * Don't stop daemon if OSPF/RIP still has parameters
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 02 Apr 2009 15:06:15 -0700
+
+vyatta-cfg-quagga (0.18.12) unstable; urgency=low
+
+  * Revert "Remove redundant check-as call since it doesn't work with
+    peer-groups."
+  * Fix check-as to not check on a peer-group.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 31 Mar 2009 17:44:30 -0700
+
+vyatta-cfg-quagga (0.18.11) unstable; urgency=low
+
+  * Remove redundant check-as call since it doesn't work with peer-
+    groups.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 31 Mar 2009 16:27:09 -0700
+
+vyatta-cfg-quagga (0.18.10) unstable; urgency=low
+
+  * Swap order of parameters
+  * Fix template for soft-reconfiguration
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 31 Mar 2009 09:58:12 -0700
+
+vyatta-cfg-quagga (0.18.9) unstable; urgency=low
+
+  * Fix error checking of remote-as
+  * Yet another logic error in vyatta-bgp
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 31 Mar 2009 07:41:07 -0700
+
+vyatta-cfg-quagga (0.18.8) unstable; urgency=low
+
+  * Fix bgp check script
+  * Fix interface name on rip authentication node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 30 Mar 2009 13:47:40 -0700
+
+vyatta-cfg-quagga (0.18.7) unstable; urgency=low
+
+  * Add missing backslash
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 30 Mar 2009 10:13:14 -0700
+
+vyatta-cfg-quagga (0.18.6) unstable; urgency=low
+
+  * Fix extra " in template
+  * Fix extra " at end of template
+  * Reformat template for clarity
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sun, 29 Mar 2009 15:11:08 -0700
+
+vyatta-cfg-quagga (0.18.5) unstable; urgency=low
+
+  * Fix sysctl setting link_filter on vif
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sun, 29 Mar 2009 10:01:48 -0700
+
+vyatta-cfg-quagga (0.18.4) unstable; urgency=low
+
+  * Get rid of extra trailing space in command
+  * Remove extra ; from delete node
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sat, 28 Mar 2009 17:46:06 -0700
+
+vyatta-cfg-quagga (0.18.3) unstable; urgency=low
+
+  * Fix some possible issues with policy script
+  * Use CLI regex to check length of key
+  * Cleanup indentation of authentication template
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 27 Mar 2009 17:03:30 -0700
+
+vyatta-cfg-quagga (0.18.2) unstable; urgency=low
+
+  * Fix link_filter setting
+  * Fix regex in password checks
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 26 Mar 2009 12:09:15 -0700
+
+vyatta-cfg-quagga (0.18.1) unstable; urgency=low
+
+  * Change "rip/ripng interface" check from "syntax" to "commit".
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Wed, 25 Mar 2009 18:18:22 -0700
+
+vyatta-cfg-quagga (0.18.0) unstable; urgency=low
+
+  * Start ipv6 daemons as needed during ospf/rip config
+  * Generate interface templates as part of build
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 25 Mar 2009 14:47:53 -0700
+
+vyatta-cfg-quagga (0.17.11) unstable; urgency=low
+
+  * Change "syntax" to "commit" check for "protocol ospf passive-
+    interace"
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 24 Mar 2009 18:26:35 -0700
+
+vyatta-cfg-quagga (0.17.10) unstable; urgency=low
+
+  * Enable link filtering
+  * Start OSPF/RIP as needed during config
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 23 Mar 2009 16:45:29 -0700
+
+vyatta-cfg-quagga (0.17.9) unstable; urgency=low
+
+  * Remove extra backslash
+  * Replace update with create on multi-node
+  * Fix confusion between net object and string
+  * Don't use closure in GetOptions
+  * Reindent perl code
+  * Handle error message in perl code
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 16 Mar 2009 10:01:36 -0700
+
+vyatta-cfg-quagga (0.17.8) unstable; urgency=low
+
+  * Reload config on restart
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 10 Mar 2009 18:01:51 -0700
+
+vyatta-cfg-quagga (0.17.7) unstable; urgency=low
+
+  * Manage daemon restart correctly
+  * Change argument, configured to original
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 09 Mar 2009 22:43:29 -0700
+
+vyatta-cfg-quagga (0.17.6) unstable; urgency=low
+
+  * Use new syntax and allow any interface
+  * RIP allow any interface type
+  * RIPNG: allow any interface type
+  * Static: show all interfaces in allowed list
+  * Add wirelessmodem router parameters
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Sun, 08 Mar 2009 16:49:45 -0700
+
+vyatta-cfg-quagga (0.17.5) unstable; urgency=low
+
+  * Fix call to vyatta-interfaces.pl --check now requires --dev
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 15:07:48 -0800
+
+vyatta-cfg-quagga (0.17.4) unstable; urgency=low
+
+  [ slioch ]
+  * clean up other static route commands to remove references to /tmp/
+    pellets and to use environment variable set via new cli.
+
+  [ Stig Thormodsrud ]
+  * Fix 4184: ospfv3 interface values don't work on vlans
+  * Fix 'passive-interface' to allow interface or 'default'.
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Thu, 05 Mar 2009 10:48:20 -0800
+
+vyatta-cfg-quagga (0.17.3) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add initial "interface <> ipv6 ripng" nodes.
+  * Minor cleanups to "interface <> ipv6 ospfv3" before copying to other
+    interfaces.
+
+  [ slioch ]
+  * ported example of node.def using commit environmental variable
+    rather than relying on /tmp pellets. should also improve performance
+    when delete large numbers of static
+
+ -- slioch <slioch@eng-140.vyatta.com>  Wed, 04 Mar 2009 09:47:28 -0800
+
+vyatta-cfg-quagga (0.17.2) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Add missing quote around quagga command.
+
+  [ Stephen Hemminger ]
+  * Add more options to show-protocols
+
+  [ Stig Thormodsrud ]
+
+ -- Stig Thormodsrud <stig@io.vyatta.com>  Mon, 02 Mar 2009 09:33:29 -0800
+
+vyatta-cfg-quagga (0.17.1) unstable; urgency=low
+
+  [ Stig Thormodsrud ]
+  * Revert "Make sure to quote $VAR(@) usage."
+
+  [ Stephen Hemminger ]
+  * Handle mapping from ospfv3 to ospf6d
+
+  [ Stig Thormodsrud ]
+  * Change from double quote to single quote around $VAR(@).
+  * Use single quotes around $VAR(@).
+
+  [ An-Cheng Huang ]
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Wed, 25 Feb 2009 18:59:05 -0800
+
+vyatta-cfg-quagga (0.17) unstable; urgency=low
+
+  [ root ]
+  * Initial commit of config commands for ospfv3
+
+  [ slioch ]
+  * as per discussion with Stephen. update handles shutdown of daemon
+    and explicit stop is not needed. Removed from
+
+  [ Stephen Hemminger ]
+  * Add quagga parameters for bridge and bonding devices
+
+  [ Stig Thormodsrud ]
+  * Make sure to quote $VAR(@) usage.
+
+  [ Stephen Hemminger ]
+  * Start BGP on create
+  * Use multi-line create on ospf
+  * Start ripngd on create
+  * Use multi-line in one create node
+  * OSPFv3 start ospf6d
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 25 Feb 2009 10:23:26 -0800
+
+vyatta-cfg-quagga (0.16) unstable; urgency=low
+
+  [ Stephen Hemminger ]
+  * force BGP on
+
+  [ slioch ]
+  * changes to support bgp start/stop
+  * applied same changes to ospf and rip as to bgp re: start/stop router
+    daemon hooks
+
+ -- slioch <slioch@eng-140.vyatta.com>  Thu, 19 Feb 2009 20:34:15 -0800
+
+vyatta-cfg-quagga (0.15) unstable; urgency=low
+
+  * Fix email in changlog
+  * Allow start if daemon already running
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 19 Feb 2009 10:01:43 -0800
+
+vyatta-cfg-quagga (0.14) unstable; urgency=low
+
+  * Move sudo from vyatta-protocol to nodes
+  * Move daemon start to the disable node
+  * Rework of protocol startup
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 18 Feb 2009 15:40:48 -0800
+
+vyatta-cfg-quagga (0.13.7) unstable; urgency=low
+
+  * OSPF: allow any type interface
+  * Handle reload of interface properties
+
+ -- Stephen Hemminger <shemminger@vyatta.com>  Wed, 11 Feb 2009 22:20:25 -0800
+
+vyatta-cfg-quagga (0.13.6) unstable; urgency=low
+
+  * Change reload to restart
+  * Move reload to vyatta-cfg-reload
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 05 Feb 2009 14:48:15 -0800
+
+vyatta-cfg-quagga (0.13.5) unstable; urgency=low
+
+  * remove pid files on protocol stop
+  * Fix reload
+  * Manage daemons better
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 05 Feb 2009 11:45:20 -0800
+
+vyatta-cfg-quagga (0.13.4) unstable; urgency=low
+
+  [ Bob Gilligan ]
+  * Bugfix 4052:  Add support for PPPOE over ethernet VIFs.
+
+  [ Stephen Hemminger ]
+  * Protocol daemon management
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 04 Feb 2009 15:19:06 -0800
+
+vyatta-cfg-quagga (0.13.3) unstable; urgency=low
+
+  * Fix exists/not exists function
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 29 Jan 2009 15:00:18 -0800
+
+vyatta-cfg-quagga (0.13.2) unstable; urgency=low
+
+  * bgp: cleanup
+  * check-as-prepend: turn on strict
+  * policy: turn on strict
+  * utils: turn on strict
+  * add new script for protocol restart
+  * Change mode of script files
+  * More work on protocol restart
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Wed, 28 Jan 2009 16:12:26 -0800
+
+vyatta-cfg-quagga (0.13.1) unstable; urgency=low
+
+  [ Bob Gilligan ]
+  * Bugfix 3863: Provide ability to configure static ARP table entries
+
+  [ An-Cheng Huang ]
+  * add support for development build
+
+  [ Stephen Hemminger ]
+  * Convert to new Vyatta::Config hierarchy
+  * Add new script to wrap changes to link-detect
+  * Add vyatta-link-detect
+  * Use new link-detect script
+  * need full path to linkdetect
+  * Revert "need full path to linkdetect"
+  * fix comments that got copied
+  * Use full path to link-detect
+
+  [ An-Cheng Huang ]
+  * update maintainer information
+  * "files" file should be removed before package build
+
+  [ Stephen Hemminger ]
+  * Allow any interface for interface routes
+
+  [ An-Cheng Huang ]
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 08 Jan 2009 09:24:32 -0800
+
+vyatta-cfg-quagga (0.13) unstable; urgency=low
+
+	  3.2.0
+  [ Mark O'Brien ]
+
+
+  [ Bob Gilligan ]
+  * Bugfix:  3684
+
+  [ Stephen Hemminger ]
+  * Remove the perl wrapper for vtysh (no longer needed).
+  * Revert "Replace vyatta-vtysh with vtysh"
+  * Replace vyatta-vtysh with vtysh
+
+  [ Stig Thormodsrud ]
+  * Fix syntax errors found by check_tmpl.
+  * Fix syntax error found by check_tmpl.
+  * Fix syntax problems identified by /opt/vyatta/sbin/check_tmpl
+  * Fix 3550: Setting kernel redistribution metric generates internal
+    error.
+  * Fix BGP IPv6 redistribute route-map error message.
+  * Add BGP IPv6 redistribute commands.
+  * Fix bgp soft-reconfiguration for IPv6.
+  * Add IPv6 support to bgp cli.
+
+  [ rbalocca ]
+  * Ignore derived files
+
+  [ Stig Thormodsrud ]
+  * Fix "delete protocols ripng".
+
+  [ Stephen Hemminger ]
+  * Replace calls to vyatta-vtysh perl script with vyatta-vtysh
+  * Update control since now contains not just scripts
+  * Get rid of long line causing warning
+
+  [ Stig Thormodsrud ]
+  * First pass at gluing ripng cli to quagga.
+
+  [ Stephen Hemminger ]
+  * Use vyatta_sbindir
+  * Add program to .gitignore
+  * Add new program to check prefix boundary
+
+  [ Stig Thormodsrud ]
+  * Fix ipv6 blackhole route.
+  * Fix check_prefix_boundry() to handle IPv6 abreviated addresses.
+  * Add cli for IPv6 static routes.
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Tue, 25 Nov 2008 19:08:50 -0800
+
+vyatta-cfg-quagga (0.12) unstable; urgency=low
+
+	  3.1.2
+  [ Mark O'Brien ]
+
+
+  [ Stig Thormodsrud ]
+  * Fix 2752: "Unknown command" after "source any" was configured in the
+    second rule of an access-list
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Wed, 23 Jul 2008 21:35:50 -0700
+
+vyatta-cfg-quagga (0.11) unstable; urgency=low
+
+	  3.1.1
+  [ Mark O'Brien ]
+
+
+  [ Stig Thormodsrud ]
+  * Fix 3344: Unable to delete route-map that contains a 'set metric
+    <value>' statement
+  * Add module version for quagga.
+
+  [ Stephen Hemminger ]
+  * Add configuration parameter for BGP MD5
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Sat, 28 Jun 2008 11:22:08 -0700
+
+vyatta-cfg-quagga (0.10) unstable; urgency=low
+
+	  3.1.0
+  [ Mark O'Brien ]
+
+
+  [ Stig Thormodsrud ]
+  * Fix 3345: Unable to configure OSPF redistribute <protocol> route-map
+    <name>
+
+  [ Mohit Mehta ]
+  * Fix bug 3134 "delete interfaces <> <> ip rip split-horizon" sets "no
+    ip rip split-horizon" under the routing engine which is unknown in
+    the config
+  * Fix bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Stig Thormodsrud ]
+  * Fix 3316: "metric-type" option does not exist in the CLI for OSPF
+    redistribution
+
+  [ Mohit Mehta ]
+  * Fix Bug 3269 system gateway-address conflicts with static default
+
+  [ Bob Gilligan ]
+  * Bugfix: 3019
+
+  [ Stephen Hemminger ]
+  * Fix templates for disable-link-detect when using vif on serial
+
+  [ rbalocca ]
+  * Ignore derived files
+
+  [ Stig Thormodsrud ]
+  * Fix 3266: Syntax validation for as-path-prepend does not allow 32
+    bit ASNs
+
+  [ Stephen Hemminger ]
+  * Add option to disable link-detect on serial interfaces
+
+  [ rbalocca ]
+  * Convert to our method of changelog creation
+
+  [ Stig Thormodsrud ]
+  * Fix 3199: removed redundant "static interface-route blackhole"
+
+  [ Bob Gilligan ]
+  * Add IP routing protocol config templates for PPPOE, PPPOE and
+    Classical
+
+  [ Stig Thormodsrud ]
+  * Fix 3139 Check for previous authentication type before allowing
+    another
+
+  [ Bob Gilligan ]
+  * Bugfix: 3181, 3019
+
+  [ Mohit Mehta ]
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Stig Thormodsrud ]
+  * Partial fix for 3004.  Set priority of network node higher than
+    virtual-link node.
+
+  [ rbalocca ]
+  * Merge from glendale
+
+  [ Mohit Mehta ]
+  * Fix Bug 3069 Help strings should be standardized
+  * Fix Bug 3069 Help strings should be standardized
+  * Fix Bug 2849 "disable-split-horizon" needs to be implemented
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@firebolt.vyatta.com>  Tue, 17 Jun 2008 09:26:15 -0700
+
+vyatta-cfg-quagga (0.9) unstable; urgency=low
+
+  3.0.5
+
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Tue, 06 May 2008 12:43:14 -0700
+
+vyatta-cfg-quagga (0.8) unstable; urgency=low
+
+  3.0.4
+
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Mon, 05 May 2008 16:40:33 -0700
+
+vyatta-cfg-quagga (0.7) unstable; urgency=low
+
+  3.0.3
+  [ Mark O'Brien ]
+
+
+  [ Stephen Hemminger ]
+  * Remove linkstatus script
+  * Fix typo in node.def (from linkwatch removal)
+
+  [ rbalocca ]
+  * Indicate the VC4.0.2 release candidate in the changelog
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Tue, 29 Apr 2008 16:42:15 -0700
+
+vyatta-cfg-quagga (0.6) unstable; urgency=low
+
+  VC4.0.2
+  [ Mark O'Brien ]
+
+
+  [ An-Cheng Huang ]
+  * don't signal watchlink if it's not running
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Sat, 19 Apr 2008 11:56:01 -0700
+
+vyatta-cfg-quagga (0.5) unstable; urgency=low
+
+  VC4.0.2 release candidate
+  [ Mark O'Brien ]
+
+  * Fix for bug 3093
+  * Updated autocomplet for loopback non-broadcast option
+
+  [ Robert Bays ]
+  * fix for bugs 3085,3114,3121,3119,3120
+  * add 2 lines acidentally deleted in last commit for attribute-
+    unchanged
+
+  [ Stig Thormodsrud ]
+  * Fix 3115: set protocols ospf default-information originate always"
+    sends no "always" to the
+  * Fix 3128: "isis" needs to be removed under " protocols ospf access-
+    list <> export"
+  * Fix 3132:  "set protocols ospf refresh timers <>" then commit failed
+  * Fix 3133: "delete protocols ospf timers throttle spf delay" commit
+    failed
+  * Fix 3131: "delete protocols ospf parameters abr-type" does not
+    remove " ospf abr-type standard"
+  * Fix 3130: "set protocols ospf compatible rfc1583" or " set protocols
+    ospf parameters
+  * Fix 3124: "set protocols ospf area <> area-type nssa translate
+    always" removed "...... nssa no-summary" from the routing engine
+  * Make sure OSPF area-type is set before default-cost.
+  * Fix 3129: "delete protocols ospf neighbor <> priority" should delete
+    the neighbor in the config as under the routing engine
+  * Fix 3126: ospf virtual-link authentication types should not be able
+    to be coexisted in the config
+  * Fix [Bug 3125] "...... range <> no-advertise" should be removed from
+    the config while it is removed from the routing engine by  "set
+    protocols ospf area <> range <> substitute
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Wed, 16 Apr 2008 09:50:02 -0700
+
+vyatta-cfg-quagga (0.4) unstable; urgency=low
+
+  3.0.2
+  [ Mark O'Brien ]
+
+  * 3.0.1
+
+  [ Robert Bays ]
+  * update help strings in BGP
+  * shorten some of the BGP help strings
+  * fix bug 3074
+
+  [ Stig Thormodsrud ]
+  * Fix 3026 ospf: failed to delete ospf configuration from top level
+  * Fix 3108: Unable to configure ospf 'default-information' originate
+
+  [ rbalocca ]
+  * Fix debian dependencies
+  * Set dependencies on either bash or vyatta-bash
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Fri, 04 Apr 2008 18:00:28 -0700
+
+vyatta-cfg-quagga (0.3) unstable; urgency=low
+
+  VC4.0.1
+  [ Mark O'Brien ]
+
+
+  [ Arthur Xiong ]
+  * 1. Fix bug 2754 - changed node type from txt to ipv4, since in the
+    routing engine, "neighbor A.B.C.D update-source W.X.Y.Z" always
+    works, and there is no ip address saved under interface hence
+    "neighbor A.B.C.D update-source INTERFACE_NAME" doesn't work.
+  * Fixed a typo
+  * Change the type from "txt" to "u32" for "protocols ospf access-list
+    <>"
+
+  [ Bob Gilligan ]
+  * Bugfix: 2818.
+
+  [ Mohit Mehta ]
+  * Fix Bug 2886 Invalid gateway address is accepted
+  * Fix Bug 1513 BGP - peer-port and local-port accept invalid values
+
+  [ Robert Bays ]
+  * bug 2753
+  * bug 2783: set protocols ospf distribute-list...
+  * bug 2716: set metric-type is not implemented
+  * fix ospf node for bug 2783
+  * fix for bugs 2541, 2888, 2676
+  * fix for bug 2713
+  * fixes for bugs 2713, 2541, 2888, 2676
+  * updated fix for bug 2713.  neighbor now allows g/G.
+  * fix for bugs 2725 and 2999
+  * fix for bug 2993
+  * fix for bug 2800
+  * update help for access-lists
+  * update help for access-lists
+  * iupdate help strings for policy nodes
+  * fix bgp and policy for match community and network backdoor
+  * finish help strings for policy
+
+  [ Stephen Hemminger ]
+  * Replace VPL with GPLv2
+  * Update to GPLv2
+
+  [ Stig Thormodsrud ]
+  * Fix 2906: "delete protocols ospf area X area-type nssa " and then
+    "commit" - "commit failed"
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Tue, 18 Mar 2008 19:03:48 -0700
+
+vyatta-cfg-quagga (0.2) unstable; urgency=low
+
+  vc4.0.0
+  [ Mark O'Brien ]
+
+
+  [ An-Cheng Huang ]
+  * convert templates to new syntax
+
+  [ Michael Larson ]
+  * allow per vif configuration of disable-link-status
+  * fix for bug 2541--requires saving temporary file, plus script to
+    walk tree and redefined nodes. a bit of a
+
+  [ Stig Thormodsrud ]
+  * Fix 2697 route-map can't be set for default-originate
+  * Add some comp_help strings to ospf cli
+  * Fix 2805 'show configuration all' does not display all default
+    values for ospf
+  * Fix 2810 ospf authentications gets truncated to 8 characters
+  * Fix 2812 'show configuration all' does not display all default
+    values for bgp.
+  * Fix 2813 'show configuration all' does not display all default
+  * Add "set interface <type> ip ospf bandwidth" to OSPF cost
+    calculation.
+  * Duplicate quagga "interface ip ospf" tree for tunnel and vif
+    interfaces.
+  * Fix 1513 BGP - peer-port and local-port accept invalid values
+  * Fix 2819 Plain-text authentication should be identified as such
+  * Comment out "backdoor" command as a workaround until cli bug 2525 is
+    fixed.
+  * Add default value for ospf auto-cost reference-bandwidth.
+  * Fix 2856 "delete interfaces ethernet eth1 ip rip" commit failed if
+    "split-horizon poison-reverse" is
+  * Apply same fix for 2856 under tunnel heirarchy.
+  * Add a check for when the vtysh wrapper is called without any
+    parameters.
+  * Fix 2679 aggregate-address "as-set" and/or "summary-only" not sent
+    to the routing engine
+
+  [ Mark O'Brien ]
+
+ -- Mark O'Brien <mobrien@vyatta.com>  Mon, 25 Feb 2008 17:38:29 -0800
+
+vyatta-cfg-quagga (0.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Mon, 1 Oct 2007 11:23:11 -0700
