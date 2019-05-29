@@ -526,6 +526,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
+  'protocols bgp var neighbor var capability extended-nexthop' => {
+      set => 'router bgp #3 ; neighbor #5 capability extended-nexthop',
+      del => 'router bgp #3 ; no neighbor #5 capability extended-nexthop',
+  },
   'protocols bgp var neighbor var local-as' => {
       set => undef,
       del => undef,
@@ -1043,6 +1047,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
+  'protocols bgp var peer-group var capability extended-nexthop' => {
+      set => 'router bgp #3 ; neighbor #5 capability extended-nexthop',
+      del => 'router bgp #3 ; no neighbor #5 capability extended-nexthop',
+  },
   'protocols bgp var peer-group var disable-capability-negotiation' => {
       set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
       del => 'router bgp #3 ; no neighbor #5 dont-capability-negotiate',
@@ -1327,7 +1335,7 @@ sub checkOverwritePeerGroupParameters
 		return -1;
 	}
 	
-	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 
+	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability extended-nexthop', 
 							'distribute-list import', 'filter-list import', 'maximum-prefix', 
 							'port', 'prefix-list import', 'route-map import', 
 							'soft-reconfiguration inbound', 'strict-capability-match');
