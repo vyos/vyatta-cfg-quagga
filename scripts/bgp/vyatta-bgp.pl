@@ -204,6 +204,7 @@ my %qcom = (
   'protocols bgp var neighbor var' => {
       set => undef,
       del => 'router bgp #3 ; no neighbor #5',
+      noerr => 'del',
   },
   'protocols bgp var neighbor var address-family' => {
       set => undef,
@@ -499,8 +500,28 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5 remote-as #7',
   },
   'protocols bgp var neighbor var interface' => {
-      set => 'router bgp #3 ; neighbor #5 interface #7',
-      del => 'router bgp #3 ; no neighbor #5 interface #7',
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var neighbor var interface peer-group' => {
+      set => 'router bgp #3 ; neighbor #5 interface peer-group #8',
+      del => 'router bgp #3 ; no neighbor #5 interface peer-group #8',
+  },
+  'protocols bgp var neighbor var interface remote-as' => {
+      set => 'router bgp #3 ; neighbor #5 interface remote-as #8',
+      del => 'router bgp #3 ; no neighbor #5 interface remote-as #8',
+  },
+  'protocols bgp var neighbor var interface v6only' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var neighbor var interface v6only peer-group' => {
+      set => 'router bgp #3 ; neighbor #5 interface v6only peer-group #9',
+      del => 'router bgp #3 ; no neighbor #5 interface v6only peer-group #9',
+  },
+  'protocols bgp var neighbor var interface v6only remote-as' => {
+      set => 'router bgp #3 ; neighbor #5 interface v6only remote-as #9',
+      del => 'router bgp #3 ; no neighbor #5 interface v6only remote-as #9',
   },
   'protocols bgp var neighbor var disable-capability-negotiation' => {
       set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
@@ -525,6 +546,10 @@ my %qcom = (
   'protocols bgp var neighbor var capability dynamic' => {
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
+  },
+  'protocols bgp var neighbor var capability extended-nexthop' => {
+      set => 'router bgp #3 ; neighbor #5 capability extended-nexthop',
+      del => 'router bgp #3 ; no neighbor #5 capability extended-nexthop',
   },
   'protocols bgp var neighbor var local-as' => {
       set => undef,
@@ -618,6 +643,10 @@ my %qcom = (
   'protocols bgp var parameters bestpath as-path ignore' => {
       set => 'router bgp #3 ; bgp bestpath as-path ignore',
       del => 'router bgp #3 ; no bgp bestpath as-path ignore',
+  },
+  'protocols bgp var parameters bestpath as-path multipath-relax' => {
+      set => 'router bgp #3 ; bgp bestpath as-path multipath-relax',
+      del => 'router bgp #3 ; no bgp bestpath as-path multipath-relax',
   },
   'protocols bgp var parameters bestpath compare-routerid' => {
       set => 'router bgp #3 ; bgp bestpath compare-routerid',
@@ -1043,6 +1072,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 capability dynamic',
       del => 'router bgp #3 ; no neighbor #5 capability dynamic',
   },
+  'protocols bgp var peer-group var capability extended-nexthop' => {
+      set => 'router bgp #3 ; neighbor #5 capability extended-nexthop',
+      del => 'router bgp #3 ; no neighbor #5 capability extended-nexthop',
+  },
   'protocols bgp var peer-group var disable-capability-negotiation' => {
       set => 'router bgp #3 ; neighbor #5 dont-capability-negotiate',
       del => 'router bgp #3 ; no neighbor #5 dont-capability-negotiate',
@@ -1115,7 +1148,7 @@ if ( ! -e "/usr/sbin/zebra" ) {
 
 my ( $pg, $as, $neighbor );
 my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource, 
-     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups);
+     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1130,6 +1163,7 @@ GetOptions(
     "was-iBGP"                => \$wasiBGPpeer,
     "confed-iBGP-ASN-check=s" => \$confedibgpasn,
     "list-peer-groups"        => \$listpeergroups,
+    "check-remote-as=s"       => \$checkremoteas,
     "main"                    => \$main,
 );
 
@@ -1143,6 +1177,7 @@ confed_iBGP_ASN($as, $confedibgpasn)        if ($confedibgpasn);
 is_iBGP_peer($neighbor, $as)          	    if ($isiBGPpeer);
 was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
 list_peer_groups($as)                       if ($listpeergroups);
+check_remote_as($checkremoteas)             if ($checkremoteas);
 
 exit 0;
 
@@ -1159,6 +1194,10 @@ sub list_peer_groups {
 # Make sure the peer IP isn't a local system IP
 sub check_neighbor_ip {
     my $neighbor = shift;
+
+    if ($neighbor =~ /^(\w+)$/) {
+	    exit 0;
+    }
 
     die "Can't set neighbor address to local system IP.\n"
 	if (is_local_address($neighbor));
@@ -1182,6 +1221,23 @@ sub check_peergroup_name {
 		die "malformed peer-group name $neighbor\n";
     }
 }
+
+sub check_remote_as {
+    my $remote_as = shift;
+
+    if ($remote_as =~ /^(\d+)$/) {
+        if ( $remote_as >= 1 && $remote_as <= 4294967294) {
+	    exit 0; 
+	}
+    die "remote-as must be between 1 and 4294967294 or external or internal"; 
+    }
+
+    if ( $remote_as eq "external" || $remote_as eq "internal") {
+        exit 0; 
+    }
+    die "remote-as must be between 1 and 4294967294 or external or internal"; 
+}
+
 
 # Make sure we aren't deleteing a peer-group that has
 # neighbors configured to it
@@ -1232,6 +1288,10 @@ sub check_for_peer_groups {
 
     foreach my $node (@neighbors) {
         my $peergroup = $config->returnValue("$node peer-group");
+        if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
+        $peergroup = $config->returnValue("$node interface peer-group");
+        if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
+        $peergroup = $config->returnValue("$node interface v6only peer-group");
         if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
     }
 
@@ -1327,7 +1387,7 @@ sub checkOverwritePeerGroupParameters
 		return -1;
 	}
 	
-	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 
+	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability extended-nexthop', 
 							'distribute-list import', 'filter-list import', 'maximum-prefix', 
 							'port', 'prefix-list import', 'route-map import', 
 							'soft-reconfiguration inbound', 'strict-capability-match');
@@ -1378,8 +1438,20 @@ sub check_neighbor_parameters
             my @neighbors = $config->listNodes("$as neighbor");
             foreach my $neighbor (@neighbors) {
               my $pgmembership = $config->returnValue("$as neighbor $neighbor peer-group");
+              if ( ! defined $pgmembership ) {
+                my $pgmembership = $config->returnValue("$as neighbor $neighbor іnterface peer-group");
+              }
+              if ( ! defined $pgmembership ) {
+                my $pgmembership = $config->returnValue("$as neighbor $neighbor іnterface v6only peer-group");
+              }
               if ( (defined $pgmembership) && ("$pgmembership" eq "$peergroup") ) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+                if ( ! defined $remoteas) {
+                  my $remoteas = $config->returnValue("$as neighbor $neighbor іnterface remote-as");
+                }
+                if ( ! defined $remoteas ) {
+                  my $remoteas = $config->returnValue("$as neighbor $neighbor іnterface v6only remote-as");
+                }
                 if (! defined $remoteas) {
                   die "[ protocols bgp $as peer-group $neighbor ]\n  can't delete the remote-as in peer-group without setting remote-as in member neighbors\n"
                 }
@@ -1397,8 +1469,20 @@ sub check_neighbor_parameters
             my @neighbors = $config->listNodes("$as neighbor");
             foreach my $neighbor (@neighbors) {
               my $pgmembership = $config->returnValue("$as neighbor $neighbor peer-group");
+              if ( ! defined $pgmembership ) {
+                my $pgmembership = $config->returnValue("$as neighbor $neighbor іnterface peer-group");
+              }
+              if ( ! defined $pgmembership ) {
+                my $pgmembership = $config->returnValue("$as neighbor $neighbor іnterface v6only peer-group");
+              }
               if ((defined $pgmembership) && ("$pgmembership" eq "$peergroup")) {
                 my $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
+                if ( ! defined $remoteas) {
+                  my $remoteas = $config->returnValue("$as neighbor $neighbor іnterface remote-as");
+                }
+                if ( ! defined $remoteas ) {
+                  my $remoteas = $config->returnValue("$as neighbor $neighbor іnterface v6only remote-as");
+                }
                 if (defined $remoteas && defined $pgremoteas) {
                   die "[ protocols bgp $as peer-group $neighbor ]\n  must not define remote-as in both neighbor and peer-group\n"
                 }
@@ -1426,23 +1510,36 @@ sub check_neighbor_parameters
 	    # remote-as checks: Make sure the neighbor has a remote-as defined locally or in the peer-group
 	    my ($remoteas, $peergroup, $peergroupas, $peergroup6, $peergroup6as);
 	    $remoteas = $config->returnValue("$as neighbor $neighbor remote-as");
-	    if ($config->exists("$as neighbor $neighbor peer-group")) {
-                if ($config->exists("$as parameters default no-ipv4-unicast")) {
+        if (! defined($remoteas)) {
+                $remoteas = $config->returnValue("$as neighbor $neighbor interface remote-as");
+        }
+        if (! defined($remoteas)) {
+                $remoteas = $config->returnValue("$as neighbor $neighbor interface v6only remote-as");
+        }
+	    if ($config->exists("$as neighbor $neighbor peer-group") || 
+            $config->exists("$as neighbor $neighbor interface peer-group") ||
+            $config->exists("$as neighbor $neighbor interface v6only peer-group")) {
+                if ($config->exists("$as parameters default no-ipv4-unicast") && $config->exists("$as neighbor $neighbor peer-group")) {
                     die "[ protocols bgp $as neighbor $neighbor ]\n  peer-group defined but ipv4-unicast is disabled\n";
                 }
-		$peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+		        $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+                if (! defined($peergroup)) {
+                    $peergroup = $config->returnValue("$as neighbor $neighbor interface peer-group");
+                }
+                if (! defined($peergroup)) {
+                    $peergroup = $config->returnValue("$as neighbor $neighbor interface v6only  peer-group");
+                }
             	if ($config->exists("$as peer-group $peergroup remote-as")) {
-		    $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
+		            $peergroupas = $config->returnValue("$as peer-group $peergroup remote-as");
             	}
 	    }
             if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
-		$peergroup6 = $config->returnValue("$as neighbor $neighbor address-family ipv6-unicast peer-group");
+		        $peergroup6 = $config->returnValue("$as neighbor $neighbor address-family ipv6-unicast peer-group");
             	if ($config->exists("$as peer-group $peergroup6 remote-as")
                     && $config->exists("$as peer-group $peergroup6 address-family ipv6-unicast")) {
-		    $peergroup6as = $config->returnValue("$as peer-group $peergroup6 remote-as");
+		            $peergroup6as = $config->returnValue("$as peer-group $peergroup6 remote-as");
             	}
-	    }
-
+	        }  
 	    die "[ protocols bgp $as neighbor $neighbor ]\n  must set remote-as or peer-group with remote-as defined\n"
 		if ((!defined($remoteas) && !defined($peergroupas)) && !$config->exists("$as parameters default no-ipv4-unicast"));
 
@@ -1494,7 +1591,15 @@ sub confed_iBGP_ASN {
     my @neighbors = $config->listOrigNodes('neighbor');
     foreach my $neighbor (@neighbors) {
       my $remoteas = $config->returnValue("neighbor $neighbor remote-as");
-      if ("$testas" eq "$remoteas") {
+      if (("$testas" eq "$remoteas") || ("$testas" eq "internal")) {
+        exit 1;
+      }
+      $remoteas = $config->returnValue("neighbor $neighbor interface remote-as");
+      if (("$testas" eq "$remoteas") || ("$testas" eq "internal")) {
+        exit 1;
+      }
+      $remoteas = $config->returnValue("neighbor $neighbor interface v6only remote-as");
+      if (("$testas" eq "$remoteas") || ("$testas" eq "internal")) {
         exit 1;
       }
     }
@@ -1617,14 +1722,16 @@ sub main
                   'address-family ipv6-unicast unsuppress-map');
 
    # notice the extra space in the level string.  keeps the parent from being deleted.
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var ', undef, \@ordered) || die "exiting $?\n";
-   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var ', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var', undef, \@ordered) || die "exiting $?\n";
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
    ## sets with priority
    $qconfig->setConfigTreeRecursive('protocols bgp var parameters') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var peer-group', undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var remote-as', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var interface', undef, \@ordered) 
+                                    || die "exiting $?\n"; 
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var address-family ipv6-unicast peer-group'
                                     , undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var address-family ipv6-unicast'
