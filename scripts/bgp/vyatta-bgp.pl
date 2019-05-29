@@ -623,6 +623,10 @@ my %qcom = (
       set => 'router bgp #3 ; bgp bestpath as-path ignore',
       del => 'router bgp #3 ; no bgp bestpath as-path ignore',
   },
+  'protocols bgp var parameters bestpath as-path multipath-relax' => {
+      set => 'router bgp #3 ; bgp bestpath as-path multipath-relax',
+      del => 'router bgp #3 ; no bgp bestpath as-path multipath-relax',
+  },
   'protocols bgp var parameters bestpath compare-routerid' => {
       set => 'router bgp #3 ; bgp bestpath compare-routerid',
       del => 'router bgp #3 ; no bgp bestpath compare-routerid',
