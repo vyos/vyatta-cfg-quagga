@@ -1122,8 +1122,8 @@ if ( ! -e "/usr/sbin/zebra" ) {
 }
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource, 
-     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups);
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource,
+     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1138,6 +1138,7 @@ GetOptions(
     "was-iBGP"                => \$wasiBGPpeer,
     "confed-iBGP-ASN-check=s" => \$confedibgpasn,
     "list-peer-groups"        => \$listpeergroups,
+    "check-remote-as=s"       => \$checkremoteas,
     "main"                    => \$main,
 );
 
@@ -1151,6 +1152,7 @@ confed_iBGP_ASN($as, $confedibgpasn)        if ($confedibgpasn);
 is_iBGP_peer($neighbor, $as)          	    if ($isiBGPpeer);
 was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
 list_peer_groups($as)                       if ($listpeergroups);
+check_remote_as($checkremoteas)             if ($checkremoteas);
 
 exit 0;
 
@@ -1189,6 +1191,22 @@ sub check_peergroup_name {
     if (/^[A-Fa-f]{1,4}$/) {
 		die "malformed peer-group name $neighbor\n";
     }
+}
+
+sub check_remote_as {
+    my $remote_as = shift;
+
+    if ($remote_as =~ /^(\d+)$/) {
+        if ( $remote_as >= 1 && $remote_as <= 4294967294) {
+        exit 0;
+    }
+    die "remote-as must be between 1 and 4294967294 or external or internal";
+    }
+
+    if ( $remote_as eq "external" || $remote_as eq "internal") {
+        exit 0;
+    }
+    die "remote-as must be between 1 and 4294967294 or external or internal";
 }
 
 # Make sure we aren't deleteing a peer-group that has
