@@ -28,7 +28,7 @@ delete: if [ -z $VAR(@) ]
 	else 
            if [ "$VAR(@)" == "default" ]
            then
-              if [ $VAR(../passive-interface-exclude/@) ] 
+              if [ ! -z "$VAR(../passive-interface-exclude/@)" ]
               then
                  echo "Error: delete passive-interface-exclude before deleting passive-interface default";
                  exit 1;
