@@ -575,6 +575,11 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 password #7',
       del => 'router bgp #3 ; no neighbor #5 password',
   },
+  'protocols bgp var neighbor var peer-group' => {
+      set => 'router bgp #3 ; neighbor #5 peer-group #7',
+      del => 'router bgp #3 ; no neighbor #5 peer-group #7',
+      noerr => 'del',
+  },
   'protocols bgp var neighbor var port' => {
       set => 'router bgp #3 ; neighbor #5 port #7',
       del => 'router bgp #3 ; no neighbor #5 port',
@@ -944,7 +949,7 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 capability orf prefix-list send',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 capability orf prefix-list send',
   },
-  ## Note that the activate will need to be moved when we migrate to
+  ## Note that the activate will need to be moved when we migrate to 
   ## supporting a single IP version in a peering session.
   'protocols bgp var peer-group var address-family ipv4-unicast default-originate' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 activate ; neighbor #5 default-originate',
@@ -953,11 +958,6 @@ my %qcom = (
   'protocols bgp var peer-group var address-family ipv4-unicast default-originate route-map' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 activate ; neighbor #5 default-originate route-map #10',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 default-originate route-map #10',
-  },
-  'protocols bgp var peer-group var address-family ipv4-unicast peer-group' => {
-      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 peer-group #7',
-      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 peer-group #7',
-      noerr => 'del',
   },
   'protocols bgp var peer-group var address-family ipv4-unicast disable-send-community' => {
       set => undef,
