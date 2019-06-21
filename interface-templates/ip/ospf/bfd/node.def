@@ -1,0 +1,3 @@
+help: Enable Bidirectional Forwarding Detection (BFD) on this interface
+create:vtysh -c "configure terminal" -c "interface $IFNAME" -c "ip ospf bfd"
+delete:vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ip ospf bfd"
