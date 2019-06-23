@@ -571,6 +571,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 passive',
       del => 'router bgp #3 ; no neighbor #5 passive',
   },
+  'protocols bgp var neighbor var bfd' => {
+      set => 'router bgp #3 ; neighbor #5 bfd',
+      del => 'router bgp #3 ; no neighbor #5 bfd',
+  },
   'protocols bgp var neighbor var password' => {
       set => 'router bgp #3 ; neighbor #5 password #7',
       del => 'router bgp #3 ; no neighbor #5 password',
@@ -1103,6 +1107,10 @@ my %qcom = (
   'protocols bgp var peer-group var passive' => {
       set => 'router bgp #3 ; neighbor #5 passive',
       del => 'router bgp #3 ; no neighbor #5 passive',
+  },
+  'protocols bgp var peer-group var bfd' => {
+      set => 'router bgp #3 ; neighbor #5 bfd',
+      del => 'router bgp #3 ; no neighbor #5 bfd',
   },
   'protocols bgp var peer-group var password' => {
       set => 'router bgp #3 ; neighbor #5 password #7',
