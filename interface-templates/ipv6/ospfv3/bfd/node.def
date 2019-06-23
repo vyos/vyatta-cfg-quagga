@@ -1,4 +1,4 @@
-help: Enable Bidirectional Forwarding Detection (BFD) on this interface
+help: Enable Bidirectional Forwarding Detection (BFD) support
 create:vtysh -c "configure terminal" -c "interface $VAR(../../../@)" -c "ipv6 ospf6 bfd"
 delete:vtysh -c "configure terminal" -c "interface $VAR(../../../@)" -c "no ipv6 ospf6 bfd"
 
