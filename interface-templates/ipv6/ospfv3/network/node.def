@@ -1,0 +1,9 @@
+type: txt
+help: Network type
+syntax:expression: $VAR(@) in "broadcast", "point-to-point"; \
+       "Must be (broadcast|point-to-point)"
+update:vtysh -c "configure terminal" -c "interface $IFNAME" -c "ipv6 ospf network $VAR(@)"
+delete:vtysh -c "configure terminal" -c "interface $IFNAME" -c "no ipv6 ospf network"
+
+val_help: broadcast; Broadcast network type
+val_help: point-to-point; Point-to-point network type
