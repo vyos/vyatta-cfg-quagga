@@ -1,6 +1,7 @@
 type: txt
 help: Neighbor BGP AS number [REQUIRED]
-val_help: txt: 1-4294967294; Neighbor AS number
-val_help: txt: external; except that if the peers ASN is different than mine
-val_help: txt: internal; except that if the peers ASN is the same as mine
+allowed: echo "internal external"
+val_help: u32:1-4294967294; AS number
+val_help: external; any AS different from the local AS
+val_help: internal; same as local AS
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-remote-as $VAR(@)" 

@@ -1,9 +1,9 @@
 tag:
 type: txt
 help: BGP neighbor
-val_help: txt; BGP neighbor IP address
-val_help: txt; BGP neighbor IPv6 address
-val_help: txt; Interface name
+val_help: ipv4; BGP neighbor IP address
+val_help: ipv6; BGP neighbor IPv6 address
+val_help: <interface>; Interface name
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl \
                            --check-neighbor-ip --neighbor $VAR(@)" 
