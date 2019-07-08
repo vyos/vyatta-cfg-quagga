@@ -5,8 +5,9 @@ val_help: local-AS; Advertise communities in local AS only (NO_EXPORT_SUBCONFED)
 val_help: no-advertise; Don't advertise this route to any peer (NO_ADVERTISE)
 val_help: no-export; Don't advertise outside of this AS of confederation boundry (NO_EXPORT)
 val_help: internet; Symbolic Internet community 0
+val_help: additive; Add the community instead of replacing existing communities
 
-allowed:echo "none local-AS no-advertise no-export internet"
+allowed:echo "none local-AS no-advertise no-export internet additive"
 
 syntax:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --check-community $VAR(@)"
 commit:expression: $VAR(../../action/) != "" ; "You must specify an action"
