@@ -1199,8 +1199,9 @@ sub list_peer_groups {
 sub check_neighbor_ip {
     my $neighbor = shift;
 
-    if ($neighbor =~ /^(\w+)$/) {
-	    exit 0;
+    my $found = grep { $_ eq $neighbor } Vyatta::Misc::getInterfaces();
+    if ($found != 0) {
+            exit 0;
     }
 
     die "Can't set neighbor address to local system IP.\n"
