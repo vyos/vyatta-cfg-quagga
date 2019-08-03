@@ -1,2 +1,5 @@
 help: Neighbor as a route reflector client
-commit:expression: exec "if [ $VAR(../../../../@) != $VAR(../../../remote-as/@) ]; then echo \"protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@) route-reflector-client: remote-as must equal local-as\"; exit 1; fi; "
+commit:expression: exec "if [ $VAR(../../../../@) != $VAR(../../../remote-as/@) ] && \
+                            [ $VAR(../../../remote-as/@) != \"internal\" ] && \
+                            [ $VAR(../../../remote-as/@) != \"external\" ]; \
+                        then echo \"protocols bgp $VAR(../../../../@) neighbor $VAR(../../../@) route-reflector-client: remote-as must equal local-as\"; exit 1; fi; "
