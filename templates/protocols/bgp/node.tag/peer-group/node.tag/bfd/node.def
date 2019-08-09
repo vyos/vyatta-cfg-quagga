@@ -1,1 +1,2 @@
 help: Enable Bidirectional Forwarding Detection (BFD) support
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-peer-group-bfd $VAR(../@) --as $VAR(../../@)"
