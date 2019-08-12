@@ -579,6 +579,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 bfd',
       del => 'router bgp #3 ; no neighbor #5 bfd',
   },
+  'protocols bgp var neighbor var bfd check-control-plane-failure' => {
+      set => 'router bgp #3 ; neighbor #5 bfd check-control-plane-failure',
+      del => 'router bgp #3 ; no neighbor #5 bfd check-control-plane-failure',
+  },
   'protocols bgp var neighbor var password' => {
       set => 'router bgp #3 ; neighbor #5 password #7',
       del => 'router bgp #3 ; no neighbor #5 password',
@@ -1160,7 +1164,7 @@ if ( ! -e "/usr/sbin/zebra" ) {
 
 my ( $pg, $as, $neighbor );
 my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource, 
-     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas);
+     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas, $checkbfdpeer, $checkbfdgroup);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1176,6 +1180,8 @@ GetOptions(
     "confed-iBGP-ASN-check=s" => \$confedibgpasn,
     "list-peer-groups"        => \$listpeergroups,
     "check-remote-as=s"       => \$checkremoteas,
+    "check-bfd-peer=s"        => \$checkbfdpeer,
+    "check-peer-group-bfd=s"  => \$checkbfdgroup,
     "main"                    => \$main,
 );
 
@@ -1190,6 +1196,8 @@ is_iBGP_peer($neighbor, $as)          	    if ($isiBGPpeer);
 was_iBGP_peer($neighbor, $as)               if ($wasiBGPpeer);
 list_peer_groups($as)                       if ($listpeergroups);
 check_remote_as($checkremoteas)             if ($checkremoteas);
+check_bfd_peer($checkbfdpeer)               if ($checkbfdpeer);
+check_bfd_group($checkbfdgroup, $as)        if ($checkbfdgroup);
 
 exit 0;
 
@@ -1705,6 +1713,44 @@ sub check_source {
 	my $found = grep { $_ eq $src } Vyatta::Misc::getInterfaces();
 	print("Warning: Interface $src does not exist on the system\n") if ($found == 0);
     }
+}
+
+# check if BFD peer exists for configured BGP peer
+sub check_bfd_peer {
+  my $peer = shift;
+  my $config = new Vyatta::Config;
+
+  # check for BFD peer configuration
+  my $bfd_exists = $config->exists("protocols bfd peer $peer");
+  if (!$bfd_exists) { die "BFD peer need to be configured for using BFD protocol\n"; }
+}
+
+# check if BFD peer exists for configured BGP peer-group
+sub check_bfd_group {
+  my $group = shift;
+  my $as = shift;
+  my @group_neighbors = ();
+  my $config = new Vyatta::Config;
+
+  # check if BFD enabled for peer-group and stop check if not
+  if (!$config->exists("protocols bgp $as peer-group $group bfd")) {
+    return 0;
+  }
+
+  # get a list of all BGP neighbors in the defined group
+  my @all_neighbors = $config->listNodes("protocols bgp $as neighbor");
+  foreach my $neighbor (@all_neighbors) {
+    if ($config->exists("protocols bgp $as neighbor $neighbor peer-group")) {
+      if ($config->returnValue("protocols bgp $as neighbor $neighbor peer-group") eq $group) {
+        push @group_neighbors, $neighbor;
+      }
+    }
+  }
+
+  # check if BFD peer exist and raise error if not
+  foreach my $neighbor (@group_neighbors) {
+    if (!$config->exists("protocols bfd peer $neighbor")) { die "BFD peers need to be configured for all neighbors in peer-group $group before enabling for BGP\n"; }
+  }
 }
 
 sub main 
