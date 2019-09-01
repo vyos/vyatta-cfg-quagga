@@ -3,9 +3,15 @@ help: Advertise stub-router prior to full shutdown of OSPF
 syntax:expression: $VAR(@) >= 5 && $VAR(@) <= 86400; "must be between 5-86400 seconds"
 val_help: u32:5-86400; Time (seconds) to advertise self as stub-router
 
-update:expression: "vtysh -c \"configure terminal\" \
-        -c \"router ospf\" \
-        -c \"max-metric router-lsa on-shutdown $VAR(@)\"; "
+update:
+    METRIC=$VAR(@)
+    if [ $METRIC -gt 100 ]; then
+        echo "Warning: $METRIC is not a supported value for OSPF max-metric, reducing to 100";
+        METRIC=100;
+    fi
+    vtysh -c "configure terminal" \
+          -c "router ospf" \
+          -c "max-metric router-lsa on-shutdown $METRIC"
 
 delete:expression: "vtysh -c \"configure terminal\" \
         -c \"router ospf\" \
