@@ -764,10 +764,6 @@ my %qcom = (
       set => 'router bgp #3 ; bgp router-id #6',
       del => 'router bgp #3 ; no bgp router-id #6',
   },
-  'protocols bgp var parameters scan-time' => {
-      set => 'router bgp #3 ; bgp scan-time #6',
-      del => 'router bgp #3 ; no bgp scan-time #6',
-  },
   'protocols bgp var peer-group' => {
       set => undef,
       del => undef,
