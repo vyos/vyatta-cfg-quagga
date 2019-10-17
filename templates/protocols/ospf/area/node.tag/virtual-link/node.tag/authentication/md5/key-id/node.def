@@ -13,7 +13,8 @@ end:expression: "\
          vtysh -c \"configure terminal\"   \
            -c \"router ospf\"                                          \
            -c \"no area $VAR(../../../../@)                            \
-           virtual-link $VAR(../../../@) message-digest-key $VAR(@)\"; \
+           virtual-link $VAR(../../../@) message-digest-key $VAR(@)    \
+           md5 _\";                                                    \
          rm /tmp/ospf-md5.$PPID;                                       \
       else                                                             \
          vtysh -c \"configure terminal\"   \

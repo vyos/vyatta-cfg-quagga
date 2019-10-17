@@ -4,7 +4,7 @@ commit:expression: $VAR(../plaintext-password/) == "" ; "plaintext-password alre
 create: vtysh -c "configure terminal"                              \
           -c "router ospf"                                         \
           -c "no area $VAR(../../../@) virtual-link $VAR(../../@)  \
-            authentication-key"                                    \
+            authentication-key _"                                  \
           -c "area $VAR(../../../@) virtual-link $VAR(../../@)     \
             authentication message-digest";
 
