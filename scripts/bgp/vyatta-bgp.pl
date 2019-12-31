@@ -310,6 +310,10 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
+  'protocols bgp var neighbor var address-family ipv6-unicast nexthop-self force' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self force',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self force',
+  },
   'protocols bgp var neighbor var address-family ipv6-unicast peer-group' => {
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 peer-group #9',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 peer-group #9 ; neighbor #5 activate',
@@ -454,6 +458,10 @@ my %qcom = (
   'protocols bgp var neighbor var address-family ipv4-unicast nexthop-self' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 next-hop-self',
+  },
+  'protocols bgp var neighbor var address-family ipv4-unicast nexthop-self force' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 next-hop-self force',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 next-hop-self force',
   },
   'protocols bgp var neighbor var address-family ipv4-unicast prefix-list' => {
       set => undef,
@@ -885,6 +893,10 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self',
   },
+  'protocols bgp var peer-group var address-family ipv6-unicast nexthop-self force' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 next-hop-self force',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 next-hop-self force',
+  },
   'protocols bgp var peer-group var address-family ipv6-unicast prefix-list' => {
       set => undef,
       del => undef,
@@ -1022,6 +1034,10 @@ my %qcom = (
   'protocols bgp var peer-group var address-family ipv4-unicast nexthop-self' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 next-hop-self',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 next-hop-self',
+  },
+  'protocols bgp var peer-group var address-family ipv4-unicast nexthop-self force' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 next-hop-self force',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 next-hop-self force',
   },
   'protocols bgp var peer-group var address-family ipv4-unicast prefix-list' => {
       set => undef,
