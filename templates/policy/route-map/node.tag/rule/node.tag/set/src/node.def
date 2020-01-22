@@ -1,6 +1,8 @@
-type: ipv4
+type: txt
 help: Source address for route
-val_help: IP address
+val_help: ipv4; IPv4 address
+val_help: ipv6; IPv6 address
+syntax:expression: exec "${vyos_libexec_dir}/validate-value.py  --exec \"${vyos_validators_dir}/ipv4-address \" --exec \"${vyos_validators_dir}/ipv6-address \" --value \'$VAR(@)\'"; "Invalid value"
 
 commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
