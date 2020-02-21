@@ -34,12 +34,12 @@ update:
            fi
            echo "Global value is $global"
         fi
-        if [ -d /sys/class/net/$VAR(../../@) ] ; then
+        if [ -d /sys/class/net/$IFNAME ] ; then
                 sudo sh -c "echo $new > \
                        /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
         fi
 
 delete:
-        if [ -d /sys/class/net/$VAR(../../@) ] ; then
+        if [ -d /sys/class/net/$IFNAME ] ; then
                 sudo sh -c "echo 0 > /proc/sys/net/ipv4/conf/$IFNAME/rp_filter"
         fi
