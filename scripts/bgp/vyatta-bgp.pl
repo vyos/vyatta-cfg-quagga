@@ -1552,10 +1552,7 @@ sub check_neighbor_parameters
 	    if ($config->exists("$as neighbor $neighbor peer-group") || 
             $config->exists("$as neighbor $neighbor interface peer-group") ||
             $config->exists("$as neighbor $neighbor interface v6only peer-group")) {
-                if ($config->exists("$as parameters default no-ipv4-unicast") && $config->exists("$as neighbor $neighbor peer-group")) {
-                    die "[ protocols bgp $as neighbor $neighbor ]\n  peer-group defined but ipv4-unicast is disabled\n";
-                }
-		        $peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
+		$peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
                 if (! defined($peergroup)) {
                     $peergroup = $config->returnValue("$as neighbor $neighbor interface peer-group");
                 }
