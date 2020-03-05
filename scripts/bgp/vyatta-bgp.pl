@@ -712,9 +712,9 @@ my %qcom = (
       set => 'router bgp #3 ; bgp deterministic-med',
       del => 'router bgp #3 ; no bgp deterministic-med',
   },
-  'protocols bgp var parameters disable-network-import-check' => {
-      set => 'router bgp #3 ; no bgp network import-check',
-      del => 'router bgp #3 ; bgp network import-check',
+  'protocols bgp var parameters network-import-check' => {
+      set => 'router bgp #3 ; bgp network import-check',
+      del => 'router bgp #3 ; no bgp network import-check',
   },
   'protocols bgp var parameters distance' => {
       set => undef,
