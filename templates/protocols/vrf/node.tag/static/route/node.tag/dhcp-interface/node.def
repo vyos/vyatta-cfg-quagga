@@ -1,0 +1,30 @@
+type: txt
+help: DHCP interface that supplies the next-hop IP address for this static route
+allowed:
+        local -a array ;
+        array=( /var/lib/dhcp/en* /var/lib/dhcp/eth* /var/lib/dhcp/br* /var/lib/dhcp/bond* ) ;
+        echo  -n ${array[@]##*/}
+create:
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
+        VRF_NAME=$VAR(../../../@)
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "ip route $VAR(../@) $RIP vrf $VRF_NAME"
+        fi
+update:
+        VRF_NAME=$VAR(../../../@)
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=create
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "ip route $VAR(../@) $RIP vrf $VRF_NAME"
+        fi
+delete:
+        VRF_NAME=$VAR(../../../@)
+        sudo /opt/vyatta/sbin/vyatta-update-static-route.pl --interface=$VAR(@) --route=$VAR(../@) --table=main --option=delete
+        RIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$VAR(@) --want=router)
+        if [ "$RIP" != "127.0.0.1" ]; then
+	        vtysh -c "configure terminal" \
+                  -c "no ip route $VAR(../@) $RIP vrf $VRF_NAME"
+        fi
