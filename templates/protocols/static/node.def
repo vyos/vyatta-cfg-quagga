@@ -1,8 +1,8 @@
 priority: 480
-help: static route parameters
+help: Static route parameters
 end:
   if [ "$COMMIT_ACTION" != "DELETE" ]; then
-    vtysh -d zebra -c 'sh run' > /opt/vyatta/etc/quagga/zebra.conf  
+    vtysh -d zebra -c 'sh run' > /opt/vyatta/etc/quagga/zebra.conf
   else
     rm -f /opt/vyatta/etc/quagga/zebra.conf
   fi
