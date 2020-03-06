@@ -1,9 +1,6 @@
 tag:
-
 type: ipv6
-
 help: Next-hop IPv6 router [REQUIRED]
-
 end:
   if [[ -z "$VAR(./disable)" ]]
   then
@@ -15,9 +12,9 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then
-	quagga_conf=`vtysh -c "show running-config" | \
+        quagga_conf=`vtysh -c "show running-config" | \
             grep "^ipv6 route $VAR(../@) $VAR(@)"`
-	ifname=`echo $quagga_conf | awk '{print $5}'`
+        ifname=`echo $quagga_conf | awk '{print $5}'`
 
         vtysh -c "configure terminal" \
                      -c "no ipv6 route $VAR(../@) $VAR(@) $ifname"
