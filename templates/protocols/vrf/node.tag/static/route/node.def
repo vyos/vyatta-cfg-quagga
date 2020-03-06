@@ -1,7 +1,7 @@
 tag:
 priority: 482
 type: ipv4net
-help: Static route
+help: VRF static IPv4 route
 syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
 
 commit:expression: $VAR(./next-hop/) != "" || $VAR(./blackhole/) != "" || $VAR(./dhcp-interface/) != ""; \
