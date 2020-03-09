@@ -8,7 +8,7 @@ end:
     ### remove the old entry from frr first on an update
     if [ ${COMMIT_ACTION} = 'ACTIVE' ]
       then
-        OLD_IF=`cli-shell-api returnEffectiveValue protocols static route $VAR(../@) next-hop $VAR(@) next-hop-interface`
+        OLD_IF=`cli-shell-api returnEffectiveValue protocols vrf $VRF_NAME static route $VAR(../@) next-hop $VAR(@) next-hop-interface`
         vtysh -c "configure terminal" \
               -c "no ip route $VAR(../@) $VAR(@) $OLD_IF vrf $VRF_NAME $VAR(./distance/@)";
     fi
