@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (1.2.5) unstable; urgency=medium
+
+  * New release.
+
+ -- Daniil Baturin <daniil@vyos.io>  Mon, 09 Mar 2020 14:16:32 +0100
+
 vyatta-cfg-quagga (1.2.4) unstable; urgency=low
 
   * New release.
