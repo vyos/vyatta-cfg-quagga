@@ -21,18 +21,18 @@ end:
           "$VAR(../@)" "$VAR(@)"
       then
         vtysh -c "configure terminal" \
-                     -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
+              -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
       fi
     else
       vtysh -c "configure terminal" \
-                   -c "ip route $VAR(../@) $VAR(@) $VAR(./next-hop-interface/@) vrf $VRF_NAME $VAR(./distance/@)";
+            -c "ip route $VAR(../@) $VAR(@) $VAR(./next-hop-interface/@) vrf $VRF_NAME $VAR(./distance/@)";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
         "$VAR(../@)" "$VAR(@)"
     then
       vtysh -c "configure terminal" \
-                   -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
+            -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
     fi
   fi
   if [[ "$VAR(../@)" = "0.0.0.0/0" ]]
