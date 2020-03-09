@@ -1,5 +1,5 @@
 type: txt
-help: network interface
+help: IPv4 gateway interface name
 allowed: sh -c "${vyos_completion_dir}/list_interfaces.py"
 end:
     VRF_NAME=$VAR(../../../../@)

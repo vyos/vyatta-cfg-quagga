@@ -1,7 +1,5 @@
 type: txt
-
-help: Outgoing interface
-
+help: IPv6 gateway interface name
 # show all current interface
 # but syntax accepts any interface since it may exist later (ppp etc)
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
