@@ -1,0 +1,7 @@
+tag:
+type: ipv4net
+help: Interface based static route
+syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
+
+commit:expression: $VAR(./next-hop-interface/) != "" ; \
+       "Must add a next-hop-interface for route $VAR(@)"
