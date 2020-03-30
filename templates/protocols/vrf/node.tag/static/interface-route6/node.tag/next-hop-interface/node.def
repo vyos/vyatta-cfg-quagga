@@ -16,16 +16,22 @@ end:
       fi
 
       vtysh -c "configure terminal" \
-            -c "no ipv6 route $VAR(../@) $VAR(@) vrf $VRF_NAME"
+            -c "vrf $VRF_NAME" \
+            -c "no ipv6 route $VAR(../@) $VAR(@)"
     else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
+      if [[ -n "$VAR(./distance/@)" ]]; then
         DIST="$VAR(./distance/@)"
       fi
+      if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
+        NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
+      fi
+
       vtysh -c "configure terminal" \
-            -c "ipv6 route $VAR(../@) $VAR(@) vrf $VRF_NAME $DIST";
+            -c "vrf $VRF_NAME" \
+            -c "ipv6 route $VAR(../@) $VAR(@) $NEXTHOP_VRF $DIST";
     fi
   else
       vtysh -c "configure terminal" \
-            -c "no ipv6 route $VAR(../@) vrf $VRF_NAME $VAR(@)"
+            -c "vrf $VRF_NAME" \
+            -c "no ipv6 route $VAR(../@) $VAR(@)"
   fi
