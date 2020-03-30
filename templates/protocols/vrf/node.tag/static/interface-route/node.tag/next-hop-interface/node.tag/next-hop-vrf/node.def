@@ -1,0 +1,21 @@
+type: txt
+help: VRF to leak route
+allowed: local -a params
+    eval "params=($(cli-shell-api listNodes vrf name))"
+    echo -n "${params[@]}"
+val_help: <vrf> ; Name of VRF to leak to
+end:
+    if [[ ${COMMIT_ACTION} = 'DELETE' ]]
+      then
+        if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 address; then
+          exit 1;
+        fi
+        if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
+            "$VAR(../../@)" "$VAR(../@)"
+        then
+          VRF_NAME=$VAR(../../../../@)
+          vtysh -c "configure terminal" \
+                -c "vrf $VRF_NAME" \
+                -c "no ip route $VAR(../../@) $VAR(../@) nexthop-vrf $VAR(@)"
+        fi
+    fi

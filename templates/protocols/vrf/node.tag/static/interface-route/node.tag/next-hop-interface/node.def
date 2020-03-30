@@ -7,9 +7,9 @@ allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 
 
 end:
+  VRF_NAME=$VAR(../../../@)
   if [[ -z "$VAR(./disable)" ]]
   then
-    VRF_NAME=$VAR(../../../@)
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 interface; then
@@ -18,14 +18,18 @@ end:
       vtysh -c "configure terminal" \
             -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
     else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
+      if [[ -n "$VAR(./distance/@)" ]]; then
         DIST="$VAR(./distance/@)"
       fi
+      if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
+         NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
+      fi
       vtysh -c "configure terminal" \
-            -c "ip route $VAR(../@) $VAR(@) vrf $VRF_NAME $DIST";
+            -c "vrf $VRF_NAME" \
+            -c "ip route $VAR(../@) $VAR(@) $NEXTHOP_VRF $DIST";
     fi
   else
       vtysh -c "configure terminal" \
-                   -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
+            -c "vrf $VRF_NAME" \
+            -c "no ip route $VAR(../@) $VAR(@)"
   fi
