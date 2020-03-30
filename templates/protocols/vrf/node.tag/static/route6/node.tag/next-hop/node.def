@@ -13,13 +13,14 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then
-        quagga_conf=`vtysh -c "show running-config" | \
-            sed -n '/vrf $VRF_NAME/,/!/p' | \
-            grep "^ipv6 route $VAR(../@) $VAR(@)"`
-        ifname=`echo $quagga_conf | awk '{print $5}'`
+        quagga_conf=$(vtysh -c "show running-config" | \
+            sed -n "/vrf ${VRF_NAME}/,/!/p" | \
+            grep "^ ipv6 route $VAR(../@) $VAR(@)")
 
-        vtysh -c "configure terminal" \
-                     -c "no ipv6 route $VAR(../@) $VAR(@) $ifname vrf $VRF_NAME"
+         vtysh -c "configure terminal" \
+               -c "vrf ${VRF_NAME}" \
+               -c "no ${quagga_conf}"
+
       fi
     else
       if [[ -n "$VAR(./distance/@)" ]]; then
