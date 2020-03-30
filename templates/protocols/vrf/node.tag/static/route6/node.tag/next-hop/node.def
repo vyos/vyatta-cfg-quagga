@@ -22,18 +22,16 @@ end:
                      -c "no ipv6 route $VAR(../@) $VAR(@) $ifname vrf $VRF_NAME"
       fi
     else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
+      if [[ -n "$VAR(./distance/@)" ]]; then
         DIST="$VAR(./distance/@)"
       fi
 
-      if [[ -n "$VAR(./interface/@)" ]]
-      then
+      if [[ -n "$VAR(./interface/@)" ]]; then
         INTERFACE="$VAR(./interface/@)"
       fi
 
       vtysh -c "configure terminal" \
-                   -c "ipv6 route $VAR(../@) $VAR(@) $INTERFACE vrf $VRF_NAME $DIST";
+            -c "ipv6 route $VAR(../@) $VAR(@) $INTERFACE vrf $VRF_NAME $DIST";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
