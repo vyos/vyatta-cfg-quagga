@@ -31,6 +31,10 @@ end:
       fi
 
       if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
+        if [ -z "$VAR(./interface/@)" ]; then
+            echo "VRF route-leaking requires a next-hop interface to be set in the destination VRF"
+            exit 1
+        fi
         NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
       fi
 
@@ -42,6 +46,6 @@ end:
         "$VAR(../@)" "$VAR(@)"
     then
       vtysh -c "configure terminal" \
-                   -c "no ipv6 route $VAR(../@) $VAR(@) vrf $VRF_NAME"
+            -c "no ipv6 route $VAR(../@) $VAR(@) vrf $VRF_NAME"
     fi
   fi
