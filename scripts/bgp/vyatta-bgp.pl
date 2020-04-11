@@ -185,6 +185,14 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute static',
       noerr => 'set',
   },
+  'protocols bgp var address-family l2vpn-evpn' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var address-family l2vpn-evpn advertise-all-vni' => {
+      set => 'router bgp #3 ; address-family l2vpn evpn ; advertise-all-vni',
+      del => 'router bgp #3 ; address-family l2vpn evpn ; no advertise-all-vni',
+  },
   'protocols bgp var maximum-paths' => {
       set => undef,
       del => undef,
@@ -502,6 +510,10 @@ my %qcom = (
   'protocols bgp var neighbor var address-family ipv4-unicast soft-reconfiguration inbound' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 soft-reconfiguration inbound',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 soft-reconfiguration inbound',
+  },
+  'protocols bgp var neighbor var address-family l2vpn-evpn' => {
+      set => 'router bgp #3 ; address-family l2vpn evpn ; neighbor #5 activate',
+      del => 'router bgp #3 ; address-family l2vpn evpn ; no neighbor #5 activate',
   },
   'protocols bgp var neighbor var remote-as' => {
       set => 'router bgp #3 ; neighbor #5 remote-as #7 ; neighbor #5 activate',
@@ -1078,6 +1090,10 @@ my %qcom = (
   'protocols bgp var peer-group var address-family ipv4-unicast weight' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 weight #9',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 weight #9',
+  },
+  'protocols bgp var peer-group var address-family l2vpn-evpn' => {
+      set => 'router bgp #3 ; address-family l2vpn evpn ; neighbor #5 activate',
+      del => 'router bgp #3 ; address-family l2vpn evpn ; no neighbor #5 activate',
   },
   'protocols bgp var peer-group var ebgp-multihop' => {
       set => 'router bgp #3 ; neighbor #5 ebgp-multihop #7',
@@ -1787,7 +1803,9 @@ sub main
                   'address-family ipv6-unicast prefix-list',
                   'address-family ipv6-unicast filter-list',
                   'address-family ipv6-unicast distribute-list',
-                  'address-family ipv6-unicast unsuppress-map');
+                  'address-family ipv6-unicast unsuppress-map',
+                  'address-family l2vpn-evpn',
+                  );
 
    # notice the extra space in the level string.  keeps the parent from being deleted.
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var', undef, \@ordered) || die "exiting $?\n";
