@@ -13,9 +13,13 @@ end:
       if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
           "$VAR(../@)" "$VAR(@)"
       then
+        # https://phabricator.vyos.net/T2338#60690
+        # FRR does not support deleting a route with upper case hex letters for IPv6 addresses
+        network=$(echo $VAR(../@) | tr [A-F] [a-f])
+        nexthop=$(echo $VAR(@) | tr [A-F] [a-f])
         quagga_conf=$(vtysh -c "show running-config" | \
             sed -n "/vrf ${VRF_NAME}/,/!/p" | \
-            grep "^ ipv6 route $VAR(../@) $VAR(@)")
+            grep "^ ipv6 route $network $nexthop")
 
          vtysh -c "configure terminal" \
                -c "vrf ${VRF_NAME}" \
