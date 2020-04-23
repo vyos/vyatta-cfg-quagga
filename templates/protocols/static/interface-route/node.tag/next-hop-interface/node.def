@@ -17,12 +17,14 @@ end:
       vtysh -c "configure terminal" \
                    -c "no ip route $VAR(../@) $VAR(@)"
     else
-      if [[ -n "$VAR(./distance/@)" ]]
-      then
+      if [[ -n "$VAR(./distance/@)" ]]; then
         DIST="$VAR(./distance/@)"
       fi
+      if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
+         NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
+      fi
       vtysh -c "configure terminal" \
-                   -c "ip route $VAR(../@) $VAR(@) $DIST";
+            -c "ip route $VAR(../@) $VAR(@) $NEXTHOP_VRF $DIST";
     fi
   else
       vtysh -c "configure terminal" \
