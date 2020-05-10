@@ -3,8 +3,7 @@ type: ipv4
 help: Next-hop router
 end:
   VRF_NAME=$VAR(../../../@)
-  if [[ -z "$VAR(./disable)" ]]
-  then
+  if [[ -z "$VAR(./disable)" ]]; then
     ### remove the old entry from frr first on an update
     if [ ${COMMIT_ACTION} = 'ACTIVE' ]
       then
@@ -24,8 +23,18 @@ end:
               -c "no ip route $VAR(../@) $VAR(@) vrf $VRF_NAME"
       fi
     else
+      if [[ -n "$VAR(./distance/@)" ]]; then
+        DIST="$VAR(./distance/@)"
+      fi
+      if [[ -n "$VAR(./next-hop-interface/@)" ]]; then
+         NEXTHOP_INT="$VAR(./next-hop-interface/@)"
+      fi
+      if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
+         NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
+      fi
       vtysh -c "configure terminal" \
-            -c "ip route $VAR(../@) $VAR(@) $VAR(./next-hop-interface/@) vrf $VRF_NAME $VAR(./distance/@)";
+            -c "vrf $VRF_NAME" \
+            -c "ip route $VAR(../@) $VAR(@) $NEXTHOP_INT $NEXTHOP_VRF $DIST";
     fi
   else
     if ${vyatta_sbindir}/vyatta-gateway-static_route-check.pl \
