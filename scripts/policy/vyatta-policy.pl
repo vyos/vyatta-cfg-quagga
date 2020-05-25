@@ -50,7 +50,7 @@ sub is_community_list {
     my $list = shift;
 
     # Migration to the new syntax blocked by FRR #3308
-    my $count = `$VTYSH -c \"show ip community-list $list\" | grep -c $list`;
+    my $count = `$VTYSH -c \"show bgp community-list $list\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
