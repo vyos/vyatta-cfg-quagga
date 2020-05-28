@@ -26,12 +26,12 @@ set-sysctl () {
 
 case $2 in
 on)	set-sysctl $1 2
-        if [ -f /usr/sbin/zebra ]; then
+        if [ -f /usr/lib/frr/zebra ]; then
 	    exec vtysh -c "configure terminal" -c "interface $1" \
-	        -c "link-detect" 
+	        -c "link-detect"
         fi ;;
 off)    set-sysctl $1 1
-        if [ -f /usr/sbin/zebra ]; then
+        if [ -f /usr/lib/frr/zebra ]; then
 	    exec vtysh -c "configure terminal" -c "interface $1" \
 	        -c "no link-detect"
         fi ;;
