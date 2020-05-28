@@ -18,7 +18,9 @@ fi
 #   1 - ignore receive if admin_down
 #   2 - ignore receive if admin_down or link down
 set-sysctl () {
-    sudo sh -c "echo $2 >/proc/sys/net/ipv4/conf/$1/link_filter"
+    if [ -f /proc/sys/net/ipv4/conf/$1/link_filter ]; then
+        sudo sh -c "echo $2 >/proc/sys/net/ipv4/conf/$1/link_filter"
+    fi
 #   sudo sh -c "echo $2 >/proc/sys/net/ipv6/conf/$1/link_filter"
 }
 
