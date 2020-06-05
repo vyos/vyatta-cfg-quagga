@@ -50,7 +50,7 @@ sub is_community_list {
     my $list = shift;
 
     # Migration to the new syntax blocked by FRR #3308
-    my $count = `$VTYSH -c \"show bgp community-list $list\" | grep -c $list`;
+    my $count = `$VTYSH -c \"show bgp community-list $list detail\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -62,7 +62,7 @@ sub is_community_list {
 sub is_extcommunity_list {
     my $list = shift;
 
-    my $count = `$VTYSH -c \"show bgp extcommunity-list $list\" | grep -c $list`;
+    my $count = `$VTYSH -c \"show bgp extcommunity-list $list detail\" | grep -c $list`;
     if ( $count > 0 ) {
         return 1;
     }
@@ -79,7 +79,7 @@ sub update_ext_community_list {
 
     # remove the old rules
     if ( is_extcommunity_list($name) ) {
-        my $clist = `$VTYSH -c \"show bgp extcommunity-list $name\" | grep -v \"expanded list $name\"`;
+        my $clist = `$VTYSH -c \"show bgp extcommunity-list $name detail\" | grep -v \"expanded list $name\"`;
         my @oldrules = split(/\n/, $clist);
         foreach my $oldrule (@oldrules) {
             system("$VTYSH -c \"conf t\" -c \"no bgp extcommunity-list expanded $name $oldrule\"");
