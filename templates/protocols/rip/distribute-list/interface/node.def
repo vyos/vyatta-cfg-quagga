@@ -1,8 +1,0 @@
-tag:
-type: txt
-help: Apply filtering to an interface
-syntax:expression: exec "if [ -z \"`ip addr | grep $VAR(@) `\" ]; then                       \
-                 echo ethernet interface $VAR(@) doesn\\'t exist on this system ; \
-                 exit 1 ;                                                      \
-              fi ; "
-allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all

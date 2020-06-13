@@ -1,8 +1,0 @@
-multi:
-type: ipv4net
-help: RIP network
-syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
-create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"network $VAR(@)\"; "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"no network $VAR(@)\"; "

@@ -1,6 +1,0 @@
-help: Distribute a default route
-create:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"default-information originate\" "
-delete:expression: "vtysh -c \"configure terminal\" -c \"router rip\" \
-          -c \"no default-information originate\" "
-
