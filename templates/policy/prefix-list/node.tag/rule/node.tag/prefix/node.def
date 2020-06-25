@@ -1,3 +1,4 @@
-type: ipv4net
+type: txt
+syntax:expression: exec "${vyos_libexec_dir}/validate-value  --exec \"${vyos_validators_dir}/ipv4-prefix \" --value \'$VAR(@)\'"; "$VAR(@) is not a valid IPv4 network prefix"
 help: Prefix to match
 val_help: Prefix to match against

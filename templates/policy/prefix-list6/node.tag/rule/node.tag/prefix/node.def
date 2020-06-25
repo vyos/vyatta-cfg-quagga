@@ -1,3 +1,4 @@
-type: ipv6net
+type: txt
+syntax:expression: exec "${vyos_libexec_dir}/validate-value  --exec \"${vyos_validators_dir}/ipv6-prefix \" --value \'$VAR(@)\'"; "$VAR(@) is not a valid IPv6 network address"
 help: Prefix to match
 val_help: IPv6 prefix
