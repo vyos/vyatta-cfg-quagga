@@ -4,17 +4,3 @@ help: create a rule for this BGP large-community list
 val_help: u32:1-65535; large-community-list rule number
 
 syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "rule number must be between 1 and 65535"
-
-commit:expression: $VAR(./regex/) != ""; "You must specify a regex"
-commit:expression: $VAR(./action/) != ""; "You must specify an action"
-
-end:
-    # If the rule exists in the running config
-    if cli-shell-api existsActive policy large-community-list $VAR(../@) rule $VAR(@); then
-        orig_action=$(cli-shell-api returnActiveValue policy large-community-list $VAR(../@) rule $VAR(@) action)
-        orig_regex=$(cli-shell-api returnActiveValue policy large-community-list $VAR(../@) rule $VAR(@) regex)
-        vtysh -c "configure terminal" -c "no bgp large-community-list expanded $VAR(../@) $orig_action $VAR(@) regex $orig_regex"
-    fi
-    if [[ ${COMMIT_ACTION} != 'DELETE' ]]; then
-        vtysh -c "configure terminal" -c "bgp large-community-list expanded $VAR(../@) $VAR(./action/@) $VAR(@) regex $VAR(./regex/@)"
-    fi
