@@ -8,7 +8,7 @@ use Getopt::Long;
 my $VTYSH = '/usr/bin/vtysh';
 my $ACL_CONSUMERS_DIR = "/opt/vyatta/sbin/policy";
 
-my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $extcommunitylist, $peer );
+my ( $accesslist, $accesslist6, $aspathlist, $communitylist, $extcommunitylist, $largecommunitylist, $peer );
 my ( $routemap, $deleteroutemap, $listpolicy );
 
 GetOptions(
@@ -17,6 +17,7 @@ GetOptions(
     "update-aspath-list=s"           => \$aspathlist,
     "update-community-list=s"        => \$communitylist,
     "update-extcommunity-list=s"     => \$extcommunitylist,
+    "update-large-community-list=s"  => \$largecommunitylist,
     "check-peer-syntax=s"            => \$peer,
     "check-routemap-action=s"        => \$routemap,
     "check-delete-routemap-action=s" => \$deleteroutemap,
@@ -28,6 +29,7 @@ update_access_list6($accesslist6)             if ($accesslist6);
 update_as_path($aspathlist)                   if ($aspathlist);
 update_community_list($communitylist)         if ($communitylist);
 update_ext_community_list($extcommunitylist)  if ($extcommunitylist);
+update_large_community_list($largecommunitylist)  if ($largecommunitylist);
 check_peer_syntax($peer)                      if ($peer);
 check_routemap_action($routemap)              if ($routemap);
 check_delete_routemap_action($deleteroutemap) if ($deleteroutemap);
@@ -71,6 +73,54 @@ sub is_extcommunity_list {
     }
 }
 
+sub is_large_community_list {
+    my $list = shift;
+
+    my $count = `$VTYSH -c \"show bgp large-community-list $list detail\" | grep -c $list`;
+    if ( $count > 0 ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+sub update_large_community_list {
+    my $name    = shift;
+    my $config = new Vyatta::Config;
+    my @rules  = ();
+
+    # remove the old rules
+    if ( is_large_community_list($name) ) {
+        my $clist = `$VTYSH -c \"show bgp large-community-list $name detail\" | grep -v \"expanded list $name\"`;
+        my @oldrules = split(/\n/, $clist);
+        foreach my $oldrule (@oldrules) {
+            system("$VTYSH -c \"conf t\" -c \"no bgp large-community-list expanded $name $oldrule\"");
+        }
+    }
+
+    $config->setLevel("policy large-community-list $name rule");
+    @rules = $config->listNodes();
+    foreach my $rule ( sort numerically @rules ) {
+        # set the action
+        my $action = $config->returnValue("$rule action");
+        die
+          "large-community-list $name rule $rule: You must specify an action\n"
+          unless $action;
+
+        # grab the regex
+        my $regex = $config->returnValue("$rule regex");
+        if(!defined($regex)) {
+        die "large-community-list $name rule $rule: You must specify a regex\n";
+        }
+        if (!($regex =~ /(.*):(.*):(.*)/) and (isIpAddress($1)or($1=~/^\d+$/) ) and ($2=~/^\d+$/)) {
+              die "large-community-list $name rule $rule: Malformed large-community-list regex";
+        }
+        system("$VTYSH -c \"conf t\" -c \"bgp large-community-list expanded $name $action $regex\"");
+    }
+
+    exit(0);
+}
 
 sub update_ext_community_list {
     my $name    = shift;
