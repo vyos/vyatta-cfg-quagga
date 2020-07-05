@@ -1,3 +1,5 @@
 type: txt
 help: Regular expression to match against a community list
 val_help: Community list regular expression
+
+commit:expression: $VAR(../action/@) != ""; "You must specify an action"
