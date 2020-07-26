@@ -93,6 +93,15 @@ sub check_ospf_area {
 sub check_ospfv3_area {
     my $area = shift;
 
+    # allow both decimal or dotted decimal,
+    # In FRR post PR#6700 it's no longer an issue
+    #
+    if ( $area =~ m/^\d+$/ ) {
+        if ( $area >= 0 && $area <= 4294967295 ) {
+            exit 0;
+        }
+    }
+
     if ( $area =~ m/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/ ) {
         foreach my $octet ( $1, $2, $3, $4 ) {
             if ( ( $octet < 0 ) || ( $octet > 255 ) ) { exit 1; }
@@ -100,7 +109,7 @@ sub check_ospfv3_area {
         exit 0;
     }
 
-    die "Invalid OSPF area: $area. Only dotted decimal notation is allowed.\n";
+    die "Invalid OSPF area: $area\n";
 }
 
 sub check_community {
