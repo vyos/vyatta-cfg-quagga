@@ -744,10 +744,6 @@ my %qcom = (
       set => 'router bgp #3 ; distance #9 #7 ',
       del => 'router bgp #3 ; no distance #9 #7',
   },
-  'protocols bgp var parameters enforce-first-as' => {
-      set => 'router bgp #3 ; bgp enforce-first-as',
-      del => 'router bgp #3 ; no bgp enforce-first-as',
-  },
   'protocols bgp var parameters graceful-restart' => {
       set => undef,
       del => undef,
