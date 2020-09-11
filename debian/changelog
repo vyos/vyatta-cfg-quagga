@@ -1,3 +1,9 @@
+vyatta-cfg-quagga (1.2.6) unstable; urgency=low
+
+  * New release.
+
+ -- VyOS maintainers <maintainers@vyos.io>  Fri, 11 Sep 2020 04:31:30 +0300
+
 vyatta-cfg-quagga (1.2.5) unstable; urgency=medium
 
   * New release.
