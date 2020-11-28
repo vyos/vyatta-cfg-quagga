@@ -9,8 +9,16 @@ end: if [ ${COMMIT_ACTION} = 'DELETE' ]; then
                     -c "no ip route $VAR(../@) Null0";
      else
        if [ -n "$VAR(./distance/@)" ]; then
-	 DIST="$VAR(./distance/@)";
+         DIST="$VAR(./distance/@)";
+       fi
+       if [ -n "$VAR(./tag/@)" ]; then
+         TAG="$VAR(./tag/@)";
        fi;
-       vtysh -c "configure terminal" \
-                    -c "ip route $VAR(../@) Null0 $DIST";
+       if [[ -z $TAG ]]; then
+           vtysh -c "configure terminal" \
+                 -c "ip route $VAR(../@) Null0 $DIST";
+       else
+           vtysh -c "configure terminal" \
+                 -c "ip route $VAR(../@) Null0 tag $TAG $DIST";
+       fi;
      fi;
