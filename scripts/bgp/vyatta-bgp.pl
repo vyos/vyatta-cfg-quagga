@@ -206,6 +206,10 @@ my %qcom = (
       del => 'router bgp #3 ; no neighbor #5',
       noerr => 'del',
   },
+  'protocols bgp var neighbor var description' => {
+      set => 'router bgp #3 ; neighbor #5 description #7',
+      del => 'router bgp #3 ; no neighbor #5 description',
+  },
   'protocols bgp var neighbor var address-family' => {
       set => undef,
       del => undef,
