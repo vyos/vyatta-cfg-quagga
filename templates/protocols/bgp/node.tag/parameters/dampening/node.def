@@ -1,7 +1,0 @@
-help: Enable route-flap dampening
-# Note that there is a bug in quagga here.  If bgpd gets two 'no bgp dampening'
-# commands in a row it will crash
-
-commit:expression: $VAR(./half-life/) != "" || $VAR(./max-suppress-time/) != "" || \
-                   $VAR(./re-use/) != "" || $VAR(./start-suppress-time/) != "" ; \
-                   "To define dampening, all parameters must be set"

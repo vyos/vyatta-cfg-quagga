@@ -1,6 +1,0 @@
-type: txt
-help: Source IP of routing updates
-val_help: ipv4;IP address of route source
-val_help: <interface>; Interface as route source
-
-commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-source $VAR(@)"

@@ -1,7 +1,0 @@
-type: u32
-help: Maximum duration to suppress a stable route [REQUIRED]
-val_help: u32:1-255; Maximum suppress duration in seconds
-
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Max-suppress-time must be between 1 and 255"
-commit:expression: $VAR(../re-use/) != ""; "you must set a re-use time"
-commit:expression: $VAR(../start-suppress-time/) != ""; "you must set a start-suppress-time"

@@ -1,2 +1,0 @@
-help: Enable strict capability negotiation
-commit:expression: $VAR(../override-capability/) == ""; "you can't set both strict-capability and override-capability"

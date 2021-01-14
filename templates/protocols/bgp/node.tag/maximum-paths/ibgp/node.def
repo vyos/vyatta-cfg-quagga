@@ -1,4 +1,0 @@
-type: u32
-help: Maximum ibgp multipaths
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between (1-255)"
-val_help: u32:1-255; IBGP multipaths

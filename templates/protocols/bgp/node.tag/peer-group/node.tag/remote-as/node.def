@@ -1,7 +1,0 @@
-type: txt
-help: Neighbor BGP AS number [REQUIRED]
-allowed: echo "internal external"
-val_help: u32:1-4294967294; Neighbor AS number
-val_help: external; any AS different from the local AS
-val_help: internal; same as the local AS
-syntax:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-remote-as $VAR(@)" 

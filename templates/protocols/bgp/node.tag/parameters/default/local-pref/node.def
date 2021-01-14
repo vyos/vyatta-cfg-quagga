@@ -1,3 +1,0 @@
-type: u32
-help: Default local preference (higher=more preferred)
-val_help: u32:0-4294967295; Local preference

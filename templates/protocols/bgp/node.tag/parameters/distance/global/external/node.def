@@ -1,4 +1,0 @@
-type: u32
-help: Administrative distance for external BGP routes
-val_help: u32:1-255; Administrative distance for external BGP routes
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 255; "Must be between 1-255"

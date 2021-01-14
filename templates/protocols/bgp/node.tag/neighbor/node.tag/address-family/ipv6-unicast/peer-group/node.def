@@ -1,6 +1,0 @@
-type: txt
-help: IPv6 peer group for this peer
-allowed: local -a params
-        params=$( /opt/vyatta/sbin/vyatta-bgp.pl --list-peer-groups --as $VAR(../../../../@))
-        echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"protocols bgp $VAR(../../../../@) peer-group $VAR(@)\" "; "protocols bgp $VAR(../../../../@) peer-group $VAR(@) doesn't exist"

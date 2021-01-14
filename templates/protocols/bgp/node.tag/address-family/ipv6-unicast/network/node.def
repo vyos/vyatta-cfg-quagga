@@ -1,5 +1,0 @@
-tag:
-type: ipv6net
-help: BGP IPv6 network
-val_help: IPv6 network
-syntax:expression: exec "ipaddrcheck --verbose --is-ipv6-net $VAR(@)"

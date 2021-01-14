@@ -1,4 +1,0 @@
-help: Global administratives distances for BGP routes
-commit:expression: $VAR(./external/) != ""; "you must set an external route distance"
-commit:expression: $VAR(./internal/) != ""; "you must set an internal route distance"
-commit:expression: $VAR(./local/) != ""; "you must set a local route distance"

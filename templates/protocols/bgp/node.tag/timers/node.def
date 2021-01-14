@@ -1,3 +1,0 @@
-help: BGP protocol timers
-commit:expression: $VAR(./keepalive/) != ""; "you must set a keepalive interval"
-commit:expression: $VAR(./holdtime/) != ""; "you must set a holdtime interval"

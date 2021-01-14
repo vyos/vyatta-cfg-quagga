@@ -1,2 +1,0 @@
-help: Soft reconfiguration for peer-group
-commit:expression: $VAR(./inbound/) != ""; "you must specify the type of soft-reconfiguration"

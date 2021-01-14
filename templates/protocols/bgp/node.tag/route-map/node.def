@@ -1,8 +1,0 @@
-type: txt
-help: Filter routes installed in local route map
-allowed: local -a params
-        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
-        echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"
-create:expression: "vtysh -c \"configure terminal\" -c \"ip protocol bgp route-map $VAR(@)\" "
-delete:expression: "vtysh -c \"configure terminal\" -c \"no ip protocol bgp\" "

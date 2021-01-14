@@ -1,2 +1,0 @@
-help: Disable sending community attributes to this neighbor
-commit:expression: ($VAR(./extended/) != "") || ($VAR(./standard/) != ""); "you must specify the type of community"

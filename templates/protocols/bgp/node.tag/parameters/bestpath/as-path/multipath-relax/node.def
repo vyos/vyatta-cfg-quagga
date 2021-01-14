@@ -1,1 +1,0 @@
-help: specifies that BGP decision process should consider paths of equal AS_PATH length candidates for multipath computation 

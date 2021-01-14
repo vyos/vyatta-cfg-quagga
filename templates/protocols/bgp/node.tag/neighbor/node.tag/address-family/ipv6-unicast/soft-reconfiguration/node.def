@@ -1,2 +1,0 @@
-help: Soft reconfiguration for neighbor
-commit:expression: $VAR(./inbound/) != ""; "you must specify the type of soft-reconfiguration"

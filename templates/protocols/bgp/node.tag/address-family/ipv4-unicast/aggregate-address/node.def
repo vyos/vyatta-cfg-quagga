@@ -1,4 +1,0 @@
-tag:
-type: ipv4net
-help: BGP aggregate network
-syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"

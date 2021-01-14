@@ -1,4 +1,0 @@
-type: u32
-help: Default weight for routes from this peer-group
-val_help: u32:1-65535; Weight for routes from this peer-group
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 65535; "weight must be between 1 and 65535"

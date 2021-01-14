@@ -1,6 +1,0 @@
-type: txt
-help: Route-map to modify route attributes
-allowed: local -a params
-        params=$( /opt/vyatta/sbin/vyatta-policy.pl --list-policy route-map )
-        echo -n ${params[@]##*/}
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy route-map $VAR(@)\" ";"route-map $VAR(@) doesn't exist"

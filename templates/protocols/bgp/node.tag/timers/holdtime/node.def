@@ -1,8 +1,0 @@
-type: u32
-help: BGP holdtime interval
-val_help: u32:4-65535; Hold-time in seconds (default 180)
-val_help: 0; Don't hold routes
-
-default: 180
-syntax:expression: $VAR(@) == 0 || ($VAR(@) >= 4 && $VAR(@) <= 65535); \
-       "hold-time interval must be 0 or between 4 and 65535"

@@ -1,4 +1,0 @@
-type: u32
-help: Maximum number of IPv4-prefixes to accept from this neighbor
-val_help: u32:1-4294967295; Prefix limit
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967295; "maximum-prefix must be between 1 and 4294967295"

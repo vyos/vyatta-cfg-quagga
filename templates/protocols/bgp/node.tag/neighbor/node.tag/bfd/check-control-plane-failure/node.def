@@ -1,2 +1,0 @@
-help:	Allow to write CBIT independence in BFD outgoing packets
-		and read both C-BIT value of BFD and lookup BGP peer status
