@@ -39,6 +39,13 @@ def create_cache(c, cache):
 
 def delete_cache(c, cache):
     ssh = False
+    port = c.return_effective_value(base_path + "cache {0} port".format(cache))
+    addr = c.return_effective_value(base_path + "cache {0} address".format(cache))
+    pref = c.return_effective_value(base_path + "cache {0} preference".format(cache))
+
+    if not pref:
+        pref = 1
+
     if c.exists_effective(base_path + "cache {0} ssh".format(cache)):
         ssh = True
         user = c.return_effective_value(base_path + "cache {0} ssh username".format(cache))
@@ -46,17 +53,11 @@ def delete_cache(c, cache):
         privkey = c.return_effective_value(base_path + "cache {0} ssh private-key-file".format(cache))
         known_hosts = c.return_effective_value(base_path + "cache {0} ssh known-hosts-file".format(cache))
 
-        port = c.return_effective_value(base_path + "cache {0} port".format(cache))
-        addr = c.return_effective_value(base_path + "cache {0} address".format(cache))
-        pref = c.return_effective_value(base_path + "cache {0} preference".format(cache))
-
-        if not pref:
-            pref = 1
-
         if ssh:
             subprocess.call(""" vtysh -c 'conf t' -c 'rpki' -c 'no rpki cache {0} {1} {2} {3} {4} {5} preference {6}' """.format(addr, port, user, privkey, pubkey, known_hosts, pref), shell=True)
-        else:
-            subprocess.call(""" vtysh -c 'conf t' -c 'rpki' -c 'no rpki cache {0} {1} preference {2}' """.format(addr, port, pref), shell=True)
+
+    else:
+        subprocess.call(""" vtysh -c 'conf t' -c 'rpki' -c 'no rpki cache {0} {1} preference {2}' """.format(addr, port, pref), shell=True)
 
 
 config = vyos.config.Config()
