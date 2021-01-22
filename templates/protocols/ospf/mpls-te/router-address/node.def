@@ -1,8 +1,0 @@
-type: ipv4
-help: Stable IP address of the advertising router
-update:expression: "vtysh -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"mpls-te router-address $VAR(@)\"; "
-delete:expression: "vtysh -c \"configure terminal\" \
-       -c \"router ospf\" \
-       -c \"no mpls-te\"; "

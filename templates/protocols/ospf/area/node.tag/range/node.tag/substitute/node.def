@@ -1,3 +1,0 @@
-type: ipv4net
-help: Announce area range as another prefix
-syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
