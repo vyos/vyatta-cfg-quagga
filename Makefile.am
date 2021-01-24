@@ -4,8 +4,7 @@ bin_sudo_usersdir = $(bindir)/sudo-users
 curverdir = $(sysconfdir)/config-migrate/current
 gentmpdir = generated-templates
 
-sbin_SCRIPTS = scripts/bgp/vyatta-bgp.pl
-sbin_SCRIPTS += scripts/policy/vyatta-policy.pl
+sbin_SCRIPTS = scripts/policy/vyatta-policy.pl
 sbin_SCRIPTS += scripts/vyatta_quagga_utils.pl
 sbin_SCRIPTS += scripts/policy/vyatta-check-as-prepend.pl
 sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
