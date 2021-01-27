@@ -18,7 +18,7 @@ def create_cache(c, cache):
         ssh = True
         new_user = c.return_value(base_path + "cache {0} ssh username".format(cache))
         new_pubkey = c.return_value(base_path + "cache {0} ssh public-key-file".format(cache))
-        new_privkey = c.return__value(base_path + "cache {0} ssh private-key-file".format(cache))
+        new_privkey = c.return_value(base_path + "cache {0} ssh private-key-file".format(cache))
         new_known_hosts = c.return_value(base_path + "cache {0} ssh known-hosts-file".format(cache))
 
         if (not new_user) or (not new_pubkey) or (not new_privkey) or (not new_known_hosts):
