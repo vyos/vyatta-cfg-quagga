@@ -1,7 +1,0 @@
-type: u32
-help: Bandwidth of interface (megabits/sec)
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 100000; "Must be between 1-100000"
-val_help: u32:1-100000; Bandwidth in megabits/sec (for calculating OSPF cost)
-
-update: vtysh -c "configure terminal" -c "interface $IFNAME" -c "bandwidth $VAR(@)" 
-delete: vtysh -c "configure terminal" -c "interface $IFNAME" -c "no bandwidth" 
