@@ -1,3 +1,0 @@
-type: u32
-help: TCP port number
-val_help: u32:1-65535; TCP port number
