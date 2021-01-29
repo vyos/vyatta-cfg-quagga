@@ -1,5 +1,0 @@
-type: txt
-help: RPKI SSH known hosts file
-
-syntax:expression: exec "test -f $VAR(@)"; "Must be an existing file path"
-
