@@ -88,17 +88,17 @@ my %qcom = (
       del => undef,
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected', 
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected metric' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected metric #9', 
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected metric #9',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected metric #9',
       noerr => 'set',
   },
   'protocols bgp var address-family ipv6-unicast redistribute connected route-map' => {
-      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9', 
+      set => 'router bgp #3 ; address-family ipv6 ; redistribute connected route-map #9',
       del => 'router bgp #3 ; address-family ipv6 ; no redistribute connected route-map #9',
       noerr => 'set',
   },
@@ -809,10 +809,6 @@ my %qcom = (
       set => undef,
       del => undef,
   },
-  'protocols bgp var peer-group var address-family ipv6-unicast capability dynamic' => {
-      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 capability dynamic',
-      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 capability dynamic',
-  },
   'protocols bgp var peer-group var address-family ipv6-unicast capability orf' => {
       set => undef,
       del => undef,
@@ -969,7 +965,7 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 capability orf prefix-list send',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 capability orf prefix-list send',
   },
-  ## Note that the activate will need to be moved when we migrate to 
+  ## Note that the activate will need to be moved when we migrate to
   ## supporting a single IP version in a peering session.
   'protocols bgp var peer-group var address-family ipv4-unicast default-originate' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 activate ; neighbor #5 default-originate',
@@ -1171,7 +1167,7 @@ if ( ! -e "/usr/sbin/zebra" ) {
 }
 
 my ( $pg, $as, $neighbor );
-my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource, 
+my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource,
      $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas, $checkbfdpeer, $checkbfdgroup);
 
 GetOptions(
@@ -1230,7 +1226,7 @@ sub check_neighbor_ip {
 
     die "Can't set neighbor address to local system IP.\n"
 	if (is_local_address($neighbor));
-    
+
     exit 0;
 }
 
@@ -1256,15 +1252,15 @@ sub check_remote_as {
 
     if ($remote_as =~ /^(\d+)$/) {
         if ( $remote_as >= 1 && $remote_as <= 4294967294) {
-	    exit 0; 
+	    exit 0;
 	}
-    die "remote-as must be between 1 and 4294967294 or external or internal"; 
+    die "remote-as must be between 1 and 4294967294 or external or internal";
     }
 
     if ( $remote_as eq "external" || $remote_as eq "internal") {
-        exit 0; 
+        exit 0;
     }
-    die "remote-as must be between 1 and 4294967294 or external or internal"; 
+    die "remote-as must be between 1 and 4294967294 or external or internal";
 }
 
 
@@ -1284,9 +1280,9 @@ sub check_for_peer_groups6 {
 
     foreach my $node (@neighbors) {
         my $peergroup6 = $config->returnValue("$node address-family ipv6-unicast peer-group");
-        if (defined($peergroup6) && ($peergroup6 eq $pg)) 
-        { 
-             push @peers, $node; 
+        if (defined($peergroup6) && ($peergroup6 eq $pg))
+        {
+             push @peers, $node;
         }
     }
 
@@ -1337,11 +1333,11 @@ sub check_for_peer_groups {
 
 # function to verify changing remote-as from/to i/eBGP
 # there are two types of parameter checks we need to do.  The first should happen
-# when the affected parameter is created/changed. Those checks should happen in  
+# when the affected parameter is created/changed. Those checks should happen in
 # the syntax and commit statements in the node.defs for those specific params since
 # they can be updated individually. The params should be checked again if the remote-as
 # changes.
-# This funtion handles changes in the remote-as and/or peer-group 
+# This funtion handles changes in the remote-as and/or peer-group
 sub bgp_type_change {
     my ($neighbor, $as, $ntype) =@_;
     my $config = new Vyatta::Config;
@@ -1379,15 +1375,15 @@ sub checkBannedPeerGroupParameters
 	unless ($protocol == 4 || $protocol == 6) {
 		return -1;
 	}
-	
+
 	my @bannedlist = ('advertisement-interval', 'attribute-unchanged', 'capability orf',
 						'default-originate', 'distribute-list export', 'filter-list export',
 						'nexthop-self', 'prefix-list export', 'remove-private-as',
 						'route-map export', 'route-reflector-client', 'route-server-client',
 						'disable-send-community', 'timers', 'ttl-security', 'unsuppress-map');
-	
+
 	my @globalbannedlist = ('local-as');
-	
+
 	my $config = new Vyatta::Config;
 	$config->setLevel("protocols bgp $level");
 
@@ -1398,7 +1394,7 @@ sub checkBannedPeerGroupParameters
 	}
 	if ($protocol == 6) {
 		$config->setLevel("protocols bgp $level address-family ipv6-unicast");
-	}	
+	}
 	foreach my $node (@bannedlist) {
 		if ($config->exists($node)) {
 			die "[ protocols bgp $level ]\n  parameter $node is incompatible with a neighbor in a peer-group\n";
@@ -1411,16 +1407,16 @@ sub checkOverwritePeerGroupParameters
 {
 	my ($qconfig_ref, $level, $protocol) = @_;
 	my $ret = 0;
-	
+
 	unless ($protocol == 4 || $protocol == 6) {
 		return -1;
 	}
-	
-	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability extended-nexthop', 
-							'distribute-list import', 'filter-list import', 'maximum-prefix', 
-							'port', 'prefix-list import', 'route-map import', 
+
+	my @overwritelist = ('allowas-in', 'allowas-in number', 'capability dynamic', 'capability extended-nexthop',
+							'distribute-list import', 'filter-list import', 'maximum-prefix',
+							'port', 'prefix-list import', 'route-map import',
 							'soft-reconfiguration inbound', 'strict-capability-match');
-							
+
 	my @globaloverwritelist = ('disable-capability-negotiation', 'disable-connected-check',
 								'ebgp-multihop', 'override-capability', 'passive', 'password',
 								'shutdown', 'update-source', 'weight');
@@ -1449,7 +1445,7 @@ sub checkOverwritePeerGroupParameters
 
 # check that changed neighbors have a remote-as or peer-group defined
 # and that all permutations of parameters and BGP type are correct
-sub check_neighbor_parameters 
+sub check_neighbor_parameters
 {
     my $qconfig_ref = shift;
     my $config = new Vyatta::Config;
@@ -1531,7 +1527,7 @@ sub check_neighbor_parameters
 
       # check neighbor if remote-as or peer-group has been changed
       my @neighbors = $config->listNodes("$as neighbor");
-      
+
       foreach my $neighbor (@neighbors) {
       	# check that remote-as exists
       	if ($config->isChanged("$as neighbor $neighbor remote-as") ||
@@ -1545,7 +1541,7 @@ sub check_neighbor_parameters
         if (! defined($remoteas)) {
                 $remoteas = $config->returnValue("$as neighbor $neighbor interface v6only remote-as");
         }
-	    if ($config->exists("$as neighbor $neighbor peer-group") || 
+	    if ($config->exists("$as neighbor $neighbor peer-group") ||
             $config->exists("$as neighbor $neighbor interface peer-group") ||
             $config->exists("$as neighbor $neighbor interface v6only peer-group")) {
 		$peergroup = $config->returnValue("$as neighbor $neighbor peer-group");
@@ -1565,20 +1561,20 @@ sub check_neighbor_parameters
                     && $config->exists("$as peer-group $peergroup6 address-family ipv6-unicast")) {
 		            $peergroup6as = $config->returnValue("$as peer-group $peergroup6 remote-as");
             	}
-	        }  
+	        }
 	    die "[ protocols bgp $as neighbor $neighbor ]\n  must set remote-as or peer-group with remote-as defined\n"
 		if ((!defined($remoteas) && !defined($peergroupas)) && !$config->exists("$as parameters default no-ipv4-unicast"));
 
 	    die "[ protocols bgp $as neighbor $neighbor ]\n  must set remote-as or address-family ipv6-unicast peer-group"
                ." with remote-as defined\n"
-		if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast") && 
+		if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast") &&
                    (!defined($peergroup6as) && !defined($remoteas)));
 
 	    die "[ protocols bgp $as neighbor $neighbor ]\n  remote-as should not be defined in both neighbor and peer-group\n"
             	if ($remoteas && $peergroupas);
-            
+
         } ## end remote-as checks
-        
+
         # Check if changing BGP peer type from/to i/eBGP
         my $error = bgp_type_change($neighbor, $as, "neighbor");
         if ($error) { die "[ protocols bgp $as neighbor $neighbor ]\n  $error\n"; }
@@ -1592,7 +1588,7 @@ sub check_neighbor_parameters
 	if ($config->isChanged("$as neighbor $neighbor peer-group")) {
 	    checkOverwritePeerGroupParameters($qconfig_ref, "$as neighbor $neighbor", 4);
 	}
-		
+
 	# check IPv6 peer-group
 	if ($config->exists("$as neighbor $neighbor address-family ipv6-unicast peer-group")) {
 	    checkBannedPeerGroupParameters("$as neighbor $neighbor", 6);
@@ -1604,7 +1600,7 @@ sub check_neighbor_parameters
     } ## end foreach my $as (@asns)
 }
 
-# check to see if adding this ASN to confederations 
+# check to see if adding this ASN to confederations
 # will make a peer an iBGP peer
 sub confed_iBGP_ASN {
     my ($as, $testas) = @_;
@@ -1629,7 +1625,7 @@ sub confed_iBGP_ASN {
         exit 1;
       }
     }
-    
+
     return;
 }
 
@@ -1639,16 +1635,16 @@ sub is_iBGP_peer {
     my $return = iBGP_peer(0, $neighbor, $as, "neighbor");
     if ($return > 0) { exit 1; }
     elsif ($return < 0) { print "Unable to determine original ASN for neighbhor $neighbor\n"; }
-    exit 0; 
+    exit 0;
 }
 
 sub was_iBGP_peer {
     my ($neighbor, $as) = @_;
 
     if (iBGP_peer(1, $neighbor, $as, "neighbor") >= 1) { exit 1; }
-    exit 0; 
+    exit 0;
 }
-    
+
 # is this peer an iBGP peer?
 sub iBGP_peer {
     my ($orig, $neighbor, $as, $ntype) = @_;
@@ -1691,7 +1687,7 @@ sub iBGP_peer {
     if ($exists->('parameters confederation peers')) {
       @ibgp_as = $returnValues->('parameters confederation peers');
     }
-    
+
     # push router local ASN on the stack
     push @ibgp_as, $as;
 
@@ -1709,7 +1705,7 @@ sub iBGP_peer {
 sub check_source {
     my $src = shift;
     my $ip = new NetAddr::IP::Lite($src);
-    
+
     if ($ip) {
 	my $found = grep { my $a = new NetAddr::IP::Lite($_);
 			   $a->addr() eq $ip->addr() } Vyatta::Misc::getIP();
@@ -1758,7 +1754,7 @@ sub check_bfd_group {
   }
 }
 
-sub main 
+sub main
 {
    # initialize the Quagga Config object with data from Vyatta config tree
    my $qconfig = new Vyatta::Quagga::Config('protocols', \%qcom);
@@ -1772,7 +1768,7 @@ sub main
    check_neighbor_parameters(\$qconfig);
 
    ## deletes with priority
-   # delete everything in neighbor, ordered nodes last 
+   # delete everything in neighbor, ordered nodes last
    my @ordered = ('remote-as', 'peer-group', 'shutdown',
                   'address-family ipv4-unicast route-map',
                   'address-family ipv4-unicast prefix-list',
@@ -1794,8 +1790,8 @@ sub main
    $qconfig->setConfigTreeRecursive('protocols bgp var parameters') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var peer-group', undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var remote-as', undef, \@ordered) || die "exiting $?\n";
-   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var interface', undef, \@ordered) 
-                                    || die "exiting $?\n"; 
+   $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var interface', undef, \@ordered)
+                                    || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var address-family ipv6-unicast peer-group'
                                     , undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var address-family ipv6-unicast'
