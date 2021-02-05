@@ -1,8 +1,0 @@
-tag:
-priority: 482
-type: ipv4net
-help: VRF static IPv4 route
-syntax:expression: exec "ipaddrcheck --verbose --is-ipv4-net $VAR(@)"
-
-commit:expression: $VAR(./next-hop/) != "" || $VAR(./blackhole/) != "" || $VAR(./dhcp-interface/) != ""; \
-                   "Must add either a next-hop or blackhole or dhcp-interface for route $VAR(@)"

@@ -1,7 +1,0 @@
-type: txt
-help: VRF to leak route
-allowed: local -a params
-    params=('default')
-    eval "params+=($(cli-shell-api listNodes vrf name))"
-    echo -n "${params[@]}"
-val_help: <vrf> ; Name of VRF to leak to

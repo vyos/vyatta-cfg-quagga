@@ -1,5 +1,0 @@
-tag:
-type: txt
-help: VRF routing protocol parameters
-allowed: cli-shell-api listNodes vrf name
-val_help: <vrf> ; Name of VRF to add route for
