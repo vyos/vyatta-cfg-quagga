@@ -1,7 +1,7 @@
 type: u32
 help: Access list to apply to input packets
 
-commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list $VAR(@)\" ";"access-list $VAR(@) doesn't exist"
+commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"policy access-list6 $VAR(@)\" ";"access-list6 $VAR(@) doesn't exist"
 
 update: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
@@ -10,4 +10,3 @@ update: vtysh -c "configure terminal" \
 delete: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
           -c "no distribute-list $VAR(@) in"
-                     
