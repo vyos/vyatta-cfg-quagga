@@ -5,8 +5,8 @@ commit:expression: exec "/opt/vyatta/sbin/vyatta_quagga_utils.pl --exists \"poli
 
 update: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
-          -c "distribute-list $VAR(@) out $VAR(../../@)"
+          -c "ipv6 distribute-list $VAR(@) out $VAR(../../@)"
 
 delete: vtysh -c "configure terminal" \
           -c "router ripng"                                       \
-          -c "no distribute-list $VAR(@) out $VAR(../../@)"
+          -c "no ipv6 distribute-list $VAR(@) out $VAR(../../@)"
