@@ -21,10 +21,6 @@ src_check_prefix_boundary = src/check_prefix_boundary.c
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 	cpio -0pd
 
-all-local:
-	rm -rf $(gentmpdir)
-	./gen-interface-templates.pl $(gentmpdir)
-
 clean-local:
 	rm -rf $(gentmpdir)
 
