@@ -1,6 +1,6 @@
 type: txt
 help: Regular expression to match against an AS path
-val_help: <aa:nn>; AS path regular expression (ex: "50:1 6553:1201")
+val_help: <asn>; AS path regular expression (ex: "64501 64502")
 # TODO: check regex syntax; \
 #       "invalid chars in regex syntax"
 
