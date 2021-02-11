@@ -1,7 +1,0 @@
-type: u32
-default: 180
-help: Routing information timeout timer
-val_help: u32:0-65535; Routing information timeout timer (default 180)
-
-syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 65535; \
-       "Timeout timer must be between 0 and 65535"

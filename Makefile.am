@@ -11,8 +11,6 @@ sbin_SCRIPTS += scripts/vyatta-policy-action-verify.pl
 sbin_SCRIPTS += scripts/vyatta-gateway-static_route-check.pl
 sbin_SCRIPTS += scripts/vyatta-link-detect
 sbin_SCRIPTS += scripts/vyatta-next-hop-check
-sbin_SCRIPTS += scripts/vyatta-update-static-route.pl
-sbin_SCRIPTS += scripts/vyos-update-rpki-cache.py
 
 bin_sudo_users_SCRIPTS = scripts/vyatta-static-dhcp.pl
 

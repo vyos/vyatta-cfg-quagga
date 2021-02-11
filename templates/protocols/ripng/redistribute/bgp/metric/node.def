@@ -1,6 +1,0 @@
-type: u32
-help: Metric for redistributed routes
-val_help: u32:1-16; Redistribute route metric
-
-syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 16; \
-                   "metric must be between 1 and 16"

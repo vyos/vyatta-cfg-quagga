@@ -2,7 +2,6 @@ opt/vyatta/sbin
 opt/vyatta/bin
 opt/vyatta/share/perl5
 opt/vyatta/share/vyatta-cfg/templates/policy
-opt/vyatta/share/vyatta-cfg/templates/protocols
 opt/vyatta/share/vyatta-cfg/templates/interfaces/bonding
 opt/vyatta/share/vyatta-cfg/templates/interfaces/bridge
 opt/vyatta/share/vyatta-cfg/templates/interfaces/ethernet
