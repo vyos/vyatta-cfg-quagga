@@ -165,6 +165,21 @@ my %qcom = (
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute connected route-map #9',
       noerr => 'set',
   },
+  'protocols bgp var address-family ipv4-unicast redistribute isis' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; redistribute isis ?route-map ?metric',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute isis',
+      noerr => 'set',
+  },
+  'protocols bgp var address-family ipv4-unicast redistribute isis metric' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; redistribute isis metric #9',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute isis metric #9',
+      noerr => 'set',
+  },
+  'protocols bgp var address-family ipv4-unicast redistribute isis route-map' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; redistribute isis route-map #9',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute isis route-map #9',
+      noerr => 'set',
+  },
   'protocols bgp var address-family ipv4-unicast redistribute kernel' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute kernel ; redistribute kernel ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute kernel',
