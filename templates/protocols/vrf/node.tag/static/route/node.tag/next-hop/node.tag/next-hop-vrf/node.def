@@ -6,6 +6,10 @@ allowed: local -a params
     echo -n "${params[@]}"
 val_help: <vrf> ; Name of VRF to leak to
 end:
+    if [ ! -e /sys/class/net/$VAR(@) ]; then
+       echo 'VRF "$VAR(@)" does not exist!'
+       exit 1
+    fi
     VRF_NAME=$VAR(../../../../@)
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
       then

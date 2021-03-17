@@ -41,6 +41,10 @@ end:
             exit 1
         fi
         NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
+        if [ ! -e /sys/class/net/$NEXTHOP_VRF ]; then
+            echo 'VRF "$NEXTHOP_VRF" does not exist!'
+            exit 1
+        fi
       fi
 
       vtysh -c "configure terminal" \
