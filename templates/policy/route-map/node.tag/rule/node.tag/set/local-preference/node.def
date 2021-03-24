@@ -1,7 +1,9 @@
-type: u32
+type: txt
 help: Border Gateway Protocol (BGP) local preference attribute
-val_help: Local preference value
+val_help: u32:0-4294967295; Local preference value
+val_help: <+/-local-preference>; Add or subtract local-preference
 
+syntax:expression: exec "if [ -n \"$(echo $VAR(@) | sed 's/^[+-]*[0123456789]*//')\" ]; then exit 1; fi; "; "local-preferemce must be an integer with an optional +/- prepend"
 commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
