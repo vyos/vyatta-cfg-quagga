@@ -5,6 +5,7 @@ delete: vtysh -c "configure terminal" -c "no router ripng"
 end:
   if [ "$COMMIT_ACTION" != "DELETE" ]; then
     vtysh -d ripngd -c 'sh run' > /opt/vyatta/etc/quagga/ripngd.conf
+    sudo vtysh --writeconfig --noerror
   else
     rm -f /opt/vyatta/etc/quagga/ripngd.conf
   fi
