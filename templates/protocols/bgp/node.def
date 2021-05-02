@@ -8,6 +8,12 @@ syntax:expression: $VAR(@) >= 1 && $VAR(@) <= 4294967294 ; \
 		   "AS number must be between 1 and 4294967294"
 
 end: if [ -z "$VAR(.)" ] || [ "$COMMIT_ACTION" != DELETE ]; then
+       vtysh -d bgpd -c 'conf t' -c 'router bgp $VAR(@)' -c 'no bgp ebgp-requires-policy'
+
+       if [ -z $VAR(./parameters/network-import-check/) ]; then
+         vtysh -d bgpd -c 'conf t' -c 'router bgp $VAR(@)' -c 'no bgp network import-check'
+       fi
+
        /opt/vyatta/sbin/vyatta-bgp.pl --main
        vtysh -d bgpd -c 'sh run' > /opt/vyatta/etc/quagga/bgpd.conf
        sudo vtysh --writeconfig --noerror
