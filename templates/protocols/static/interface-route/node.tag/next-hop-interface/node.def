@@ -14,7 +14,10 @@ end:
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv4 interface; then
         exit 1;
       fi
+      DIST=`cli-shell-api returnEffectiveValue protocols static interface-route $VAR(../@) next-hop-interface $VAR(@) distance`
+
       vtysh -c "configure terminal" \
+                   -c "no ip route $VAR(../@) $VAR(@) $DIST" \
                    -c "no ip route $VAR(../@) $VAR(@)"
     else
       if [[ -n "$VAR(./distance/@)" ]]; then
@@ -23,6 +26,23 @@ end:
       if [[ -n "$VAR(./next-hop-vrf/@)" ]]; then
          NEXTHOP_VRF="nexthop-vrf $VAR(./next-hop-vrf/@)"
       fi
+
+      # T3516
+      # FRR 7.5.1 use routes as multinode, VyOS as single-node
+      # ip route 203.0.113.0/24 dum08765
+      # ip route 203.0.113.0/24 dum08765 10
+      # ip route 203.0.113.0/24 dum08765 254
+      # So we need remove old frr routes before adding new.
+      # $VAR(../@) = 203.0.113.0/24
+      # $VAR(@) = dum08765
+
+      data=`vtysh -c "show run staticd no-header" | grep -P "^ip route $VAR(../@) $VAR(@)( \d+){0,1}$"`
+      IFS=$'\n' read -d '' -a old_routes <<< ${data}
+      for ROUTE in "${old_routes[@]}"
+        do
+          vtysh -c "conf t" -c "no $ROUTE"
+        done
+
       vtysh -c "configure terminal" \
             -c "ip route $VAR(../@) $VAR(@) $NEXTHOP_VRF $DIST";
     fi
