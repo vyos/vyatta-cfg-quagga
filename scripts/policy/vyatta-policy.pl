@@ -116,7 +116,7 @@ sub update_large_community_list {
         if (!($regex =~ /(.*):(.*):(.*)/) and (isIpAddress($1)or($1=~/^\d+$/) ) and ($2=~/^\d+$/)) {
               die "large-community-list $name rule $rule: Malformed large-community-list regex";
         }
-        system("$VTYSH -c \"conf t\" -c \"bgp large-community-list expanded $name $action $regex\"");
+        system("$VTYSH -c \"conf t\" -c \"bgp large-community-list expanded $name seq $rule $action $regex\"");
     }
 
     exit(0);
@@ -153,7 +153,7 @@ sub update_ext_community_list {
         if (!($regex =~ /(.*):(.*)/) and (isIpAddress($1)or($1=~/^\d+$/) ) and ($2=~/^\d+$/)) {
               die "extcommunity-list $name rule $rule: Malformed extcommunity-list regex";
         }
-        system("$VTYSH -c \"conf t\" -c \"bgp extcommunity-list expanded $name $action $regex\"");
+        system("$VTYSH -c \"conf t\" -c \"bgp extcommunity-list expanded $name seq $rule $action $regex\"");
     }
 
     exit(0);
@@ -187,7 +187,7 @@ sub update_community_list {
           unless $regex;
 
         system(
-"$VTYSH -c \"configure terminal\" -c \"bgp community-list expanded $num $action $regex\" "
+"$VTYSH -c \"configure terminal\" -c \"bgp community-list expanded $num seq $rule $action $regex\" "
         );
     }
 
