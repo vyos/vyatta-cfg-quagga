@@ -4,4 +4,4 @@ type: txt
 help: IPv6 prefix-list filter
 val_help: Prefix list name
 
-syntax:expression: pattern $VAR(@) "^[-a-zA-Z0-9.]+$" ; "prefix-list6 name must be alpha-numeric"
+syntax:expression: pattern $VAR(@) "^[-_a-zA-Z0-9.]+$" ; "prefix-list name can only contain alpha-numeric letters, hyphen and underscores"
