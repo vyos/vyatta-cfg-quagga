@@ -1,0 +1,11 @@
+help: Stub OSPFv3 area
+
+create:
+	vtysh -c "configure terminal" \
+	    -c "router ospf6" \
+	    -c "area $VAR(../../@) stub"
+
+delete:
+	vtysh -c "configure terminal" \
+	    -c "router ospf6" \
+	    -c "no area $VAR(../../@) stub"
