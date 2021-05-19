@@ -1,0 +1,12 @@
+help: Do not inject inter-area routes into stub
+
+create:
+    vtysh -c "configure terminal" \
+        -c "router ospf6" \
+        -c "area $VAR(../../../@) stub no-summary "
+
+delete:
+    vtysh -c "configure terminal" \
+            -c "router ospf6" \
+            -c "no area $VAR(../../../@) stub no-summary " \
+            -c "area $VAR(../../../@) stub "
