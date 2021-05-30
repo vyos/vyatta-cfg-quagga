@@ -775,6 +775,10 @@ my %qcom = (
       set => 'router bgp #3 ; bgp graceful-restart stalepath-time #7',
       del => 'router bgp #3 ; no bgp graceful-restart stalepath-time #7',
   },
+  'protocols bgp var parameters graceful-shutdown' => {
+      set => 'router bgp #3 ; bgp graceful-shutdown',
+      del => 'router bgp #3 ; no bgp graceful-shutdown',
+  },
   'protocols bgp var parameters log-neighbor-changes' => {
       set => 'router bgp #3 ; bgp log-neighbor-changes',
       del => 'router bgp #3 ; no bgp log-neighbor-changes',
