@@ -1,8 +1,10 @@
 type: txt
-help: Set Site of Origin value. 
-val_help: ASN:nn_or_IP_address:nn VPN extended community
+help: Set Site of Origin value
+val_help: ASN:NN; based on autonomous system number
+val_help: IP:NN; Based on a router-id IP address
 
-syntax:expression: pattern $VAR(@) "\d+:\d+(\.\d+\.\d+\.\d+):\d+" ; "Should be in form: ASN:nn_or_IP_address:nn where ASN is autonomous system number" 
+syntax:expression: exec "${vyos_libexec_dir}/validate-value.py --regex \'^((?:[0-9]{1,3}\\.){3}[0-9]{1,3}|\\d+):\\d+$\'  --value \'$VAR(@)\'"; "Should be in form: ASN:NN or IPADDR:NN where ASN is autonomous system number"
+
 commit:expression: $VAR(../../action/) != ""; "you must specify an action"
 
 update: vtysh -c "configure terminal" \
