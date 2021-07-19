@@ -4,6 +4,13 @@ help: Next-hop IPv6 router [REQUIRED]
 end:
   if [[ -z "$VAR(./disable)" ]]
   then
+    ### remove the old entry from frr first on an update
+    if [ ${COMMIT_ACTION} = 'ACTIVE' ]
+      then
+        OLD_IF=`cli-shell-api returnEffectiveValue protocols static route6 $VAR(../@) next-hop $VAR(@) interface`
+        vtysh -c "configure terminal" \
+              -c "no ipv6 route $VAR(../@) $VAR(@) $OLD_IF $VAR(./distance/@)";
+    fi
     if [[ ${COMMIT_ACTION} = 'DELETE' ]]
     then
       if ! ${vyatta_sbindir}/vyatta-next-hop-check $VAR(../@) ipv6 address; then
