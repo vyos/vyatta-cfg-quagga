@@ -606,6 +606,10 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 passive',
       del => 'router bgp #3 ; no neighbor #5 passive',
   },
+  'protocols bgp var neighbor var solo' => {
+      set => 'router bgp #3 ; neighbor #5 solo',
+      del => 'router bgp #3 ; no neighbor #5 solo',
+  },
   'protocols bgp var neighbor var bfd' => {
       set => 'router bgp #3 ; neighbor #5 bfd',
       del => 'router bgp #3 ; no neighbor #5 bfd',
