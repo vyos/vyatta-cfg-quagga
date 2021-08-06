@@ -83,6 +83,18 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; network #7 pathlimit #9',
       del => 'router bgp #3 ; address-family ipv6 ; no network #7 pathlimit #9',
   },
+  'protocols bgp var address-family ipv6-unicast maximum-paths' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var address-family ipv6-unicast maximum-paths ebgp' => {
+      set => 'router bgp #3 ; address-family ipv6 ; maximum-paths #8',
+      del => 'router bgp #3 ; address-family ipv6 ; no maximum-paths #8',
+  },
+  'protocols bgp var address-family ipv6-unicast maximum-paths ibgp' => {
+      set => 'router bgp #3 ; address-family ipv6 ; maximum-paths ibgp #8',
+      del => 'router bgp #3 ; address-family ipv6 ; no maximum-paths ibgp #8',
+  },
   'protocols bgp var address-family ipv6-unicast redistribute' => {
       set => undef,
       del => undef,
@@ -146,6 +158,18 @@ my %qcom = (
       set => 'router bgp #3 ; network #7 route-map #9',
       del => 'router bgp #3 ; no network #7 route-map #9 ; network #7',
   },
+  'protocols bgp var address-family ipv4-unicast maximum-paths' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var address-family ipv4-unicast maximum-paths ebgp' => {
+      set => 'router bgp #3 ; address-family ipv4 ; maximum-paths #8',
+      del => 'router bgp #3 ; address-family ipv4 ; no maximum-paths #8',
+  },
+  'protocols bgp var address-family ipv4-unicast maximum-paths ibgp' => {
+      set => 'router bgp #3 ; address-family ipv4 ; maximum-paths ibgp #8',
+      del => 'router bgp #3 ; address-family ipv4 ; no maximum-paths ibgp #8',
+  },
   'protocols bgp var address-family ipv4-unicast redistribute' => {
       set => undef,
       del => undef,
@@ -199,18 +223,6 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute static ; redistribute static ?route-map ?metric',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no redistribute static',
       noerr => 'set',
-  },
-  'protocols bgp var maximum-paths' => {
-      set => undef,
-      del => undef,
-  },
-  'protocols bgp var maximum-paths ebgp' => {
-      set => 'router bgp #3 ; maximum-paths #6',
-      del => 'router bgp #3 ; no maximum-paths #6',
-  },
-  'protocols bgp var maximum-paths ibgp' => {
-      set => 'router bgp #3 ; maximum-paths ibgp #6',
-      del => 'router bgp #3 ; no maximum-paths ibgp #6',
   },
   'protocols bgp var neighbor' => {
       set => undef,
