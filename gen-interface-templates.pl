@@ -48,6 +48,7 @@ my %interface_hash = (
     'tunnel/node.tag'                                             => '$VAR(@)',
     'vti/node.tag'                                                => '$VAR(@)',
     'bridge/node.tag'                                             => '$VAR(@)',
+    'bridge/node.tag/vif/node.tag'                                => '$VAR(../@).$VAR(@)',
     'macsec/node.tag'                                             => '$VAR(@)',
     'openvpn/node.tag'                                            => '$VAR(@)',
     'wwan/node.tag'                                               => '$VAR(@)',
