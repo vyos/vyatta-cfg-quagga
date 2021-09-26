@@ -1,0 +1,7 @@
+help: Log changes in adjacency state
+create:expression: "vtysh -c \"configure terminal\" \
+       -c \"router ospf6\" \
+       -c \"log-adjacency-changes\"; "
+delete:expression: "vtysh -c \"configure terminal\" \
+       -c \"router ospf6\" \
+       -c \"no log-adjacency-changes\"; "
