@@ -11,6 +11,6 @@ begin: if [ "$COMMIT_ACTION" != DELETE ]; then
          vtysh -d ospf6d -c 'sh run' > /opt/vyatta/etc/quagga/ospf6d.conf
        fi
 end: if [ "$COMMIT_ACTION" == DELETE ]; then
-       vtysh -c "configure terminal" -c "router ospf6" -c "no router-id"
+       vtysh -c "configure terminal" -c "router ospf6" -c "no ospf6 router-id"
        vtysh -c "configure terminal" -c "no router ospf6"
      fi
