@@ -146,6 +146,10 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv4 unicast ; aggregate-address #7 ?as-set ?summary-only',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no aggregate-address #7 ?as-set ?summary-only',
   },
+  'protocols bgp var address-family ipv4-unicast aggregate-address var route-map' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; no aggregate-address #7 ; aggregate-address #7 route-map #9',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no aggregate-address #7 route-map #9 ; aggregate-address #7',
+  },
   'protocols bgp var address-family ipv4-unicast network' => {
       set => undef,
       del => undef,
