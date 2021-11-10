@@ -5,8 +5,7 @@ val_help: Interface name
 commit:expression: $VAR(../../action/) != ""; "You must specify an action"
 commit:expression: exec " \
         if [ -z \"`ip addr | grep $VAR(@) `\" ]; then \
-          echo interface $VAR(@) doesn\\'t exist on this system ; \
-          exit 1 ; \
+          echo Warning: interface $VAR(@) doesn\\'t exist on this system; \
         fi ; "
 
 update: vtysh -c "configure terminal" \
