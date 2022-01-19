@@ -17,7 +17,7 @@ create:
         if [ "$route" == "0.0.0.0/0" ]; then
             LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
             if [ "$LIP" != "127.0.0.1" ]; then
-                MARK=$(dc 0x7fffffff $table + p)
+                MARK=`printf "0x%x" $((2147483647+$table))`
                 sudo /sbin/iptables -t mangle -I OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
             fi
         fi
@@ -34,7 +34,7 @@ update:
         if [ "$route" == "0.0.0.0/0" ]; then
             LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
             if [ "$LIP" != "127.0.0.1" ]; then
-                MARK=$(dc 0x7fffffff $table + p)
+                MARK=`printf "0x%x" $((2147483647+$table))`
                 sudo /sbin/iptables -t mangle -I OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
             fi
         fi
@@ -51,7 +51,7 @@ delete:
         if [ "$route" == "0.0.0.0/0" ]; then
             LIP=$(/opt/vyatta/sbin/vyatta-dhcp-helper.pl --interface=$ifc --want=local)
             if [ "$LIP" != "127.0.0.1" ]; then
-                MARK=$(dc 0x7fffffff $table + p)
+                MARK=`printf "0x%x" $((2147483647+$table))`
                 sudo /sbin/iptables -t mangle -D OUTPUT -s $LIP/32 -j MARK --set-mark $MARK
             fi
         fi
