@@ -1,0 +1,4 @@
+type: txt
+help: Maximum number of dynamic neighbors that can be created
+val_help: u32:1-5000; BGP neighbor limit
+syntax:expression: exec "${vyos_libexec_dir}/validate-value  --exec \"${vyos_validators_dir}/numeric --range 1-5000\"  --value \'$VAR(@)\'"; "Invalid value"
