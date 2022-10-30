@@ -687,6 +687,26 @@ my %qcom = (
       set => 'router bgp #3 ; neighbor #5 weight #7',
       del => 'router bgp #3 ; no neighbor #5 weight',
   },
+  'protocols bgp var listen' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var listen limit' => {
+      set => 'router bgp #3 ; bgp listen limit #6',
+      del => 'router bgp #3 ; no bgp listen limit #6',
+  },
+  'protocols bgp var listen range' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var listen range var' => {
+      set => undef,
+      del => undef,
+  },
+  'protocols bgp var listen range var peer-group' => {
+      set => 'router bgp #3 ; bgp listen range #6 peer-group #8',
+      del => 'router bgp #3 ; no bgp listen range #6 peer-group #8',
+  },
   'protocols bgp var parameters' => {
       set => undef,
       del => undef,
@@ -1219,7 +1239,8 @@ if ( ! -e "/usr/sbin/zebra" ) {
 
 my ( $pg, $as, $neighbor );
 my ( $main, $peername, $isneighbor, $checkpeergroups, $checkpeergroups6, $checksource,
-     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas, $checkbfdpeer, $checkbfdgroup);
+     $isiBGPpeer, $wasiBGPpeer, $confedibgpasn, $listpeergroups, $checkremoteas, $checkbfdpeer, $checkbfdgroup,
+     $checkbgplisten);
 
 GetOptions(
     "peergroup=s"             => \$pg,
@@ -1237,6 +1258,7 @@ GetOptions(
     "check-remote-as=s"       => \$checkremoteas,
     "check-bfd-peer=s"        => \$checkbfdpeer,
     "check-peer-group-bfd=s"  => \$checkbfdgroup,
+    "check-bgp-listen"        => \$checkbgplisten,
     "main"                    => \$main,
 );
 
@@ -1253,6 +1275,7 @@ list_peer_groups($as)                       if ($listpeergroups);
 check_remote_as($checkremoteas)             if ($checkremoteas);
 check_bfd_peer($checkbfdpeer)               if ($checkbfdpeer);
 check_bfd_group($checkbfdgroup, $as)        if ($checkbfdgroup);
+check_bgp_listen($as)                       if ($checkbgplisten);
 
 exit 0;
 
@@ -1359,15 +1382,15 @@ sub check_for_peer_groups {
     my @peers;
 
     # get the list of neighbors and see if they have a peer-group set
-    $config->setLevel("protocols bgp $as neighbor");
-    my @neighbors = $config->listNodes();
+    $config->setLevel("protocols bgp $as");
+    my @neighbors = $config->listNodes("neighbor");
 
     foreach my $node (@neighbors) {
-        my $peergroup = $config->returnValue("$node peer-group");
+        my $peergroup = $config->returnValue("neighbor $node peer-group");
         if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
-        $peergroup = $config->returnValue("$node interface peer-group");
+        $peergroup = $config->returnValue("neighbor $node interface peer-group");
         if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
-        $peergroup = $config->returnValue("$node interface v6only peer-group");
+        $peergroup = $config->returnValue("neighbor $node interface v6only peer-group");
         if ((defined $peergroup) && ($peergroup eq $pg)) { push @peers, $node; }
     }
 
@@ -1379,6 +1402,17 @@ sub check_for_peer_groups {
         }
 
 	die "please delete these peers before removing the peer-group\n";
+    }
+
+    # check BGP listen ranges
+    if ($config->exists("listen range")) {
+        my @listen_ranges = $config->listNodes("listen range");
+        foreach my $range (@listen_ranges) {
+            my $peer_group = $config->returnValue("listen range $range peer-group");
+            if ($pg eq $peer_group) {
+                die "BGP peer-group $peer_group is used for BGP listen range $range and cannot be deleted\n";
+            }
+        }
     }
 }
 
@@ -1805,6 +1839,74 @@ sub check_bfd_group {
   }
 }
 
+# check if ranges are overlapped
+sub ranges_overlapped {
+    my @ranges = @_;
+
+    foreach my $range (@ranges) {
+        foreach my $range_other (@ranges) {
+            if ($range_other != $range) {
+                my $first_address = $range->network();
+                my $last_address = $range->broadcast();
+                my $first_address_other = $range_other->network();
+                my $last_address_other = $range_other->broadcast();
+
+                if (($first_address >= $first_address_other and $first_address <= $last_address_other) or
+                    ($last_address >= $first_address_other and $last_address <= $last_address_other)) {
+                        # ranges are overlapped
+                        print "Listen ranges cannot overlap: $range and $range_other\n";
+                        return 1;
+                }
+            }
+        }
+    }
+    # return undef if ranges are not overlapped
+    return undef;
+}
+
+# check BGP listen options
+sub check_bgp_listen {
+    my $as = shift;
+    die "AS not defined\n" unless $as;
+    my @listen_ranges;
+    my @ranges_v4;
+    my @ranges_v6;
+
+    # get a list of ranges
+    my $config = new Vyatta::Config;
+    $config->setLevel("protocols bgp $as");
+    if ($config->exists("listen range")) {
+        @listen_ranges = $config->listNodes("listen range");
+    }
+
+    foreach my $range (@listen_ranges) {
+        # check if a peer-group is changed - this is not supported by FRR,
+        # a listen range must be removed and added with a new peer-group in two commits
+        if ($config->isChanged("listen range $range peer-group") and not $config->isAdded("listen range $range") ) {
+            die "A peer-group cannot be changed. A listen range $range needs to be removed and added again with the new peer-group\n";
+        }
+
+        # check if a peer-group is defined
+        if (not $config->exists("listen range $range peer-group")) {
+            die "A peer-group must be configured for range $range\n";
+        }
+
+        # sort IPv4 and IPv6 ranges
+        my $range_netaddr = new NetAddr::IP::Lite($range);
+        if ($range_netaddr->version() == 4) {
+            push(@ranges_v4, $range_netaddr);
+        }
+        if ($range_netaddr->version() == 6) {
+            push(@ranges_v6, $range_netaddr);
+        }
+    }
+
+    # check if listen ranges are not overlapped
+    if (ranges_overlapped(@ranges_v4) or ranges_overlapped(@ranges_v6)) {
+        die "Configuration error\n";
+    }
+}
+
 sub main
 {
    # initialize the Quagga Config object with data from Vyatta config tree
@@ -1834,6 +1936,7 @@ sub main
 
    # notice the extra space in the level string.  keeps the parent from being deleted.
    $qconfig->deleteConfigTreeRecursive('protocols bgp var neighbor var', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->deleteConfigTreeRecursive('protocols bgp var listen') || die "exiting $?\n";
    $qconfig->deleteConfigTreeRecursive('protocols bgp var peer-group var', undef, \@ordered) || die "exiting $?\n";
    $qconfig->deleteConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 
@@ -1848,5 +1951,6 @@ sub main
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var address-family ipv6-unicast'
                                     , undef, \@ordered) || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp var neighbor var ', undef, \@ordered) || die "exiting $?\n";
+   $qconfig->setConfigTreeRecursive('protocols bgp var listen') || die "exiting $?\n";
    $qconfig->setConfigTreeRecursive('protocols bgp') || die "exiting $?\n";
 }

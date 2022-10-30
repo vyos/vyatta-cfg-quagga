@@ -1,0 +1,7 @@
+tag:
+type: txt
+help: BGP dynamic neighbors listen range
+val_help: ipv4net; IPv4 dynamic neighbors listen range
+val_help: ipv6net; IPv6 dynamic neighbors listen range
+syntax:expression: exec "${vyos_libexec_dir}/validate-value  --exec \"${vyos_validators_dir}/ipv4-prefix \" --exec \"${vyos_validators_dir}/ipv6-prefix \"  --value \'$VAR(@)\'"; "Invalid value"
+commit:expression: exec "/opt/vyatta/sbin/vyatta-bgp.pl --check-bgp-listen --as $VAR(../../@)"
