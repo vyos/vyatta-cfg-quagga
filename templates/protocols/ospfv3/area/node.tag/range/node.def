@@ -3,18 +3,13 @@ type: ipv6net
 help: Specify IPv6 prefix (border routers only)
 syntax:expression: exec "ipaddrcheck --verbose --is-ipv6-net $VAR(@)"
 
-delete: touch /tmp/ospf6-range.$PPID
-
-end: if [ -f /tmp/ospf6-range.$PPID ]; then
-        vtysh -c "configure terminal" \
-          -c "router ospf6"                                        \
-          -c "no area $VAR(../@) range $VAR(@)";
-        rm /tmp/ospf6-range.$PPID;
-     else
-        vtysh --noerror -c "configure terminal" \
-          -c "router ospf6"                                               \
-          -c "no area $VAR(../@) range $VAR(@)";
-        vtysh -c "configure terminal" \
-          -c "router ospf6"                                        \
-          -c "area $VAR(../@) range $VAR(@)";
-     fi;
+create: if [ -z $VAR(./not-advertise/@) ] && [ -z $VAR(./advertise/@) ]; then
+          vtysh -c "configure terminal"                                       \
+            -c "router ospf6"                                                 \
+            -c "area $VAR(../@) range $VAR(@)";                               \
+        fi;
+delete: if [ -z $VAR(./not-advertise/@) ] && [ -z $VAR(./advertise/@) ]; then
+          vtysh -c "configure terminal"                                       \
+            -c "router ospf6"                                                 \
+            -c "no area $VAR(../@) range $VAR(@)";                            \
+        fi;
