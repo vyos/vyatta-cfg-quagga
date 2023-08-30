@@ -45,6 +45,7 @@ sub check_peer_syntax {
     $_ = $peer;
     if (/^local$/) { exit 0; }
     if ( isIpAddress("$peer") ) { exit 0; }
+    if ( $peer =~ /^[0-9a-fA-F:]+$/) { exit 0; }
     exit 1;
 }
 
