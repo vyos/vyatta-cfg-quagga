@@ -370,6 +370,10 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
   },
+  'protocols bgp var neighbor var address-family ipv6-unicast remove-private-as all' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS all',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS all',
+  },
   'protocols bgp var neighbor var address-family ipv6-unicast route-map' => {
       set => undef,
       del => undef,
@@ -513,6 +517,10 @@ my %qcom = (
   'protocols bgp var neighbor var address-family ipv4-unicast remove-private-as' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 remove-private-AS',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 remove-private-AS',
+  },
+  'protocols bgp var neighbor var address-family ipv4-unicast remove-private-as all' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 remove-private-AS all',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 remove-private-AS all',
   },
   'protocols bgp var neighbor var address-family ipv4-unicast route-map' => {
       set => undef,
@@ -964,6 +972,10 @@ my %qcom = (
       set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS',
       del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS',
   },
+  'protocols bgp var peer-group var address-family ipv6-unicast remove-private-as all' => {
+      set => 'router bgp #3 ; address-family ipv6 ; neighbor #5 remove-private-AS all',
+      del => 'router bgp #3 ; address-family ipv6 ; no neighbor #5 remove-private-AS all',
+  },
   'protocols bgp var peer-group var address-family ipv6-unicast route-map' => {
       set => undef,
       del => undef,
@@ -1105,6 +1117,10 @@ my %qcom = (
   'protocols bgp var peer-group var address-family ipv4-unicast remove-private-as' => {
       set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 remove-private-AS',
       del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 remove-private-AS',
+  },
+  'protocols bgp var peer-group var address-family ipv4-unicast remove-private-as all' => {
+      set => 'router bgp #3 ; address-family ipv4 unicast ; neighbor #5 remove-private-AS all',
+      del => 'router bgp #3 ; address-family ipv4 unicast ; no neighbor #5 remove-private-AS all',
   },
   'protocols bgp var peer-group var address-family ipv4-unicast route-map' => {
       set => undef,
